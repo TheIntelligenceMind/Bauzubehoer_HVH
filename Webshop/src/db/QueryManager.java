@@ -2,6 +2,7 @@ package db;
 
 import entity.Adresse;
 import entity.Benutzer;
+import entity.Bestellung;
 
 /**
  * <h3>Beschreibung:</h3>
@@ -72,6 +73,12 @@ public class QueryManager {
 	}
 	
 	public boolean deleteBenutzer(int id){
+		
+		
+		return true;
+	}
+	
+	public boolean createBestellung(Bestellung piBestellung){
 		
 		
 		return true;
