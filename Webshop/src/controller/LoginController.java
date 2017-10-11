@@ -17,8 +17,6 @@ public class LoginController extends HttpServlet{
 		
 		PrintWriter out = resp.getWriter();
 		
-		out.println("test");
-		
 		
 		
 		
