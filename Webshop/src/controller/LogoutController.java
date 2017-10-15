@@ -10,30 +10,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet("/MainController")
-public class MainController extends HttpServlet{
-	
+@WebServlet("/LogoutController")
+public class LogoutController extends HttpServlet{
+	private static final long serialVersionUID = 1L;
+
 	HttpSession session = null;
-	
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		session = req.getSession(false);
+		session = req.getSession();
+		session.invalidate();
 		
 		RequestDispatcher rd = req.getRequestDispatcher("index.jsp");
-		
-		if(session != null){
-			
-			String benutzername = String.valueOf(session.getAttribute("benutzername"));
-			
-			req.setAttribute("benutzername", benutzername);
-			
-		}
-		
-		
 		rd.forward(req, resp);
 		
 		
 	}
+	
+	
 }
