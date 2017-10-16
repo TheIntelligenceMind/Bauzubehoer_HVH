@@ -39,6 +39,8 @@
 			<div class="artikel"></div>
 			<div class="artikel"></div>
 			<div class="artikel"></div>
+			<div class="artikel"></div>
+			<div class="lastArtikel"></div>
 		</div>
 		<div id="footer">
 		

@@ -7,7 +7,8 @@ html,body{
 }
 
 #helpbar{
-	width: 14%;
+	min-width: 160px;
+	width: 16%;
 	padding: 1%;
 	height: 90px;
 	background-color: #BF4D17;
@@ -61,7 +62,8 @@ html,body{
 .controllPanel{
 	margin: 0;
 	padding:1%;
-	width: 14%;
+	min-width: 240px;
+	width: 16%;
 	height: 160px;
 	background-color: #BF4D17;
 	color:white;
@@ -142,9 +144,8 @@ html,body{
 }
 
 
-
 #abmelden{
-	top: 160px;
+	top: 150px;
 	right: 10px;
 	position: absolute;
 	text-decoration: none;
@@ -152,11 +153,13 @@ html,body{
 }
 
 
-
 #content{
 	margin: 0 auto;
-	width: 65%;
+	width: 60%;
+	min-width: 300px;
 	min-height: 80%;
+	height: auto;
+	overflow: auto;
 	background-color: #F1F2F2;
 	text-align: center;
 	color: black;	
@@ -172,9 +175,19 @@ html,body{
 	color: white;
 }
 
+.lastArtikel{
+	width: 90%;
+	height: 120px;
+	text-align: left;
+	float: left;
+	background-color: #F1F2F2;
+	margin-left: 5%;
+	margin-top: 1%;
+}
+
 .artikel{
 	width: 90%;
-	height: 180px;
+	height: 150px;
 	text-align: left;
 	float: left;
 	border-bottom: 1px solid #a09d9d;

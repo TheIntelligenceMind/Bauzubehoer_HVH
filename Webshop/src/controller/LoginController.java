@@ -28,8 +28,8 @@ public class LoginController extends HttpServlet{
 		if(req.getParameter("benutzername").equals("Admin") && req.getParameter("passwort").equals("1234")){
 			
 			session = req.getSession();
-			// Nach 5 Minuten wird die Session automatisch gelöscht
-			session.setMaxInactiveInterval(5*60);
+			// Nach 5 Minuten wird die Session automatisch geloescht
+			session.setMaxInactiveInterval(10*60);
 			
 			session.setAttribute("benutzername", req.getParameter("benutzername"));
 			resp.addHeader("benutzername", req.getParameter("benutzername"));
