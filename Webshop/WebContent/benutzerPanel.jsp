@@ -6,5 +6,5 @@
 		<li><i class="fa fa-user" aria-hidden="true"></i><a href="#"> Mein Konto</a></li>
 	</ul>
 	
-	<a href="LogoutController" id="abmelden"><i class="fa fa-sign-out" aria-hidden="true"></i> abmelden</a>
+	<a href="abmelden" id="abmelden"><i class="fa fa-sign-out" aria-hidden="true"></i> abmelden</a>
 </div>

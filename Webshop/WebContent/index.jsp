@@ -14,7 +14,7 @@
 		</div>
 		<div id="helpbar">
 			<ul>
-				<li><a href="#"><i class="fa fa-search" aria-hidden="true"></i> Suchen</a></li>
+				<li><a href="registrieren"><i class="fa fa-search" aria-hidden="true"></i> Suchen</a></li>
 				<li>
 					<form>
 						<input id="searchInput" type="text" placeholder="Artikelbezeichnung ...">
@@ -22,7 +22,7 @@
 				<li>
 			</ul>	
 		</div>
-		
+	
 		<% 
 			if(session.getAttribute("benutzername") == null){ 	
 		%>
