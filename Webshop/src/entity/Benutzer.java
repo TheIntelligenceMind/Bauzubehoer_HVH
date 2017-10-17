@@ -23,4 +23,8 @@ public class Benutzer {
 		
 		return this;
 	}
+	
+	public String getPasswort(){
+		return passwort;
+	}
 }

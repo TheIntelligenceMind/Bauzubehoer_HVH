@@ -4,7 +4,11 @@ html,body{
 	margin:0;
 	padding:0;
 	height:100%;
+	background: url("../images/background.jpg") no-repeat center center fixed;
+	background-size:cover;
 }
+
+
 
 #helpbar{
 	min-width: 160px;
@@ -13,6 +17,7 @@ html,body{
 	height: 90px;
 	background-color: #BF4D17;
 	color: white;
+	opacity: 0.82;
 	float: left;
 	text-align: center;
 	position: -webkit-sticky;
@@ -67,6 +72,7 @@ html,body{
 	height: 160px;
 	background-color: #BF4D17;
 	color:white;
+	opacity: 0.82;
 	text-align:center;
 	position: -webkit-sticky;
   	position: sticky;
@@ -78,9 +84,15 @@ html,body{
 	box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
 }
 
+.controllPanel i{
+	width: 15px;
+}
+
 .controllPanel h3{
 	margin: 0;
 	padding: 0;	
+	font-size: 25px;
+	font-weight: normal;
 }
 .controllPanel ul{
 	margin-top: 15px;
@@ -111,18 +123,20 @@ html,body{
 }
 
 #inputBenutzername{
-	margin-top: 4%;
+	margin-top: 5%;
 	padding: 2px;
 	height: 18px;
 	width: 80%;
 	border-radius: 5px;
+	border-style: none;
 }
 #inputPasswort{
-	margin-top: 4%;
+	margin-top: 5%;
 	padding: 2px;
 	height: 18px;
 	width: 80%;
 	border-radius: 5px;
+	border-style: none;
 }
 #btnAnmelden{
 	margin-top: 8%;
@@ -150,7 +164,9 @@ html,body{
 
 
 #content{
+	
 	margin: 0 auto;
+	top: 200px;
 	width: 60%;
 	min-width: 300px;
 	min-height: 80%;
@@ -164,12 +180,7 @@ html,body{
 	box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
 }
 
-#footer{
-	width: 100%;
-	height: 20%;
-	background-color: #332714;
-	color: white;
-}
+
 
 .lastArtikel{
 	width: 90%;
