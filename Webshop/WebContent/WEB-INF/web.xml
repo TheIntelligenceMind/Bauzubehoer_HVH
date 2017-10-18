@@ -1,39 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
-  	<display-name>Webshop</display-name>
-  	<welcome-file-list>
-    	<welcome-file>index.jsp</welcome-file>
-  	</welcome-file-list>
-  	<servlet>
-    	<servlet-name>anmeldungPanel</servlet-name>
-    	<jsp-file>/anmeldungPanel.jsp</jsp-file>
-	</servlet>
-  	
-  	<servlet>
-  		<servlet-name>LoginController</servlet-name>
-  		<servlet-class>controller.LoginController</servlet-class>
-  	</servlet>
-  	<servlet-mapping>
-  		<servlet-name>LoginController</servlet-name>
-  		<url-pattern>/anmelden</url-pattern>
-  	</servlet-mapping>
-  	
-  	<servlet>
-  		<servlet-name>LogoutController</servlet-name>
-  		<servlet-class>controller.LogoutController</servlet-class>
-  	</servlet>
-  	<servlet-mapping>
-  		<servlet-name>LogoutController</servlet-name>
-  		<url-pattern>/abmelden</url-pattern>
-  	</servlet-mapping>
-  	
-  	<servlet>
-  		<servlet-name>RegistrationController</servlet-name>
-  		<servlet-class>controller.RegistrationController</servlet-class>
-  	</servlet>
-  	<servlet-mapping>
-  		<servlet-name>RegistrationController</servlet-name>
-  		<url-pattern>/registrieren</url-pattern>
-  	</servlet-mapping>
-    
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" metadata-complete="true" version="3.1">
+  <display-name>Webshop</display-name>
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+  <servlet>
+    <servlet-name>anmeldungPanel</servlet-name>
+    <jsp-file>/anmeldungPanel.jsp</jsp-file>
+  </servlet>
+  <servlet>
+    <servlet-name>LoginController</servlet-name>
+    <servlet-class>controller.LoginController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LoginController</servlet-name>
+    <url-pattern>/anmelden</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>LogoutController</servlet-name>
+    <servlet-class>controller.LogoutController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LogoutController</servlet-name>
+    <url-pattern>/abmelden</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>RegistrationController</servlet-name>
+    <servlet-class>controller.RegistrationController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RegistrationController</servlet-name>
+    <url-pattern>/registrieren</url-pattern>
+  </servlet-mapping>
+   <servlet>
+    <servlet-name>WarenkorbController</servlet-name>
+    <servlet-class>controller.WarenkorbController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>WarenkorbController</servlet-name>
+    <url-pattern>/warenkorb</url-pattern>
+  </servlet-mapping>
+   <servlet>
+    <servlet-name>BestellungenController</servlet-name>
+    <servlet-class>controller.BestellungenController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>BestellungenController</servlet-name>
+    <url-pattern>/meineBestellungen</url-pattern>
+  </servlet-mapping>
 </web-app>

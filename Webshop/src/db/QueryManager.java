@@ -19,6 +19,7 @@ import entity.Bestellung;
  * @author Tim Hermbecker
  */
 public class QueryManager {
+	
 	private final static QueryManager instance = new QueryManager();
 	
 	Connection connection = null;
@@ -51,27 +52,28 @@ public class QueryManager {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			
-			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/webshop","admin","test");
+			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/webshop","root","");
 
 			
 			Statement stmt = connection.createStatement();
 			
-			String sql = "SELECT * FROM Users WHERE username='"+piEMailAdresse+"'";
+			String sql = "SELECT * FROM Users WHERE emailadresse='"+piEMailAdresse+"'";
 			
 			result = stmt.executeQuery(sql);
 			
 			if(result.next()){
-				benutzer.init(result.getString("username"), result.getString("password"));
+				return benutzer.init(result.getString("emailadresse"), result.getString("passwort"), result.getString("vorname"), result.getString("nachname"));
+			}else{
+				return null;
 			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	
-		return benutzer;
+		
+		return null;
 	}	
 	
 	public boolean createAdresse(Adresse piAdresse){
@@ -98,9 +100,41 @@ public class QueryManager {
 	
 	public boolean createBenutzer(Benutzer piBenutzer){
 		
+		Benutzer benutzer = piBenutzer;
+		int result;
 		
-		
-		return true;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			
+			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/webshop","root","");
+
+			Statement stmt = connection.createStatement();
+			
+			String sql = "INSERT INTO Users(emailadresse, passwort, vorname, nachname) "
+					+ "VALUES('" 
+					+ benutzer.getEmailadresse() 
+					+"','" 
+					+ benutzer.getPasswort() 
+					+ "','" 
+					+ benutzer.getVorname() 
+					+ "','" 
+					+ benutzer.getNachname() 
+					+ "')";
+			
+			result = stmt.executeUpdate(sql);
+			
+			if(result == 1){
+				return true;
+			}else{
+				return false;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}		
+		return false;
 	}
 	
 	public boolean modifyBenutzer(Benutzer piBenutzer){

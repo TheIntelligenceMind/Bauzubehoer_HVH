@@ -1,5 +1,7 @@
 @CHARSET "ISO-8859-1";
 
+
+/* ------------------ globale Werte ------------------- */
 html,body{
 	margin:0;
 	padding:0;
@@ -7,17 +9,23 @@ html,body{
 	background: url("../images/background.jpg") no-repeat center center fixed;
 	background-size:cover;
 }
+/* ------------------ globale Werte ------------------- */
 
 
 
-#helpbar{
+
+
+
+
+/* ------------- Panel für Seitenheader, Suchfunktion (links) --------------- */
+#sitebar{
 	min-width: 160px;
 	width: 16%;
 	padding: 1%;
-	height: 90px;
+	height: 350px;
 	background-color: #BF4D17;
 	color: white;
-	opacity: 0.82;
+	opacity: 0.85;
 	float: left;
 	text-align: center;
 	position: -webkit-sticky;
@@ -29,50 +37,80 @@ html,body{
 	border-radius: 0px 0px 45px 0px;	
 }
 
-#helpbar ul{
-	margin: 0;
-	padding: 0;
-	text-align: center;
+/* Header der Webseite */
+#header{
+	height: 120px;
+	width: 100%;
+	text-align:center;
+	border-bottom: 1px solid white;
 }
-#helpbar ul li{
+#header h1{
+	margin: 0;
+	padding-top: 20px;
+}
+#header h3{
+	margin: 0px;;
+	padding-top: 5px;
+}
+
+/* Suchfunktion */
+#searchPanel{
+	width: 100%;
+	height: 180px;
+}
+#searchPanel ul{
+	margin: 0;
+	padding:0;
+	padding-top: 30px;
+	padding-bottom: 30px;
+	text-align: center;
+	border-bottom: 1px solid white;
+}
+#searchPanel ul li{
 	list-style-type: none;
 }
-#helpbar ul li a{
+#searchPanel ul li a{
 	font-size: 25px;
 	text-decoration: none;
 	color: white;	
-	
 	-o-transition:color .2s ease-out, background 1s ease-in;
 	-ms-transition:color .2s ease-out, background 1s ease-in;
 	-moz-transition:color .2s ease-out, background 1s ease-in;
 	-webkit-transition:color .2s ease-out, background 1s ease-in;
-	/* ...and now override with proper CSS property */
 	transition:color .2s ease-out, background 1s ease-in;
 }
-	
-#helpbar ul li a:hover{
+#searchPanel ul li a:hover{
 	color: #332714;	
 }
-
-#searchInput{
-	padding: 2px;
-	margin-top: 10px;
-	margin-bottom: 5px;
-	width: 80%;
-	height: 18px;
-	border-radius: 5px;
-	
+#suchenHeader{
+	font-size:25px;
 }
+#sucheEingabe{
+	padding: 3px;
+	margin-top: 15px;
+	width: 80%;
+	height: 20px;
+	border: none;
+	border-radius: 5px;	
+}
+/* ------------- Panel für Seitenheader, Suchfunktion (links) --------------- */
 
+
+
+
+
+
+
+/* ------------ Panel für Anmeldung, Benutzeransicht (rechts) ----------------- */
 .controllPanel{
 	margin: 0;
 	padding:1%;
 	min-width: 240px;
 	width: 16%;
-	height: 160px;
+	height: 190px;
 	background-color: #BF4D17;
 	color:white;
-	opacity: 0.82;
+	opacity: 0.85;
 	text-align:center;
 	position: -webkit-sticky;
   	position: sticky;
@@ -87,7 +125,6 @@ html,body{
 .controllPanel i{
 	width: 15px;
 }
-
 .controllPanel h3{
 	margin: 0;
 	padding: 0;	
@@ -95,7 +132,7 @@ html,body{
 	font-weight: normal;
 }
 .controllPanel ul{
-	margin-top: 15px;
+	margin-top: 25px;
 	margin-bottom: 10px;
 	text-align: left;	
 }
@@ -105,7 +142,6 @@ html,body{
 	width: 80%;
 	list-style-type: none;
 }
-
 .controllPanel a{
 	color: white;
 	text-decoration:none;
@@ -114,96 +150,239 @@ html,body{
 	-ms-transition:color .2s ease-out, background 1s ease-in;
 	-moz-transition:color .2s ease-out, background 1s ease-in;
 	-webkit-transition:color .2s ease-out, background 1s ease-in;
-	/* ...and now override with proper CSS property */
 	transition:color .2s ease-out, background 1s ease-in;
 }
-
 .controllPanel a:hover{
 	color: #332714;
 }
+#registrierungLink{
+	color: white;
+	margin-top: 10px;
+}
 
+/* Eingabefelder für die Anmeldung*/
 #inputBenutzername{
 	margin-top: 5%;
-	padding: 2px;
-	height: 18px;
+	padding: 3px;
+	height: 20px;
 	width: 80%;
 	border-radius: 5px;
 	border-style: none;
 }
 #inputPasswort{
 	margin-top: 5%;
-	padding: 2px;
-	height: 18px;
+	padding: 3px;
+	height: 20px;
 	width: 80%;
 	border-radius: 5px;
 	border-style: none;
 }
 #btnAnmelden{
 	margin-top: 8%;
-	height: 25px;
+	height: 26px;
 	width: 60%;
-	background-color: #F1F2F2;
-	color: #332714;
+	background-color: white;
+	color: black;
 	border-radius: 5px;
-	border: none;
+	border-style:none;
 }
 #btnAnmelden:hover{
-	background-color: #332714;
-	color: white;
+	background-color: #e1e1e1;
 	cursor: pointer;
 }
 
-
+/* Link zum Abmelden */
 #abmelden{
-	top: 150px;
-	right: 10px;
+	top: 185px;
+	right: 20px;
 	position: absolute;
 	text-decoration: none;
 	font-style: italic;
 }
+/* ------------ Panel für Anmeldung, Benutzeransicht (rechts) ----------------- */
 
 
-#content{
-	
+
+
+
+
+
+/* -------------- Wrapper für den Seitencontent ------------------- */
+.contentWrapper{
 	margin: 0 auto;
-	top: 200px;
 	width: 60%;
 	min-width: 300px;
-	min-height: 80%;
+	min-height: 100%;
 	height: auto;
 	overflow: auto;
-	background-color: #F1F2F2;
+	background-color: transparent;
 	text-align: center;
 	color: black;	
-	-webkit-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
-	-moz-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
-	box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
 }
+/* -------------- Wrapper für den Seitencontent ------------------- */
 
 
 
+
+
+
+
+
+/* --------------- Panel mit Artikeln ------------------- */
 .lastArtikel{
-	width: 90%;
+	width: 48.5%;
 	height: 120px;
 	text-align: left;
 	float: left;
+	opacity: 0.95;
 	background-color: #F1F2F2;
-	margin-left: 5%;
+	margin-left: 1%;
 	margin-top: 1%;
 }
-
 .artikel{
-	width: 90%;
+	width: 48.5%;
 	height: 120px;
 	text-align: left;
 	float: left;
+	opacity: 0.95;
 	border-bottom: 1px solid #a09d9d;
 	background-color: #F1F2F2;
-	margin-left: 5%;
+	margin-left: 1%;
 	margin-top: 1%;
 }
 .artikel h3{
 	padding: 10px;
-	color: #BF4D17;
-	
+	color: #BF4D17;	
 }
+/* --------------- Panel mit Artikeln ------------------- */
+
+
+
+
+
+
+
+
+
+
+/* ------------- Panel für die Registrierung ------------------- */
+#registrierungPanel{
+	margin: 50px auto;
+	width: 500px;
+	height: 500px;
+	text-align: center;
+	opacity: 0.9;
+	background-color: white;
+	border-radius: 20px;
+  	-webkit-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
+	box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
+}
+#registrierungPanel h1{
+	padding-top: 30px;
+}
+#registrierungPanel form{
+	text-align: center;
+}
+#registrierungPanel .inputField{
+	margin-top: 20px;
+	padding: 3px;
+	background-color: white;
+	width: 60%;
+	border: 1px solid #BF4D17;
+	height: 25px;
+	font-size: 14px;
+}
+#btnRegistrieren{
+	margin-top: 40px;
+	width: 50%;
+	height: 50px;
+	font-size: 20px;
+	border-style: none;
+	color: white;
+	background-color: #BF4D17;
+	border-radius: 5px;
+}
+#btnRegistrieren:hover{
+	background-color: #9b4013;
+	cursor: pointer;
+}
+/* ------------- Panel für die Registrierung ------------------- */
+
+
+
+
+
+
+
+
+/* ---------- Panel für Fehlermeldungen ----------------- */
+#fehlermeldungPanel{
+	margin: 0;
+	top: 240px;
+	right: 0;
+	position: absolute;
+	height: 90px;
+	width: 18%;
+	text-align: center;
+	min-width: 240px;
+	background-color: white;
+	opacity: 0.85;
+	color: red;
+	border-radius: 40px 0 0 40px;
+	display: none;
+}
+#fehlermeldungPanel i{
+	text-align: left;
+	color: #c0c0c0;
+}
+#fehlermeldungPanel i:hover{
+	color: #4a4a4a;
+	cursor:pointer;
+}
+#fehlermeldungPanel h4{
+	margin: 0;
+	margin-bottom: 5px;
+}
+#fehlermeldungPanel p{
+	margin: 0;
+}
+
+/* Animationen für das Fehlermeldung Panel */
+.opening{
+	-webkit-animation: opening 1s 1; /* Safari 4.0 - 8.0 */
+    animation: opening 1s 1;
+}
+@-webkit-keyframes opening {
+    from {top: 330px; opacity: 0; }
+    to {top: 240px; opacity: 0.85;}
+}
+@keyframes opening {
+    from {top: 330px; opacity: 0; }
+    to {top: 240px; opacity: 0.85;}
+}
+.closing{
+	-webkit-animation: closing 1s 1; /* Safari 4.0 - 8.0 */
+    animation: closing 1s 1;
+}
+@-webkit-keyframes closing {
+    from {top: 240px; opacity: 0.85;}
+    to {top: 330px; opacity: 0;}
+}
+@keyframes closing {
+    from {top: 240px; opacity: 0.85;}
+    to {top: 330px; opacity: 0;}
+}
+
+/* Schließensymbol im Fehlermeldung Panel*/
+#fehlermeldungPanelClose{
+	padding: 2%;
+	height: 10px;
+	width: 96%;
+	text-align: right;
+}
+/* ---------- Panel für Fehlermeldungen ----------------- */
+
+
+
+

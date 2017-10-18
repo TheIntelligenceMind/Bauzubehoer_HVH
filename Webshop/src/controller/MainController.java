@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 
 @WebServlet("/MainController")
 public class MainController extends HttpServlet{
-	
+	private static final long serialVersionUID = 235370755123768723L;
 	HttpSession session = null;
 	
 	
@@ -25,9 +25,9 @@ public class MainController extends HttpServlet{
 		
 		if(session != null){
 			
-			String benutzername = String.valueOf(session.getAttribute("benutzername"));
+			String emailadresse = String.valueOf(session.getAttribute("emailadresse"));
 			
-			req.setAttribute("benutzername", benutzername);
+			req.setAttribute("emailadresse", emailadresse);
 			
 		}
 		

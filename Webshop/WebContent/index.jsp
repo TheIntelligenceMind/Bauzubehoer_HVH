@@ -9,22 +9,12 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	</head>
 	<body>
-		<div id="header">
 		
-		</div>
-		<div id="helpbar">
-			<ul>
-				<li><a href="registrieren"><i class="fa fa-search" aria-hidden="true"></i> Suchen</a></li>
-				<li>
-					<form>
-						<input id="searchInput" type="text" placeholder="Artikelbezeichnung ...">
-					</form>
-				<li>
-			</ul>	
-		</div>
-	
-		<% 
-			if(session.getAttribute("benutzername") == null){ 	
+		<%@ include file="sitebar.jsp" %>	
+		
+		
+		<%	  
+			if(session.getAttribute("vorname") == null || session.getAttribute("nachname") == null){ 	
 		%>
 				<%@ include file="anmeldungPanel.jsp" %>
 		<%
@@ -34,18 +24,90 @@
 		<%
 			}
 		%>
-
-		<div id="content">	
-			<div class="artikel"></div>
-			<div class="artikel"></div>
-			<div class="artikel"></div>
-			<div class="artikel"></div>
-			<div class="lastArtikel"></div>
-		</div>
-		<div id="footer">
 		
+		
+		<div id="fehlermeldungPanel">
+			<div id="fehlermeldungPanelClose">
+				<a onclick="FehlermeldungSchlieﬂen()"><i class="fa fa-times" aria-hidden="true"></i></a>
+			</div>
+			<h4>Fehler !</h4>
+			<p>
+				<% out.println(response.getHeader("fehlermeldung")); %>
+			</p>
 		</div>
-	
+		
+
+		<script type="text/javascript">
+			function FehlermeldungOeffnen(){
+				document.getElementById('fehlermeldungPanel').style.display ='inline';
+				document.getElementById('fehlermeldungPanel').className ='opening';
+			}
+			function FehlermeldungSchlieﬂen(){
+				document.getElementById('fehlermeldungPanel').className ='closing';
+				setTimeout(function(){
+					document.getElementById('fehlermeldungPanel').style.display ='none';
+				}, 1000);
+			}
+		</script>
+				
+		<%
+			if(response.getHeader("status") != null && response.getHeader("status").equals("fehler")){
+				out.println("<script type='text/javascript'>FehlermeldungOeffnen()</script>");
+			}
+		%>
+
+		<div class="contentWrapper">
+			<% 
+				if(response.getHeader("contentSite") != null ){ 	
+					
+					if(session.getAttribute("vorname") == null || session.getAttribute("nachname") == null){
+						switch(response.getHeader("contentSite")){
+						
+						case "registrierung":
+							%>
+								<%@ include file="registrierung.jsp" %>
+							<%
+							break;
+						default:
+							%>
+								<%@ include file="artikel.jsp" %>
+							<%
+							break;
+						}
+					}else{
+						switch(response.getHeader("contentSite")){
+						
+						case "registrierung":
+							%>
+								<%@ include file="registrierung.jsp" %>
+							<%
+							break;
+						case "warenkorb":
+							%>
+								<%@ include file="warenkorb.jsp" %>
+							<%
+							break;
+						case "meineBestellungen":
+							%>
+								<%@ include file="meineBestellungen.jsp" %>
+							<%
+							break;
+						default:
+							%>
+								<%@ include file="artikel.jsp" %>
+							<%
+							break;
+						}
+					}
+				}else{
+					%>
+						<%@ include file="artikel.jsp" %>
+					<%
+				}
+			%>
+			
+		</div>
+
 	
 	</body>
 </html>

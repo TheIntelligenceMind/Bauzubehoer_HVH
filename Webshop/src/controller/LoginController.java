@@ -19,8 +19,8 @@ import entity.Benutzer;
 
 @WebServlet("/anmelden")
 public class LoginController extends HttpServlet{
-	private static final long serialVersionUID = 1L;
-
+	private static final long serialVersionUID = -6106934665383263630L;
+	
 	QueryManager queryManager = QueryManager.getInstance();
 	HttpSession session = null;
 
@@ -30,18 +30,17 @@ public class LoginController extends HttpServlet{
 	}
 	
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
-		resp.setContentType("text/html");  
-		
-		PrintWriter out = resp.getWriter();
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {		
+		resp.setContentType("text/html");  		
+
 		RequestDispatcher rd = req.getRequestDispatcher("index.jsp");
 		
-		String benutzername = req.getParameter("benutzername");
+		String emailadresse = req.getParameter("emailadresse");
 		String passwort = req.getParameter("passwort");
+		boolean anmeldeStatus = false;
 		
-		if(benutzername != null && passwort != null && !benutzername.isEmpty() && !passwort.isEmpty() ){		
-			Benutzer benutzer = queryManager.getBenutzerByEMailAdresse(benutzername);		
+		if(emailadresse != null && passwort != null && !emailadresse.isEmpty() && !passwort.isEmpty() ){		
+			Benutzer benutzer = queryManager.getBenutzerByEMailAdresse(emailadresse);		
 			
 			try {
 				MessageDigest hasher = MessageDigest.getInstance("MD5");
@@ -49,25 +48,28 @@ public class LoginController extends HttpServlet{
 				byte[] str = hasher.digest();
 				
 				String hashPasswort = DatatypeConverter.printHexBinary(str).toUpperCase();		
-					
-				System.out.println(benutzer.getPasswort());
-				System.out.println(hashPasswort);
-				
+
 				if(benutzer != null && benutzer.getPasswort().equals(hashPasswort)){
+					anmeldeStatus = true;
 					
 					session = req.getSession();
 					// Nach 5 Minuten wird die Session automatisch geloescht
 					session.setMaxInactiveInterval(10*60);
 					
-					session.setAttribute("benutzername", req.getParameter("benutzername"));
-					resp.addHeader("benutzername", req.getParameter("benutzername"));
-					
+					session.setAttribute("vorname", benutzer.getVorname());
+					session.setAttribute("nachname", benutzer.getNachname());
+					session.setAttribute("warenkorbAnzahl", "0");
 				}
 			
 			} catch (NoSuchAlgorithmException e) {
 				e.printStackTrace();
 			}
 		}
+		if(!anmeldeStatus){
+			resp.addHeader("status", "fehler");
+			resp.addHeader("fehlermeldung", "E-Mail-Adresse oder Passwort ist falsch.");
+		}
+		
 		rd.forward(req, resp);
 		
 		
