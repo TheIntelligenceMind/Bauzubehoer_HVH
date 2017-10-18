@@ -1,4 +1,4 @@
-<div id="registrierungPanel">
+<div class="showing" id="registrierungPanel">
 	<h1>Registrierung</h1>
 	<form action="registrieren" method="POST">
 		<input title="E-Mail-Adresse" class="inputField" type="text" name="emailadresse" placeholder="E-Mail-Adresse">

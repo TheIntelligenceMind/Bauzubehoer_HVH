@@ -92,6 +92,11 @@
 								<%@ include file="meineBestellungen.jsp" %>
 							<%
 							break;
+						case "meinKonto":
+							%>
+								<%@ include file="meinKonto.jsp" %>
+							<%
+							break;
 						default:
 							%>
 								<%@ include file="artikel.jsp" %>

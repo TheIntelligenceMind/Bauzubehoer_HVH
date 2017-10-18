@@ -40,12 +40,20 @@
     <servlet-name>WarenkorbController</servlet-name>
     <url-pattern>/warenkorb</url-pattern>
   </servlet-mapping>
-   <servlet>
+  <servlet>
     <servlet-name>BestellungenController</servlet-name>
     <servlet-class>controller.BestellungenController</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>BestellungenController</servlet-name>
     <url-pattern>/meineBestellungen</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>KontoController</servlet-name>
+    <servlet-class>controller.KontoController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>KontoController</servlet-name>
+    <url-pattern>/meinKonto</url-pattern>
   </servlet-mapping>
 </web-app>

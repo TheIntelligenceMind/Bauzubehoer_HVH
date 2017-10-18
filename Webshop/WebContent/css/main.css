@@ -219,6 +219,20 @@ html,body{
 	text-align: center;
 	color: black;	
 }
+
+/* Animationen für alle Contentsites */
+.showing{
+	-webkit-animation: showing 1.5s 1; /* Safari 4.0 - 8.0 */
+    animation: showing 1.5s 1;
+}
+@-webkit-keyframes showing {
+    from {opacity: 0;}
+    to {opacity: 0.9;}
+}
+@keyframes showing {
+    from {opacity: 0;}
+    to {opacity: 0.9;}
+}
 /* -------------- Wrapper für den Seitencontent ------------------- */
 
 
@@ -257,6 +271,84 @@ html,body{
 /* --------------- Panel mit Artikeln ------------------- */
 
 
+
+
+
+
+
+
+/* ------------- Panel für die mein Konto Übersicht ------------------- */
+#meinKontoPanel{
+	margin: 50px auto;
+	width: 700px;
+	height: 500px;
+	text-align: center;
+	opacity: 0.9;
+	background-color: white;
+	border-radius: 20px;
+  	-webkit-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
+	box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
+}
+#meinKontoPanel h1{
+	margin:0;
+	padding: 0;
+	padding-top: 20px;
+}
+/* ------------- Panel für die mein Konto Übersicht ------------------- */
+
+
+
+
+
+
+
+
+/* ------------- Panel für meine Bestellungen Übersicht ------------------- */
+#meineBestellungenPanel{
+	margin: 50px auto;
+	width: 700px;
+	height: 500px;
+	text-align: center;
+	opacity: 0.9;
+	background-color: white;
+	border-radius: 20px;
+  	-webkit-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
+	box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
+}
+#meineBestellungenPanel h1{
+	margin:0;
+	padding: 0;
+	padding-top: 20px;
+}
+/* ------------- Panel für meine Bestellungen Übersicht ------------------- */
+
+
+
+
+
+
+
+/* ------------- Panel für den Warenkorb ------------------- */
+#warenkorbPanel{
+	margin: 50px auto;
+	width: 700px;
+	height: 500px;
+	text-align: center;
+	opacity: 0.9;
+	background-color: white;
+	border-radius: 20px;
+  	-webkit-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
+	box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
+}
+#warenkorbPanel h1{
+	margin:0;
+	padding: 0;
+	padding-top: 20px;
+}
+/* -------------- Panel für den Warenkorb  ------------------- */
 
 
 
