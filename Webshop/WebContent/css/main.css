@@ -416,6 +416,7 @@ html,body{
 	position: absolute;
 	height: 90px;
 	width: 18%;
+	min-width: 260px;
 	text-align: center;
 	min-width: 240px;
 	background-color: white;

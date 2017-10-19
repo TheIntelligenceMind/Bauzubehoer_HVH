@@ -2,6 +2,7 @@ package db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -20,16 +21,23 @@ import entity.Bestellung;
  */
 public class QueryManager {
 	
-	private final static QueryManager instance = new QueryManager();
-	
-	Connection connection = null;
-	
-	QueryManager(){
-		
-	}
+	private final static QueryManager instance = new QueryManager();	
+	private Connection connection = null;
 
-	
-	
+	private Connection getConnection(){
+		if(connection == null){
+			try {
+				//Windows
+				//connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/webshop","root","");
+				//Mac
+				connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/webshop","admin","test");
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return connection;
+	}
 	
 	public static QueryManager getInstance(){
 		return instance;
@@ -50,16 +58,14 @@ public class QueryManager {
 		ResultSet result = null;
 		
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.jdbc.Driver");		
 			
-			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/webshop","root","");
-
+			String sql = "SELECT * FROM Users WHERE emailadresse=?";
+		
+			PreparedStatement stmt = getConnection().prepareStatement(sql);
+			stmt.setString(1, piEMailAdresse);
 			
-			Statement stmt = connection.createStatement();
-			
-			String sql = "SELECT * FROM Users WHERE emailadresse='"+piEMailAdresse+"'";
-			
-			result = stmt.executeQuery(sql);
+			result = stmt.executeQuery();
 			
 			if(result.next()){
 				return benutzer.init(result.getString("emailadresse"), result.getString("passwort"), result.getString("vorname"), result.getString("nachname"));
@@ -105,23 +111,17 @@ public class QueryManager {
 		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			
-			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/webshop","root","");
-
-			Statement stmt = connection.createStatement();
-			
+						
 			String sql = "INSERT INTO Users(emailadresse, passwort, vorname, nachname) "
-					+ "VALUES('" 
-					+ benutzer.getEmailadresse() 
-					+"','" 
-					+ benutzer.getPasswort() 
-					+ "','" 
-					+ benutzer.getVorname() 
-					+ "','" 
-					+ benutzer.getNachname() 
-					+ "')";
+						+ "VALUES( ?, ?, ?, ?)";
 			
-			result = stmt.executeUpdate(sql);
+			PreparedStatement stmt = getConnection().prepareStatement(sql);
+			stmt.setString(1, benutzer.getEmailadresse());
+			stmt.setString(2, benutzer.getPasswort());
+			stmt.setString(3, benutzer.getVorname());
+			stmt.setString(4, benutzer.getNachname());
+			
+			result = stmt.executeUpdate();
 			
 			if(result == 1){
 				return true;
