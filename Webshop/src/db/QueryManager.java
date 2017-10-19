@@ -6,8 +6,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import entity.Adresse;
+import entity.Artikel;
 import entity.Benutzer;
 import entity.Bestellung;
 
@@ -28,9 +31,9 @@ public class QueryManager {
 		if(connection == null){
 			try {
 				//Windows
-				//connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/webshop","root","");
+				connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/webshop","root","");
 				//Mac
-				connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/webshop","admin","test");
+				//connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/webshop","admin","test");
 				
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -105,7 +108,6 @@ public class QueryManager {
 	
 	
 	public boolean createBenutzer(Benutzer piBenutzer){
-		
 		Benutzer benutzer = piBenutzer;
 		int result;
 		
@@ -156,5 +158,106 @@ public class QueryManager {
 		return true;
 	}
 	
+	
+	public boolean createArtikel(Artikel piArtikel){
+		Artikel artikel = piArtikel;
+		int result;
+		
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+						
+			String sql = "INSERT INTO Artikel VALUES(?, ?, ?, ?, ?)";
+			
+			PreparedStatement stmt = getConnection().prepareStatement(sql);
+			stmt.setString(1, artikel.getBezeichnung());
+			stmt.setLong(2, artikel.getArtikelID());		
+			stmt.setString(4, artikel.getBeschreibung());
+			stmt.setString(3, artikel.getPreis());
+			stmt.setLong(5, artikel.getLagermenge());
+			
+			result = stmt.executeUpdate();
+			
+			if(result == 1){
+				return true;
+			}else{
+				return false;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}	
+		return false;	
+	}
+	
+	public List<Artikel> searchArtikelByBezeichnung(String piBezeichnung){
+		String bezeichnung = piBezeichnung;
+		List<Artikel> artikelliste = new ArrayList<Artikel>();
+		ResultSet result = null;	
+		
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+						
+			String sql = "SELECT * FROM Artikel WHERE bezeichnung like ?";
+			
+			PreparedStatement stmt = getConnection().prepareStatement(sql);
+			stmt.setString(1, bezeichnung);
+
+			result = stmt.executeQuery();
+			
+			while(result.next()){
+				Artikel artikel = new Artikel().init(result.getString("bezeichnung"), result.getInt("artikelID"), result.getString("beschreibung"), result.getString("preis"), result.getInt("lagermenge"));
+				artikelliste.add(artikel);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}	
+		
+		return artikelliste;
+	}
+	
+	
+	
+	public List<Artikel> selectAllWarenkorbartikelByBenutzeremailadresse(String piEmailadresse){
+		String emailadresse = piEmailadresse;
+		List<Artikel> artikelliste = new ArrayList<Artikel>();
+		ResultSet result = null;
+		
+		if(emailadresse == null || emailadresse.isEmpty()){
+			return null;
+		}
+		
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+						
+			String sql = "SELECT * FROM Artikel WHERE bezeichnung like ?";
+			
+			PreparedStatement stmt = getConnection().prepareStatement(sql);
+			stmt.setString(1, piEmailadresse);
+
+			result = stmt.executeQuery();
+			
+			while(result.next()){
+				Artikel artikel = new Artikel().init(result.getString("bezeichnung"), result.getInt("artikelID"), result.getString("beschreibung"), result.getString("preis"), result.getInt("lagermenge"));
+				artikelliste.add(artikel);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}	
+		
+		
+		
+		
+		
+		return artikelliste;
+		
+	}
 	
 }

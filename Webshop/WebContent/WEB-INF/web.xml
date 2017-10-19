@@ -56,4 +56,12 @@
     <servlet-name>KontoController</servlet-name>
     <url-pattern>/meinKonto</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>SuchController</servlet-name>
+    <servlet-class>controller.SuchController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SuchController</servlet-name>
+    <url-pattern>/suchen</url-pattern>
+  </servlet-mapping>
 </web-app>

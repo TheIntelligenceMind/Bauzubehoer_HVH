@@ -28,14 +28,13 @@
 		
 		<div id="fehlermeldungPanel">
 			<div id="fehlermeldungPanelClose">
-				<a onclick="FehlermeldungSchließen()"><i class="fa fa-times" aria-hidden="true"></i></a>
+				<a onclick="FehlermeldungSchließen()"><i class="fa fa-times"></i></a>
 			</div>
 			<h4>Fehler !</h4>
 			<p>
 				<% out.println(response.getHeader("fehlermeldung")); %>
 			</p>
-		</div>
-		
+		</div>	
 
 		<script type="text/javascript">
 			function FehlermeldungOeffnen(){

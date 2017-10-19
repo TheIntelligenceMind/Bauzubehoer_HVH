@@ -1,10 +1,5 @@
 package entity;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
-import javax.xml.bind.DatatypeConverter;
-
 import entity.Adresse;
 
 public class Benutzer {

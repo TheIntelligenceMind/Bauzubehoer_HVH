@@ -243,28 +243,24 @@ html,body{
 
 
 /* --------------- Panel mit Artikeln ------------------- */
-.lastArtikel{
-	width: 48.5%;
-	height: 120px;
-	text-align: left;
-	float: left;
-	opacity: 0.95;
-	background-color: #F1F2F2;
-	margin-left: 1%;
-	margin-top: 1%;
-}
 .artikel{
 	width: 48.5%;
-	height: 120px;
+	height: 140px;
 	text-align: left;
 	float: left;
 	opacity: 0.95;
-	border-bottom: 1px solid #a09d9d;
 	background-color: #F1F2F2;
 	margin-left: 1%;
 	margin-top: 1%;
+	border-radius: 8px;
+}
+.artikel p{
+	margin: 0;
+	padding: 2%;
+	font-family: sans-serif;
 }
 .artikel h3{
+	margin: 0;
 	padding: 10px;
 	color: #BF4D17;	
 }
@@ -418,7 +414,6 @@ html,body{
 	width: 18%;
 	min-width: 260px;
 	text-align: center;
-	min-width: 240px;
 	background-color: white;
 	opacity: 0.85;
 	color: red;

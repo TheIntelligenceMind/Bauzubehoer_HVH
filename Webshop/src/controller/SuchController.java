@@ -11,10 +11,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import db.QueryManager;
+import entity.Artikel;
+
 /**
  * Servlet implementation class WarenkorbController
  */
-@WebServlet("/warenkorb")
+@WebServlet("/suchen")
 public class SuchController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -31,18 +34,15 @@ public class SuchController extends HttpServlet {
     @Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		RequestDispatcher rq = request.getRequestDispatcher("index.jsp");
+		RequestDispatcher rq = request.getRequestDispatcher("index.jsp");	
+		String suchargument = request.getParameter("suchargument");
+		List<Artikel> artikelliste = new ArrayList<Artikel>();
 		
-		String suchArgument = request.getParameter("suchargument");
+		artikelliste = QueryManager.getInstance().searchArtikelByBezeichnung(suchargument);
 		
+		request.setAttribute("artikelliste", artikelliste);
 		
-		List artikelListe = new ArrayList();
-		
-		
-		
-		rq.forward(request, response);
-		
-		
+		rq.forward(request, response);	
 	}
 
 }
