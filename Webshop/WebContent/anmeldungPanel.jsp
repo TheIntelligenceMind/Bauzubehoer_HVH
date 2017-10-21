@@ -7,6 +7,7 @@
 	</form>
 	<div id="registrierungLink">
 		<a  href="registrieren">Registrierung</a>
+		
 	</div>
 	
 </div>
