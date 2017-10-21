@@ -13,6 +13,7 @@ import entity.Adresse;
 import entity.Artikel;
 import entity.Benutzer;
 import entity.Bestellung;
+import enums.DB_TABELLE;
 
 /**
  * <h3>Beschreibung:</h3>
@@ -63,7 +64,7 @@ public class QueryManager {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");		
 			
-			String sql = "SELECT * FROM benutzer WHERE emailadresse=?";
+			String sql = "SELECT * FROM " + DB_TABELLE.benutzer + " WHERE emailadresse=?";
 		
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setString(1, piEMailAdresse);
@@ -114,7 +115,7 @@ public class QueryManager {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 						
-			String sql = "INSERT INTO benutzer(emailadresse, passwort, vorname, nachname, erstellt_Benutzer) "
+			String sql = "INSERT INTO" + DB_TABELLE.benutzer + "(emailadresse, passwort, vorname, nachname, erstellt_Benutzer) "
 						+ "VALUES( ?, ?, ?, ?, ?)";
 			
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
@@ -167,7 +168,7 @@ public class QueryManager {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 						
-			String sql = "INSERT INTO Artikel VALUES(?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO" + DB_TABELLE.artikel + "VALUES(?, ?, ?, ?, ?)";
 			
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setString(1, artikel.getBezeichnung());
@@ -200,7 +201,7 @@ public class QueryManager {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 						
-			String sql = "SELECT * FROM Artikel WHERE bezeichnung like ?";
+			String sql = "SELECT * FROM " + DB_TABELLE.artikel + " WHERE bezeichnung like ?";
 			
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setString(1, bezeichnung);
@@ -235,7 +236,7 @@ public class QueryManager {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 						
-			String sql = "SELECT * FROM Artikel WHERE bezeichnung like ?";
+			String sql = "SELECT * FROM " + DB_TABELLE.artikel + " WHERE bezeichnung like ?";
 			
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setString(1, piEmailadresse);
