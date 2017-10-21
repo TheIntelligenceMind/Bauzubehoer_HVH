@@ -1,3 +1,4 @@
+<%@page import="enums.RESPONSE_STATUS"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -27,12 +28,22 @@
 		
 		
 		<div id="fehlermeldungPanel">
-			<div id="fehlermeldungPanelClose">
+			<div id="meldungPanelClose">
 				<a onclick="FehlermeldungSchlieﬂen()"><i class="fa fa-times"></i></a>
 			</div>
 			<h4>Fehler !</h4>
 			<p>
 				<% out.println(response.getHeader("fehlermeldung")); %>
+			</p>
+		</div>	
+		
+		<div id="hinweismeldungPanel">
+			<div id="meldungPanelClose">
+				<a onclick="HinweismeldungSchlieﬂen()"><i class="fa fa-times"></i></a>
+			</div>
+			<h4>Hinweis !</h4>
+			<p>
+				<% out.println(response.getHeader("hinweismeldung")); %>
 			</p>
 		</div>	
 
@@ -47,11 +58,23 @@
 					document.getElementById('fehlermeldungPanel').style.display ='none';
 				}, 1000);
 			}
+			function HinweismeldungOeffnen(){
+				document.getElementById('hinweismeldungPanel').style.display ='inline';
+				document.getElementById('hinweismeldungPanel').className ='opening';
+			}
+			function HinweismeldungSchlieﬂen(){
+				document.getElementById('hinweismeldungPanel').className ='closing';
+				setTimeout(function(){
+					document.getElementById('hinweismeldungPanel').style.display ='none';
+				}, 1000);
+			}
 		</script>
 				
 		<%
-			if(response.getHeader("status") != null && response.getHeader("status").equals("fehler")){
+			if(response.getHeader("status") != null && response.getHeader("status").equals(RESPONSE_STATUS.FEHLER.toString())){
 				out.println("<script type='text/javascript'>FehlermeldungOeffnen()</script>");
+			}else if(response.getHeader("status") != null && response.getHeader("status").equals(RESPONSE_STATUS.HINWEIS.toString())){
+				out.println("<script type='text/javascript'>HinweismeldungOeffnen()</script>");
 			}
 		%>
 

@@ -2,7 +2,16 @@ package enums;
 
 public enum DB_TABELLE {
 
-	artikel, benutzer, warenkorb, bestellung, adresse
+	ARTIKEL("artikel"), BENUTZER("benutzer"), WARENKORB("warenkorb"), BESTELLUNG("bestellung"), ADRESSE("adresse");
 	
+	private final String name;
 	
+	DB_TABELLE(String name){
+		this.name= name;
+	}
+	
+	@Override
+	public String toString(){
+		return name;
+	}
 }

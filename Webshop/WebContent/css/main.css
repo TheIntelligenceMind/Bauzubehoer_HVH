@@ -435,8 +435,51 @@ html,body{
 #fehlermeldungPanel p{
 	margin: 0;
 }
+/* ---------- Panel für Fehlermeldungen ----------------- */
 
-/* Animationen für das Fehlermeldung Panel */
+
+
+
+
+/* ---------- Panel für Hinweismeldungen ----------------- */
+#hinweismeldungPanel{
+	margin: 0;
+	top: 240px;
+	right: 0;
+	position: absolute;
+	height: 90px;
+	width: 18%;
+	min-width: 260px;
+	text-align: center;
+	background-color: white;
+	opacity: 0.85;
+	color: green;
+	border-radius: 40px 0 0 40px;
+	display: none;
+}
+#hinweismeldungPanel i{
+	text-align: left;
+	color: #c0c0c0;
+}
+#hinweismeldungPanel i:hover{
+	color: #4a4a4a;
+	cursor:pointer;
+}
+#hinweismeldungPanel h4{
+	margin: 0;
+	margin-bottom: 5px;
+}
+#hinweismeldungPanel p{
+	margin: 0;
+}
+/* ---------- Panel für Hinweismeldungen ----------------- */
+
+
+
+
+
+
+/* ------------- Animationen für das Meldungs Panel ------------ */
 .opening{
 	-webkit-animation: opening 1s 1; /* Safari 4.0 - 8.0 */
     animation: opening 1s 1;
@@ -462,14 +505,14 @@ html,body{
     to {top: 330px; opacity: 0;}
 }
 
-/* Schließensymbol im Fehlermeldung Panel*/
-#fehlermeldungPanelClose{
+/* Schließensymbol im Panel */
+#meldungPanelClose{
 	padding: 2%;
 	height: 10px;
 	width: 96%;
 	text-align: right;
 }
-/* ---------- Panel für Fehlermeldungen ----------------- */
+/* ------------- Animationen für das Meldungs Panel ------------ */
 
 
 

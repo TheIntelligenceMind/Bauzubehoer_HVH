@@ -14,6 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.xml.bind.DatatypeConverter;
 
+import com.sun.imageio.plugins.common.SubImageInputStream;
+import com.sun.xml.internal.ws.util.StringUtils;
+
 import db.QueryManager;
 import entity.Benutzer;
 
@@ -32,8 +35,10 @@ public class LoginController extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {		
 		resp.setContentType("text/html");  		
+		String dispatchSite =  "index.jsp";
+			
+		RequestDispatcher rd = req.getRequestDispatcher(dispatchSite);
 
-		RequestDispatcher rd = req.getRequestDispatcher("index.jsp");
 		
 		String emailadresse = req.getParameter("emailadresse");
 		String passwort = req.getParameter("passwort");
@@ -74,6 +79,5 @@ public class LoginController extends HttpServlet{
 		
 		
 	}
-	
 	
 }

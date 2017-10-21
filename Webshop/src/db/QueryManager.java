@@ -64,7 +64,7 @@ public class QueryManager {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");		
 			
-			String sql = "SELECT * FROM " + DB_TABELLE.benutzer + " WHERE emailadresse=?";
+			String sql = "SELECT * FROM " + DB_TABELLE.BENUTZER.toString() + " WHERE emailadresse=?";
 		
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setString(1, piEMailAdresse);
@@ -115,7 +115,7 @@ public class QueryManager {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 						
-			String sql = "INSERT INTO" + DB_TABELLE.benutzer + "(emailadresse, passwort, vorname, nachname, erstellt_Benutzer) "
+			String sql = "INSERT INTO " + DB_TABELLE.BENUTZER.toString() + " (emailadresse, passwort, vorname, nachname, erstellt_Benutzer) "
 						+ "VALUES( ?, ?, ?, ?, ?)";
 			
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
@@ -168,7 +168,7 @@ public class QueryManager {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 						
-			String sql = "INSERT INTO" + DB_TABELLE.artikel + "VALUES(?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO " + DB_TABELLE.ARTIKEL.toString() + " VALUES(?, ?, ?, ?, ?)";
 			
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setString(1, artikel.getBezeichnung());
@@ -201,7 +201,7 @@ public class QueryManager {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 						
-			String sql = "SELECT * FROM " + DB_TABELLE.artikel + " WHERE bezeichnung like ?";
+			String sql = "SELECT * FROM " + DB_TABELLE.ARTIKEL.toString() + " WHERE bezeichnung like ?";
 			
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setString(1, bezeichnung);
@@ -236,7 +236,7 @@ public class QueryManager {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 						
-			String sql = "SELECT * FROM " + DB_TABELLE.artikel + " WHERE bezeichnung like ?";
+			String sql = "SELECT * FROM " + DB_TABELLE.ARTIKEL.toString() + " WHERE bezeichnung like ?";
 			
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setString(1, piEmailadresse);
