@@ -63,7 +63,7 @@ public class QueryManager {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");		
 			
-			String sql = "SELECT * FROM Users WHERE emailadresse=?";
+			String sql = "SELECT * FROM benutzer WHERE emailadresse=?";
 		
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setString(1, piEMailAdresse);
@@ -114,14 +114,15 @@ public class QueryManager {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 						
-			String sql = "INSERT INTO Users(emailadresse, passwort, vorname, nachname) "
-						+ "VALUES( ?, ?, ?, ?)";
+			String sql = "INSERT INTO benutzer(emailadresse, passwort, vorname, nachname, erstellt_Benutzer) "
+						+ "VALUES( ?, ?, ?, ?, ?)";
 			
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setString(1, benutzer.getEmailadresse());
 			stmt.setString(2, benutzer.getPasswort());
 			stmt.setString(3, benutzer.getVorname());
 			stmt.setString(4, benutzer.getNachname());
+			stmt.setString(5, "db_user");
 			
 			result = stmt.executeUpdate();
 			
