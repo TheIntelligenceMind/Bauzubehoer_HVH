@@ -233,7 +233,7 @@ public class RegistrationController extends HttpServlet{
 	 */
 	private boolean isEmailUsed(String piEmail){
 		String email = piEmail;
-		if(queryManager.getBenutzerByEMailAdresse(email) == null){
+		if(queryManager.getBenutzerByEMailAdresse(email) != null){
 			return true;
 		}
 		return false;
