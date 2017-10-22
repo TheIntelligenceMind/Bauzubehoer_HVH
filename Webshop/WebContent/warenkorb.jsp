@@ -25,7 +25,7 @@
 	        		if(artikel != null)
 	        		{
 		        		out.println("<tr>" +
-		        		"<td>" + artikel.getArtikelID() + "</td>" +
+		        		"<td>" + artikel.getNummer() + "</td>" +
 		        		"<td>" + artikel.getLagermenge() + "</td>" +
 		        		"<td>" + artikel.getBezeichnung() + "</td>" +
 		        		"<td>" + artikel.getPreis() + "</td>" +

@@ -3,7 +3,8 @@
 	<h1>Artikel anlegen</h1>
 	
 	<form action="artikelAnlegen" method="POST">
-		<input title="Hinweis: Nur eine vierstellige ID eingeben." class="inputField" type="text" name="artikelnummer" placeholder="Artikelnummer">
+		<input title="Hinweis: Nur eine vierstellige Artikelnummer eingeben." class="inputField" type="text" name="artikelnummer" placeholder="Artikelnummer">
+		<input title="Artikelnummer" class="inputField" type="text" name="nummer" placeholder="Artikelnummer">
 		<input title="Bezeichnung" class="inputField" type="text" name="bezeichnung" placeholder="Bezeichnung">
 		<input title="Beschreibung" class="inputField" type="text" name="beschreibung" placeholder="Beschreibung">
 		<input title="Hinweis: Der Preis muss mit einem Punkt getrennt sein!" class="inputField" type="text" name="preis" placeholder="Preis">
