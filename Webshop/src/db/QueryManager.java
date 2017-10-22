@@ -232,7 +232,7 @@ public class QueryManager {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 						
-			String sql = "SELECT * FROM " + DB_TABELLE.ARTIKEL.toString() + " WHERE nummer like ?";
+			String sql = "SELECT * FROM " + DB_TABELLE.ARTIKEL.toString() + " WHERE nummer = ?";
 			
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setLong(1, nummer);
