@@ -15,7 +15,7 @@ import entity.Artikel;
 /**
  * Servlet implementation class WarenkorbController
  */
-@WebServlet("/meineBestellungen")
+@WebServlet("/artikelAnlegen")
 public class ArtikelController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

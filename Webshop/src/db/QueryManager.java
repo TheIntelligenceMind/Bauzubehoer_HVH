@@ -167,7 +167,7 @@ public class QueryManager {
 		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-						
+			
 			String sql = "INSERT INTO " + DB_TABELLE.ARTIKEL.toString() + " VALUES(?, ?, ?, ?, ?)";
 			
 			PreparedStatement stmt = getConnection().prepareStatement(sql);

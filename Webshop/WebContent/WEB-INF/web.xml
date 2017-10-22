@@ -64,4 +64,12 @@
     <servlet-name>SuchController</servlet-name>
     <url-pattern>/suchen</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>ArtikelController</servlet-name>
+    <servlet-class>controller.ArtikelController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ArtikelController</servlet-name>
+    <url-pattern>/artikelAnlegen</url-pattern>
+  </servlet-mapping>
 </web-app>
