@@ -63,6 +63,7 @@ public class LoginController extends HttpServlet{
 					
 					session.setAttribute("vorname", benutzer.getVorname());
 					session.setAttribute("nachname", benutzer.getNachname());
+					session.setAttribute("emailadresse", benutzer.getEmailadresse());
 					session.setAttribute("warenkorbAnzahl", "0");
 				}
 			
