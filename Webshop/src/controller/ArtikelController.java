@@ -40,14 +40,14 @@ public class ArtikelController extends HttpServlet {
 		boolean result = false;
 		
 		String bezeichnung = null;
-		int id = 0;
+		int nummer = 0;
 		String beschreibung = null;
-		String preis = null;
+		double preis = 0.0;
 		int lagermenge = 0;
 		
-		if(validateAttributes(bezeichnung, id, beschreibung, preis, lagermenge)){
+		if(validateAttributes(bezeichnung, nummer, beschreibung, preis, lagermenge)){
 			
-			Artikel newArtikel = new Artikel().init(bezeichnung, id, beschreibung, preis, lagermenge);
+			Artikel newArtikel = new Artikel().init(bezeichnung, nummer, beschreibung, preis, lagermenge);
 			
 			result = QueryManager.getInstance().createArtikel(newArtikel);
 		}
@@ -66,7 +66,7 @@ public class ArtikelController extends HttpServlet {
 		rq.forward(request, response);		
 	}
     
-    private boolean validateAttributes(String piBezeichnung, int piID, String piBeschreibung, String piPreis, int piLagermenge){
+    private boolean validateAttributes(String piBezeichnung, int piNummer, String piBeschreibung, double piPreis, int piLagermenge){
     	
     	
     	return false;

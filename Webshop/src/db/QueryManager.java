@@ -168,14 +168,16 @@ public class QueryManager {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			
-			String sql = "INSERT INTO " + DB_TABELLE.ARTIKEL.toString() + " VALUES(?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO " + DB_TABELLE.ARTIKEL.toString() + " (nummer, bezeichnung, beschreibung, preis, lagermenge, erstellt_Benutzer) " 
+			+ " VALUES(?, ?, ?, ?, ?, ?)";
 			
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
-			stmt.setString(1, artikel.getBezeichnung());
-			stmt.setLong(2, artikel.getArtikelID());		
-			stmt.setString(4, artikel.getBeschreibung());
-			stmt.setString(3, artikel.getPreis());
+			stmt.setLong(1, artikel.getNummer());
+			stmt.setString(2, artikel.getBezeichnung());		
+			stmt.setString(3, artikel.getBeschreibung());
+			stmt.setDouble(4, artikel.getPreis());
 			stmt.setLong(5, artikel.getLagermenge());
+			stmt.setString(6, "db_user");
 			
 			result = stmt.executeUpdate();
 			
@@ -209,7 +211,7 @@ public class QueryManager {
 			result = stmt.executeQuery();
 			
 			while(result.next()){
-				Artikel artikel = new Artikel().init(result.getString("bezeichnung"), result.getInt("artikelID"), result.getString("beschreibung"), result.getString("preis"), result.getInt("lagermenge"));
+				Artikel artikel = new Artikel().init(result.getString("bezeichnung"), result.getInt("nummer"), result.getString("beschreibung"), result.getDouble("preis"), result.getInt("lagermenge"));
 				artikelliste.add(artikel);
 			}
 			
@@ -244,7 +246,7 @@ public class QueryManager {
 			result = stmt.executeQuery();
 			
 			while(result.next()){
-				Artikel artikel = new Artikel().init(result.getString("bezeichnung"), result.getInt("artikelID"), result.getString("beschreibung"), result.getString("preis"), result.getInt("lagermenge"));
+				Artikel artikel = new Artikel().init(result.getString("bezeichnung"), result.getInt("nummer"), result.getString("beschreibung"), result.getDouble("preis"), result.getInt("lagermenge"));
 				artikelliste.add(artikel);
 			}
 			
