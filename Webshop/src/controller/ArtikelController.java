@@ -39,11 +39,11 @@ public class ArtikelController extends HttpServlet {
 		RequestDispatcher rq = request.getRequestDispatcher("index.jsp");
 		boolean result = false;
 		
-		String bezeichnung = null;
-		int nummer = 0;
-		String beschreibung = null;
-		double preis = 0.0;
-		int lagermenge = 0;
+		int nummer = request.getParameter("nummer") != null ? Integer.valueOf(request.getParameter("nummer")) : 0;
+		String bezeichnung = request.getParameter("bezeichnung");
+		String beschreibung = request.getParameter("beschreibung");
+		double preis = request.getParameter("preis") != null ? Double.valueOf(request.getParameter("preis")) : 0;
+		int lagermenge = request.getParameter("lagermenge") != null ? Integer.valueOf(request.getParameter("lagermenge")) : 0;
 		
 		if(validateAttributes(bezeichnung, nummer, beschreibung, preis, lagermenge)){
 			
@@ -69,7 +69,7 @@ public class ArtikelController extends HttpServlet {
     private boolean validateAttributes(String piBezeichnung, int piNummer, String piBeschreibung, double piPreis, int piLagermenge){
     	
     	
-    	return false;
+    	return true;
     }
 
 }
