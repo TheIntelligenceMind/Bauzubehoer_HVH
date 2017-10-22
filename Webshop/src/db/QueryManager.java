@@ -224,7 +224,33 @@ public class QueryManager {
 		return artikelliste;
 	}
 	
-	
+	public Artikel searchArtikelByNummer(int piNummer){
+		int nummer = piNummer;
+		Artikel artikel = null;
+		ResultSet result = null;	
+		
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+						
+			String sql = "SELECT * FROM " + DB_TABELLE.ARTIKEL.toString() + " WHERE nummer like ?";
+			
+			PreparedStatement stmt = getConnection().prepareStatement(sql);
+			stmt.setLong(1, nummer);
+
+			result = stmt.executeQuery();
+			
+			if(result.next()){
+				artikel = new Artikel().init(result.getString("bezeichnung"), result.getInt("nummer"), result.getString("beschreibung"), result.getDouble("preis"), result.getInt("lagermenge"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}	
+		
+		return artikel;
+	}
 	
 	public List<Artikel> selectAllWarenkorbartikelByBenutzeremailadresse(String piEmailadresse){
 		String emailadresse = piEmailadresse;
