@@ -24,9 +24,13 @@ public class ArtikelController extends HttpServlet {
 
     }
 
-    @Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doPost(request, response);
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		RequestDispatcher rd = req.getRequestDispatcher("index.jsp");
+		
+		resp.addHeader("contentSite", "artikelAnlegen");
+		
+		rd.forward(req, resp);
 	}
 
     @Override
@@ -35,11 +39,11 @@ public class ArtikelController extends HttpServlet {
 		RequestDispatcher rq = request.getRequestDispatcher("index.jsp");
 		boolean result = false;
 		
-		String bezeichnung = request.getParameter("bezeichnung");
-		int id = Integer.valueOf(request.getParameter("id"));
-		String beschreibung = request.getParameter("beschreibung");
-		String preis = request.getParameter("preis");
-		int lagermenge = Integer.valueOf(request.getParameter("lagermenge"));
+		String bezeichnung = null;
+		int id = 0;
+		String beschreibung = null;
+		String preis = null;
+		int lagermenge = 0;
 		
 		if(validateAttributes(bezeichnung, id, beschreibung, preis, lagermenge)){
 			
@@ -52,7 +56,7 @@ public class ArtikelController extends HttpServlet {
 			String hinweistext = "Der Artikel wurde erfolgreich angelegt.";
 			response.addHeader("hinweis", hinweistext);
 		}else{
-			String fehlermeldung = "Bitte überprüfe die eingegebenen Daten auf Vollständigkeit und Gültigkeit.";	
+			String fehlermeldung = "Bitte ï¿½berprï¿½fe die eingegebenen Daten auf Vollstèˆ…digkeit und Gï¿½ltigkeit.";	
 			response.addHeader("fehlermeldung", fehlermeldung);;
 		}
 		
