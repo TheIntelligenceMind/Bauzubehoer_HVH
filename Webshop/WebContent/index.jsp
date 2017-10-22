@@ -96,6 +96,11 @@
 								<%@ include file="meinKonto.jsp" %>
 							<%
 							break;
+						case "artikelAnlegen":
+							%>
+								<%@ include file="artikelPanel.jsp" %>
+							<%
+							break;
 						default:
 							%>
 								<%@ include file="artikel.jsp" %>
