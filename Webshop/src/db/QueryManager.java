@@ -13,6 +13,7 @@ import entity.Adresse;
 import entity.Artikel;
 import entity.Benutzer;
 import entity.Bestellung;
+import entity.WarenkorbArtikel;
 import enums.DB_TABELLE;
 
 /**
@@ -252,9 +253,9 @@ public class QueryManager {
 		return artikel;
 	}
 	
-	public List<Artikel> selectAllWarenkorbartikelByBenutzeremailadresse(String piEmailadresse){
+	public List<WarenkorbArtikel> selectAllWarenkorbartikelByBenutzeremailadresse(String piEmailadresse){
 		String emailadresse = piEmailadresse;
-		List<Artikel> artikelliste = new ArrayList<Artikel>();
+		List<WarenkorbArtikel> artikelliste = new ArrayList<WarenkorbArtikel>();
 		ResultSet result = null;
 		
 		if(emailadresse == null || emailadresse.isEmpty()){
@@ -264,7 +265,9 @@ public class QueryManager {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 						
-			String sql = "SELECT * FROM " + DB_TABELLE.ARTIKEL.toString() + " WHERE bezeichnung like ?";
+			String sql = "SELECT w.position, w.menge, a.nummer, a.bezeichnung, a.beschreibung, a.preis, a.lagermenge FROM " + 
+			DB_TABELLE.WARENKORB.toString() + " w INNER JOIN "+ DB_TABELLE.BENUTZER.toString() + " b ON w.Benutzer_ID = b.ID LEFT JOIN " + 
+			DB_TABELLE.ARTIKEL.toString() + " a ON a.ID = w.Artikel_ID WHERE b.emailadresse = ?";
 			
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setString(1, piEmailadresse);
@@ -273,7 +276,8 @@ public class QueryManager {
 			
 			while(result.next()){
 				Artikel artikel = new Artikel().init(result.getString("bezeichnung"), result.getInt("nummer"), result.getString("beschreibung"), result.getDouble("preis"), result.getInt("lagermenge"));
-				artikelliste.add(artikel);
+				WarenkorbArtikel warenkorbartikel = new WarenkorbArtikel().init(artikel, result.getInt("position"), result.getInt("menge"));
+				artikelliste.add(warenkorbartikel);
 			}
 			
 		} catch (SQLException e) {
