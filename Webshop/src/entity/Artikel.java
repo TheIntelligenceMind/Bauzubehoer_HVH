@@ -3,8 +3,8 @@ package entity;
 public class Artikel {
 
 	private String bezeichnung;
-	private int artikelID;
-	private String preis;
+	private int nummer;
+	private double preis;
 	private String beschreibung;
 	private int lagermenge;
 	
@@ -12,9 +12,9 @@ public class Artikel {
 		
 	}
 	
-	public Artikel init(String piBezeichnung, int piArtikelID, String piBeschreibung, String piPreis, int piLagermenge){		
+	public Artikel init(String piBezeichnung, int piNummer, String piBeschreibung, double piPreis, int piLagermenge){		
 		bezeichnung = piBezeichnung;
-		artikelID = piArtikelID;
+		nummer = piNummer;
 		beschreibung = piBeschreibung;
 		preis = piPreis;
 		lagermenge = piLagermenge;
@@ -31,11 +31,11 @@ public class Artikel {
 		this.bezeichnung = bezeichnung;
 	}
 
-	public String getPreis() {
+	public double getPreis() {
 		return preis;
 	}
 
-	public void setPreis(String preis) {
+	public void setPreis(double preis) {
 		this.preis = preis;
 	}
 
@@ -47,12 +47,12 @@ public class Artikel {
 		this.beschreibung = beschreibung;
 	}
 
-	public int getArtikelID() {
-		return artikelID;
+	public int getNummer() {
+		return nummer;
 	}
 
-	public void setArtikelID(int artikelID) {
-		this.artikelID = artikelID;
+	public void setNummer(int nummer) {
+		this.nummer = nummer;
 	}
 
 	public int getLagermenge() {
