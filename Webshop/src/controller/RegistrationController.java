@@ -18,6 +18,7 @@ import javax.xml.bind.DatatypeConverter;
 
 import db.QueryManager;
 import entity.Benutzer;
+import enums.RESPONSE_STATUS;
 
 @WebServlet("/registrieren")
 public class RegistrationController extends HttpServlet{
@@ -56,52 +57,66 @@ public class RegistrationController extends HttpServlet{
 
 		if(alleFelderGefuellt(email, vorname, nachname, passwort, passwortBestaetigt)){
 			if(isEmailValid(email)){
-				if(passwortIstGueltig(passwort)){
-					if(passwoerterSindIdentisch(passwort, passwortBestaetigt)){
-						QueryManager queryManager = QueryManager.getInstance();
-						
-						// neues Benutzerobjekt anlegen
-						Benutzer newBenutzer = new Benutzer();			
-						MessageDigest hasher = null;
-						String hashPasswort = null;
-						
-						try {
-							hasher = MessageDigest.getInstance("MD5");
-							hasher.update(passwort.getBytes());
-							byte[] str = hasher.digest();
-							hashPasswort = DatatypeConverter.printHexBinary(str).toUpperCase();
+				if(!isEmailUsed(email)){
+					if(passwortIstGueltig(passwort)){
+						if(passwoerterSindIdentisch(passwort, passwortBestaetigt)){
+							QueryManager queryManager = QueryManager.getInstance();
 							
-						} catch (NoSuchAlgorithmException e) {
-							e.printStackTrace();
+							// neues Benutzerobjekt anlegen
+							Benutzer newBenutzer = new Benutzer();			
+							MessageDigest hasher = null;
+							String hashPasswort = null;
+							
+							try {
+								hasher = MessageDigest.getInstance("MD5");
+								hasher.update(passwort.getBytes());
+								byte[] str = hasher.digest();
+								hashPasswort = DatatypeConverter.printHexBinary(str).toUpperCase();
+								
+							} catch (NoSuchAlgorithmException e) {
+								e.printStackTrace();
+							}
+							
+							newBenutzer.init(email, hashPasswort, vorname, nachname);
+							
+							// Benutzerobjekt in der Datenbank anlegen
+							boolean result = queryManager.createBenutzer(newBenutzer);	
+							
+							if(result){
+								wurdeErstellt = true;
+							}
+							
+						}else{
+							fehlertext = "Die Passwörter sind nicht identisch.";
 						}
-						
-						newBenutzer.init(email, hashPasswort, vorname, nachname);
-						
-						// Benutzerobjekt in der Datenbank anlegen
-						boolean result = queryManager.createBenutzer(newBenutzer);	
-						
-						if(result){
-							wurdeErstellt = true;
-						}
-						
 					}else{
-						fehlertext = "Die Passwörter sind nicht identisch.";
+						fehlertext = "Das Passwort entspricht nicht den Richtlinien.";
 					}
 				}else{
-					fehlertext = "Das Passwort entspricht nicht den Richtlinien.";
+					fehlertext = "Die E-Mail-Adresse ist bereits registriert.";
 				}
 			}else{
-				fehlertext = "Die E-Mail-Adresse ist bereits registriert.";
+				fehlertext = "Die E-Mail-Adresse ist nicht gültig.";
 			}
 		}else{
 			fehlertext = "Es wurden nicht alle Felder ausgefüllt.";
 		}
 		
+		//falls ein alter Status besteht wird dieser gelöscht.
+		if(resp.getHeader("status") != null){
+			resp.setHeader("status", "");
+		}
+			
+		// aktueller Status wird gesetzt
 		if(!wurdeErstellt){
-			resp.addHeader("status", "fehler");
+			resp.addHeader("status", RESPONSE_STATUS.FEHLER.toString());
 			resp.addHeader("fehlermeldung", fehlertext);
 			resp.addHeader("contentSite", "registrierung");
-		}
+		}else{
+			resp.addHeader("status", RESPONSE_STATUS.HINWEIS.toString());
+			resp.addHeader("hinweismeldung", "Der Benutzer wurde erfolgreich angelegt.");
+			resp.addHeader("contentSite", "registrierung");
+		}	
 		
 		resp.addHeader("result", String.valueOf(wurdeErstellt));
 		
@@ -184,8 +199,7 @@ public class RegistrationController extends HttpServlet{
 	 * <pre>
 	 * Die Methode überprüft:
 	 * 	1. ob Email-Adresse null ist,
-	 * 	2. ob Email-Adresse bereits vorhanden ist,
-	 *	3. ob Email-Adresse das Email-Pattern erfüllt
+	 *	2. ob Email-Adresse das Email-Pattern erfüllt
 	 * </pre>
 	 * 
 	 * @param piEmail
@@ -200,12 +214,28 @@ public class RegistrationController extends HttpServlet{
 			Matcher matcher = pattern.matcher(email);
 			
 			if(matcher.find()){
-				if(queryManager.getBenutzerByEMailAdresse(email) == null){
-					return true;
-				}
+				return true;		
 			}
 		}
 		
+		return false;
+	}
+	
+	/**
+	 *  <h3>Beschreibung:</h3>
+	 * <pre>
+	 * Die Methode überprüft:
+	 * 	1. ob Email-Adresse bereits in Verwendung ist
+	 * </pre>
+	 * 
+	 * @param piEmail
+	 * @return true or false
+	 */
+	private boolean isEmailUsed(String piEmail){
+		String email = piEmail;
+		if(queryManager.getBenutzerByEMailAdresse(email) == null){
+			return true;
+		}
 		return false;
 	}
 }

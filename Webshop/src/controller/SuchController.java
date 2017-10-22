@@ -42,6 +42,12 @@ public class SuchController extends HttpServlet {
 		
 		request.setAttribute("artikelliste", artikelliste);
 		
+		if(artikelliste.size() == 0){
+			response.addHeader("status", "hinweis");
+			response.addHeader("hinweismeldung", "Es wurden keine Artikel gefunden.");
+	
+		}
+		
 		rq.forward(request, response);	
 	}
 
