@@ -47,9 +47,7 @@ public class WarenkorbController extends HttpServlet {
 		
 		warenkorbartikelListe = queryManager.selectAllWarenkorbartikelByBenutzeremailadresse(benutzerEmailadresse);
 		
-		if(warenkorbartikelListe != null){
-			
-		}
+		request.setAttribute("warenkorbartikelliste", warenkorbartikelListe);
 
 		response.addHeader("contentSite", "warenkorb");
 		

@@ -1,4 +1,4 @@
-<%@page import="entity.Artikel"%>
+<%@page import="entity.WarenkorbArtikel"%>
 <%@page import="java.util.List"%>
 
 <div class="showing" id="warenkorbPanel">
@@ -14,21 +14,20 @@
         </thead>
         <tbody>
         	<%
-        	List<entity.Artikel> artikelliste2 = (List<Artikel>)request.getAttribute("artikelliste");
+        	List<WarenkorbArtikel> warenkorbartikelListe = (List<WarenkorbArtikel>)request.getAttribute("warenkorbartikelliste");
         	
-        	if(artikelliste2 != null)
+        	if(warenkorbartikelListe != null)
         	{
-        		
-	        	for(int i = 0; i < artikelliste2.size();i++)
+	        	for(int i = 0; i < warenkorbartikelListe.size();i++)
 		        {
-	        		Artikel artikel = artikelliste2.get(i);
-	        		if(artikel != null)
+	        		WarenkorbArtikel warenkorbartikel = warenkorbartikelListe.get(i);
+	        		if(warenkorbartikel != null)
 	        		{
 		        		out.println("<tr>" +
-		        		"<td>" + artikel.getNummer() + "</td>" +
-		        		"<td>" + artikel.getLagermenge() + "</td>" +
-		        		"<td>" + artikel.getBezeichnung() + "</td>" +
-		        		"<td>" + artikel.getPreis() + "</td>" +
+		        		"<td>" + warenkorbartikel.getMenge() + "</td>" +
+		        		"<td>" + warenkorbartikel.getArtikel().getNummer() + "</td>" +
+		        		"<td>" + warenkorbartikel.getArtikel().getBezeichnung() + "</td>" +
+		        		"<td>" + warenkorbartikel.getArtikel().getPreis() + "</td>" +
 		        		"</tr>");
 		        	}
         		}
