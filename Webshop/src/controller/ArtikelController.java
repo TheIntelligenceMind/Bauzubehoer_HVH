@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 
 import db.QueryManager;
 import entity.Artikel;
@@ -47,23 +48,11 @@ public class ArtikelController extends HttpServlet {
 		boolean result = false;
 		String fehlertext = null;
 		
-		int nummer = req.getParameter("nummer") != null 
-						&& !req.getParameter("nummer").isEmpty() 
-						&& StringUtils.isNumeric(req.getParameter("nummer")) 
-						? Integer.valueOf(req.getParameter("nummer")) 
-						: 0;
+		int nummer = NumberUtils.toInt(req.getParameter("nummer"), 0);
 		String bezeichnung = req.getParameter("bezeichnung");
 		String beschreibung = req.getParameter("beschreibung");
-		double preis = req.getParameter("preis") != null 
-						&& !req.getParameter("preis").isEmpty() 
-						&& StringUtils.isNumeric(req.getParameter("preis")) 
-						? Double.valueOf(req.getParameter("preis")) 
-						: 0;
-		int lagermenge = req.getParameter("lagermenge") != null 
-						&& !req.getParameter("lagermenge").isEmpty() 
-						&& StringUtils.isNumeric(req.getParameter("lagermenge")) 
-						? Integer.valueOf(req.getParameter("lagermenge")) 
-						: 0;
+		double preis = NumberUtils.toDouble(req.getParameter("preis"), 0.00);
+		int lagermenge = NumberUtils.toInt(req.getParameter("lagermenge"), 0);
 		
 		if((fehlertext = validateAttributes(bezeichnung, nummer, beschreibung, preis, lagermenge)) == null){
 			
@@ -90,7 +79,7 @@ public class ArtikelController extends HttpServlet {
     private String validateAttributes(String piBezeichnung, int piNummer, String piBeschreibung, double piPreis, int piLagermenge){	
     	String fehlertext = null;
     	
-    	if(piBezeichnung != null && piNummer != 0 && piBeschreibung != null	&& piPreis != 0 && piLagermenge != 0){
+    	if(piBezeichnung != null && piNummer != 0 && piBeschreibung != null	&& piPreis != 0 && piLagermenge >= 0){
     		if(piNummer <= MAX_ARTIKELNUMMER){
     			if(queryManager.searchArtikelByNummer(piNummer) == null){
         			return fehlertext;

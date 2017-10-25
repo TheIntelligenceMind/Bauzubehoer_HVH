@@ -77,7 +77,7 @@ public class RegistrationController extends HttpServlet{
 								e.printStackTrace();
 							}
 							
-							newBenutzer.init(email, hashPasswort, vorname, nachname);
+							newBenutzer.init(email, hashPasswort, vorname, nachname,null);
 							
 							// Benutzerobjekt in der Datenbank anlegen
 							boolean result = queryManager.createBenutzer(newBenutzer);	

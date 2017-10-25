@@ -9,12 +9,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import db.QueryManager;
+import entity.Benutzer;
+
 /**
  * Servlet implementation class WarenkorbController
  */
 @WebServlet("/meinKonto")
 public class KontoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	private static final QueryManager queryManager = QueryManager.getInstance();
+	private Benutzer benutzer = null;
 
     public KontoController() {
         super();
@@ -22,18 +28,26 @@ public class KontoController extends HttpServlet {
     }
 
     @Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doPost(request, response);
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		doPost(req, resp);
 	}
 
     @Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		RequestDispatcher rq = request.getRequestDispatcher("index.jsp");
+		RequestDispatcher rq = req.getRequestDispatcher("index.jsp");
 		
-		response.addHeader("contentSite", "meinKonto");
+		benutzer = queryManager.getBenutzerByEMailAdresse(req.getSession().getAttribute("emailadresse").toString());
 		
-		rq.forward(request, response);
+		if(benutzer != null){
+			req.setAttribute("benutzer", benutzer);
+		}else{
+			benutzer = new Benutzer().init("", "", "", "", null);
+		}	
+		
+		resp.addHeader("contentSite", "meinKonto");
+		
+		rq.forward(req, resp);
 		
 		
 	}
