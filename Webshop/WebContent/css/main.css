@@ -344,6 +344,24 @@ html,body{
 	padding: 0;
 	padding-top: 20px;
 }
+#warenkorbTabelle,th, td{
+	border: 2px solid #040;
+	border-collapse: collapse;
+	border-color: orange;
+	margin:auto;
+	margin-top: 10px;
+	padding: 5px;
+	empty-cells: hide;
+}
+#submitbtn{
+	width: 50%;
+	height: 50px;
+	font-size: 20px;
+	border-style: none;
+	color: white;
+	background-color: #BF4D17;
+	border-radius: 5px;
+}
 /* -------------- Panel für den Warenkorb  ------------------- */
 
 
@@ -433,7 +451,6 @@ html,body{
 	margin-top: 20px;
 	text-align: center;
 	padding: 3px;
-	
 	background-color: white;
 	width: 30%;
 	border: 1px solid #BF4D17;
@@ -456,6 +473,7 @@ html,body{
 	cursor: pointer;
 }
 /* ------------- Panel für das Artikel anlegen ------------------- */
+
 
 
 /* ---------- Panel für Fehlermeldungen ----------------- */
