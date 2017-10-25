@@ -30,7 +30,7 @@
 		        		"<td>" + warenkorbartikel.getMenge() + "</td>" +
 		        		"<td>" + warenkorbartikel.getArtikel().getNummer() + "</td>" +
 		        		"<td>" + warenkorbartikel.getArtikel().getBezeichnung() + "</td>" +
-		        		"<td>" + warenkorbartikel.getArtikel().getPreis() +  "</td>" +
+		        		"<td>" + (warenkorbartikel.getArtikel().getPreis()*warenkorbartikel.getMenge()) +  "</td>" +
 		        		"<td>" + "</td>" +
 		        		"</tr>");
 		        		gesamt = gesamt + (warenkorbartikel.getArtikel().getPreis() * warenkorbartikel.getMenge());
