@@ -6,7 +6,16 @@
 		<li>
 			<i class="fa fa-cart-plus"></i>
 				<a href="warenkorb"> 
-					Warenkorb <% out.println("(" + 0 + ")"); %>
+					Warenkorb 
+					<% 
+					List<WarenkorbArtikel> warenkorbartikelListe = (List<WarenkorbArtikel>)request.getAttribute("warenkorbartikelliste");
+					int warenkorbArtikelAnzahl = 0;
+					if(warenkorbartikelListe != null)
+		        	{
+						warenkorbArtikelAnzahl = warenkorbartikelListe.size();
+		        	}
+					out.println("(" + warenkorbArtikelAnzahl + ")"); 
+					%>
 				</a>
 		</li>
 		<li><i class="fa fa-bars"></i><a href="meineBestellungen"> Meine Bestellungen</a></li>

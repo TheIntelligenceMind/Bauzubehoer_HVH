@@ -291,6 +291,141 @@ html,body{
 	padding: 0;
 	padding-top: 20px;
 }
+.tabreiter
+{
+    width: 100%;
+    height: 400px;
+    margin-top: 20px;
+}   
+ 
+.tabreiter ul,
+.tabreiter li
+{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+ 
+.tabreiter,
+.tabreiter input[type="radio"]:checked + label
+{
+    position: relative;
+}
+ 
+.tabreiter li,
+.tabreiter input[type="radio"] + label
+{
+    display: inline-block;
+}
+ 
+.tabreiter li > div,
+.tabreiter input[type="radio"]
+{
+    position: absolute;
+}
+ 
+.tabreiter li > div,
+.tabreiter input[type="radio"] + label
+{
+    border: solid 1px #ccc;
+}
+ 
+.tabreiter
+{
+    font-family: Arial, Sans-serif;
+    font-size: 1em;
+    font-weight: 400;
+    color: #404040;
+}
+ 
+.tabreiter li
+{
+    vertical-align: top;
+}
+ 
+.tabreiter li:first-child
+{
+    margin-left: 8px;
+}
+ 
+.tabreiter li > div
+{
+    top: 33px;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 8px;
+    overflow: auto;
+    background: #fff;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+ 
+.tabreiter input[type="radio"] + label
+{
+    margin: 0 2px 0 0;
+    padding: 0 18px;
+    line-height: 32px;
+    background: #f1f1f1;
+    text-align: center;
+    border-radius: 5px 5px 0 0;
+    cursor: pointer;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+ 
+.tabreiter input[type="radio"]:checked + label
+{
+    z-index: 1;
+    background: #fff;
+    border-bottom-color: #fff;
+    cursor: default;
+}
+ 
+.tabreiter input[type="radio"]
+{
+    opacity: 0;
+}
+ 
+.tabreiter input[type="radio"] ~ div
+{
+    display: none;
+}
+ 
+.tabreiter input[type="radio"]:checked:not(:disabled) ~ div
+{
+    display: block;
+}
+ 
+.tabreiter input[type="radio"]:disabled + label
+{
+    opacity: .5;
+    cursor: no-drop;
+}
+.tabreiter input[type=text]
+{
+	margin-top: 20px;
+	padding: 3px;
+	background-color: white;
+	width: 60%;
+	border: 1px solid #BF4D17;
+	height: 25px;
+	font-size: 14px;
+}
+
+.tabreiter input[type=submit]
+{
+	margin-top: 40px;
+	width: 50%;
+	height: 50px;
+	font-size: 20px;
+	border-style: none;
+	color: white;
+	background-color: #BF4D17;
+	border-radius: 5px;
+}
 /* ------------- Panel für die mein Konto Übersicht ------------------- */
 
 

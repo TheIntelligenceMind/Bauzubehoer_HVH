@@ -74,7 +74,7 @@
           </tr>
           
           <tr class="checkoutrow">
-            <td colspan="4" class="checkout"><button id="btnBestellen">Bestellen.</button></td>
+            <td colspan="4" class="checkout"><button id="btnBestellen">Bestellen</button></td>
             <td><button id=btnDelete>L&oumlschen</button></td>
           </tr>
         </tbody>
