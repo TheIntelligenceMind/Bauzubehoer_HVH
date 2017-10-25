@@ -31,7 +31,7 @@
 		        		"<td>" + warenkorbartikel.getArtikel().getNummer() + "</td>" +
 		        		"<td>" + warenkorbartikel.getArtikel().getBezeichnung() + "</td>" +
 		        		"<td>" + (warenkorbartikel.getArtikel().getPreis()*warenkorbartikel.getMenge()) +  "</td>" +
-		        		"<td>" + "</td>" +
+		        		"<td>" + "<input type='checkbox' name=deleteCheckBox>" + "</td>" +
 		        		"</tr>");
 		        		gesamt = gesamt + (warenkorbartikel.getArtikel().getPreis() * warenkorbartikel.getMenge());
 		        		mwst = mwst + (warenkorbartikel.getArtikel().getPreis() * warenkorbartikel.getMenge())*0.19;
@@ -74,7 +74,8 @@
           </tr>
           
           <tr class="checkoutrow">
-            <td colspan="5" class="checkout"><button id="submitbtn">Bestellen.</button></td>
+            <td colspan="4" class="checkout"><button id="btnBestellen">Bestellen.</button></td>
+            <td><button id=btnDelete>L&oumlschen</button></td>
           </tr>
         </tbody>
       </table>

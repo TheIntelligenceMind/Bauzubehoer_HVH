@@ -348,15 +348,25 @@ html,body{
 	border: 2px solid #040;
 	border-collapse: collapse;
 	border-color: orange;
+	border-radius: 5px;
 	margin:auto;
 	margin-top: 10px;
 	padding: 5px;
 	empty-cells: hide;
 }
-#submitbtn{
+#btnBestellen{
 	width: 50%;
 	height: 50px;
 	font-size: 20px;
+	border-style: none;
+	color: white;
+	background-color: #BF4D17;
+	border-radius: 5px;
+}
+#btnDelete{
+	width: 95%;
+	height: 25px;
+	font-size: 12px;
 	border-style: none;
 	color: white;
 	background-color: #BF4D17;
