@@ -420,7 +420,7 @@ html,body{
 #artikelPanel form{
 	text-align: center;
 }
-#artikelPanel .inputField{
+#artikelPanelBeschreibung .inputField{
 	margin-top: 20px;
 	padding: 3px;
 	background-color: white;
@@ -429,17 +429,17 @@ html,body{
 	height: 25px;
 	font-size: 14px;
 }
-
-#artikelPanel beschreibung{
+#artikelPanelZahlen .inputField{
 	margin-top: 20px;
+	text-align: center;
 	padding: 3px;
+	
 	background-color: white;
-	width: 60%;
+	width: 30%;
 	border: 1px solid #BF4D17;
-	height: 100px;
+	height: 25px;
 	font-size: 14px;
 }
-
 
 #btnArtikelAnlegen{
 	margin-top: 40px;
