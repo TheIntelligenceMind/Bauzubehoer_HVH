@@ -121,7 +121,7 @@
 							break;
 						case "artikelAnlegen":
 							%>
-								<%@ include file="artikelPanel.jsp" %>
+								<%@ include file="artikelAnlegenPanel.jsp" %>
 							<%
 							break;
 						default:

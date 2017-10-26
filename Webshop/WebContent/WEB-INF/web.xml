@@ -70,6 +70,6 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>ArtikelController</servlet-name>
-    <url-pattern>/artikelAnlegen</url-pattern>
-  </servlet-mapping>
+    <url-pattern>/ArtikelAnlegen</url-pattern>
+   </servlet-mapping>
 </web-app>

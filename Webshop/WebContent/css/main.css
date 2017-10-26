@@ -259,10 +259,33 @@ html,body{
 	padding: 2%;
 	font-family: sans-serif;
 }
-.artikel h3{
+.artikel h1{
 	margin: 0;
 	padding: 10px;
 	color: #BF4D17;	
+}
+#artikelTabellen{
+	width: 100%;
+	height: 65%;
+	text-align: center;
+}
+
+#artikelTabelle{
+	width: 80%;
+	max-height: 70%;
+	margin-left: 10%;
+}
+
+#artikelTabelle th{
+	border-bottom: 1px solid #BF4D17;
+}
+artikelTabelle table tr{
+	border-collapse: collapse;
+	margin:auto;
+	margin-top: 10px;
+	padding: 5px;
+	empty-cells: hide;
+	text-align: left;
 }
 /* --------------- Panel mit Artikeln ------------------- */
 
@@ -556,10 +579,6 @@ artikelTabelle table tr{
 
 
 
-
-
-
-
 /* ------------- Panel für die Registrierung ------------------- */
 #registrierungPanel{
 	margin: 50px auto;
@@ -607,7 +626,7 @@ artikelTabelle table tr{
 
 
 /* ------------- Panel für das Artikel anlegen ------------------- */
-#artikelPanel{
+#artikelAnlegenPanel{
 	margin: 50px auto;
 	width: 700px;
 	height: 500px;
@@ -619,15 +638,15 @@ artikelTabelle table tr{
 	-moz-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
 	box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
 }
-#artikelPanel h1{
+#artikelAnlegenPanel h1{
 	margin:0;
 	padding: 0;
 	padding-top: 20px;
 }
-#artikelPanel form{
+#artikelAnlegenPanel form{
 	text-align: center;
 }
-#artikelPanelBeschreibung .inputField{
+#artikelAnlegenPanelBeschreibung .inputField{
 	margin-top: 20px;
 	padding: 3px;
 	background-color: white;
@@ -637,7 +656,7 @@ artikelTabelle table tr{
 	font-size: 14px;
 	font-family: sans-serif;
 }
-#artikelPanelBeschreibung .inputArea{
+#artikelAnlegenPanelBeschreibung .inputArea{
 	margin-top: 20px;
 	padding: 3px;
 	background-color: white;
@@ -649,7 +668,7 @@ artikelTabelle table tr{
 	overflow: auto;
 	resize: none;
 }
-#artikelPanelZahlen .inputField{
+#artikelAnlegenPanelZahlen .inputField{
 	margin-top: 20px;
 	padding: 3px;
 	background-color: white;

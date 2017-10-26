@@ -1,7 +1,9 @@
+<div class="showing" id="artikelListe">
 <%@page import="entity.Artikel"%>
 <%@page import="java.util.List"%>
 
-<%
+
+<!--<%
 	List<entity.Artikel> artikelliste = (List<Artikel>)request.getAttribute("artikelliste");
 
 	if(artikelliste != null){
@@ -20,4 +22,5 @@
 			}		
 		}
 	}
-%>
+%> -->
+</div>
