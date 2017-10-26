@@ -438,17 +438,22 @@ artikelTabelle table tr{
 	height: 25px;
 	font-size: 14px;
 }
-
-.tabreiter button[type=submit]
+.btnSpeichern
 {
 	margin-top: 40px;
-	width: 50%;
-	height: 50px;
+	width: 40%;
+	height: 35px;
 	font-size: 20px;
 	border-style: none;
 	color: white;
 	background-color: #BF4D17;
 	border-radius: 5px;
+}
+.btnSpeichern:hover
+{
+	cursor:pointer;
+	background-color: #9b4013;
+	
 }
 /* ------------- Panel für die mein Konto Übersicht ------------------- */
 

@@ -141,11 +141,35 @@ public class QueryManager {
 		return false;
 	}
 	
-	public boolean modifyBenutzer(Benutzer piBenutzer){
+	public boolean modifyBenutzer(Benutzer piBenutzer){	
+		Benutzer benutzer = piBenutzer;
+		int result = 0;
 		
+		try {
+			Class.forName("com.mysql.jdbc.Driver");		
+			
+			String sql = "UPDATE "+ DB_TABELLE.BENUTZER.toString() +" SET vorname = ?, nachname = ? WHERE emailadresse = ?";
 		
+			PreparedStatement stmt = getConnection().prepareStatement(sql);
+			stmt.setString(1, benutzer.getVorname());
+			stmt.setString(2, benutzer.getNachname());
+			stmt.setString(3, benutzer.getEmailadresse());
+			
+			result = stmt.executeUpdate();
+			
+			if(result != 0){
+				return true;
+			}else{
+				return false;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
 		
-		return true;
+		return false;
 	}
 	
 	public boolean deleteBenutzer(int id){
