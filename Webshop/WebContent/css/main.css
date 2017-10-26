@@ -439,7 +439,7 @@ artikelTabelle table tr{
 	font-size: 14px;
 }
 
-.tabreiter input[type=submit]
+.tabreiter button[type=submit]
 {
 	margin-top: 40px;
 	width: 50%;

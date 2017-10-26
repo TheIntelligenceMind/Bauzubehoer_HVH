@@ -29,13 +29,7 @@ public class KontoController extends HttpServlet {
 
     @Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		doPost(req, resp);
-	}
-
-    @Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
-		RequestDispatcher rq = req.getRequestDispatcher("index.jsp");
+    	RequestDispatcher rq = req.getRequestDispatcher("index.jsp");
 		
 		benutzer = queryManager.getBenutzerByEMailAdresse(req.getSession().getAttribute("emailadresse").toString());
 		
@@ -44,6 +38,34 @@ public class KontoController extends HttpServlet {
 		}else{
 			benutzer = new Benutzer().init("", "", "", "", null);
 		}	
+		
+		resp.addHeader("contentSite", "meinKontoPanel");
+		
+		rq.forward(req, resp);
+	}
+
+    @Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		RequestDispatcher rq = req.getRequestDispatcher("index.jsp");
+		
+		String function = req.getParameter("function");
+		
+		
+		switch(function){
+		case "f_bearbeiten":
+			
+			break;
+		
+		
+		}
+		
+		
+		benutzer = queryManager.getBenutzerByEMailAdresse(req.getSession().getAttribute("emailadresse").toString());
+		
+		
+		
+		
 		
 		resp.addHeader("contentSite", "meinKontoPanel");
 		

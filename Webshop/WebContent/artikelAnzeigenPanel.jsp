@@ -45,6 +45,7 @@
 				        		"<td><input style='width: 20px;border:none;' type='text' name='menge' value='" + String.valueOf(artikel.getLagermenge()) + "' ></td>" +
 				        		"<td>" + artikel.getNummer() + "</td>" +
 				        		"<td>" + artikel.getBezeichnung() + "</td>" +
+				        		"<td>" + artikel.getBeschreibung() + "</td>" +
 				        		"<td>" + formaterArtikel.format(artikel.getPreis()) +  "</td>" +
 				        		"<td class='rightRow'>" + "<a href='warenkorbArtikelEinfuegen' class='PickSymbol'><i class='fa fa-cart-arrow-down'></i></a>" + "</td>" +
 				        		"</tr>");
