@@ -37,7 +37,7 @@ public class RegistrationController extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		RequestDispatcher rd = req.getRequestDispatcher("index.jsp");
 		
-		resp.addHeader("contentSite", "registrierung");
+		resp.addHeader("contentSite", "registrierungPanel");
 		
 		rd.forward(req, resp);
 	}
@@ -110,14 +110,13 @@ public class RegistrationController extends HttpServlet{
 		// aktueller Status wird gesetzt
 		if(!wurdeErstellt){
 			resp.addHeader("status", RESPONSE_STATUS.FEHLER.toString());
-			resp.addHeader("fehlermeldung", fehlertext);
-			resp.addHeader("contentSite", "registrierung");
+			resp.addHeader("fehlermeldung", fehlertext);	
 		}else{
 			resp.addHeader("status", RESPONSE_STATUS.HINWEIS.toString());
 			resp.addHeader("hinweismeldung", "Der Benutzer wurde erfolgreich angelegt.");
-			resp.addHeader("contentSite", "registrierung");
 		}	
 		
+		resp.addHeader("contentSite", "registrierungPanel");
 		resp.addHeader("result", String.valueOf(wurdeErstellt));
 		
 		rd.forward(req, resp);

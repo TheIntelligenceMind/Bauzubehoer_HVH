@@ -36,7 +36,7 @@ public class ArtikelController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		RequestDispatcher rd = req.getRequestDispatcher("index.jsp");
 		
-		resp.addHeader("contentSite", "artikelAnlegen");
+		resp.addHeader("contentSite", "artikelAnlegenPanel");
 		
 		rd.forward(req, resp);
 	}
@@ -71,7 +71,7 @@ public class ArtikelController extends HttpServlet {
 			resp.addHeader(MELDUNG_ART.FEHLERMELDUNG.toString(), fehlermeldung);
 		}
 				
-		resp.addHeader("contentSite", "artikelAnlegen");
+		resp.addHeader("contentSite", "artikelAnlegenPanel");
 	
 		rq.forward(req, resp);		
 	}

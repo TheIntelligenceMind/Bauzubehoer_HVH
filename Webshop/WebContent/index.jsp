@@ -11,7 +11,7 @@
 	</head>
 	<body>
 		
-		<%@ include file="sitebar.jsp" %>	
+		<%@ include file="erweitertesMenuPanel.jsp" %>	
 		
 		
 		<%	  
@@ -85,55 +85,55 @@
 					if(session.getAttribute("vorname") == null || session.getAttribute("nachname") == null){
 						switch(response.getHeader("contentSite")){
 						
-						case "registrierung":
+						case "registrierungPanel":
 							%>
-								<%@ include file="registrierung.jsp" %>
+								<%@ include file="registrierungPanel.jsp" %>
 							<%
 							break;
 						default:
 							%>
-								<%@ include file="artikel.jsp" %>
+								<%@ include file="artikelAnzeigenPanel.jsp" %>
 							<%
 							break;
 						}
 					}else{
 						switch(response.getHeader("contentSite")){
 						
-						case "registrierung":
+						case "registrierungPanel":
 							%>
-								<%@ include file="registrierung.jsp" %>
+								<%@ include file="registrierungPanel.jsp" %>
 							<%
 							break;
-						case "warenkorb":
+						case "warenkorbPanel":
 							%>
-								<%@ include file="warenkorb.jsp" %>
+								<%@ include file="warenkorbPanel.jsp" %>
 							<%
 							break;
-						case "meineBestellungen":
+						case "meineBestellungenPanel":
 							%>
-								<%@ include file="meineBestellungen.jsp" %>
+								<%@ include file="meineBestellungenPanel.jsp" %>
 							<%
 							break;
-						case "meinKonto":
+						case "meinKontoPanel":
 							%>
-								<%@ include file="meinKonto.jsp" %>
+								<%@ include file="meinKontoPanel.jsp" %>
 							<%
 							break;
-						case "artikelAnlegen":
+						case "artikelAnlegenPanel":
 							%>
 								<%@ include file="artikelAnlegenPanel.jsp" %>
 							<%
 							break;
 						default:
 							%>
-								<%@ include file="artikel.jsp" %>
+								<%@ include file="artikelAnzeigenPanel.jsp" %>
 							<%
 							break;
 						}
 					}
 				}else{
 					%>
-						<%@ include file="artikel.jsp" %>
+						<%@ include file="artikelAnzeigenPanel.jsp" %>
 					<%
 				}
 			%>

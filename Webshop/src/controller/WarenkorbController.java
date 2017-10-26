@@ -49,7 +49,7 @@ public class WarenkorbController extends HttpServlet {
 		
 		request.setAttribute("warenkorbartikelliste", warenkorbartikelListe);
 
-		response.addHeader("contentSite", "warenkorb");
+		response.addHeader("contentSite", "warenkorbPanel");
 		
 		rq.forward(request, response);
 	}

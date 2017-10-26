@@ -31,7 +31,7 @@ public class BestellungenController extends HttpServlet {
 		
 		RequestDispatcher rq = request.getRequestDispatcher("index.jsp");
 		
-		response.addHeader("contentSite", "meineBestellungen");
+		response.addHeader("contentSite", "meineBestellungenPanel");
 		
 		rq.forward(request, response);
 		

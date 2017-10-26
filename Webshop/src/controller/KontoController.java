@@ -45,7 +45,7 @@ public class KontoController extends HttpServlet {
 			benutzer = new Benutzer().init("", "", "", "", null);
 		}	
 		
-		resp.addHeader("contentSite", "meinKonto");
+		resp.addHeader("contentSite", "meinKontoPanel");
 		
 		rq.forward(req, resp);
 		
