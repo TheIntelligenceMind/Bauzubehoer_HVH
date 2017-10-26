@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -19,6 +20,7 @@ import com.sun.xml.internal.ws.util.StringUtils;
 
 import db.QueryManager;
 import entity.Benutzer;
+import entity.WarenkorbArtikel;
 
 @WebServlet("/anmelden")
 public class LoginController extends HttpServlet{
@@ -64,7 +66,9 @@ public class LoginController extends HttpServlet{
 					session.setAttribute("vorname", benutzer.getVorname());
 					session.setAttribute("nachname", benutzer.getNachname());
 					session.setAttribute("emailadresse", benutzer.getEmailadresse());
-					session.setAttribute("warenkorbAnzahl", "0");
+					
+					List<WarenkorbArtikel> warenkorbartikelListe = queryManager.selectAllWarenkorbartikelByBenutzeremailadresse(benutzer.getEmailadresse());	
+					session.setAttribute("warenkorbartikelliste", warenkorbartikelListe);
 				}
 			
 			} catch (NoSuchAlgorithmException e) {

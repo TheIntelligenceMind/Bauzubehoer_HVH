@@ -29,7 +29,7 @@
 	        </thead>
 	        <tbody>
 	        	<%
-	        	List<WarenkorbArtikel> warenkorbartikelListe = (List<WarenkorbArtikel>)request.getAttribute("warenkorbartikelliste");
+	        	List<WarenkorbArtikel> warenkorbartikelListe = (List<WarenkorbArtikel>)session.getAttribute("warenkorbartikelliste");
 	        	double gesamt = 0;
 	        	int versandkosten = 20;
 	        	double mwst = 0;

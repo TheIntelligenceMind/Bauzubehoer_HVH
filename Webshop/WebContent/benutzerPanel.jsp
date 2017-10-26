@@ -8,13 +8,13 @@
 				<a href="warenkorb"> 
 					Warenkorb 
 					<% 
-					List<WarenkorbArtikel> warenkorbartikelListe = (List<WarenkorbArtikel>)request.getAttribute("warenkorbartikelliste");
-					int warenkorbArtikelAnzahl = 0;
-					if(warenkorbartikelListe != null)
-		        	{
-						warenkorbArtikelAnzahl = warenkorbartikelListe.size();
-		        	}
-					out.println("(" + warenkorbArtikelAnzahl + ")"); 
+						List<WarenkorbArtikel> warenkorbartikelListe = (List<WarenkorbArtikel>)session.getAttribute("warenkorbartikelliste");
+						int warenkorbArtikelAnzahl = 0;
+						if(warenkorbartikelListe != null)
+			        	{
+							warenkorbArtikelAnzahl = warenkorbartikelListe.size();
+			        	}
+						out.println("(" + warenkorbArtikelAnzahl + ")"); 
 					%>
 				</a>
 		</li>

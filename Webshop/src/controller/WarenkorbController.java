@@ -34,21 +34,10 @@ public class WarenkorbController extends HttpServlet {
 	}
 
     @Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
 		RequestDispatcher rq = request.getRequestDispatcher("index.jsp");
-		
-		String benutzerEmailadresse = null;
-		List<WarenkorbArtikel> warenkorbartikelListe = new ArrayList<WarenkorbArtikel>();
-				
-		if(request.getSession().getAttribute("emailadresse") != null){
-			benutzerEmailadresse = request.getSession().getAttribute("emailadresse").toString();
-		}
-		
-		warenkorbartikelListe = queryManager.selectAllWarenkorbartikelByBenutzeremailadresse(benutzerEmailadresse);
-		
-		request.setAttribute("warenkorbartikelliste", warenkorbartikelListe);
 
+		
 		response.addHeader("contentSite", "warenkorbPanel");
 		
 		rq.forward(request, response);

@@ -195,6 +195,21 @@ public class QueryManager {
 		}	
 		return false;	
 	}
+	/**
+	 * <h3>Beschreibung: </h3>
+	 * <pre>
+	 * Die Methode liefert alle in der DB vorhandenen Artikel zurück
+	 * </pre>
+	 * 
+	 * @return artikelliste
+	 */
+	public List<Artikel> selectAllArtikel(){
+		List<Artikel> artikelliste = null;
+		
+		
+		
+		return artikelliste;
+	}
 	
 	public List<Artikel> searchArtikelByBezeichnung(String piBezeichnung){
 		String bezeichnung = piBezeichnung;
