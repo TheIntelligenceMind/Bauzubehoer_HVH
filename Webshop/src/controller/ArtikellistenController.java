@@ -60,16 +60,7 @@ public class ArtikellistenController extends HttpServlet {
 			
 			result = QueryManager.getInstance().createArtikel(newArtikel);
 		}
-				
-		if(result){
-			String hinweistext = "Der Artikel wurde erfolgreich angelegt.";
-			resp.addHeader("Status", RESPONSE_STATUS.HINWEIS.toString());
-			resp.addHeader(MELDUNG_ART.HINWEISMELDUNG.toString(), hinweistext);
-		}else{
-			String fehlermeldung = fehlertext.toString();	
-			resp.addHeader("Status", RESPONSE_STATUS.FEHLER.toString());
-			resp.addHeader(MELDUNG_ART.FEHLERMELDUNG.toString(), fehlermeldung);
-		}
+
 				
 		resp.addHeader("contentSite", "artikelAnlegenPanel");
 	
