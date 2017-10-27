@@ -226,15 +226,41 @@ public class QueryManager {
 	 * 
 	 * @return artikelliste
 	 */
-	public List<Artikel> selectAllArtikel(){
-		List<Artikel> artikelliste = null;
+	public List<Artikel> selectAllArtikel(Boolean active){
+		List<Artikel> artikelliste = new ArrayList<Artikel>();
+		ResultSet result = null;
+		String sql = "";
 		
-		
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			if (active == true){			
+				sql = "SELECT * FROM " + DB_TABELLE.ARTIKEL.toString() + " WHERE aktiv != 0";
+			}
+			else if(active == false){
+				sql = "SELECT * FROM " + DB_TABELLE.ARTIKEL.toString();
+			}
+			PreparedStatement stmt = getConnection().prepareStatement(sql);
+				result = stmt.executeQuery();
+			
+			while(result.next()){
+				Artikel artikel = new Artikel().init(result.getString("bezeichnung"), result.getInt("nummer"), result.getString("beschreibung"), result.getDouble("preis"), result.getInt("lagermenge"));
+				artikelliste.add(artikel);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}		
 		
 		return artikelliste;
 	}
 	
 	public List<Artikel> searchArtikelByBezeichnung(String piBezeichnung){
+		if (piBezeichnung == ""){
+			return selectAllArtikel(true);
+		}
+		
 		String bezeichnung = piBezeichnung;
 		List<Artikel> artikelliste = new ArrayList<Artikel>();
 		ResultSet result = null;	
