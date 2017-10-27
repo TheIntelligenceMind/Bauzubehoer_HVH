@@ -233,12 +233,13 @@ public class QueryManager {
 		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			if (active == true){			
-				sql = "SELECT * FROM " + DB_TABELLE.ARTIKEL.toString() + " WHERE aktiv != 0";
+			if (active){			
+				sql = "SELECT * FROM " + DB_TABELLE.ARTIKEL.toString() + " WHERE aktiv <> 0";
 			}
-			else if(active == false){
+			else if(!active){
 				sql = "SELECT * FROM " + DB_TABELLE.ARTIKEL.toString();
 			}
+			
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 				result = stmt.executeQuery();
 			
@@ -257,7 +258,7 @@ public class QueryManager {
 	}
 	
 	public List<Artikel> searchArtikelByBezeichnung(String piBezeichnung){
-		if (piBezeichnung == ""){
+		if (piBezeichnung == null || piBezeichnung.isEmpty()){
 			return selectAllArtikel(true);
 		}
 		

@@ -44,7 +44,7 @@ public class ArtikellistenController extends HttpServlet {
 		
 		List<Artikel> artikelliste = null;
 		
-		artikelliste = queryManager.selectAllArtikel();
+		artikelliste = queryManager.selectAllArtikel(false);
 		
 		req.setAttribute("artikelliste", artikelliste);
 				

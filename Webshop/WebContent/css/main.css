@@ -524,15 +524,14 @@ artikelTabelle table tr{
 #artikelTabelle th{
 	border-bottom: 1px solid #BF4D17;
 }
-artikelTabelle table tr{
-	border-collapse: collapse;
-	margin:auto;
-	margin-top: 10px;
-	padding: 5px;
-	empty-cells: hide;
-	text-align: left;
-}
 
+#artikelTabelle tbody tr:hover{
+	background-color: #f3f3f3;
+	cursor: default;
+}
+.trashSymbol:hover{
+	cursor: pointer;
+}
 
 
 #zusatzTabelle{

@@ -4,7 +4,17 @@
 
 <%
 	final DecimalFormat formater = new DecimalFormat("#0.00");
+
 %>
+
+<script type="text/javascript">
+function deleteRow(row, artikelnummer){
+	var result = confirm("Sind Sie sicher, dass der Artikel entfernt werden soll?");
+}
+function modifyRow(row, artikelnummer, menge){
+	
+}
+</script>
 
 <div class="showing" id="warenkorbPanel">
 	<h1>Warenkorb</h1>
@@ -45,7 +55,7 @@
 			        		"<td>" + warenkorbartikel.getArtikel().getNummer() + "</td>" +
 			        		"<td>" + warenkorbartikel.getArtikel().getBezeichnung() + "</td>" +
 			        		"<td>" + formater.format(warenkorbartikel.getArtikel().getPreis()*warenkorbartikel.getMenge()) +  "</td>" +
-			        		"<td class='rightRow'>" + "<a href='warenkorbArtikelLoeschen' class='trashSymbol'><i class='fa fa-trash-o'></i></a>" + "</td>" +
+			        		"<td>" + "<a onclick='deleteRow(" + i +"," + warenkorbartikel.getArtikel().getNummer() + ")' class='trashSymbol'><i class='fa fa-trash-o'></i></a>" + "</td>" +
 			        		"</tr>");
 			        		gesamt = gesamt + (warenkorbartikel.getArtikel().getPreis() * warenkorbartikel.getMenge());
 			        		mwst = mwst + (warenkorbartikel.getArtikel().getPreis() * warenkorbartikel.getMenge())*0.19;
@@ -83,5 +93,6 @@
 	        </tbody>  
 		</table>
   	</div>
+	
   	<button id="btnBestellen">Bestellen</button>	  
 </div>
