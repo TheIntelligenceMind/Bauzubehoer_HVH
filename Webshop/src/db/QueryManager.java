@@ -272,7 +272,7 @@ public class QueryManager {
 			String sql = "SELECT * FROM " + DB_TABELLE.ARTIKEL.toString() + " WHERE bezeichnung like ?";
 			
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
-			stmt.setString(1, bezeichnung);
+			stmt.setString(1, "%" + bezeichnung + "%");
 
 			result = stmt.executeQuery();
 			
