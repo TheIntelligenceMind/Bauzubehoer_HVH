@@ -2,11 +2,11 @@ package entity;
 
 public class Adresse {
 
-	String straﬂe;
-	String hausnummer;
-	String postleitzahl;
-	String ort;
-	String zusatz;
+	private String straﬂe;
+	private String hausnummer;
+	private String postleitzahl;
+	private String ort;
+	private String zusatz;
 	
 	public Adresse(){		
 		

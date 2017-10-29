@@ -4,11 +4,11 @@ import entity.Adresse;
 
 public class Benutzer {
 
-	String emailadresse;
-	String passwort;
-	String vorname;
-	String nachname;
-	Adresse lieferAdresse;	
+	private String emailadresse;
+	private String passwort;
+	private String vorname;
+	private String nachname;
+	private Adresse lieferAdresse;	
 	
 	public Benutzer(){		
 	

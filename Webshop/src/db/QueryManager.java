@@ -64,7 +64,9 @@ public class QueryManager {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");		
 			
-			String sql = "SELECT * FROM " + DB_TABELLE.BENUTZER.toString() + " WHERE emailadresse=?";
+			String sql = "SELECT * FROM " + DB_TABELLE.BENUTZER.toString() + " left join " +  
+					DB_TABELLE.ADRESSE.toString() + " on "+ DB_TABELLE.BENUTZER.toString()
+					+".lieferadresse = " + DB_TABELLE.ADRESSE.toString() + ".ID  WHERE emailadresse=?";
 		
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setString(1, piEMailAdresse);
@@ -72,7 +74,10 @@ public class QueryManager {
 			result = stmt.executeQuery();
 			
 			if(result.next()){
-				return benutzer.init(result.getString("emailadresse"), result.getString("passwort"), result.getString("vorname"), result.getString("nachname"), null);
+				Adresse adresse = new Adresse();
+				adresse.init(result.getString("straﬂe"), result.getString("hausnummer"), result.getString("postleitzahl"), result.getString("ort"), result.getString("zusatz"));
+				
+				return benutzer.init(result.getString("emailadresse"), result.getString("passwort"), result.getString("vorname"), result.getString("nachname"), adresse);
 			}else{
 				return null;
 			}
@@ -87,10 +92,37 @@ public class QueryManager {
 	}	
 	
 	public boolean createAdresse(Adresse piAdresse){
+		Adresse adresse = piAdresse;
+		int result;
 		
-		
-		
-		return true;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			
+			String sql = "INSERT INTO " + DB_TABELLE.ADRESSE.toString() + " (straﬂe, hausnummer, postleitzahl, ort, zusatz, erstellt_Benutzer) " 
+			+ " VALUES(?, ?, ?, ?, ?, ?)";
+			
+			PreparedStatement stmt = getConnection().prepareStatement(sql);
+			stmt.setString(1, adresse.getStraﬂe());
+			stmt.setString(2, adresse.getHausnummer());		
+			stmt.setString(3, adresse.getPostleitzahl());
+			stmt.setString(4, adresse.getOrt());
+			stmt.setString(5, adresse.getZusatz());
+			stmt.setString(6, "db_user");
+			
+			result = stmt.executeUpdate();
+			
+			if(result == 1){
+				return true;
+			}else{
+				return false;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}	
+		return false;	
 	}
 	
 	public boolean modifyAdresse(Adresse piAdresse){
