@@ -41,7 +41,7 @@ public class ArtikellistenController extends HttpServlet {
 		List<Artikel> artikelliste = null;
 		
 		artikelliste = queryManager.selectAllArtikel(false);
-		System.out.println(artikelliste.size());
+
 		req.setAttribute("artikelListeMitarbeiter", artikelliste);
 				
 		resp.addHeader("contentSite", "artikelAnzeigenMitarbeiterPanel");	
