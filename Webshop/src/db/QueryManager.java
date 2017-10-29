@@ -64,9 +64,9 @@ public class QueryManager {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");		
 			
-			String sql = "SELECT * FROM " + DB_TABELLE.BENUTZER.toString() + " left join " +  
-					DB_TABELLE.ADRESSE.toString() + " on "+ DB_TABELLE.BENUTZER.toString()
-					+".lieferadresse = " + DB_TABELLE.ADRESSE.toString() + ".ID  WHERE emailadresse=?";
+			String sql = "SELECT * FROM " + DB_TABELLE.ADRESSE.toString() + " left join " +  
+					DB_TABELLE.BENUTZER.toString() + " on "+ DB_TABELLE.ADRESSE.toString()
+					+".Benutzer_ID = " + DB_TABELLE.BENUTZER.toString() + ".ID  WHERE emailadresse=?";
 		
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setString(1, piEMailAdresse);
