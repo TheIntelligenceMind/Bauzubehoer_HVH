@@ -15,10 +15,10 @@ public class Benutzer {
 	}
 	
 	public Benutzer init(String piEmail, String piPasswort, String piVorname, String piNachname, Adresse lieferAdresse){		
-		emailadresse = piEmail != null ? piEmail : "";	
+		emailadresse = piEmail != null ? piEmail : "";
 		passwort = piPasswort != null ? piPasswort : "";	
-		vorname = piVorname != null ? piVorname : "";;
-		nachname = piNachname != null ? piNachname : "";;
+		vorname = piVorname != null ? piVorname : "";
+		nachname = piNachname != null ? piNachname : "";
 		lieferAdresse = lieferAdresse != null ? lieferAdresse : null;
 		
 		return this;
