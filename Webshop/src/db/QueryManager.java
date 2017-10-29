@@ -91,7 +91,8 @@ public class QueryManager {
 		return null;
 	}	
 	
-	public boolean createAdresse(Adresse piAdresse){
+	public boolean createAdresse(String piEmailadresse, Adresse piAdresse){
+		String emailadresse = piEmailadresse;
 		Adresse adresse = piAdresse;
 		int result;
 		
