@@ -23,7 +23,7 @@
 				        		out.println("<div id='artikelListeKundenDesign'>" + 
 			        			"<div id='artikelListeKundenBild'>" + "BILD" + "</div>" +
 				        		"<div id='artikelListeKundenBezeichnung'>" + artikel.getBezeichnung() + "</div>" +
-						        "<div id='artikelListeKundenPreis'>" + formaterArtikel.format(artikel.getPreis()) + "</div>" +
+						        "<div id='artikelListeKundenPreis'>" + "&euro; " +  formaterArtikel.format(artikel.getPreis()) + "</div>" +
 				        	    "<div id='artikelListeKundenBeschreibung'>" + artikel.getBeschreibung() + "</div>" +
 				        	    "<div id='artikelListeKundenWarenkorbButton'>" + "<input id='warenkorbArtikelEinfuegen' type='submit' value='In den Warenkorb'>" + "</div>" +
 				        		"</div>");
