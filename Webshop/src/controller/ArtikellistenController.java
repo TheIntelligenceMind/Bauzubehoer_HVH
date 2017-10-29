@@ -18,7 +18,7 @@ import entity.Artikel;
 /**
  * Servlet implementation class WarenkorbController
  */
-@WebServlet("/artikelliste")
+@WebServlet("/artikelAnzeigenMitarbeiter")
 public class ArtikellistenController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -33,7 +33,7 @@ public class ArtikellistenController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		RequestDispatcher rd = req.getRequestDispatcher("index.jsp");
 		
-		resp.addHeader("contentSite", "artikellistePanel");
+		resp.addHeader("contentSite", "artikelAnzeigenMitarbeiter");
 		
 		rd.forward(req, resp);
 	}
@@ -48,7 +48,7 @@ public class ArtikellistenController extends HttpServlet {
 		
 		req.setAttribute("artikelliste", artikelliste);
 				
-		resp.addHeader("contentSite", "artikellistePanel");	
+		resp.addHeader("contentSite", "artikelAnzeigenMitarbeiter");	
 		rq.forward(req, resp);		
 	}
 }

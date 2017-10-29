@@ -126,7 +126,7 @@
 							break;
 						case "artikelAnzeigenMitarbeiter":
 							%>
-								<%@ include file="ArtikelAnzeigenMitarbeiter.jsp" %>
+								<%@ include file="artikelAnzeigenMitarbeiterPanel.jsp" %>
 							<%
 						default:
 							%>

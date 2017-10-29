@@ -9,8 +9,8 @@
 <div class="showing" id="artikelListeMitarbeiter">
 <h1>Artikelliste</h1>
 
-	<div id="artikelTabellen">
-		      <table id="artikelTabelle">
+	<div id="artikellisteTabellen">
+		      <table id="artikellisteTabelle">
 		        <colgroup>
 			       <col span="1" style="width: 10%;">
 			       <col span="1" style="width: 20%;">
