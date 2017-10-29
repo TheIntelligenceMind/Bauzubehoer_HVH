@@ -95,31 +95,31 @@ public class QueryManager {
 		String emailadresse = piEmailadresse;
 		Adresse adresse = piAdresse;
 		int benutzerID;
-		int first_result;
+		ResultSet first_result = null;
 		int result;
 		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 		
-			String pre_sql = "SELECT ID FROM " + DB_TABELLE.BENUTZER.toString() + " WHERE emailadresse = " + emailadresse;
+			String pre_sql = "SELECT ID FROM " + DB_TABELLE.BENUTZER.toString() + " WHERE emailadresse = ?";
 			
-			PreparedStatement stmt = getConnection().prepareStatement(pre_sql);
-			first_result = stmt.executeUpdate();
+			PreparedStatement pre_stmt = getConnection().prepareStatement(pre_sql);
+			pre_stmt.setString(1, emailadresse);
+			
+			first_result = pre_stmt.executeQuery();
+			
+			// sicherstellen, dass es ein BenutzerObjekt
+			if(first_result == null){
+				return false;
+			}
 			
 			benutzerID = first_result.getInt("id");
 			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}	
-			
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
+			//=============================================================================
 			
 			String sql = "INSERT INTO " + DB_TABELLE.ADRESSE.toString() + " (straﬂe, hausnummer, postleitzahl, ort, zusatz, benutzer_id, erstellt_Benutzer) " 
-			+ " VALUES(?, ?, ?, ?, ?, ?, ?)";
-			
+					+ " VALUES(?, ?, ?, ?, ?, ?, ?)";
+					
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setString(1, adresse.getStraﬂe());
 			stmt.setString(2, adresse.getHausnummer());		
@@ -133,8 +133,6 @@ public class QueryManager {
 			
 			if(result == 1){
 				return true;
-			}else{
-				return false;
 			}
 			
 		} catch (SQLException e) {
@@ -142,6 +140,7 @@ public class QueryManager {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}	
+			
 		return false;	
 	}
 	
