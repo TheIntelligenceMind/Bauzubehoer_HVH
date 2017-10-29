@@ -94,5 +94,6 @@ function modifyRow(row, artikelnummer, menge){
 		</table>
   	</div>
 	
-  	<button id="btnBestellen">Bestellen</button>	  
+  	<button id="btnBestellen">Bestellen</button>
+  	<button id="btnwarenkorbSpeichern" type="submit">Speichern</button>	  
 </div>

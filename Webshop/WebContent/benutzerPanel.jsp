@@ -21,6 +21,7 @@
 		<li><i class="fa fa-bars"></i><a href="meineBestellungen"> Meine Bestellungen</a></li>
 		<li><i class="fa fa-user"></i><a href="meinKonto"> Mein Konto</a></li>
 		<li><i class="fa fa-plus"></i><a href="artikelAnlegen"> Artikel anlegen</a></li>
+		<li><i class="fa fa-database"></i><a href="artikelAnzeigenMitarbeiter">Artikelliste anzeigen</a>
 	</ul>
 	
 	<a href="abmelden" id="abmelden"><i class="fa fa-sign-out"></i> abmelden</a>

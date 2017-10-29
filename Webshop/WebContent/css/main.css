@@ -107,7 +107,7 @@ html,body{
 	padding:1%;
 	min-width: 240px;
 	width: 16%;
-	height: 190px;
+	height: 220px;
 	background-color: #BF4D17;
 	color:white;
 	opacity: 0.85;
@@ -193,7 +193,7 @@ html,body{
 
 /* Link zum Abmelden */
 #abmelden{
-	top: 185px;
+	top: 210px;
 	right: 20px;
 	position: absolute;
 	text-decoration: none;
@@ -438,6 +438,25 @@ artikelTabelle table tr{
 	height: 25px;
 	font-size: 14px;
 }
+#Strasse
+{
+	margin-top: 20px;
+	padding: 3px;
+	background-color: white;
+	width: 35%;
+	border: 1px solid #BF4D17;
+	height: 25px;
+	font-size: 14px;
+}
+#Hausnummer
+{
+	padding: 3px;
+	background-color: white;
+	width: 24%;
+	border: 1px solid #BF4D17;
+	height: 25px;
+	font-size: 14px;
+}
 .btnSpeichern
 {
 	margin-top: 40px;
@@ -575,6 +594,24 @@ artikelTabelle table tr{
 	background-color: #9b4013;
 }
 
+#btnwarenkorbSpeichern{
+	float: right;
+	margin-right: 30px;
+	margin-top: 30px;
+	width: 15%;
+	position: relative;
+	height: 20px;
+	font-size: 15px;
+	border-style: none;
+	color: white;
+	background-color: #BF4D17;
+	border-radius: 5px;
+}
+
+#btnwarenkorbSpeichern:hover{
+	cursor:pointer;
+	background-color: #9b4013;
+}
 
 .trashSymbol{
 	color: black;

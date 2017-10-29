@@ -22,7 +22,8 @@
         <li>
             <input type="radio" name="tabreiter-0" id="tabreiter-0-1" /><label for="tabreiter-0-1">Adresse</label>
             <div>
-            <input title="Strasse und Hausnummer" class="inputField" type="text" name="strasseHausnummer" placeholder="Straße und Hausnummer" disabled>
+            <input title="Strasse" class="inputField" type="text" name="strasse" placeholder="Straße"  id="Strasse" disabled>
+            <input title="Hausnummer" class="inputField" type=text" name="hausnummer" placeholder="Hausnummer" id="Hausnummer" disabled>
 			<input title="PLZ" class="inputField" type="text" name="plz" placeholder="PLZ" disabled>
 			<input title="Ort" class="inputField" type="text" name="ort" placeholder="Ort" disabled>
 			

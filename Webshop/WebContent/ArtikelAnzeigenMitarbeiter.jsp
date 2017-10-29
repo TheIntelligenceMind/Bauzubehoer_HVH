@@ -4,9 +4,10 @@
 <%@page import="java.util.List"%>
 
 <%
-	final DecimalFormat formaterArtikel = new DecimalFormat("#0.00");
+	final DecimalFormat formaterArtikelMitarbeiter = new DecimalFormat("#0.00");
 %>
-<div class="showing" id="artikelListe">
+<div class="showing" id="artikelListeMitarbeiter">
+<h1>Artikelliste</h1>
 
 	<div id="artikelTabellen">
 		      <table id="artikelTabelle">
@@ -31,13 +32,13 @@
 		        </thead>
 		        <tbody>
 		        	<%
-		        	List<Artikel> artikelListe = (List<Artikel>)request.getAttribute("artikelliste");
+		        	List<Artikel> artikelListeMitarbeiter  = (List<Artikel>)request.getAttribute("artikelListeMitarbeiter");
 	
-		        	if(artikelListe != null)
+		        	if(artikelListeMitarbeiter != null)
 		        	{
-			        	for(int i = 0; i <artikelListe.size();i++)
+			        	for(int i = 0; i <artikelListeMitarbeiter.size();i++)
 				        {
-			        		Artikel artikel = artikelListe.get(i);
+			        		Artikel artikel = artikelListeMitarbeiter.get(i);
 			        		if(artikel != null)
 			        		{
 				        		out.println("<tr>" +
@@ -45,8 +46,8 @@
 				        		"<td>" + artikel.getNummer() + "</td>" +
 				        		"<td>" + artikel.getBezeichnung() + "</td>" +
 				        		"<td>" + artikel.getBeschreibung() + "</td>" +
-				        		"<td>" + formaterArtikel.format(artikel.getPreis()) +  "</td>" +
-				        		"<td class='rightRow'>" + "<a href='warenkorbArtikelEinfuegen' class='PickSymbol'><i class='fa fa-cart-arrow-down'></i></a>" + "</td>" +
+				        		"<td>" + formaterArtikelMitarbeiter.format(artikel.getPreis()) +  "</td>" +
+				        		"<td class='rightRow'>" + "<a href='artikelBearbeiten' class='PickSymbol'><i class='fa fa-database'></i></a>" + "</td>" +
 				        		"</tr>");
 				        	}
 		        		}
