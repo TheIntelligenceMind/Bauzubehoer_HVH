@@ -94,13 +94,31 @@ public class QueryManager {
 	public boolean createAdresse(String piEmailadresse, Adresse piAdresse){
 		String emailadresse = piEmailadresse;
 		Adresse adresse = piAdresse;
+		int benutzerID;
+		int first_result;
 		int result;
 		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
+		
+			String pre_sql = "SELECT ID FROM " + DB_TABELLE.BENUTZER.toString() + " WHERE emailadresse = " + emailadresse;
 			
-			String sql = "INSERT INTO " + DB_TABELLE.ADRESSE.toString() + " (straﬂe, hausnummer, postleitzahl, ort, zusatz, erstellt_Benutzer) " 
-			+ " VALUES(?, ?, ?, ?, ?, ?)";
+			PreparedStatement stmt = getConnection().prepareStatement(pre_sql);
+			first_result = stmt.executeUpdate();
+			
+			benutzerID = first_result.getInt("id");
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}	
+			
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			
+			String sql = "INSERT INTO " + DB_TABELLE.ADRESSE.toString() + " (straﬂe, hausnummer, postleitzahl, ort, zusatz, benutzer_id, erstellt_Benutzer) " 
+			+ " VALUES(?, ?, ?, ?, ?, ?, ?)";
 			
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setString(1, adresse.getStraﬂe());
@@ -108,7 +126,8 @@ public class QueryManager {
 			stmt.setString(3, adresse.getPostleitzahl());
 			stmt.setString(4, adresse.getOrt());
 			stmt.setString(5, adresse.getZusatz());
-			stmt.setString(6, "db_user");
+			stmt.setInt(6, benutzerID);
+			stmt.setString(7, "db_user");
 			
 			result = stmt.executeUpdate();
 			
