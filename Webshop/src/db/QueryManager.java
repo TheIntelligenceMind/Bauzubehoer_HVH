@@ -338,7 +338,7 @@ public class QueryManager {
 			result = stmt.executeQuery();
 			
 			if(result.next()){
-				artikel = new Artikel().init(result.getString("bezeichnung"), result.getInt("nummer"), result.getString("beschreibung"), result.getDouble("preis"), result.getInt("lagermenge"));
+				artikel = new Artikel().init(result.getString("bezeichnung"), result.getInt("nummer"), result.getString("beschreibung"), result.getDouble("preis"), result.getInt("lagermenge"), result.getInt("aktiv"));
 			}
 			
 		} catch (SQLException e) {
@@ -372,7 +372,7 @@ public class QueryManager {
 			result = stmt.executeQuery();
 			
 			while(result.next()){
-				Artikel artikel = new Artikel().init(result.getString("bezeichnung"), result.getInt("nummer"), result.getString("beschreibung"), result.getDouble("preis"), result.getInt("lagermenge"));
+				Artikel artikel = new Artikel().init(result.getString("bezeichnung"), result.getInt("nummer"), result.getString("beschreibung"), result.getDouble("preis"), result.getInt("lagermenge"), result.getInt("aktiv"));
 				WarenkorbArtikel warenkorbartikel = new WarenkorbArtikel().init(artikel, result.getInt("position"), result.getInt("menge"));
 				artikelliste.add(warenkorbartikel);
 			}
