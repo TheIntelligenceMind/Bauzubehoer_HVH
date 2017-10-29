@@ -8,12 +8,26 @@
 %>
 
 <script type="text/javascript">
-function deleteRow(row, artikelnummer){
-	var result = confirm("Sind Sie sicher, dass der Artikel entfernt werden soll?");
-}
-function modifyRow(row, artikelnummer, menge){
-	
-}
+$(document).ready(function() {
+    $('table#artikelTabelle td a.trashSymbol').click(function() {
+    	result = confirm("Sind Sie sicher, dass der Artikel entfernt werden soll?");
+    	
+    	if(result){
+    		
+    		var $this = $(this); //Store the context of this in a local variable 
+            $.ajax({
+                type: 'GET',
+                url: '/warenkorb',
+                data: 'script=delauth&aid=' + $this.attr('id'),
+                success: function() {
+                    $this.closest("tr").remove(); //This is much better
+                }
+            });
+        }
+    });
+});
+
+
 </script>
 
 <div class="showing" id="warenkorbPanel">
@@ -55,7 +69,7 @@ function modifyRow(row, artikelnummer, menge){
 			        		"<td>" + warenkorbartikel.getArtikel().getNummer() + "</td>" +
 			        		"<td>" + warenkorbartikel.getArtikel().getBezeichnung() + "</td>" +
 			        		"<td>" + formater.format(warenkorbartikel.getArtikel().getPreis()*warenkorbartikel.getMenge()) +  "</td>" +
-			        		"<td>" + "<a onclick='deleteRow(" + i +"," + warenkorbartikel.getArtikel().getNummer() + ")' class='trashSymbol'><i class='fa fa-trash-o'></i></a>" + "</td>" +
+			        		"<td>" + "<a class='trashSymbol' id='"+ warenkorbartikel.getPosition() +"'><i class='fa fa-trash-o'></i></a>" + "</td>" +
 			        		"</tr>");
 			        		gesamt = gesamt + (warenkorbartikel.getArtikel().getPreis() * warenkorbartikel.getMenge());
 			        		mwst = mwst + (warenkorbartikel.getArtikel().getPreis() * warenkorbartikel.getMenge())*0.19;

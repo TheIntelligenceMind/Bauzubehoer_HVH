@@ -97,8 +97,8 @@ public class QueryManager {
 		return null;
 	}	
 	
-	public boolean createAdresse(String piEmailadresse, Adresse piAdresse){
-		String emailadresse = piEmailadresse;
+	public boolean createAdresse(String piEmailAdresse, Adresse piAdresse){
+		String emailadresse = piEmailAdresse;
 		Adresse adresse = piAdresse;
 		int benutzerID;
 		ResultSet first_result = null;
@@ -115,11 +115,11 @@ public class QueryManager {
 			first_result = pre_stmt.executeQuery();
 			
 			// sicherstellen, dass es ein BenutzerObjekt
-			if(first_result == null){
+			if(!first_result.next()){
 				return false;
 			}
 			
-			benutzerID = first_result.getInt("id");
+			benutzerID = first_result.getInt("ID");
 			
 			//=============================================================================
 			
@@ -128,7 +128,7 @@ public class QueryManager {
 					
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setString(1, adresse.getStraﬂe());
-			stmt.setString(2, adresse.getHausnummer());		
+			stmt.setString(2, adresse.getHausnummer());
 			stmt.setString(3, adresse.getPostleitzahl());
 			stmt.setString(4, adresse.getOrt());
 			stmt.setString(5, adresse.getZusatz());
@@ -150,8 +150,8 @@ public class QueryManager {
 		return false;	
 	}
 	
-	public boolean modifyAdresse(String piEmailadresse, Adresse piAdresse){
-		String emailadresse = piEmailadresse;
+	public boolean modifyAdresse(String piEmailAdresse, Adresse piAdresse){
+		String emailadresse = piEmailAdresse;
 		Adresse adresse = piAdresse;
 		int benutzerID;
 		ResultSet first_result = null;
@@ -461,6 +461,121 @@ public class QueryManager {
 		
 		return artikelliste;
 		
+	}
+	
+	
+	public boolean deleteArtikelFromWarenkorb(WarenkorbArtikel piWarenkorbArtikel, String piEmailAdresse){
+		WarenkorbArtikel warenkorbartikel = piWarenkorbArtikel;
+		String emailadresse = piEmailAdresse;
+		ResultSet result = null;
+		int benutzerID;
+		int artikelID;
+		ResultSet first_result = null;
+		ResultSet second_result = null;
+		
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		//////////////////////
+			String pre_sql = "SELECT ID FROM " + DB_TABELLE.BENUTZER.toString() + " WHERE emailadresse = ?";
+			
+			PreparedStatement pre_stmt = getConnection().prepareStatement(pre_sql);
+			pre_stmt.setString(1, emailadresse);
+			
+			first_result = pre_stmt.executeQuery();
+			
+			if(first_result == null){
+				return false;
+			}
+			
+			benutzerID = first_result.getInt("id");
+		///////////////////////
+			String pre_sql_2 = "SELECT ID FROM " + DB_TABELLE.ARTIKEL.toString() + " WHERE nummer = ?";
+			
+			PreparedStatement pre_stmt_2 = getConnection().prepareStatement(pre_sql_2);
+			pre_stmt_2.setInt(1, warenkorbartikel.artikel.nummer);
+			
+			second_result = pre_stmt_2.executeQuery();
+			
+			if(second_result == null){
+				return false;
+			}
+			
+			artikelID = second_result.getInt("id");
+		///////////////////////
+			String sql = "DELETE FROM " + DB_TABELLE.WARENKORB.toString() + " WHERE Benutzer_ID = ? AND Artikel_ID = ?";
+			
+			PreparedStatement stmt = getConnection().prepareStatement(sql);
+			stmt.setInt(1, benutzerID);
+			stmt.setInt(2, artikelID);
+
+			result = stmt.executeQuery();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}	
+		
+		
+		return true;
+	}
+	
+	public boolean modifyArtikelInWarenkorb(WarenkorbArtikel piWarenkorbArtikel, String piEmailAdresse, int piMenge){
+		WarenkorbArtikel warenkorbartikel = piWarenkorbArtikel;
+		String emailadresse = piEmailAdresse;
+		int menge = piMenge;
+		ResultSet result = null;
+		int benutzerID;
+		int artikelID;
+		ResultSet first_result = null;
+		ResultSet second_result = null;
+		
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		//////////////////////
+			String pre_sql = "SELECT ID FROM " + DB_TABELLE.BENUTZER.toString() + " WHERE emailadresse = ?";
+			
+			PreparedStatement pre_stmt = getConnection().prepareStatement(pre_sql);
+			pre_stmt.setString(1, emailadresse);
+			
+			first_result = pre_stmt.executeQuery();
+			
+			if(first_result == null){
+				return false;
+			}
+			
+			benutzerID = first_result.getInt("id");
+		///////////////////////
+			String pre_sql_2 = "SELECT ID FROM " + DB_TABELLE.ARTIKEL.toString() + " WHERE nummer = ?";
+			
+			PreparedStatement pre_stmt_2 = getConnection().prepareStatement(pre_sql_2);
+			pre_stmt_2.setInt(1, warenkorbartikel.artikel.nummer);
+			
+			second_result = pre_stmt_2.executeQuery();
+			
+			if(second_result == null){
+				return false;
+			}
+			
+			artikelID = second_result.getInt("id");
+		///////////////////////
+			String sql = "UPDATE " + DB_TABELLE.WARENKORB.toString() + "SET MENGE = ? WHERE Benutzer_ID = ? AND Artikel_ID = ?";
+			
+			PreparedStatement stmt = getConnection().prepareStatement(sql);
+			stmt.setInt(1, menge);
+			stmt.setInt(2, benutzerID);
+			stmt.setInt(3, artikelID);
+
+			result = stmt.executeQuery();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}	
+		
+		
+		return true;
 	}
 	
 }

@@ -99,15 +99,15 @@ public class KontoController extends HttpServlet {
     
     private boolean speicherAdresse(HttpServletRequest req){
     	boolean result = false;
-    	String straﬂe = req.getParameter("strasse");
+    	String strasse = req.getParameter("strasse");
     	String hausnummer = req.getParameter("hausnummer");
     	String plz = req.getParameter("postleitzahl");
     	String ort = req.getParameter("ort");
-    	
+
     	Benutzer benutzer = queryManager.getBenutzerByEMailAdresse(req.getSession().getAttribute("emailadresse").toString());
     	
     	if(benutzer != null && benutzer.getLieferAdresse() == null){
-    		Adresse new_adresse = new Adresse().init(straﬂe, hausnummer, plz, ort, "");
+    		Adresse new_adresse = new Adresse().init(strasse, hausnummer, plz, ort, "");
     		benutzer.setLieferAdresse(new_adresse);
     		result = queryManager.createAdresse(benutzer.getEmailadresse(), new_adresse);
     		
@@ -116,15 +116,15 @@ public class KontoController extends HttpServlet {
     		}
 
     	}else if(benutzer != null && benutzer.getLieferAdresse() != null){
-    		if(straﬂe != null && !straﬂe.isEmpty() && hausnummer != null && !hausnummer.isEmpty() && plz != null && !plz.isEmpty() && ort != null && !ort.isEmpty()){
+    		if(strasse != null && !strasse.isEmpty() && hausnummer != null && !hausnummer.isEmpty() && plz != null && !plz.isEmpty() && ort != null && !ort.isEmpty()){
         		Adresse update_adresse = benutzer.getLieferAdresse();
         		
-        		update_adresse.setStraﬂe(straﬂe);
+        		update_adresse.setStraﬂe(strasse);
         		update_adresse.setHausnummer(hausnummer);
         		update_adresse.setPostleitzahl(plz);
         		update_adresse.setOrt(ort);
         		
-        		result = queryManager.modifyAdresse(update_adresse);
+        		result = queryManager.modifyAdresse(benutzer.getEmailadresse(), update_adresse);
         	}
     	}
     	
