@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import db.QueryManager;
+import entity.Adresse;
 import entity.Benutzer;
 import enums.MELDUNG_ART;
 import enums.RESPONSE_STATUS;
@@ -25,6 +26,7 @@ public class KontoController extends HttpServlet {
 	
 	private static final QueryManager queryManager = QueryManager.getInstance();
 	private Benutzer benutzer = null;
+	private Adresse adresse = null;
 
     public KontoController() {
         super();
@@ -73,7 +75,17 @@ public class KontoController extends HttpServlet {
 			}				
 			break;
 		case "f_speichern_adresse":
-			speicherAdresse(req);
+			if(speicherAdresse(req)){
+				benutzer = queryManager.getBenutzerByEMailAdresse(req.getSession().getAttribute("emailadresse").toString());
+				
+				String hinweistext = "Die Benutzeradresse wurde erfolgreich gespeichert.";
+				resp.addHeader("Status", RESPONSE_STATUS.HINWEIS.toString());
+				resp.addHeader(MELDUNG_ART.HINWEISMELDUNG.toString(), hinweistext);			
+			}else{
+				String fehlermeldung = "ung¸ltige ƒnderungen";	
+				resp.addHeader("Status", RESPONSE_STATUS.FEHLER.toString());
+				resp.addHeader(MELDUNG_ART.FEHLERMELDUNG.toString(), fehlermeldung);
+			}
 			break;
 		default:
 			break;
@@ -86,9 +98,37 @@ public class KontoController extends HttpServlet {
 	}
     
     private boolean speicherAdresse(HttpServletRequest req){
+    	boolean result = false;
+    	String straﬂe = req.getParameter("strasse");
+    	String hausnummer = req.getParameter("hausnummer");
+    	String plz = req.getParameter("postleitzahl");
+    	String ort = req.getParameter("ort");
     	
+    	Benutzer benutzer = queryManager.getBenutzerByEMailAdresse(req.getSession().getAttribute("emailadresse").toString());
     	
-    	return false;
+    	if(benutzer != null && benutzer.getLieferAdresse() == null){
+    		Adresse new_adresse = new Adresse().init(straﬂe, hausnummer, plz, ort, "");
+    		benutzer.setLieferAdresse(new_adresse);
+    		result = queryManager.createAdresse(benutzer.getEmailadresse(), new_adresse);
+    		
+    		if(result){
+    			result = queryManager.modifyBenutzer(benutzer);
+    		}
+
+    	}else if(benutzer != null && benutzer.getLieferAdresse() != null){
+    		if(straﬂe != null && !straﬂe.isEmpty() && hausnummer != null && !hausnummer.isEmpty() && plz != null && !plz.isEmpty() && ort != null && !ort.isEmpty()){
+        		Adresse update_adresse = benutzer.getLieferAdresse();
+        		
+        		update_adresse.setStraﬂe(straﬂe);
+        		update_adresse.setHausnummer(hausnummer);
+        		update_adresse.setPostleitzahl(plz);
+        		update_adresse.setOrt(ort);
+        		
+        		result = queryManager.modifyAdresse(update_adresse);
+        	}
+    	}
+    	
+    	return result;
     }
     
     

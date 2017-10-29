@@ -49,7 +49,7 @@
 				        		"<td>" + artikel.getBezeichnung() + "</td>" +
 				        		"<td>" + artikel.getBeschreibung() + "</td>" +
 				        		"<td>" + formaterArtikelMitarbeiter.format(artikel.getPreis()) +  "</td>" +
-				        		"<td>" + "artikel.getAktiv" + "</td>" +
+				        		"<td>" + artikel.getAktiv() + "</td>" +
 				        		"<td class='rightRow'>" + "<a href='artikelBearbeiten' class='PickSymbol'><i class='fa fa-pencil-square-o'></i></a>" + "</td>" +
 				        		"</tr>");
 				        	}

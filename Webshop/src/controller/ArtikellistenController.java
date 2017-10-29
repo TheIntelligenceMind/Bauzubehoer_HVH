@@ -33,7 +33,7 @@ public class ArtikellistenController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		RequestDispatcher rd = req.getRequestDispatcher("index.jsp");
 		
-		resp.addHeader("contentSite", "artikelAnzeigenMitarbeiter");
+		resp.addHeader("contentSite", "artikelAnzeigenMitarbeiterPanel");
 		
 		rd.forward(req, resp);
 	}
@@ -46,9 +46,9 @@ public class ArtikellistenController extends HttpServlet {
 		
 		artikelliste = queryManager.selectAllArtikel(false);
 		
-		req.setAttribute("artikelliste", artikelliste);
+		req.setAttribute("artikelListeMitarbeiter", artikelliste);
 				
-		resp.addHeader("contentSite", "artikelAnzeigenMitarbeiter");	
+		resp.addHeader("contentSite", "artikelAnzeigenMitarbeiterPanel");	
 		rq.forward(req, resp);		
 	}
 }

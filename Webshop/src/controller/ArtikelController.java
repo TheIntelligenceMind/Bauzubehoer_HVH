@@ -56,7 +56,7 @@ public class ArtikelController extends HttpServlet {
 		
 		if((fehlertext = validateAttributes(bezeichnung, nummer, beschreibung, preis, lagermenge)) == null){
 			
-			Artikel newArtikel = new Artikel().init(bezeichnung, nummer, beschreibung, preis, lagermenge);
+			Artikel newArtikel = new Artikel().init(bezeichnung, nummer, beschreibung, preis, lagermenge, 1);
 			
 			result = QueryManager.getInstance().createArtikel(newArtikel);
 		}

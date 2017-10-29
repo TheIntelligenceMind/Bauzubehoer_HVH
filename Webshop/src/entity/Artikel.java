@@ -7,17 +7,19 @@ public class Artikel {
 	private double preis;
 	private String beschreibung;
 	private int lagermenge;
+	private int aktiv;
 	
 	public Artikel(){
 		
 	}
 	
-	public Artikel init(String piBezeichnung, int piNummer, String piBeschreibung, double piPreis, int piLagermenge){		
+	public Artikel init(String piBezeichnung, int piNummer, String piBeschreibung, double piPreis, int piLagermenge, int piAktiv){		
 		bezeichnung = piBezeichnung;
 		nummer = piNummer;
 		beschreibung = piBeschreibung;
 		preis = piPreis;
 		lagermenge = piLagermenge;
+		setAktiv(piAktiv);
 		
 		return this;
 	}
@@ -61,6 +63,14 @@ public class Artikel {
 
 	public void setLagermenge(int lagermenge) {
 		this.lagermenge = lagermenge;
+	}
+
+	public int getAktiv() {
+		return aktiv;
+	}
+
+	public void setAktiv(int aktiv) {
+		this.aktiv = aktiv;
 	}
 	
 }

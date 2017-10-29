@@ -22,7 +22,7 @@ public class LogoutController extends HttpServlet{
 		session = req.getSession();
 		session.invalidate();
 		
-		RequestDispatcher rd = req.getRequestDispatcher("index.jsp");
+		RequestDispatcher rd = req.getRequestDispatcher("/suchen");
 		rd.forward(req, resp);
 		
 		

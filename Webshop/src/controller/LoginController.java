@@ -34,7 +34,7 @@ public class LoginController extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {		
 		resp.setContentType("text/html");  		
-		String dispatchSite =  "index.jsp";
+		String dispatchSite =  "/suchen";
 			
 		RequestDispatcher rd = req.getRequestDispatcher(dispatchSite);
 
@@ -57,7 +57,7 @@ public class LoginController extends HttpServlet{
 					anmeldeStatus = true;
 					
 					session = req.getSession();
-					// Nach 5 Minuten wird die Session automatisch geloescht
+					// Nach 10 Minuten wird die Session automatisch geloescht
 					session.setMaxInactiveInterval(10*60);
 					
 					session.setAttribute("vorname", benutzer.getVorname());
