@@ -64,8 +64,8 @@ public class QueryManager {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");		
 			
-			String sql = "SELECT * FROM " + DB_TABELLE.ADRESSE.toString() + " left join " +  
-					DB_TABELLE.BENUTZER.toString() + " on "+ DB_TABELLE.ADRESSE.toString()
+			String sql = "SELECT * FROM " + DB_TABELLE.BENUTZER.toString() + " left join " +  
+					DB_TABELLE.ADRESSE.toString() + " on "+ DB_TABELLE.ADRESSE.toString()
 					+".Benutzer_ID = " + DB_TABELLE.BENUTZER.toString() + ".ID  WHERE emailadresse=?";
 		
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
@@ -381,7 +381,7 @@ public class QueryManager {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 						
-			String sql = "SELECT w.position, w.menge, a.nummer, a.bezeichnung, a.beschreibung, a.preis, a.lagermenge FROM " + 
+			String sql = "SELECT w.position, w.menge, a.nummer, a.bezeichnung, a.beschreibung, a.preis, a.lagermenge, a.aktiv FROM " + 
 			DB_TABELLE.WARENKORB.toString() + " w INNER JOIN "+ DB_TABELLE.BENUTZER.toString() + " b ON w.Benutzer_ID = b.ID LEFT JOIN " + 
 			DB_TABELLE.ARTIKEL.toString() + " a ON a.ID = w.Artikel_ID WHERE b.emailadresse = ?";
 			
