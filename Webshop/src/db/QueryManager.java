@@ -463,6 +463,7 @@ public class QueryManager {
 		
 	}
 	
+	
 	public boolean deleteArtikelFromWarenkorb(WarenkorbArtikel piWarenkorbArtikel, String piEmailAdresse){
 		WarenkorbArtikel warenkorbartikel = piWarenkorbArtikel;
 		String emailadresse = piEmailAdresse;
