@@ -2,7 +2,7 @@ package entity;
 
 public class WarenkorbArtikel {
 
-	private Artikel artikel;
+	public Artikel artikel;
 	private int position;
 	private int menge;
 	
