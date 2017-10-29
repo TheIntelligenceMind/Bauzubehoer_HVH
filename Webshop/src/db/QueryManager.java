@@ -65,8 +65,8 @@ public class QueryManager {
 			Class.forName("com.mysql.jdbc.Driver");		
 			
 			String sql = "SELECT * FROM " + DB_TABELLE.BENUTZER.toString() + " left join " +  
-					DB_TABELLE.ADRESSE.toString() + " on "+ DB_TABELLE.BENUTZER.toString()
-					+".lieferadresse = " + DB_TABELLE.ADRESSE.toString() + ".ID  WHERE emailadresse=?";
+					DB_TABELLE.ADRESSE.toString() + " on "+ DB_TABELLE.ADRESSE.toString()
+					+".Benutzer_ID = " + DB_TABELLE.BENUTZER.toString() + ".ID  WHERE emailadresse=?";
 		
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setString(1, piEMailAdresse);
@@ -91,30 +91,48 @@ public class QueryManager {
 		return null;
 	}	
 	
-	public boolean createAdresse(Adresse piAdresse){
+	public boolean createAdresse(String piEmailadresse, Adresse piAdresse){
+		String emailadresse = piEmailadresse;
 		Adresse adresse = piAdresse;
+		int benutzerID;
+		ResultSet first_result = null;
 		int result;
 		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
+		
+			String pre_sql = "SELECT ID FROM " + DB_TABELLE.BENUTZER.toString() + " WHERE emailadresse = ?";
 			
-			String sql = "INSERT INTO " + DB_TABELLE.ADRESSE.toString() + " (straﬂe, hausnummer, postleitzahl, ort, zusatz, erstellt_Benutzer) " 
-			+ " VALUES(?, ?, ?, ?, ?, ?)";
+			PreparedStatement pre_stmt = getConnection().prepareStatement(pre_sql);
+			pre_stmt.setString(1, emailadresse);
 			
+			first_result = pre_stmt.executeQuery();
+			
+			// sicherstellen, dass es ein BenutzerObjekt
+			if(first_result == null){
+				return false;
+			}
+			
+			benutzerID = first_result.getInt("id");
+			
+			//=============================================================================
+			
+			String sql = "INSERT INTO " + DB_TABELLE.ADRESSE.toString() + " (straﬂe, hausnummer, postleitzahl, ort, zusatz, benutzer_id, erstellt_Benutzer) " 
+					+ " VALUES(?, ?, ?, ?, ?, ?, ?)";
+					
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setString(1, adresse.getStraﬂe());
 			stmt.setString(2, adresse.getHausnummer());		
 			stmt.setString(3, adresse.getPostleitzahl());
 			stmt.setString(4, adresse.getOrt());
 			stmt.setString(5, adresse.getZusatz());
-			stmt.setString(6, "db_user");
+			stmt.setInt(6, benutzerID);
+			stmt.setString(7, "db_user");
 			
 			result = stmt.executeUpdate();
 			
 			if(result == 1){
 				return true;
-			}else{
-				return false;
 			}
 			
 		} catch (SQLException e) {
@@ -122,6 +140,7 @@ public class QueryManager {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}	
+			
 		return false;	
 	}
 	
@@ -362,7 +381,7 @@ public class QueryManager {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 						
-			String sql = "SELECT w.position, w.menge, a.nummer, a.bezeichnung, a.beschreibung, a.preis, a.lagermenge FROM " + 
+			String sql = "SELECT w.position, w.menge, a.nummer, a.bezeichnung, a.beschreibung, a.preis, a.lagermenge, a.aktiv FROM " + 
 			DB_TABELLE.WARENKORB.toString() + " w INNER JOIN "+ DB_TABELLE.BENUTZER.toString() + " b ON w.Benutzer_ID = b.ID LEFT JOIN " + 
 			DB_TABELLE.ARTIKEL.toString() + " a ON a.ID = w.Artikel_ID WHERE b.emailadresse = ?";
 			
