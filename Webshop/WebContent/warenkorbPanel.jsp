@@ -8,25 +8,28 @@
 %>
 
 <script type="text/javascript">
-$(document).ready(function() {
-    $('table#artikelTabelle td a.trashSymbol').click(function() {
-    	result = confirm("Sind Sie sicher, dass der Artikel entfernt werden soll?");
-    	
-    	if(result){
-    		
-    		var $this = $(this); //Store the context of this in a local variable 
-            $.ajax({
-                type: 'GET',
-                url: '/warenkorb',
-                data: 'script=delauth&aid=' + $this.attr('id'),
-                success: function() {
-                    $this.closest("tr").remove(); //This is much better
-                }
-            });
-        }
-    });
-});
 
+function deleteRow(element){
+	var result = confirm("Sind Sie sicher, dass der Artikel entfernt werden soll?");
+
+	if(result){
+		$(document).ready(function() {
+			var obj = {id:"test"};
+	       	$.ajax({
+	           type: 'POST',
+	           url: '/Webshop/warenkorb',
+	           data: obj,
+	           contentType: "application/json",
+               dataType: "json",
+               async: true,
+               cache: false,
+	           success: function() {
+	               alert("Es hat geklappt");
+	           }
+	       });      
+		});
+	}
+}
 
 </script>
 
@@ -69,7 +72,7 @@ $(document).ready(function() {
 			        		"<td>" + warenkorbartikel.getArtikel().getNummer() + "</td>" +
 			        		"<td>" + warenkorbartikel.getArtikel().getBezeichnung() + "</td>" +
 			        		"<td>" + formater.format(warenkorbartikel.getArtikel().getPreis()*warenkorbartikel.getMenge()) +  "</td>" +
-			        		"<td>" + "<a class='trashSymbol' id='"+ warenkorbartikel.getPosition() +"'><i class='fa fa-trash-o'></i></a>" + "</td>" +
+			        		"<td>" + "<a class='trashSymbol' onclick='deleteRow(this)' id='"+ warenkorbartikel.getPosition() +"'><i class='fa fa-trash-o'></i></a>" + "</td>" +
 			        		"</tr>");
 			        		gesamt = gesamt + (warenkorbartikel.getArtikel().getPreis() * warenkorbartikel.getMenge());
 			        		mwst = mwst + (warenkorbartikel.getArtikel().getPreis() * warenkorbartikel.getMenge())*0.19;
