@@ -280,7 +280,7 @@ html,body{
 #artikelListeMitarbeiterTabelle th{
 	border-bottom: 1px solid #BF4D17;
 }
-artikelListeMitarbeiterTabelle table tr{
+#artikelListeMitarbeiterTabelle table tr{
 	border-collapse: collapse;
 	margin:auto;
 	margin-top: 10px;
@@ -292,7 +292,79 @@ artikelListeMitarbeiterTabelle table tr{
 
 
 
-
+/* --------------- Panel mit Artikeln für Kunden  ------------------- */
+#artikelListeKunden{
+	margin: 50px auto;
+	padding: 15px;
+	
+}
+#artikelListeKundenDesign
+{
+	text-align: center;
+	opacity: 0.9;
+	background-color: white;
+	border-radius: 20px;
+  	-webkit-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
+	box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
+	border: solid 2px #BF4D17;;
+	border-radius: 20px;
+	border-collapse: collapse;
+	width: 775px;
+	height: 110px;
+	margin: 20px auto;
+	margin-top: 10px;
+}
+#artikelListeKundenBild
+{
+	float: left;
+	margin-left: 25px;
+	margin-top: 10px;
+	border: solid 1px black;
+	border-radius: 2px;
+	height: 85px;
+	width: 90px;
+}
+#artikelListeKundenBezeichnung
+{
+	float: left;
+	margin-left: 10px;
+	border: solid 1px black;
+	border-radius: 2px;
+	width: 500px;
+	margin-top: 10px;
+}
+#artikelListeKundenBeschreibung
+{
+	float: left;
+	text-align: left;
+	margin-left: 10px;
+	border: solid 1px black;
+	border-radius: 2px;
+	width: 500px;
+	margin-top: 10px;
+	height: 55px;
+}
+#artikelListeKundenPreis
+{
+	float: left;
+	margin-left: 10px;
+	margin-top: 10px;
+	border: solid 1px black;
+	border-radius: 2px;
+	width: 80px;
+}
+#artikelListeKundenWarenkorbButton
+{
+	float: left;
+	margin-left: 10px;
+	border: solid 1px black;
+	border-radius: 2px;
+	margin-top: 40px;
+	height: 20px;
+	width: 110px;
+}
+/* --------------- Panel mit Artikeln für Kunden  ------------------- */
 
 
 
@@ -742,7 +814,7 @@ artikelListeMitarbeiterTabelle table tr{
 /* ---------- Panel für Fehlermeldungen ----------------- */
 #fehlermeldungPanel{
 	margin: 0;
-	top: 240px;
+	top: 270px;
 	right: 0;
 	position: absolute;
 	height: 90px;
@@ -779,7 +851,7 @@ artikelListeMitarbeiterTabelle table tr{
 /* ---------- Panel für Hinweismeldungen ----------------- */
 #hinweismeldungPanel{
 	margin: 0;
-	top: 240px;
+	top: 270px;
 	right: 0;
 	position: absolute;
 	height: 90px;
@@ -821,22 +893,22 @@ artikelListeMitarbeiterTabelle table tr{
 }
 @-webkit-keyframes opening {
     from {top: 330px; opacity: 0; }
-    to {top: 240px; opacity: 0.85;}
+    to {top: 270px; opacity: 0.85;}
 }
 @keyframes opening {
     from {top: 330px; opacity: 0; }
-    to {top: 240px; opacity: 0.85;}
+    to {top: 270px; opacity: 0.85;}
 }
 .closing{
 	-webkit-animation: closing 1s 1; /* Safari 4.0 - 8.0 */
     animation: closing 1s 1;
 }
 @-webkit-keyframes closing {
-    from {top: 240px; opacity: 0.85;}
+    from {top: 270px; opacity: 0.85;}
     to {top: 330px; opacity: 0;}
 }
 @keyframes closing {
-    from {top: 240px; opacity: 0.85;}
+    from {top: 270px; opacity: 0.85;}
     to {top: 330px; opacity: 0;}
 }
 
