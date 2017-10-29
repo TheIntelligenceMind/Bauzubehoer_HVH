@@ -9,14 +9,15 @@
 <div class="showing" id="artikelListeMitarbeiter">
 <h1>Artikelliste</h1>
 
-	<div id="artikellisteTabellen">
-		      <table id="artikellisteTabelle">
+	<div id="artikelListeMitarbeiterTabellen">
+		      <table id="artikelListeMitarbeiterTabelle">
 		        <colgroup>
 			       <col span="1" style="width: 10%;">
 			       <col span="1" style="width: 20%;">
 			       <col span="1" style="width: 15%;">
 			       <col span="1" style="width: 30%;">
 			       <col span="1" style="width: 15%;">
+			       <col span="1" style="width: 10%;">
 			       <col span="1" style="width: 5%;">
 			    </colgroup>
 		        
@@ -27,6 +28,7 @@
 		            <th>Produkt</th>
 		            <th>Produktbeschreibung</th>
 		            <th>Preis</th>
+		            <th>Aktiv</th>
 		            <th></th>
 		          </tr>
 		        </thead>
@@ -47,7 +49,8 @@
 				        		"<td>" + artikel.getBezeichnung() + "</td>" +
 				        		"<td>" + artikel.getBeschreibung() + "</td>" +
 				        		"<td>" + formaterArtikelMitarbeiter.format(artikel.getPreis()) +  "</td>" +
-				        		"<td class='rightRow'>" + "<a href='artikelBearbeiten' class='PickSymbol'><i class='fa fa-database'></i></a>" + "</td>" +
+				        		"<td>" + "artikel.getAktiv" + "</td>" +
+				        		"<td class='rightRow'>" + "<a href='artikelBearbeiten' class='PickSymbol'><i class='fa fa-pencil-square-o'></i></a>" + "</td>" +
 				        		"</tr>");
 				        	}
 		        		}

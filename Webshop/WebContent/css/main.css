@@ -139,7 +139,7 @@ html,body{
 
 .controllPanel ul li {
 	line-height: 27px;
-	width: 80%;
+	width: 90%;
 	list-style-type: none;
 }
 .controllPanel a{
@@ -193,7 +193,7 @@ html,body{
 
 /* Link zum Abmelden */
 #abmelden{
-	top: 210px;
+	top: 220px;
 	right: 20px;
 	position: absolute;
 	text-decoration: none;
@@ -242,8 +242,8 @@ html,body{
 
 
 
-/* --------------- Panel mit Artikeln ------------------- */
-#artikelListe{
+/* --------------- Panel mit Artikeln für Mitarbeiter ------------------- */
+#artikelListeMitarbeiter{
 	margin: 50px auto;
 	width: 700px;
 	height: 500px;
@@ -255,32 +255,32 @@ html,body{
 	-moz-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
 	box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
 }
-#artikelListe p{
+#artikelListeMitarbeiter p{
 	margin: 0;
 	padding: 2%;
 	font-family: sans-serif;
 }
-#artikelListe h1{
+#artikelListeMitarbeiter h1{
 	margin: 0;
 	padding: 10px;
 	color: #BF4D17;	
 }
-#artikelTabellen{
+#artikelListeMitarbeiterTabellen{
 	width: 100%;
 	height: 65%;
 	text-align: center;
 }
 
-#artikelTabelle{
+#artikelListeMitarbeiterTabelle{
 	width: 80%;
 	max-height: 70%;
 	margin-left: 10%;
 }
 
-#artikelTabelle th{
+#artikelListeMitarbeiterTabelle th{
 	border-bottom: 1px solid #BF4D17;
 }
-artikelTabelle table tr{
+artikelListeMitarbeiterTabelle table tr{
 	border-collapse: collapse;
 	margin:auto;
 	margin-top: 10px;
@@ -288,7 +288,7 @@ artikelTabelle table tr{
 	empty-cells: hide;
 	text-align: left;
 }
-/* --------------- Panel mit Artikeln ------------------- */
+/* --------------- Panel mit Artikeln für Mitarbeiter ------------------- */
 
 
 
