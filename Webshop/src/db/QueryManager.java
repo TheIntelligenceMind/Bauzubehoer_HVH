@@ -15,6 +15,9 @@ import entity.Bestellung;
 import entity.WarenkorbArtikel;
 import enums.DB_TABELLE;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+
 /**
  * <h3>Beschreibung:</h3>
  * <pre>
@@ -24,6 +27,9 @@ import enums.DB_TABELLE;
  * @author Tim Hermbecker
  */
 public class QueryManager {
+	
+	private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 	
 	private final static QueryManager instance = new QueryManager();	
 	private Connection connection = null;
@@ -144,12 +150,59 @@ public class QueryManager {
 		return false;	
 	}
 	
-	public boolean modifyAdresse(Adresse piAdresse){
+	public boolean modifyAdresse(String piEmailadresse, Adresse piAdresse){
+		String emailadresse = piEmailadresse;
+		Adresse adresse = piAdresse;
+		int benutzerID;
+		ResultSet first_result = null;
+		int result;
 		
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
 		
+			String pre_sql = "SELECT ID FROM " + DB_TABELLE.BENUTZER.toString() + " WHERE emailadresse = ?";
+			
+			PreparedStatement pre_stmt = getConnection().prepareStatement(pre_sql);
+			pre_stmt.setString(1, emailadresse);
+			
+			first_result = pre_stmt.executeQuery();
+			
+			// sicherstellen, dass es ein BenutzerObjekt
+			if(first_result == null){
+				return false;
+			}
+			
+			benutzerID = first_result.getInt("id");
+			
+			//=============================================================================
+			String sql = "UPDATE " + DB_TABELLE.ADRESSE.toString() + "SET straﬂe = ?, hausnummer = ?, postleitzahl = ?, ort = ?,"
+					+ " zusatz = ?, geaendert_Benutzer = ?, geandert_Uhrzeit = ? WHERE Benutzer_ID = ?";
+					
+			PreparedStatement stmt = getConnection().prepareStatement(sql);
+			stmt.setString(1, adresse.getStraﬂe());
+			stmt.setString(2, adresse.getHausnummer());		
+			stmt.setString(3, adresse.getPostleitzahl());
+			stmt.setString(4, adresse.getOrt());
+			stmt.setString(5, adresse.getZusatz());
+			stmt.setString(6, "db_user");
+			stmt.setString(7, sdf.format(timestamp));
+			stmt.setInt(8, benutzerID);
+			
+			result = stmt.executeUpdate();
+			
+			if(result == 1){
+				return true;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}	
 		
 		return true;
 	}
+
 	
 	public boolean deleteAdresse(int id){
 		
