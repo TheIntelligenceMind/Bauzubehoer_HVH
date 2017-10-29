@@ -276,7 +276,7 @@ public class QueryManager {
 				result = stmt.executeQuery();
 			
 			while(result.next()){
-				Artikel artikel = new Artikel().init(result.getString("bezeichnung"), result.getInt("nummer"), result.getString("beschreibung"), result.getDouble("preis"), result.getInt("lagermenge"));
+				Artikel artikel = new Artikel().init(result.getString("bezeichnung"), result.getInt("nummer"), result.getString("beschreibung"), result.getDouble("preis"), result.getInt("lagermenge"), result.getInt("aktiv"));
 				artikelliste.add(artikel);
 			}
 			
