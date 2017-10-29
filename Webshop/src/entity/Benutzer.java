@@ -14,12 +14,12 @@ public class Benutzer {
 	
 	}
 	
-	public Benutzer init(String piEmail, String piPasswort, String piVorname, String piNachname, Adresse lieferAdresse){		
+	public Benutzer init(String piEmail, String piPasswort, String piVorname, String piNachname, Adresse piLieferAdresse){		
 		emailadresse = piEmail != null ? piEmail : "";
 		passwort = piPasswort != null ? piPasswort : "";	
 		vorname = piVorname != null ? piVorname : "";
 		nachname = piNachname != null ? piNachname : "";
-		lieferAdresse = lieferAdresse != null ? lieferAdresse : null;
+		lieferAdresse = piLieferAdresse != null ? piLieferAdresse : null;
 		
 		return this;
 	}

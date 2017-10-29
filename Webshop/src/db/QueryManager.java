@@ -80,8 +80,7 @@ public class QueryManager {
 			result = stmt.executeQuery();
 			
 			if(result.next()){
-				Adresse adresse = new Adresse();
-				adresse.init(result.getString("straﬂe"), result.getString("hausnummer"), result.getString("postleitzahl"), result.getString("ort"), result.getString("zusatz"));
+				Adresse adresse = new Adresse().init(result.getString("straﬂe"), result.getString("hausnummer"), result.getString("postleitzahl"), result.getString("ort"), result.getString("zusatz"));
 				
 				return benutzer.init(result.getString("emailadresse"), result.getString("passwort"), result.getString("vorname"), result.getString("nachname"), adresse);
 			}else{
@@ -168,15 +167,15 @@ public class QueryManager {
 			first_result = pre_stmt.executeQuery();
 			
 			// sicherstellen, dass es ein BenutzerObjekt
-			if(first_result == null){
+			if(!first_result.next()){
 				return false;
 			}
 			
 			benutzerID = first_result.getInt("id");
 			
 			//=============================================================================
-			String sql = "UPDATE " + DB_TABELLE.ADRESSE.toString() + "SET straﬂe = ?, hausnummer = ?, postleitzahl = ?, ort = ?,"
-					+ " zusatz = ?, geaendert_Benutzer = ?, geandert_Uhrzeit = ? WHERE Benutzer_ID = ?";
+			String sql = "UPDATE " + DB_TABELLE.ADRESSE.toString() + " SET straﬂe = ?, hausnummer = ?, postleitzahl = ?, ort = ?,"
+					+ " zusatz = ?, geaendert_Benutzer = ?, geaendert_Datum = ? WHERE Benutzer_ID = ?";
 					
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setString(1, adresse.getStraﬂe());

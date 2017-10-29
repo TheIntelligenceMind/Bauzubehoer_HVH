@@ -22,6 +22,11 @@ public class Adresse {
 		return this;
 	}
 	
+
+	public String toString(){
+		return straße + " " + hausnummer + "|" + postleitzahl + " " + ort;
+	}
+	
 	public String getStraße() {
 		return straße;
 	}

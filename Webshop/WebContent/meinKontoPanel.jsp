@@ -23,10 +23,10 @@
             <input type="radio" name="tabreiter-0" id="tabreiter-0-1" /><label for="tabreiter-0-1">Adresse</label>
             <div>
             <form action="meinKonto" method="post">
-	            <input title="Strasse" class="inputField" type="text" name="strasse" placeholder="Straße" id="Strasse">
-	            <input title="Hausnummer" class="inputField" type="text" name="hausnummer" placeholder="Hausnummer" id="Hausnummer">
-				<input title="PLZ" class="inputField" type="text" name="postleitzahl" placeholder="PLZ">
-				<input title="Ort" class="inputField" type="text" name="ort" placeholder="Ort">
+	            <input title="Strasse" class="inputField" type="text" name="strasse" placeholder="Straße" id="Strasse" value="<% out.print(benutzer.getLieferAdresse().getStraße()); %>">
+	            <input title="Hausnummer" class="inputField" type="text" name="hausnummer" placeholder="Hausnummer" id="Hausnummer" value="<% out.print(benutzer.getLieferAdresse().getHausnummer()); %>">
+				<input title="PLZ" class="inputField" type="text" name="postleitzahl" placeholder="PLZ" value="<% out.print(benutzer.getLieferAdresse().getPostleitzahl()); %>">
+				<input title="Ort" class="inputField" type="text" name="ort" placeholder="Ort" value="<% out.print(benutzer.getLieferAdresse().getOrt()); %>">
 				<button class="btnSpeichern" type="submit" name="function" value="f_speichern_adresse">Speichern</button>
 			</form>
             </div>

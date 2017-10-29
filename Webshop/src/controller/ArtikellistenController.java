@@ -31,11 +31,7 @@ public class ArtikellistenController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		RequestDispatcher rd = req.getRequestDispatcher("index.jsp");
-		
-		resp.addHeader("contentSite", "artikelAnzeigenMitarbeiterPanel");
-		
-		rd.forward(req, resp);
+		doPost(req, resp);
 	}
 
     @Override
@@ -45,7 +41,7 @@ public class ArtikellistenController extends HttpServlet {
 		List<Artikel> artikelliste = null;
 		
 		artikelliste = queryManager.selectAllArtikel(false);
-		
+		System.out.println(artikelliste.size());
 		req.setAttribute("artikelListeMitarbeiter", artikelliste);
 				
 		resp.addHeader("contentSite", "artikelAnzeigenMitarbeiterPanel");	
