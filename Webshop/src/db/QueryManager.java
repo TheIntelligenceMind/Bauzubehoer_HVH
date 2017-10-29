@@ -115,11 +115,11 @@ public class QueryManager {
 			first_result = pre_stmt.executeQuery();
 			
 			// sicherstellen, dass es ein BenutzerObjekt
-			if(first_result == null){
+			if(!first_result.next()){
 				return false;
 			}
 			
-			benutzerID = first_result.getInt("id");
+			benutzerID = first_result.getInt("ID");
 			
 			//=============================================================================
 			
@@ -128,7 +128,7 @@ public class QueryManager {
 					
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setString(1, adresse.getStraße());
-			stmt.setString(2, adresse.getHausnummer());		
+			stmt.setString(2, adresse.getHausnummer());
 			stmt.setString(3, adresse.getPostleitzahl());
 			stmt.setString(4, adresse.getOrt());
 			stmt.setString(5, adresse.getZusatz());
