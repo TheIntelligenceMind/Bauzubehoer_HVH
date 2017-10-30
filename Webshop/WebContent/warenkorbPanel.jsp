@@ -11,20 +11,20 @@
 
 function deleteRow(element){
 	var result = confirm("Sind Sie sicher, dass der Artikel entfernt werden soll?");
-
+	
 	if(result){
 		$(document).ready(function() {
-			var obj = {id:"test"};
+			var row = element.closest('tr').rowIndex;
+			
 	       	$.ajax({
 	           type: 'POST',
-	           url: '/Webshop/warenkorb',
-	           data: obj,
-	           contentType: "application/json",
-               dataType: "json",
-               async: true,
-               cache: false,
-	           success: function() {
-	               alert("Es hat geklappt");
+	           data: {row: row},
+	           url: '/Webshop/warenkorb',  
+	           success: function(res, status, xhr) {
+	        	   element.closest('tr').remove();     	   
+	           },
+	           error: function(error){
+	        	   
 	           }
 	       });      
 		});

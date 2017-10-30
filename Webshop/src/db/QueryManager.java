@@ -463,18 +463,18 @@ public class QueryManager {
 	}
 	
 	
-	public boolean deleteArtikelFromWarenkorb(WarenkorbArtikel piWarenkorbArtikel, String piEmailAdresse){
-		WarenkorbArtikel warenkorbartikel = piWarenkorbArtikel;
+	public boolean deleteArtikelFromWarenkorb(int piPosition, String piEmailAdresse){
+		int position = piPosition;
 		String emailadresse = piEmailAdresse;
-		ResultSet result = null;
 		int benutzerID;
-		int artikelID;
+		int result;
 		ResultSet first_result = null;
-		ResultSet second_result = null;
 		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-		//////////////////////
+			
+		//====================================================
+			
 			String pre_sql = "SELECT ID FROM " + DB_TABELLE.BENUTZER.toString() + " WHERE emailadresse = ?";
 			
 			PreparedStatement pre_stmt = getConnection().prepareStatement(pre_sql);
@@ -482,32 +482,25 @@ public class QueryManager {
 			
 			first_result = pre_stmt.executeQuery();
 			
-			if(first_result == null){
+			if(!first_result.next()){
 				return false;
 			}
 			
 			benutzerID = first_result.getInt("id");
-		///////////////////////
-			String pre_sql_2 = "SELECT ID FROM " + DB_TABELLE.ARTIKEL.toString() + " WHERE nummer = ?";
+
+		//====================================================
 			
-			PreparedStatement pre_stmt_2 = getConnection().prepareStatement(pre_sql_2);
-			pre_stmt_2.setInt(1, warenkorbartikel.artikel.nummer);
-			
-			second_result = pre_stmt_2.executeQuery();
-			
-			if(second_result == null){
-				return false;
-			}
-			
-			artikelID = second_result.getInt("id");
-		///////////////////////
-			String sql = "DELETE FROM " + DB_TABELLE.WARENKORB.toString() + " WHERE Benutzer_ID = ? AND Artikel_ID = ?";
+			String sql = "DELETE FROM " + DB_TABELLE.WARENKORB.toString() + " WHERE Benutzer_ID = ? AND Position = ?";
 			
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setInt(1, benutzerID);
-			stmt.setInt(2, artikelID);
+			stmt.setInt(2, position);
 
-			result = stmt.executeQuery();
+			result = stmt.executeUpdate();
+
+			if(result != 0){
+				return updateWarenkorbPositions(position, benutzerID);
+			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -515,8 +508,31 @@ public class QueryManager {
 			e.printStackTrace();
 		}	
 		
+		return false;
+	}
+	
+	public boolean updateWarenkorbPositions(int piPosition, int piBenutzerID){
+		int position = piPosition;
+		int benutzerID = piBenutzerID;
+
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			
+			String sql = "UPDATE " + DB_TABELLE.WARENKORB.toString() + " SET Position = (Position-1) WHERE Benutzer_ID = ? AND Position > ?";
+			
+			PreparedStatement stmt = getConnection().prepareStatement(sql);
+			stmt.setInt(1, benutzerID);
+			stmt.setInt(2, position);
+	
+			stmt.executeUpdate();
 		
-		return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}	
+
+		return true;		
 	}
 	
 	public boolean modifyArtikelInWarenkorb(WarenkorbArtikel piWarenkorbArtikel, String piEmailAdresse, int piMenge){

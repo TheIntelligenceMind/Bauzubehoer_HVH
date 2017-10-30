@@ -18,6 +18,7 @@ import javax.xml.bind.DatatypeConverter;
 import db.QueryManager;
 import entity.Benutzer;
 import entity.WarenkorbArtikel;
+import enums.RESPONSE_STATUS;
 
 @WebServlet("/anmelden")
 public class LoginController extends HttpServlet{
@@ -73,7 +74,7 @@ public class LoginController extends HttpServlet{
 			}
 		}
 		if(!anmeldeStatus){
-			resp.addHeader("status", "fehler");
+			resp.addHeader("status", RESPONSE_STATUS.FEHLER.toString());
 			resp.addHeader("fehlermeldung", "E-Mail-Adresse oder Passwort ist falsch.");
 		}
 		
