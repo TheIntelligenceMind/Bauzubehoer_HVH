@@ -17,14 +17,22 @@ function deleteRow(element){
 			var row = element.closest('tr').rowIndex;
 			
 	       	$.ajax({
-	           type: 'POST',
+	           type: 'GET',
 	           data: {row: row},
 	           url: '/Webshop/warenkorb',  
+	           async: false,
 	           success: function(res, status, xhr) {
-	        	   element.closest('tr').remove();     	   
-	           },
-	           error: function(error){
+	        	   element.closest('tr').remove();     
+	        	     	   
+	        	   var request = new XMLHttpRequest();	        	   
+	        	   var param = "r=" + Math.random();
 	        	   
+	        	   request.open("GET", "index.jsp?"+param, true);
+	        	   request.setRequestHeader("status","hinweis");
+	        	   request.setRequestHeader("hinweismeldung","Der Artikel wurde aus dem Warenkorb entfernt.");
+	        	   request.setRequestHeader("contentSite","warenkorbPanel");
+	        	   request.send();
+
 	           }
 	       });      
 		});

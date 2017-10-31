@@ -33,18 +33,13 @@ public class WarenkorbController extends HttpServlet {
 
     @Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    	RequestDispatcher rq = req.getRequestDispatcher("index.jsp");
-	
-    	resp.addHeader("contentSite", "warenkorbPanel");
-		
-		rq.forward(req, resp);
+    	doPost(req, resp);
     }
 
     @Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {	
+    	RequestDispatcher rq = req.getRequestDispatcher("index.jsp");
     	resp.setContentType("text/html");
-    	
-    	resp.addHeader("contentSite", "warenkorbPanel");
     	
     	boolean hasDeleted = false;
     	int row = 0;
@@ -53,21 +48,22 @@ public class WarenkorbController extends HttpServlet {
 			row = Integer.valueOf(req.getParameter("row") );
 			
 			hasDeleted = queryManager.deleteArtikelFromWarenkorb(row, req.getSession().getAttribute("emailadresse").toString());
-		}
-		
-		
-		
-		if(hasDeleted){
-			updateWarenkorb(req);
 			
-			resp.addHeader("status", RESPONSE_STATUS.HINWEIS.toString());
-			resp.addHeader("hinweismeldung", "Der Artikel wurde aus dem Warenkorb entfernt.");
-		}else{
-			resp.addHeader("status", RESPONSE_STATUS.FEHLER.toString());
-			resp.addHeader("fehlermeldung", "Es ist ein Problem beim Löschen aufgetreten.");	
+			
+			if(hasDeleted){
+				updateWarenkorb(req);
+				
+				resp.addHeader("status", RESPONSE_STATUS.HINWEIS.toString());
+				resp.addHeader("hinweismeldung", "Der Artikel wurde aus dem Warenkorb entfernt.");
+			}else{
+				resp.addHeader("status", RESPONSE_STATUS.FEHLER.toString());
+				resp.addHeader("fehlermeldung", "Es ist ein Problem beim Löschen aufgetreten.");	
+			}
 		}
 		
-		resp.sendRedirect("index.jsp");
+		resp.addHeader("contentSite", "warenkorbPanel");
+		
+		rq.forward(req, resp);
 	}
     
     private void updateWarenkorb(HttpServletRequest req){
