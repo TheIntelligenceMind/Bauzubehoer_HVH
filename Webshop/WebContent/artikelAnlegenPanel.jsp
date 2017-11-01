@@ -12,7 +12,7 @@
 			<input title="Hinweis: Der Preis muss mit einem Punkt getrennt sein!" class="inputField" type="text" name="preis" placeholder="Preis">
 			<input title="Lagermenge" class="inputField" type="text" name="lagermenge" placeholder="Lagermenge">
 		</div>	
-			<input id="btnArtikelAnlegen" type="submit" value="anlegen">	
+			<input id="btnArtikelAnlegen" type="submit" value="Artikel anlegen">	
 	</form>
 	
 </div>

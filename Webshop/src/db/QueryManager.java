@@ -12,6 +12,7 @@ import entity.Adresse;
 import entity.Artikel;
 import entity.Benutzer;
 import entity.Bestellung;
+import entity.Warenkorb;
 import entity.WarenkorbArtikel;
 import enums.DB_TABELLE;
 
@@ -95,6 +96,34 @@ public class QueryManager {
 		
 		return null;
 	}	
+	
+	public int getBenutzerIDbyEmailadresse(String piEmailadresse){
+		String emailadresse = piEmailadresse;
+		int benutzer_ID = -1;
+		ResultSet result = null;
+		
+		try {
+			Class.forName("com.mysql.jdbc.Driver");		
+			
+			String sql = "SELECT ID FROM " + DB_TABELLE.BENUTZER.toString() + " WHERE emailadresse = ?";
+			PreparedStatement stmt = getConnection().prepareStatement(sql);
+			stmt.setString(1, emailadresse);
+			
+			result = stmt.executeQuery();
+			
+			if(result.next()){
+				benutzer_ID = result.getInt("ID");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}	
+		return benutzer_ID;	
+	}
+	
+	
 	
 	public boolean createAdresse(String piEmailAdresse, Adresse piAdresse){
 		String emailadresse = piEmailAdresse;
@@ -285,6 +314,32 @@ public class QueryManager {
 		
 		
 		return true;
+	}
+	
+	public int getArtikelIDbyNummer(int piNummer){
+		int artikelnummer = piNummer;
+		int Artikel_ID = -1;
+		ResultSet result = null;
+		
+		try {
+			Class.forName("com.mysql.jdbc.Driver");		
+			
+			String sql = "SELECT ID FROM " + DB_TABELLE.ARTIKEL.toString() + " WHERE Nummer = ?";
+			PreparedStatement stmt = getConnection().prepareStatement(sql);
+			stmt.setInt(1, artikelnummer);
+			
+			result = stmt.executeQuery();
+			
+			if(result.next()){
+				Artikel_ID = result.getInt("ID");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}	
+		return Artikel_ID;	
 	}
 	
 	
@@ -535,61 +590,158 @@ public class QueryManager {
 		return true;		
 	}
 	
-	public boolean modifyArtikelInWarenkorb(WarenkorbArtikel piWarenkorbArtikel, String piEmailAdresse, int piMenge){
-		WarenkorbArtikel warenkorbartikel = piWarenkorbArtikel;
-		String emailadresse = piEmailAdresse;
-		int menge = piMenge;
-		ResultSet result = null;
-		int benutzerID;
-		int artikelID;
-		ResultSet first_result = null;
-		ResultSet second_result = null;
+	public boolean addArtikelToWarenkorb(String piEmailadresse, int piArtikelnummer){
+		String emailadresse = piEmailadresse;
+		int artikelnummer = piArtikelnummer;	
+		int result;
 		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-		//////////////////////
-			String pre_sql = "SELECT ID FROM " + DB_TABELLE.BENUTZER.toString() + " WHERE emailadresse = ?";
-			
-			PreparedStatement pre_stmt = getConnection().prepareStatement(pre_sql);
-			pre_stmt.setString(1, emailadresse);
-			
-			first_result = pre_stmt.executeQuery();
-			
-			if(first_result == null){
-				return false;
-			}
-			
-			benutzerID = first_result.getInt("id");
-		///////////////////////
-			String pre_sql_2 = "SELECT ID FROM " + DB_TABELLE.ARTIKEL.toString() + " WHERE nummer = ?";
-			
-			PreparedStatement pre_stmt_2 = getConnection().prepareStatement(pre_sql_2);
-			pre_stmt_2.setInt(1, warenkorbartikel.artikel.nummer);
-			
-			second_result = pre_stmt_2.executeQuery();
-			
-			if(second_result == null){
-				return false;
-			}
-			
-			artikelID = second_result.getInt("id");
-		///////////////////////
-			String sql = "UPDATE " + DB_TABELLE.WARENKORB.toString() + "SET MENGE = ? WHERE Benutzer_ID = ? AND Artikel_ID = ?";
-			
-			PreparedStatement stmt = getConnection().prepareStatement(sql);
-			stmt.setInt(1, menge);
-			stmt.setInt(2, benutzerID);
-			stmt.setInt(3, artikelID);
 
-			result = stmt.executeQuery();
+			int benutzer_ID = getBenutzerIDbyEmailadresse(emailadresse);
+			int artikel_ID = getArtikelIDbyNummer(artikelnummer);
 			
+			if(benutzer_ID == -1 || artikel_ID == -1){
+				return false;
+			}
+					
+			//==================================================
+			// prüfen, ob sich der Artikel schon im Warenkorb befindet, wenn ja wird die Menge um 1 erhöht
+			//==================================================			
+			if(isArtikelImWarenkorbVorhanden(benutzer_ID, artikel_ID)){	
+				
+				return warenkorbArtikelMengeErhoehen(-1, artikelnummer, emailadresse);
+				
+			}else{
+				ResultSet preResult = null;
+				String pre_sql = "SELECT MAX(Position) AS highestPos FROM " + DB_TABELLE.WARENKORB.toString() + " WHERE Benutzer_ID = ?";
+				
+				PreparedStatement pre_stmt = getConnection().prepareStatement(pre_sql);
+				pre_stmt.setInt(1, benutzer_ID);
+				
+				preResult = pre_stmt.executeQuery();
+				
+				if(!preResult.next()){
+					return false;
+				}		
+				int highestPos = preResult.getInt("highestPos");
+					
+				
+				//=====================================================
+				String sql = "INSERT INTO " + DB_TABELLE.WARENKORB.toString() + " (Position, Menge, Artikel_ID, Benutzer_ID, aktiv, erstellt_Benutzer) VALUES(?, ?, ?, ?, ?, ?)";
+				
+				PreparedStatement stmt = getConnection().prepareStatement(sql);
+				stmt.setInt(1, highestPos + 1);
+				stmt.setInt(2, 1);
+				stmt.setInt(3, artikel_ID);
+				stmt.setInt(4, benutzer_ID);
+				stmt.setInt(5, 1);
+				stmt.setString(6, "db_user");
+				
+				result = stmt.executeUpdate();
+				
+				if(result == 0){
+					return false;
+				}		
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}	
 		
+		return true;
+	}
+	
+	private boolean isArtikelImWarenkorbVorhanden(int piBenutzerID, int piArtikelID){
+		int benutzerID = piBenutzerID;
+		int artikel_ID = piArtikelID;
+		ResultSet result = null;
 		
+		try {
+			Class.forName("com.mysql.jdbc.Driver");		
+			
+			String sql = "SELECT * FROM " + DB_TABELLE.WARENKORB.toString() + " WHERE Benutzer_ID = ? AND Artikel_ID = ?";
+			PreparedStatement stmt = getConnection().prepareStatement(sql);
+			stmt.setInt(1, benutzerID);
+			stmt.setInt(2, artikel_ID);
+			
+			result = stmt.executeQuery();
+			
+			if(result.next()){
+				return true;
+			}else{
+				return false;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}		
+		return false;
+	}
+	
+	/**
+	 * <pre>
+	 * <h3>Beschreibung:</h3>
+	 * Die Menge des Artikels im Warenkorb wird erhöht.
+	 * 
+	 * Wenn piMenge gleich -1 ist wird die Menge automatisch um 1 erhöht.
+	 * </pre>
+	 * @param piWarenkorbArtikel
+	 * @param piEmailAdresse
+	 * @return true or false
+	 */
+	public boolean warenkorbArtikelMengeErhoehen(int piMenge, int piArtikelnummer, String piEmailAdresse){
+		String emailadresse = piEmailAdresse;
+		int artikelnummer = piArtikelnummer;
+		int benutzer_ID;
+		int artikel_ID;
+		int menge = piMenge;
+		int result = 0;
+		
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+
+			benutzer_ID = getBenutzerIDbyEmailadresse(emailadresse);
+			artikel_ID = getArtikelIDbyNummer(artikelnummer);
+			
+			if(benutzer_ID == -1 || artikel_ID == -1){
+				return false;
+			}
+			
+			//=====================================
+			PreparedStatement stmt = null;
+			
+			if(menge == -1){
+				String sql = "UPDATE " + DB_TABELLE.WARENKORB.toString() + " SET Menge = Menge + 1 WHERE Artikel_ID = ? AND Benutzer_ID = ?";
+				
+				stmt = getConnection().prepareStatement(sql);
+				stmt.setInt(1, artikel_ID);
+				stmt.setInt(2, benutzer_ID);
+			}else{
+				String sql = "UPDATE " + DB_TABELLE.WARENKORB.toString() + " SET Menge = ? WHERE Artikel_ID = ? AND Benutzer_ID = ?";
+
+				stmt = getConnection().prepareStatement(sql);
+				stmt.setInt(1, menge);
+				stmt.setInt(2, artikel_ID);
+				stmt.setInt(3, benutzer_ID);	
+			}
+
+			result = stmt.executeUpdate();
+			
+			if(result == 0){
+				return false;
+			}else{
+				return true;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}		
 		return true;
 	}
 	

@@ -4,7 +4,6 @@
 
 <%
 	final DecimalFormat formater = new DecimalFormat("#0.00");
-
 %>
 
 <script type="text/javascript">
@@ -16,7 +15,7 @@ function deleteRow(element){
 		$(document).ready(function() {
 			var row = element.closest('tr').rowIndex;
 	      	               
-           window.location.href = "warenkorb?row="+row;
+           window.location.href = "warenkorb?method=artikelAusWarenkorbLoeschen&row="+row;
            element.closest('tr').remove();    
 		});
 	}
@@ -60,7 +59,7 @@ function deleteRow(element){
 		        		{
 			        		out.println("<tr>" +
 			        		"<td><input style='width: 20px;border:none;' type='text' name='menge' value='" + String.valueOf(warenkorbartikel.getMenge()) + "' ></td>" +
-			        		"<td>" + warenkorbartikel.getArtikel().getNummer() + "</td>" +
+			        		"<td>" + String.format("%04d", warenkorbartikel.getArtikel().getNummer()) + "</td>" +
 			        		"<td>" + warenkorbartikel.getArtikel().getBezeichnung() + "</td>" +
 			        		"<td>" + formater.format(warenkorbartikel.getArtikel().getPreis()*warenkorbartikel.getMenge()) +  "</td>" +
 			        		"<td>" + "<a class='trashSymbol' onclick='deleteRow(this)' id='"+ warenkorbartikel.getPosition() +"'><i class='fa fa-trash-o'></i></a>" + "</td>" +

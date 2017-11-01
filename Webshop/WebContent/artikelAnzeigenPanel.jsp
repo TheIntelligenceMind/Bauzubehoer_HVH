@@ -4,7 +4,7 @@
 <%@page import="java.util.List"%>
 
 <%
-	final DecimalFormat formaterArtikel = new DecimalFormat("#0.00");
+	final DecimalFormat preisFormatter = new DecimalFormat("#0.00");	
 %>
 <div class="showing" id="artikelListeKunden">
 	<div id="artikelKundenTabellen">
@@ -21,9 +21,9 @@
 	        		out.println("<div id='artikelListeKundenDesign'>" + 
         			"<div id='artikelListeKundenBild'>" + "BILD" + "</div>" +
 	        		"<div id='artikelListeKundenBezeichnung'>" + artikel.getBezeichnung() + "</div>" +
-			        "<div id='artikelListeKundenPreis'>" + "&euro; " +  formaterArtikel.format(artikel.getPreis()) + "</div>" +
+			        "<div id='artikelListeKundenPreis'>" + "&euro; " +  preisFormatter.format(artikel.getPreis()) + "</div>" +
 	        	    "<div id='artikelListeKundenBeschreibung'>" + artikel.getBeschreibung() + "</div>" +
-	        	    "<button id='artikelListeKundenWarenkorbButton' type='submit'>In den Warenkorb</button>" +
+	        	    "<form action='warenkorb'><input type='hidden' name='method' value='artikelInDenWarenkorb'><input type='hidden' name='artikelnummer' value='" + artikel.getNummer() + "'><button id='artikelListeKundenWarenkorbButton'>In den Warenkorb</button></form>" +
 	        		"</div>");
 	        	}
        		}

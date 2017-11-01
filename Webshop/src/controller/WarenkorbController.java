@@ -1,11 +1,8 @@
 package controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.jws.WebMethod;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -38,30 +35,57 @@ public class WarenkorbController extends HttpServlet {
 
     @Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {	
-    	RequestDispatcher rq = req.getRequestDispatcher("index.jsp");
+    	RequestDispatcher rq = null; 
     	resp.setContentType("text/html");
-    	
-    	boolean hasDeleted = false;
-    	int row = 0;
+    		  	
+		String method = req.getParameter("method");
 		
-		if(req.getParameter("row") != null){
-			row = Integer.valueOf(req.getParameter("row") );
-			
-			hasDeleted = queryManager.deleteArtikelFromWarenkorb(row, req.getSession().getAttribute("emailadresse").toString());
-			
-			
-			if(hasDeleted){
-				updateWarenkorb(req);
-				
-				resp.addHeader("status", RESPONSE_STATUS.HINWEIS.toString());
-				resp.addHeader("hinweismeldung", "Der Artikel wurde aus dem Warenkorb entfernt.");
-			}else{
-				resp.addHeader("status", RESPONSE_STATUS.FEHLER.toString());
-				resp.addHeader("fehlermeldung", "Es ist ein Problem beim Löschen aufgetreten.");	
-			}
+		if(method == null){
+			method = "";
 		}
+    	
+    	switch(method){
+	    	case "artikelInDenWarenkorb": 		
+	    		if(artikelHinzufuegen(req)){
+	    			updateWarenkorb(req);
+	    			
+	    			resp.addHeader("status", RESPONSE_STATUS.HINWEIS.toString());
+    				resp.addHeader("hinweismeldung", "Der Artikel wurde dem Warenkorb hinzugefügt.");
+	    		}else{
+	    			resp.addHeader("status", RESPONSE_STATUS.FEHLER.toString());
+    				resp.addHeader("fehlermeldung", "Der Artikel konnte nicht hinzugefügt werden.");	
+	    		}
+	    		
+	    		rq = req.getRequestDispatcher("/suchen");
+	    		break;
+	    	case "artikelAusWarenkorbLoeschen":
+	    		if(req.getParameter("row") != null){
+	    			int row = Integer.valueOf(req.getParameter("row") );
+	    			boolean hasDeleted = false;  
+	    			
+	    			hasDeleted = queryManager.deleteArtikelFromWarenkorb(row, req.getSession().getAttribute("emailadresse").toString());
+	
+	    			if(hasDeleted){
+	    				updateWarenkorb(req);
+	    				
+	    				resp.addHeader("status", RESPONSE_STATUS.HINWEIS.toString());
+	    				resp.addHeader("hinweismeldung", "Der Artikel wurde aus dem Warenkorb entfernt.");
+	    			}else{
+	    				resp.addHeader("status", RESPONSE_STATUS.FEHLER.toString());
+	    				resp.addHeader("fehlermeldung", "Es ist ein Problem beim Löschen aufgetreten.");	
+	    			}
+	    		}
+	    		
+	    		rq = req.getRequestDispatcher("index.jsp");
+	    		resp.addHeader("contentSite", "warenkorbPanel");		
+	    		break;
+	    	default:
+	    		rq = req.getRequestDispatcher("index.jsp");
+	    		resp.addHeader("contentSite", "warenkorbPanel");	
+	    		break;   	
+    	}		
 		
-		resp.addHeader("contentSite", "warenkorbPanel");
+		
 		
 		rq.forward(req, resp);
 	}
@@ -74,4 +98,20 @@ public class WarenkorbController extends HttpServlet {
     	req.getSession().setAttribute("warenkorbartikelliste", warenkorbartikelListe);   	
     }
 
+    private boolean artikelHinzufuegen(HttpServletRequest req){  	
+    	int artikelnummer = 0;
+    	boolean added = false;
+    	String emailadresseBenutzer = String.valueOf(req.getSession().getAttribute("emailadresse"));
+    	
+    	try{
+    		artikelnummer = Integer.valueOf(req.getParameter("artikelnummer"));
+    	}catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+    	
+    	added = queryManager.addArtikelToWarenkorb(emailadresseBenutzer, artikelnummer);
+     	
+    	return added;
+    }
 }

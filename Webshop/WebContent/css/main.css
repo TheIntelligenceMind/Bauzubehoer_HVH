@@ -268,7 +268,7 @@ html,body{
 #artikelListeMitarbeiterTabellen{
 	width: 100%;
 	height: 65%;
-	text-align: center;
+	text-align: left;
 }
 
 #artikelListeMitarbeiterTabelle{
@@ -280,16 +280,45 @@ html,body{
 #artikelListeMitarbeiterTabelle th{
 	border-bottom: 1px solid #BF4D17;
 }
-#artikelListeMitarbeiterTabelle table tr{
+#artikelListeMitarbeiterTabelle tr{
 	border-collapse: collapse;
 	margin:auto;
 	margin-top: 10px;
 	padding: 5px;
 	empty-cells: hide;
 	text-align: left;
+	max-height: 20px;
+}
+#artikelListeMitarbeiterTabelle td.tablerow{
+	height: 22px;
+	overflow: hidden;
+}
+#artikelListeMitarbeiterTabelle td.tablerow > div {
+    width: 100%;
+    height: 100%;
+    overflow:hidden;
 }
 .PickSymbol{
 	color: black;
+}
+
+#artikelListeMitarbeiter #btnArtikelAnlegen{
+	float: right;
+	margin-right: 30px;
+	margin-top: 50px;
+	width: 20%;
+	position: relative;
+	height: 30px;
+	font-size: 15px;
+	border-style: none;
+	color: white;
+	background-color: #BF4D17;
+	border-radius: 5px;
+}
+
+#artikelListeMitarbeiter #btnArtikelAnlegen:hover{
+	cursor:pointer;
+	background-color: #9b4013;
 }
 
 /* --------------- Panel mit Artikeln für Mitarbeiter ------------------- */
@@ -779,8 +808,8 @@ html,body{
 
 #btnArtikelAnlegen{
 	margin-top: 40px;
-	width: 50%;
-	height: 50px;
+	width: 40%;
+	height: 40px;
 	font-size: 20px;
 	border-style: none;
 	color: white;
