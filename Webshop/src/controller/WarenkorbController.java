@@ -78,6 +78,20 @@ public class WarenkorbController extends HttpServlet {
 	    		
 	    		rq = req.getRequestDispatcher("index.jsp");
 	    		resp.addHeader("contentSite", "warenkorbPanel");		
+	    		break;    		
+	    	case "artikelMengeVeraendern":
+	    		if(artikelMengeVeraendern(req)){
+	    			updateWarenkorb(req);
+	    			
+    				resp.addHeader("status", RESPONSE_STATUS.HINWEIS.toString());
+    				resp.addHeader("hinweismeldung", "Die Menge des Artikels wurde geändert.");
+    			}else{
+    				resp.addHeader("status", RESPONSE_STATUS.FEHLER.toString());
+    				resp.addHeader("fehlermeldung", "Die Menge des Artikels konnte leider nicht geändert werden.");	
+    			}
+	    		
+	    		rq = req.getRequestDispatcher("index.jsp");
+	    		resp.addHeader("contentSite", "warenkorbPanel");
 	    		break;
 	    	default:
 	    		rq = req.getRequestDispatcher("index.jsp");
@@ -113,5 +127,25 @@ public class WarenkorbController extends HttpServlet {
     	added = queryManager.addArtikelToWarenkorb(emailadresseBenutzer, artikelnummer);
      	
     	return added;
+    }
+    
+    private boolean artikelMengeVeraendern(HttpServletRequest req){
+    	boolean changed = false;
+    	int menge;
+    	int artikelnummer;
+    	String emailadresseBenutzer = null;
+    	
+    	try{
+    		menge = Integer.valueOf(req.getParameter("menge"));
+    		artikelnummer = Integer.valueOf(req.getParameter("artikelnummer"));
+    		emailadresseBenutzer = String.valueOf(req.getSession().getAttribute("emailadresse"));
+    	}catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+  	
+    	changed = queryManager.modifyWarenkorbArtikelMenge(menge, artikelnummer, emailadresseBenutzer);
+    	
+    	return changed;
     }
 }

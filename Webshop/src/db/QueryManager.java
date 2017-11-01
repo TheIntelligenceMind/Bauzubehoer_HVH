@@ -97,7 +97,7 @@ public class QueryManager {
 		return null;
 	}	
 	
-	public int getBenutzerIDbyEmailadresse(String piEmailadresse){
+	private int getBenutzerIDbyEmailadresse(String piEmailadresse){
 		String emailadresse = piEmailadresse;
 		int benutzer_ID = -1;
 		ResultSet result = null;
@@ -316,7 +316,7 @@ public class QueryManager {
 		return true;
 	}
 	
-	public int getArtikelIDbyNummer(int piNummer){
+	private int getArtikelIDbyNummer(int piNummer){
 		int artikelnummer = piNummer;
 		int Artikel_ID = -1;
 		ResultSet result = null;
@@ -682,6 +682,59 @@ public class QueryManager {
 		return false;
 	}
 	
+
+	/**
+	 * <pre>
+	 * <h3>Beschreibung:</h3>
+	 * Die Menge des Artikels im Warenkorb wird verändert.
+	 * 
+	 * </pre>
+	 * @param piMenge
+	 * @param piArtikelnummer
+	 * @param piEmailAdresse
+	 * @return true or false
+	 */
+	public boolean modifyWarenkorbArtikelMenge(int piMenge, int piArtikelnummer, String piEmailAdresse){
+		String emailadresse = piEmailAdresse;
+		int artikelnummer = piArtikelnummer;
+		int benutzer_ID;
+		int artikel_ID;
+		int menge = piMenge;
+		int result = 0;
+		
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+
+			benutzer_ID = getBenutzerIDbyEmailadresse(emailadresse);
+			artikel_ID = getArtikelIDbyNummer(artikelnummer);
+			
+			if(benutzer_ID == -1 || artikel_ID == -1){
+				return false;
+			}
+			
+			String sql = "UPDATE " + DB_TABELLE.WARENKORB.toString() + " SET Menge = ? WHERE Artikel_ID = ? AND Benutzer_ID = ?";
+			
+			PreparedStatement stmt = getConnection().prepareStatement(sql);
+			stmt.setInt(1, menge);
+			stmt.setInt(2, artikel_ID);
+			stmt.setInt(3, benutzer_ID);
+			
+			result = stmt.executeUpdate();
+		
+			if(result == 0){
+				return false;
+			}		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}	
+		
+		return true;
+	}
+	
+	
+	
 	/**
 	 * <pre>
 	 * <h3>Beschreibung:</h3>
@@ -689,11 +742,12 @@ public class QueryManager {
 	 * 
 	 * Wenn piMenge gleich -1 ist wird die Menge automatisch um 1 erhöht.
 	 * </pre>
-	 * @param piWarenkorbArtikel
+	 * @param piMenge
+	 * @param piArtikelnummer
 	 * @param piEmailAdresse
 	 * @return true or false
 	 */
-	public boolean warenkorbArtikelMengeErhoehen(int piMenge, int piArtikelnummer, String piEmailAdresse){
+	private boolean warenkorbArtikelMengeErhoehen(int piMenge, int piArtikelnummer, String piEmailAdresse){
 		String emailadresse = piEmailAdresse;
 		int artikelnummer = piArtikelnummer;
 		int benutzer_ID;
@@ -744,5 +798,7 @@ public class QueryManager {
 		}		
 		return true;
 	}
+	
+	
 	
 }

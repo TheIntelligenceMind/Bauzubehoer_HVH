@@ -21,6 +21,16 @@ function deleteRow(element){
 	}
 }
 
+function updateQuantity(element, artikelnummer){
+	var menge = element.value;
+
+	if(menge != null && artikelnummer != null){
+		$(document).ready(function() {	      	               
+	          window.location.href = "warenkorb?method=artikelMengeVeraendern&artikelnummer="+artikelnummer+"&menge="+menge;  
+		}); 
+	}	
+}
+
 </script>
 
 <div class="showing" id="warenkorbPanel">
@@ -58,11 +68,11 @@ function deleteRow(element){
 		        		if(warenkorbartikel != null)
 		        		{
 			        		out.println("<tr>" +
-			        		"<td><input style='width: 20px;border:none;' type='text' name='menge' value='" + String.valueOf(warenkorbartikel.getMenge()) + "' ></td>" +
+			        		"<td><input style='font-size:14px; width:20px; border:none;' type='text' onchange='updateQuantity(this," + warenkorbartikel.getArtikel().getNummer() + ")' name='menge' value='" + String.valueOf(warenkorbartikel.getMenge()) + "'></td>" +
 			        		"<td>" + String.format("%04d", warenkorbartikel.getArtikel().getNummer()) + "</td>" +
 			        		"<td>" + warenkorbartikel.getArtikel().getBezeichnung() + "</td>" +
 			        		"<td>" + formater.format(warenkorbartikel.getArtikel().getPreis()*warenkorbartikel.getMenge()) +  "</td>" +
-			        		"<td>" + "<a class='trashSymbol' onclick='deleteRow(this)' id='"+ warenkorbartikel.getPosition() +"'><i class='fa fa-trash-o'></i></a>" + "</td>" +
+			        		"<td>" + "<a class='trashSymbol' onclick='deleteRow(this)'><i class='fa fa-trash-o'></i></a>" + "</td>" +
 			        		"</tr>");
 			        		gesamt = gesamt + (warenkorbartikel.getArtikel().getPreis() * warenkorbartikel.getMenge());
 			        		mwst = mwst + (warenkorbartikel.getArtikel().getPreis() * warenkorbartikel.getMenge())*0.19;
@@ -95,12 +105,11 @@ function deleteRow(element){
 				<tr class="totalprice">
 					<td class="textLeftBold" colspan="2">Gesamt:</td>
 				 	<td colspan="1"></td>
-				 	<td><% out.println(formater.format(gesamt + mwst + versandkosten)); %><td>
+				 	<td style="font-weight:bold"><% out.println(formater.format(gesamt + mwst + versandkosten)); %><td>
 				</tr>
 	        </tbody>  
 		</table>
   	</div>
 	
   	<button id="btnBestellen">Bestellen</button>
-  	<button id="btnwarenkorbSpeichern" type="submit">Speichern</button>	  
 </div>
