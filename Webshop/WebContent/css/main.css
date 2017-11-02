@@ -804,10 +804,11 @@ html,body{
 /* ---------- Panel für Fehlermeldungen ----------------- */
 #fehlermeldungPanel{
 	margin: 0;
+	padding: 0 7px 5px 7px;
 	top: 270px;
 	right: 0;
 	position: absolute;
-	height: 90px;
+	height: 95px;
 	width: 18%;
 	min-width: 260px;
 	text-align: center;
@@ -841,6 +842,7 @@ html,body{
 /* ---------- Panel für Hinweismeldungen ----------------- */
 #hinweismeldungPanel{
 	margin: 0;
+	padding: 0 7px 5px 7px;
 	top: 270px;
 	right: 0;
 	position: absolute;

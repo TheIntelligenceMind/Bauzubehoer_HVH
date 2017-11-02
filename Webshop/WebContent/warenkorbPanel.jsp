@@ -103,7 +103,7 @@ function updateQuantity(element, artikelnummer){
 					<td><% out.println(formater.format(mwst)); %></td>
 				</tr>
 				<tr class="totalprice">
-					<td class="textLeftBold" colspan="2">Gesamt:</td>
+					<td class="textLeftBold" colspan="2">Gesamt (Brutto):</td>
 				 	<td colspan="1"></td>
 				 	<td style="font-weight:bold"><% out.println(formater.format(gesamt + mwst + versandkosten)); %><td>
 				</tr>
