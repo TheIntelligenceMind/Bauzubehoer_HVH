@@ -398,6 +398,34 @@ public class QueryManager {
 		}	
 		return false;	
 	}
+	
+	public boolean deleteArtikel(int id){
+		int result = 0;
+		
+		try {
+			Class.forName("com.mysql.jdbc.Driver");		
+			
+			String sql = "DELETE FROM "+ DB_TABELLE.ARTIKEL.toString() +" WHERE ID = ?";
+		
+			PreparedStatement stmt = getConnection().prepareStatement(sql);
+			stmt.setInt(1, id);
+			
+			result = stmt.executeUpdate();
+			
+			if(result != 0){
+				return true;
+			}else{
+				return false;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		return true;
+	}
 	/**
 	 * <h3>Beschreibung: </h3>
 	 * <pre>
