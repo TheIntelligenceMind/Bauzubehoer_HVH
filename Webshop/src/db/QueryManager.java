@@ -399,6 +399,44 @@ public class QueryManager {
 		return false;	
 	}
 	
+	public boolean modifyArtikel(Artikel piArtikel){	
+		Artikel artikel = piArtikel;
+		int result = 0;
+		
+		try {
+			Class.forName("com.mysql.jdbc.Driver");		
+			
+			String sql = "UPDATE "+ DB_TABELLE.ARTIKEL.toString() +" SET nummer = ?, bezeichnung = ? , beschreibung = ?"
+					+ ", preis = ?, lagermenge = ?, aktiv = ?, geaendert_Benutzer = ?, geaendert_Datum = ? WHERE nummer = ?";
+		
+			PreparedStatement stmt = getConnection().prepareStatement(sql);
+			stmt.setInt(1, artikel.getNummer());
+			stmt.setString(2, artikel.getBezeichnung());
+			stmt.setString(3, artikel.getBeschreibung());
+			stmt.setDouble(4, artikel.getPreis());
+			stmt.setInt(5, artikel.getLagermenge());
+			stmt.setInt(6, artikel.getAktiv());
+			stmt.setString(7, "db_user");
+			stmt.setString(8, sdf.format(timestamp));
+			stmt.setInt(9, artikel.getNummer());
+			
+			result = stmt.executeUpdate();
+			
+			if(result != 0){
+				return true;
+			}else{
+				return false;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
+	
 	public boolean deleteArtikel(int id){
 		int result = 0;
 		
