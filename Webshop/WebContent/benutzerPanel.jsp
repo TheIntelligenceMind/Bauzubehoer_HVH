@@ -2,9 +2,14 @@
 <%@page import="java.util.List"%>
 
 <script type="text/javascript">
-function showArtikelListeMa(){
+function artikelListeMaAnzeigen(){
 	$(document).ready(function() {	      	               
           window.location.href = "artikel?method=artikellisteAnzeigen";  
+	}); 
+}
+function meinKontoAnzeigen(){
+	$(document).ready(function() {	      	               
+          window.location.href = "meinKonto?method=anzeigen";  
 	}); 
 }
 </script>
@@ -28,8 +33,8 @@ function showArtikelListeMa(){
 				</a>
 		</li>
 		<li><i class="fa fa-bars"></i><a href="meineBestellungen"> Meine Bestellungen</a></li>
-		<li><i class="fa fa-user"></i><a href="meinKonto"> Mein Konto</a></li>
-		<li><i class="fa fa-database"></i><a onclick="showArtikelListeMa()"> Artikelstammdaten</a>
+		<li><i class="fa fa-user"></i><a onclick="meinKontoAnzeigen()"> Mein Konto</a></li>
+		<li><i class="fa fa-database"></i><a onclick="artikelListeMaAnzeigen()"> Artikelstammdaten</a>
 	</ul>
 	
 	<a href="abmelden" id="abmelden"><i class="fa fa-sign-out"></i> abmelden</a>

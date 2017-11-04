@@ -26,7 +26,6 @@ public class KontoController extends HttpServlet {
 	
 	private static final QueryManager queryManager = QueryManager.getInstance();
 	private Benutzer benutzer = null;
-	private Adresse adresse = null;
 
     public KontoController() {
         super();
@@ -35,67 +34,96 @@ public class KontoController extends HttpServlet {
 
     @Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    	RequestDispatcher rq = req.getRequestDispatcher("index.jsp");
+    	doPost(req,resp);
+	}
+
+    @Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {		
+		RequestDispatcher rq = req.getRequestDispatcher("index.jsp");
 		
-		benutzer = queryManager.getBenutzerByEMailAdresse(req.getSession().getAttribute("emailadresse").toString());
+		String method = req.getParameter("method");
+		if(method != null){
+			switch(method){
+			case "anzeigen":
+				meinKontoAnzeigen(req, resp);
+				break;
+			case "benutzerSpeichern":
+				if(speicherBenutzer(req)){
+					benutzer = queryManager.getBenutzerByEMailAdresse(req.getSession().getAttribute("emailadresse").toString());
+
+					updateSessionDetails(req.getSession(), benutzer);
+
+					String hinweistext = "Die Benutzerdaten wurden erfolgreich gespeichert.";
+					resp.addHeader("Status", RESPONSE_STATUS.HINWEIS.toString());
+					resp.addHeader(MELDUNG_ART.HINWEISMELDUNG.toString(), hinweistext);
+						
+				}else{
+					String fehlermeldung = "ungültige Änderungen";	
+					resp.addHeader("Status", RESPONSE_STATUS.FEHLER.toString());
+					resp.addHeader(MELDUNG_ART.FEHLERMELDUNG.toString(), fehlermeldung);
+				}	
+				req.setAttribute("benutzer", benutzer);
+				resp.addHeader("contentSite", "meinKontoPanel");
+				break;
+			case "adresseSpeichern":
+				if(speicherAdresse(req)){
+					benutzer = queryManager.getBenutzerByEMailAdresse(req.getSession().getAttribute("emailadresse").toString());
+					
+					String hinweistext = "Die Benutzeradresse wurde erfolgreich gespeichert.";
+					resp.addHeader("Status", RESPONSE_STATUS.HINWEIS.toString());
+					resp.addHeader(MELDUNG_ART.HINWEISMELDUNG.toString(), hinweistext);			
+				}else{
+					String fehlermeldung = "ungültige Änderungen";	
+					resp.addHeader("Status", RESPONSE_STATUS.FEHLER.toString());
+					resp.addHeader(MELDUNG_ART.FEHLERMELDUNG.toString(), fehlermeldung);
+				}
+				req.setAttribute("benutzer", benutzer);
+				resp.addHeader("contentSite", "meinKontoPanel");
+				break;
+				
+			case "loeschen":
+				if(kontoLoeschen(req)){
+					rq = req.getRequestDispatcher("/abmelden");
+					
+					String hinweistext = "Das Benutzerkonto wurde erfolgreich gelöscht.";
+					resp.addHeader("Status", RESPONSE_STATUS.HINWEIS.toString());
+					resp.addHeader(MELDUNG_ART.HINWEISMELDUNG.toString(), hinweistext);	
+				}else{
+					req.setAttribute("benutzer", benutzer);
+					resp.addHeader("contentSite", "meinKontoPanel");
+					
+					String fehlermeldung = "Das Benutzerkonto konnte nicht gelöscht werden.";	
+					resp.addHeader("Status", RESPONSE_STATUS.FEHLER.toString());
+					resp.addHeader(MELDUNG_ART.FEHLERMELDUNG.toString(), fehlermeldung);	
+				}
+				break;
+			default:
+				meinKontoAnzeigen(req, resp);
+				break;
+			}
+		}else{
+			meinKontoAnzeigen(req, resp);
+		}
+				
+		rq.forward(req, resp);	
+	}
+    
+    private void meinKontoAnzeigen(HttpServletRequest req, HttpServletResponse resp){
+    	benutzer = queryManager.getBenutzerByEMailAdresse(req.getSession().getAttribute("emailadresse").toString());
 		
 		if(benutzer != null){
 			req.setAttribute("benutzer", benutzer);
 		}else{
 			benutzer = new Benutzer().init("", "", "", "", null);
-		}	
-		
-		resp.addHeader("contentSite", "meinKontoPanel");
-		
-		rq.forward(req, resp);
-	}
-
-    @Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
-		RequestDispatcher rq = req.getRequestDispatcher("index.jsp");
-		
-		String function = req.getParameter("function");
-			
-		switch(function){
-		case "f_speichern_benutzer":
-			if(speicherBenutzer(req)){
-				benutzer = queryManager.getBenutzerByEMailAdresse(req.getSession().getAttribute("emailadresse").toString());
-
-				updateSessionDetails(req.getSession(), benutzer);
-
-				String hinweistext = "Die Benutzerdaten wurden erfolgreich gespeichert.";
-				resp.addHeader("Status", RESPONSE_STATUS.HINWEIS.toString());
-				resp.addHeader(MELDUNG_ART.HINWEISMELDUNG.toString(), hinweistext);
-					
-			}else{
-				String fehlermeldung = "ungültige Änderungen";	
-				resp.addHeader("Status", RESPONSE_STATUS.FEHLER.toString());
-				resp.addHeader(MELDUNG_ART.FEHLERMELDUNG.toString(), fehlermeldung);
-			}				
-			break;
-		case "f_speichern_adresse":
-			if(speicherAdresse(req)){
-				benutzer = queryManager.getBenutzerByEMailAdresse(req.getSession().getAttribute("emailadresse").toString());
-				
-				String hinweistext = "Die Benutzeradresse wurde erfolgreich gespeichert.";
-				resp.addHeader("Status", RESPONSE_STATUS.HINWEIS.toString());
-				resp.addHeader(MELDUNG_ART.HINWEISMELDUNG.toString(), hinweistext);			
-			}else{
-				String fehlermeldung = "ungültige Änderungen";	
-				resp.addHeader("Status", RESPONSE_STATUS.FEHLER.toString());
-				resp.addHeader(MELDUNG_ART.FEHLERMELDUNG.toString(), fehlermeldung);
-			}
-			break;
-		default:
-			break;
-		}
-
+		}		
 		req.setAttribute("benutzer", benutzer);
 		resp.addHeader("contentSite", "meinKontoPanel");
-		
-		rq.forward(req, resp);	
-	}
+    }
+    private boolean kontoLoeschen(HttpServletRequest req){
+    	String emailadresse = String.valueOf(req.getSession().getAttribute("emailadresse"));
+    	
+    	return queryManager.deleteBenutzer(emailadresse);
+    }
     
     private boolean speicherAdresse(HttpServletRequest req){
     	boolean result = false;

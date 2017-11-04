@@ -16,7 +16,7 @@
 				<input title="Vorname" class="inputField" type="text" name="vorname" placeholder="Vorname"  value="<% out.print(benutzer.getVorname()); %>">
 				<input title="Nachname" class="inputField" type="text" name="nachname" placeholder="Nachname" value="<% out.print(benutzer.getNachname()); %>">
 				<input title="E-Mail" class="inputField" type="text" name="emailadresse" placeholder="eMail" value="<% out.print(benutzer.getEmailadresse()); %>" disabled>				
-				<button class="btnSpeichern" type="submit" name="function" value="f_speichern_benutzer">Speichern</button>
+				<button class="btnSpeichern" type="submit" name="method" value="benutzerSpeichern">Speichern</button>
 			</form>
 			</div>
         </li>
@@ -28,10 +28,17 @@
 	            <input title="Hausnummer" class="inputField" type="text" name="hausnummer" placeholder="Hausnummer" id="Hausnummer" value="<% out.print(benutzer.getLieferAdresse().getHausnummer()); %>">
 				<input title="PLZ" class="inputField" type="text" name="postleitzahl" placeholder="PLZ" value="<% out.print(benutzer.getLieferAdresse().getPostleitzahl()); %>">
 				<input title="Ort" class="inputField" type="text" name="ort" placeholder="Ort" value="<% out.print(benutzer.getLieferAdresse().getOrt()); %>">
-				<button class="btnSpeichern" type="submit" name="function" value="f_speichern_adresse">Speichern</button>
-			</form>
+				<button class="btnSpeichern" type="submit" name="method" value="adresseSpeichern">Speichern</button>
+			</form>	
             </div>
         </li>
     </ul> 
 </div>
+	<!-- Löschen Button zu testzwecken eingebaut jedoch ohne CSS muss beim richten einbauen noch gemacht werden
+	
+	<form action="meinKonto" method="POST">
+		<button type="submit" name="method" value="loeschen">Löschen</button>
+	</form>
+	
+	  -->
 </div>
