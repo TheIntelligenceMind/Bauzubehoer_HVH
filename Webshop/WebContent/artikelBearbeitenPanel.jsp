@@ -18,7 +18,8 @@
 			<input title="Hinweis: Der Preis muss mit einem Punkt getrennt sein!" class="inputField" type="text" name="preis" value=<%artikel.getPreis(); %>>
 			<input title="Lagermenge" class="inputField" type="text" name="lagermenge" value=<%artikel.getLagermenge(); %>>
 			<input title="Aktiv" class="inputField" type="text" name="aktiv" value=<%artikel.getAktiv(); %>>
-		</div>	
+		</div>
+			<input type="hidden" name="method" value="artikelBearbeiten">	
 			<input id="btnArtikelSpeichern" type="submit" value="Speichern">	
 	</form>
 	

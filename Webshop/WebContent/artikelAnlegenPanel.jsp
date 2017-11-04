@@ -2,7 +2,7 @@
 
 	<h1>Artikel anlegen</h1>
 	
-	<form action="artikelAnlegen" method="POST">
+	<form action="artikel" method="POST">
 		<div id=artikelAnlegenPanelBeschreibung>
 			<input title="Hinweis: Nur eine vierstellige Artikelnummer eingeben." class="inputField" type="text" name="nummer" placeholder="Artikelnummer">
 			<input title="Bezeichnung" class="inputField" type="text" name="bezeichnung" placeholder="Bezeichnung">
@@ -12,6 +12,7 @@
 			<input title="Hinweis: Der Preis muss mit einem Punkt getrennt sein!" class="inputField" type="text" name="preis" placeholder="Preis">
 			<input title="Lagermenge" class="inputField" type="text" name="lagermenge" placeholder="Lagermenge">
 		</div>	
+			<input type="hidden" name="method" value="artikelAnlegen">
 			<input id="btnArtikelAnlegen" type="submit" value="Artikel anlegen">	
 	</form>
 	

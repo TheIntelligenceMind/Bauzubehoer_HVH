@@ -136,9 +136,7 @@
 						}
 					}
 				}else if(request.getHeader("contentSite") != null ){ 		
-					
-					
-					
+	
 					if(session.getAttribute("vorname") == null || session.getAttribute("nachname") == null){
 						switch(request.getHeader("contentSite")){
 						

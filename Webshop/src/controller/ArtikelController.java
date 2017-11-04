@@ -20,7 +20,7 @@ import enums.RESPONSE_STATUS;
 /**
  * Servlet implementation class WarenkorbController
  */
-@WebServlet("/artikelAnlegen")
+@WebServlet("/artikel")
 public class ArtikelController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -45,33 +45,50 @@ public class ArtikelController extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {		
 		RequestDispatcher rq = req.getRequestDispatcher("index.jsp");
 		
-		boolean result = false;
-		String fehlertext = null;
+		String method = req.getParameter("method");
 		
-		int nummer = NumberUtils.toInt(req.getParameter("nummer"), 0);
-		String bezeichnung = req.getParameter("bezeichnung");
-		String beschreibung = req.getParameter("beschreibung");
-		double preis = NumberUtils.toDouble(req.getParameter("preis"), 0.00);
-		int lagermenge = NumberUtils.toInt(req.getParameter("lagermenge"), 0);
+		switch(method){
 		
-		if((fehlertext = validateAttributes(bezeichnung, nummer, beschreibung, preis, lagermenge)) == null){
+		case "artikelAnlegen":		
+			boolean result = false;
+			String fehlertext = null;
 			
-			Artikel newArtikel = new Artikel().init(bezeichnung, nummer, beschreibung, preis, lagermenge, 1);
+			int nummer = NumberUtils.toInt(req.getParameter("nummer"), 0);
+			String bezeichnung = req.getParameter("bezeichnung");
+			String beschreibung = req.getParameter("beschreibung");
+			double preis = NumberUtils.toDouble(req.getParameter("preis"), 0.00);
+			int lagermenge = NumberUtils.toInt(req.getParameter("lagermenge"), 0);
 			
-			result = QueryManager.getInstance().createArtikel(newArtikel);
-		}
+			if((fehlertext = validateAttributes(bezeichnung, nummer, beschreibung, preis, lagermenge)) == null){
 				
-		if(result){
-			String hinweistext = "Der Artikel wurde erfolgreich angelegt.";
-			resp.addHeader("Status", RESPONSE_STATUS.HINWEIS.toString());
-			resp.addHeader(MELDUNG_ART.HINWEISMELDUNG.toString(), hinweistext);
-		}else{
-			String fehlermeldung = fehlertext.toString();	
-			resp.addHeader("Status", RESPONSE_STATUS.FEHLER.toString());
-			resp.addHeader(MELDUNG_ART.FEHLERMELDUNG.toString(), fehlermeldung);
-		}
+				Artikel newArtikel = new Artikel().init(bezeichnung, nummer, beschreibung, preis, lagermenge, 1);
 				
-		resp.addHeader("contentSite", "artikelAnlegenPanel");
+				result = QueryManager.getInstance().createArtikel(newArtikel);
+			}
+					
+			if(result){
+				String hinweistext = "Der Artikel wurde erfolgreich angelegt.";
+				resp.addHeader("Status", RESPONSE_STATUS.HINWEIS.toString());
+				resp.addHeader(MELDUNG_ART.HINWEISMELDUNG.toString(), hinweistext);
+			}else{
+				String fehlermeldung = fehlertext.toString();	
+				resp.addHeader("Status", RESPONSE_STATUS.FEHLER.toString());
+				resp.addHeader(MELDUNG_ART.FEHLERMELDUNG.toString(), fehlermeldung);
+			}
+					
+			resp.addHeader("contentSite", "artikelAnlegenPanel");
+			
+			break;
+		case "artikelBearbeiten":
+			
+			resp.addHeader("contentSite", "artikelBearbeitenPanel");
+			break;
+			
+		default:
+			
+			break;
+		
+		}
 	
 		rq.forward(req, resp);		
 	}

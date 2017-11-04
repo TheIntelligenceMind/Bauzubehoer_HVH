@@ -32,18 +32,20 @@ public class QueryManager {
 	private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 	
+    private final static String DBUSER = "db_user";
 	private final static QueryManager instance = new QueryManager();	
 	private Connection connection = null;
 
 	private Connection getConnection(){
 		if(connection == null){
 			try {
+				Class.forName("com.mysql.jdbc.Driver");	
 				//Windows
 				connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/webshop","root","");
 				//Mac
 				//connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/webshop","admin","test");
 				
-			} catch (SQLException e) {
+			} catch (SQLException | ClassNotFoundException e) {
 				e.printStackTrace();
 			}
 		}
@@ -69,8 +71,6 @@ public class QueryManager {
 		ResultSet result = null;
 		
 		try {
-			Class.forName("com.mysql.jdbc.Driver");		
-			
 			String sql = "SELECT * FROM " + DB_TABELLE.BENUTZER.toString() + " left join " +  
 					DB_TABELLE.ADRESSE.toString() + " on "+ DB_TABELLE.ADRESSE.toString()
 					+".Benutzer_ID = " + DB_TABELLE.BENUTZER.toString() + ".ID  WHERE emailadresse=?";
@@ -84,13 +84,9 @@ public class QueryManager {
 				Adresse adresse = new Adresse().init(result.getString("straﬂe"), result.getString("hausnummer"), result.getString("postleitzahl"), result.getString("ort"), result.getString("zusatz"));
 				
 				return benutzer.init(result.getString("emailadresse"), result.getString("passwort"), result.getString("vorname"), result.getString("nachname"), adresse);
-			}else{
-				return null;
 			}
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 		
@@ -103,8 +99,6 @@ public class QueryManager {
 		ResultSet result = null;
 		
 		try {
-			Class.forName("com.mysql.jdbc.Driver");		
-			
 			String sql = "SELECT ID FROM " + DB_TABELLE.BENUTZER.toString() + " WHERE emailadresse = ?";
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setString(1, emailadresse);
@@ -116,8 +110,6 @@ public class QueryManager {
 			}
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}	
 		return benutzer_ID;	
@@ -133,8 +125,6 @@ public class QueryManager {
 		int result;
 		
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		
 			String pre_sql = "SELECT ID FROM " + DB_TABELLE.BENUTZER.toString() + " WHERE emailadresse = ?";
 			
 			PreparedStatement pre_stmt = getConnection().prepareStatement(pre_sql);
@@ -161,7 +151,7 @@ public class QueryManager {
 			stmt.setString(4, adresse.getOrt());
 			stmt.setString(5, adresse.getZusatz());
 			stmt.setInt(6, benutzerID);
-			stmt.setString(7, "db_user");
+			stmt.setString(7, DBUSER);
 			
 			result = stmt.executeUpdate();
 			
@@ -171,9 +161,7 @@ public class QueryManager {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}	
+		}
 			
 		return false;	
 	}
@@ -186,8 +174,6 @@ public class QueryManager {
 		int result;
 		
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		
 			String pre_sql = "SELECT ID FROM " + DB_TABELLE.BENUTZER.toString() + " WHERE emailadresse = ?";
 			
 			PreparedStatement pre_stmt = getConnection().prepareStatement(pre_sql);
@@ -212,23 +198,21 @@ public class QueryManager {
 			stmt.setString(3, adresse.getPostleitzahl());
 			stmt.setString(4, adresse.getOrt());
 			stmt.setString(5, adresse.getZusatz());
-			stmt.setString(6, "db_user");
+			stmt.setString(6, DBUSER);
 			stmt.setString(7, sdf.format(timestamp));
 			stmt.setInt(8, benutzerID);
 			
 			result = stmt.executeUpdate();
 			
-			if(result == 1){
+			if(result != 0){
 				return true;
 			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
 		}	
 		
-		return true;
+		return false;
 	}
 
 	
@@ -244,9 +228,7 @@ public class QueryManager {
 		Benutzer benutzer = piBenutzer;
 		int result;
 		
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-						
+		try {				
 			String sql = "INSERT INTO " + DB_TABELLE.BENUTZER.toString() + " (emailadresse, passwort, vorname, nachname, erstellt_Benutzer) "
 						+ "VALUES( ?, ?, ?, ?, ?)";
 			
@@ -255,19 +237,15 @@ public class QueryManager {
 			stmt.setString(2, benutzer.getPasswort());
 			stmt.setString(3, benutzer.getVorname());
 			stmt.setString(4, benutzer.getNachname());
-			stmt.setString(5, "db_user");
+			stmt.setString(5, DBUSER);
 			
 			result = stmt.executeUpdate();
 			
-			if(result == 1){
+			if(result != 0){
 				return true;
-			}else{
-				return false;
 			}
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}		
 		return false;
@@ -277,9 +255,7 @@ public class QueryManager {
 		Benutzer benutzer = piBenutzer;
 		int result = 0;
 		
-		try {
-			Class.forName("com.mysql.jdbc.Driver");		
-			
+		try {	
 			String sql = "UPDATE "+ DB_TABELLE.BENUTZER.toString() +" SET vorname = ?, nachname = ? WHERE emailadresse = ?";
 		
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
@@ -291,45 +267,43 @@ public class QueryManager {
 			
 			if(result != 0){
 				return true;
-			}else{
-				return false;
 			}
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 		
 		return false;
 	}
 	
-	public boolean deleteBenutzer(int id){
+	public boolean deleteBenutzer(String piEmailadresse){		
+		String emailadresse = piEmailadresse;
+		int benutzerID;
 		int result = 0;
 		
 		try {
-			Class.forName("com.mysql.jdbc.Driver");		
+			benutzerID = getBenutzerIDbyEmailadresse(emailadresse);
+			
+			if(benutzerID == -1){
+				return false;
+			}
 			
 			String sql = "DELETE FROM "+ DB_TABELLE.BENUTZER.toString() +" WHERE ID = ?";
 		
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
-			stmt.setInt(1, id);
+			stmt.setInt(1, benutzerID);
 			
 			result = stmt.executeUpdate();
 			
 			if(result != 0){
 				return true;
-			}else{
-				return false;
 			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
 		}
 		
-		return true;
+		return false;
 	}
 	
 	public boolean createBestellung(Bestellung piBestellung){
@@ -344,8 +318,6 @@ public class QueryManager {
 		ResultSet result = null;
 		
 		try {
-			Class.forName("com.mysql.jdbc.Driver");		
-			
 			String sql = "SELECT ID FROM " + DB_TABELLE.ARTIKEL.toString() + " WHERE Nummer = ?";
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setInt(1, artikelnummer);
@@ -358,8 +330,6 @@ public class QueryManager {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
 		}	
 		return Artikel_ID;	
 	}
@@ -369,9 +339,7 @@ public class QueryManager {
 		Artikel artikel = piArtikel;
 		int result;
 		
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			
+		try {	
 			String sql = "INSERT INTO " + DB_TABELLE.ARTIKEL.toString() + " (nummer, bezeichnung, beschreibung, preis, lagermenge, erstellt_Benutzer) " 
 			+ " VALUES(?, ?, ?, ?, ?, ?)";
 			
@@ -381,19 +349,15 @@ public class QueryManager {
 			stmt.setString(3, artikel.getBeschreibung());
 			stmt.setDouble(4, artikel.getPreis());
 			stmt.setLong(5, artikel.getLagermenge());
-			stmt.setString(6, "db_user");
+			stmt.setString(6, DBUSER);
 			
 			result = stmt.executeUpdate();
 			
-			if(result == 1){
+			if(result != 0){
 				return true;
-			}else{
-				return false;
 			}
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}	
 		return false;	
@@ -401,13 +365,18 @@ public class QueryManager {
 	
 	public boolean modifyArtikel(Artikel piArtikel){	
 		Artikel artikel = piArtikel;
+		int artikelID;
 		int result = 0;
 		
 		try {
-			Class.forName("com.mysql.jdbc.Driver");		
+			artikelID = getArtikelIDbyNummer(artikel.getNummer());
+			
+			if(artikelID == -1){
+				return false;
+			}
 			
 			String sql = "UPDATE "+ DB_TABELLE.ARTIKEL.toString() +" SET nummer = ?, bezeichnung = ? , beschreibung = ?"
-					+ ", preis = ?, lagermenge = ?, aktiv = ?, geaendert_Benutzer = ?, geaendert_Datum = ? WHERE nummer = ?";
+					+ ", preis = ?, lagermenge = ?, aktiv = ?, geaendert_Benutzer = ?, geaendert_Datum = ? WHERE ID = ?";
 		
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setInt(1, artikel.getNummer());
@@ -416,53 +385,51 @@ public class QueryManager {
 			stmt.setDouble(4, artikel.getPreis());
 			stmt.setInt(5, artikel.getLagermenge());
 			stmt.setInt(6, artikel.getAktiv());
-			stmt.setString(7, "db_user");
+			stmt.setString(7, DBUSER);
 			stmt.setString(8, sdf.format(timestamp));
-			stmt.setInt(9, artikel.getNummer());
+			stmt.setInt(9, artikelID);
 			
 			result = stmt.executeUpdate();
 			
 			if(result != 0){
 				return true;
-			}else{
-				return false;
 			}
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 		
 		return false;
 	}
 	
-	public boolean deleteArtikel(int id){
+	public boolean deleteArtikel(int piNummer){
+		int nummer = piNummer;
+		int artikelID;
 		int result = 0;
 		
 		try {
-			Class.forName("com.mysql.jdbc.Driver");		
+			artikelID = getArtikelIDbyNummer(nummer);
+			
+			if(artikelID == -1){
+				return false;
+			}
 			
 			String sql = "DELETE FROM "+ DB_TABELLE.ARTIKEL.toString() +" WHERE ID = ?";
 		
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
-			stmt.setInt(1, id);
+			stmt.setInt(1, artikelID);
 			
 			result = stmt.executeUpdate();
 			
 			if(result != 0){
 				return true;
-			}else{
-				return false;
 			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
 		}
 		
-		return true;
+		return false;
 	}
 	/**
 	 * <h3>Beschreibung: </h3>
@@ -478,7 +445,6 @@ public class QueryManager {
 		String sql = "";
 		
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
 			if (active){			
 				sql = "SELECT * FROM " + DB_TABELLE.ARTIKEL.toString() + " WHERE aktiv <> 0";
 			}
@@ -496,8 +462,6 @@ public class QueryManager {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
 		}		
 		
 		return artikelliste;
@@ -512,9 +476,7 @@ public class QueryManager {
 		List<Artikel> artikelliste = new ArrayList<Artikel>();
 		ResultSet result = null;	
 		
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-						
+		try {			
 			String sql = "SELECT * FROM " + DB_TABELLE.ARTIKEL.toString() + " WHERE bezeichnung like ?";
 			
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
@@ -529,8 +491,6 @@ public class QueryManager {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
 		}	
 		
 		return artikelliste;
@@ -541,9 +501,7 @@ public class QueryManager {
 		Artikel artikel = null;
 		ResultSet result = null;	
 		
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-						
+		try {				
 			String sql = "SELECT * FROM " + DB_TABELLE.ARTIKEL.toString() + " WHERE nummer = ?";
 			
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
@@ -556,8 +514,6 @@ public class QueryManager {
 			}
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}	
 		
@@ -573,9 +529,7 @@ public class QueryManager {
 			return null;
 		}
 		
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-						
+		try {					
 			String sql = "SELECT w.position, w.menge, a.nummer, a.bezeichnung, a.beschreibung, a.preis, a.lagermenge, a.aktiv FROM " + 
 			DB_TABELLE.WARENKORB.toString() + " w INNER JOIN "+ DB_TABELLE.BENUTZER.toString() + " b ON w.Benutzer_ID = b.ID LEFT JOIN " + 
 			DB_TABELLE.ARTIKEL.toString() + " a ON a.ID = w.Artikel_ID WHERE b.emailadresse = ?";
@@ -593,16 +547,8 @@ public class QueryManager {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}	
-		
-		
-		
-		
-		
-		return artikelliste;
-		
+		}
+		return artikelliste;	
 	}
 	
 	
@@ -613,11 +559,7 @@ public class QueryManager {
 		int result;
 		ResultSet first_result = null;
 		
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			
-		//====================================================
-			
+		try {	
 			String pre_sql = "SELECT ID FROM " + DB_TABELLE.BENUTZER.toString() + " WHERE emailadresse = ?";
 			
 			PreparedStatement pre_stmt = getConnection().prepareStatement(pre_sql);
@@ -647,9 +589,7 @@ public class QueryManager {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}	
+		}
 		
 		return false;
 	}
@@ -657,25 +597,25 @@ public class QueryManager {
 	public boolean updateWarenkorbPositions(int piPosition, int piBenutzerID){
 		int position = piPosition;
 		int benutzerID = piBenutzerID;
+		int result;
 
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			
 			String sql = "UPDATE " + DB_TABELLE.WARENKORB.toString() + " SET Position = (Position-1) WHERE Benutzer_ID = ? AND Position > ?";
 			
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setInt(1, benutzerID);
 			stmt.setInt(2, position);
 	
-			stmt.executeUpdate();
+			result = stmt.executeUpdate();
+			
+			if(result != 0){
+				return true;
+			}
 		
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}	
-
-		return true;		
+		}
+		return false;		
 	}
 	
 	public boolean addArtikelToWarenkorb(String piEmailadresse, int piArtikelnummer){
@@ -684,8 +624,6 @@ public class QueryManager {
 		int result;
 		
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
-
 			int benutzer_ID = getBenutzerIDbyEmailadresse(emailadresse);
 			int artikel_ID = getArtikelIDbyNummer(artikelnummer);
 			
@@ -724,21 +662,19 @@ public class QueryManager {
 				stmt.setInt(3, artikel_ID);
 				stmt.setInt(4, benutzer_ID);
 				stmt.setInt(5, 1);
-				stmt.setString(6, "db_user");
+				stmt.setString(6, DBUSER);
 				
 				result = stmt.executeUpdate();
 				
-				if(result == 0){
-					return false;
-				}		
+				if(result != 0){
+					return true;
+				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
 		}	
 		
-		return true;
+		return false;
 	}
 	
 	private boolean isArtikelImWarenkorbVorhanden(int piBenutzerID, int piArtikelID){
@@ -747,8 +683,6 @@ public class QueryManager {
 		ResultSet result = null;
 		
 		try {
-			Class.forName("com.mysql.jdbc.Driver");		
-			
 			String sql = "SELECT * FROM " + DB_TABELLE.WARENKORB.toString() + " WHERE Benutzer_ID = ? AND Artikel_ID = ?";
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setInt(1, benutzerID);
@@ -763,8 +697,6 @@ public class QueryManager {
 			}
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}		
 		return false;
@@ -791,8 +723,6 @@ public class QueryManager {
 		int result = 0;
 		
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
-
 			benutzer_ID = getBenutzerIDbyEmailadresse(emailadresse);
 			artikel_ID = getArtikelIDbyNummer(artikelnummer);
 			
@@ -814,9 +744,7 @@ public class QueryManager {
 			}		
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}	
+		}
 		
 		return true;
 	}
@@ -844,8 +772,6 @@ public class QueryManager {
 		int result = 0;
 		
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
-
 			benutzer_ID = getBenutzerIDbyEmailadresse(emailadresse);
 			artikel_ID = getArtikelIDbyNummer(artikelnummer);
 			
@@ -880,8 +806,6 @@ public class QueryManager {
 			}
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}		
 		return true;

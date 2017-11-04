@@ -3,6 +3,7 @@
 <%
 	Benutzer benutzer = (Benutzer)request.getAttribute("benutzer");
 %>
+
 <div class="showing" id="meinKontoPanel">
 	<h1>Konto</h1>
 
