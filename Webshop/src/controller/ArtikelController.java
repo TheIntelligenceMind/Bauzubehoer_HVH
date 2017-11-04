@@ -92,8 +92,7 @@ public class ArtikelController extends HttpServlet {
 			case "artikelBearbeitenAnzeigen":
 				Artikel artikel = null;
 				if(req.getParameter("artikelnummer") != null){	
-					System.out.println(req.getParameter("artikelnummer"));
-					
+
 					int artikelnummer = Integer.valueOf(req.getParameter("artikelnummer"));
 					
 					artikel = queryManager.searchArtikelByNummer(artikelnummer);								

@@ -12,7 +12,7 @@
 		<div id="artikelBearbeitenPanelBeschreibung">
 			<input title="Hinweis: Nur eine vierstellige Artikelnummer eingeben." class="inputField" type="text" name="nummer" value="<% out.print(artikel.getNummer()); %>" placeholder="Artikelnummer">
 			<input title="Bezeichnung" class="inputField" type="text" name="bezeichnung" value="<% out.print(artikel.getBezeichnung()); %>" placeholder="Bezeichnung">
-			<input title="Beschreibung" class="inputArea" name="beschreibung" value="<% out.print(artikel.getBeschreibung()); %>" placeholder="Beschreibung">
+			<input title="Beschreibung" class="inputArea" wrap="soft" name="beschreibung" value="<% out.print(artikel.getBeschreibung()); %>" placeholder="Beschreibung">
 		</div>
 		<div id="artikelBearbeitenPanelZahlen">
 			<input title="Hinweis: Der Preis muss mit einem Punkt getrennt sein!" class="inputField" type="text" name="preis" value="<% out.print(artikel.getPreis()); %>" placeholder="Preis">

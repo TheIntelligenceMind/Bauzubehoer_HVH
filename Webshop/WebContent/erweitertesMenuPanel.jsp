@@ -1,5 +1,12 @@
+<script type="text/javascript">
+function artikelAnzeigen(){
+	$(document).ready(function() {	      	               
+          window.location.href = "suchen";  
+	}); 	
+}
+</script>
 <div id="sitebar">
-	<div id="header">
+	<div onclick="artikelAnzeigen()" id="header">
 		<h1>Bauzubehör HVH</h1>
 		<h3>Online Shop</h3>
 	</div>

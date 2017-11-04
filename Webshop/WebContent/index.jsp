@@ -135,9 +135,9 @@
 							break;
 						}
 					}
-				}else if(siteContent == null){
+				}else{
 					%>
-						<%@ include file="error.jsp" %>
+						<%@ include file="artikelAnzeigenPanel.jsp" %>
 					<%
 				}
 			%>
