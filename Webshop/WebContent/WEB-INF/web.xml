@@ -72,12 +72,4 @@
     <servlet-name>ArtikelController</servlet-name>
     <url-pattern>/artikel</url-pattern>
    </servlet-mapping>
-   <servlet>
-    <servlet-name>ArtikellistenController</servlet-name>
-    <servlet-class>controller.ArtikellistenController</servlet-class>
-  </servlet>
-   <servlet-mapping>
-    <servlet-name>ArtikellistenController</servlet-name>
-    <url-pattern>/artikelAnzeigenMitarbeiter</url-pattern>
-   </servlet-mapping>
 </web-app>

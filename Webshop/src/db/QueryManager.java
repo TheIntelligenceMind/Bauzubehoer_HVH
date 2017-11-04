@@ -12,7 +12,6 @@ import entity.Adresse;
 import entity.Artikel;
 import entity.Benutzer;
 import entity.Bestellung;
-import entity.Warenkorb;
 import entity.WarenkorbArtikel;
 import enums.DB_TABELLE;
 

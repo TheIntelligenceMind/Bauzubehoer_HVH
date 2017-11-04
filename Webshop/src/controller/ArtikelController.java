@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -34,11 +35,7 @@ public class ArtikelController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		RequestDispatcher rd = req.getRequestDispatcher("index.jsp");
-		
-		resp.addHeader("contentSite", "artikelAnlegenPanel");
-		
-		rd.forward(req, resp);
+		doPost(req, resp);
 	}
 
     @Override
@@ -47,48 +44,82 @@ public class ArtikelController extends HttpServlet {
 		
 		String method = req.getParameter("method");
 		
-		switch(method){
-		
-		case "artikelAnlegen":		
-			boolean result = false;
-			String fehlertext = null;
-			
-			int nummer = NumberUtils.toInt(req.getParameter("nummer"), 0);
-			String bezeichnung = req.getParameter("bezeichnung");
-			String beschreibung = req.getParameter("beschreibung");
-			double preis = NumberUtils.toDouble(req.getParameter("preis"), 0.00);
-			int lagermenge = NumberUtils.toInt(req.getParameter("lagermenge"), 0);
-			
-			if((fehlertext = validateAttributes(bezeichnung, nummer, beschreibung, preis, lagermenge)) == null){
+		if(method != null){
+			switch(method){
+			case "artikellisteAnzeigen":
+				List<Artikel> artikelliste = null;
 				
-				Artikel newArtikel = new Artikel().init(bezeichnung, nummer, beschreibung, preis, lagermenge, 1);
+				artikelliste = queryManager.selectAllArtikel(false);
+
+				req.setAttribute("artikelListeMitarbeiter", artikelliste);
+						
+				resp.addHeader("contentSite", "artikelAnzeigenMitarbeiterPanel");	
+				break;
 				
-				result = QueryManager.getInstance().createArtikel(newArtikel);
-			}
+			case "artikelAnlegenAnzeigen":
+				resp.addHeader("contentSite", "artikelAnlegenPanel");	
+				break;
+			case "artikelAnlegen":		
+				boolean result = false;
+				String fehlertext = null;
+				
+				int nummer = NumberUtils.toInt(req.getParameter("nummer"), 0);
+				String bezeichnung = req.getParameter("bezeichnung");
+				String beschreibung = req.getParameter("beschreibung");
+				double preis = NumberUtils.toDouble(req.getParameter("preis"), 0.00);
+				int lagermenge = NumberUtils.toInt(req.getParameter("lagermenge"), 0);
+				
+				if((fehlertext = validateAttributes(bezeichnung, nummer, beschreibung, preis, lagermenge)) == null){
 					
-			if(result){
-				String hinweistext = "Der Artikel wurde erfolgreich angelegt.";
-				resp.addHeader("Status", RESPONSE_STATUS.HINWEIS.toString());
-				resp.addHeader(MELDUNG_ART.HINWEISMELDUNG.toString(), hinweistext);
-			}else{
-				String fehlermeldung = fehlertext.toString();	
-				resp.addHeader("Status", RESPONSE_STATUS.FEHLER.toString());
-				resp.addHeader(MELDUNG_ART.FEHLERMELDUNG.toString(), fehlermeldung);
-			}
+					Artikel newArtikel = new Artikel().init(bezeichnung, nummer, beschreibung, preis, lagermenge, 1);
 					
-			resp.addHeader("contentSite", "artikelAnlegenPanel");
+					result = QueryManager.getInstance().createArtikel(newArtikel);
+				}
+						
+				if(result){
+					String hinweistext = "Der Artikel wurde erfolgreich angelegt.";
+					resp.addHeader("Status", RESPONSE_STATUS.HINWEIS.toString());
+					resp.addHeader(MELDUNG_ART.HINWEISMELDUNG.toString(), hinweistext);
+				}else{
+					String fehlermeldung = fehlertext.toString();	
+					resp.addHeader("Status", RESPONSE_STATUS.FEHLER.toString());
+					resp.addHeader(MELDUNG_ART.FEHLERMELDUNG.toString(), fehlermeldung);
+				}
+						
+				resp.addHeader("contentSite", "artikelAnlegenPanel");
+				
+				break;
+			case "artikelBearbeitenAnzeigen":
+				Artikel artikel = null;
+				if(req.getParameter("artikelnummer") != null){	
+					System.out.println(req.getParameter("artikelnummer"));
+					
+					int artikelnummer = Integer.valueOf(req.getParameter("artikelnummer"));
+					
+					artikel = queryManager.searchArtikelByNummer(artikelnummer);								
+				}else{
+					artikel = new Artikel();
+					artikel.init("", -1, "", -1, -1, -1);
+				}
+				
+				req.setAttribute("artikel", artikel);
+				resp.addHeader("contentSite", "artikelBearbeitenPanel");
+				break;				
+			case "artikelBearbeiten":
+				
+				
+				resp.addHeader("contentSite", "artikelBearbeitenPanel");
+				break;
+				
+			default:
+				
+				break;
 			
-			break;
-		case "artikelBearbeiten":
-			
+			}
+		}else{
 			resp.addHeader("contentSite", "artikelBearbeitenPanel");
-			break;
-			
-		default:
-			
-			break;
-		
 		}
+		
 	
 		rq.forward(req, resp);		
 	}

@@ -16,14 +16,14 @@
 		
 		
 		<%	  
-			if(session.getAttribute("vorname") == null || session.getAttribute("nachname") == null){ 	
-		%>
-				<%@ include file="anmeldungPanel.jsp" %>
-		<%
+			if(session.getAttribute("emailadresse") == null){ 	
+				%>
+					<%@ include file="anmeldungPanel.jsp" %>
+				<%
 			}else{ 
-		%>
-				<%@ include file="benutzerPanel.jsp" %>
-		<%
+				%>
+					<%@ include file="benutzerPanel.jsp" %>
+				<%
 			}
 		%>
 		
@@ -80,30 +80,24 @@
 		
 
 		<div class="contentWrapper">
-			<% 
-				if(response.getHeader("contentSite") != null ){ 	
-					if(session.getAttribute("vorname") == null || session.getAttribute("nachname") == null){
-						switch(response.getHeader("contentSite")){
-						
-						case "registrierungPanel":
+			<%
+				String siteContent = response.getHeader("contentSite") != null ? response.getHeader("contentSite") : request.getHeader("contentSite");	
+				
+				// Hier wird der Content dynamisch über das Attribut "ContentSite" geladen
+				if(siteContent != null ){ 	
+					if(session.getAttribute("emailadresse") == null){
+						if(siteContent.equals("registrierungPanel")){
 							%>
 								<%@ include file="registrierungPanel.jsp" %>
-							<%
-							break;
-						default:
+							<%		
+						}else{
 							%>
 								<%@ include file="artikelAnzeigenPanel.jsp" %>
-							<%
-							break;
+							<%	
 						}
+							
 					}else{
-						switch(response.getHeader("contentSite")){
-						
-						case "registrierungPanel":
-							%>
-								<%@ include file="registrierungPanel.jsp" %>
-							<%
-							break;
+						switch(siteContent){
 						case "warenkorbPanel":
 							%>
 								<%@ include file="warenkorbPanel.jsp" %>
@@ -128,6 +122,12 @@
 							%>
 								<%@ include file="artikelAnzeigenMitarbeiterPanel.jsp" %>
 							<%
+							break;
+						case "artikelBearbeitenPanel":
+							%>
+								<%@ include file="artikelBearbeitenPanel.jsp" %>
+							<%
+							break;
 						default:
 							%>
 								<%@ include file="artikelAnzeigenPanel.jsp" %>
@@ -135,84 +135,29 @@
 							break;
 						}
 					}
-				}else if(request.getHeader("contentSite") != null ){ 		
-	
-					if(session.getAttribute("vorname") == null || session.getAttribute("nachname") == null){
-						switch(request.getHeader("contentSite")){
-						
-						case "registrierungPanel":
-							%>
-								<%@ include file="registrierungPanel.jsp" %>
-							<%
-							break;
-						default:
-							%>
-								<%@ include file="artikelAnzeigenPanel.jsp" %>
-							<%
-							break;
-						}
-					}else{
-						switch(request.getHeader("contentSite")){
-						
-						case "registrierungPanel":
-							%>
-								<%@ include file="registrierungPanel.jsp" %>
-							<%
-							break;
-						case "warenkorbPanel":
-							%>
-								<%@ include file="warenkorbPanel.jsp" %>
-							<%
-							break;
-						case "meineBestellungenPanel":
-							%>
-								<%@ include file="meineBestellungenPanel.jsp" %>
-							<%
-							break;
-						case "meinKontoPanel":
-							%>
-								<%@ include file="meinKontoPanel.jsp" %>
-							<%
-							break;
-						case "artikelAnlegenPanel":
-							%>
-								<%@ include file="artikelAnlegenPanel.jsp" %>
-							<%
-							break;
-						case "artikelAnzeigenMitarbeiterPanel":
-							%>
-								<%@ include file="artikelAnzeigenMitarbeiterPanel.jsp" %>
-							<%
-						default:
-							%>
-								<%@ include file="artikelAnzeigenPanel.jsp" %>
-							<%
-							break;
-						}
-					}
-				}else{
+				}else if(siteContent == null){
 					%>
-						<%@ include file="artikelAnzeigenPanel.jsp" %>
+						<%@ include file="error.jsp" %>
 					<%
 				}
 			%>
-			
+
+			<!-- Hier wird der der Hinweis/Fehlerdialog via Javascript aufgerufen -->		
 			<%
-			if(response.getHeader("status") != null && response.getHeader("status").equals(RESPONSE_STATUS.FEHLER.toString())){
-				out.println("<script type='text/javascript'>FehlermeldungOeffnen()</script>");
-			}else if(response.getHeader("status") != null && response.getHeader("status").equals(RESPONSE_STATUS.HINWEIS.toString())){
-				out.println("<script type='text/javascript'>HinweismeldungOeffnen()</script>");
-			}
-		
-			if(request.getHeader("status") != null && request.getHeader("status").equals(RESPONSE_STATUS.FEHLER.toString())){
-				out.println("<script type='text/javascript'>FehlermeldungOeffnen()</script>");
-			}else if(request.getHeader("status") != null && request.getHeader("status").equals(RESPONSE_STATUS.HINWEIS.toString())){
-				out.println("<script type='text/javascript'>HinweismeldungOeffnen()</script>");
-			}
-		%>
+				if(response.getHeader("status") != null && response.getHeader("status").equals(RESPONSE_STATUS.FEHLER.toString())){
+					out.println("<script type='text/javascript'>FehlermeldungOeffnen()</script>");
+				}else if(response.getHeader("status") != null && response.getHeader("status").equals(RESPONSE_STATUS.HINWEIS.toString())){
+					out.println("<script type='text/javascript'>HinweismeldungOeffnen()</script>");
+				}
+			
+				if(request.getHeader("status") != null && request.getHeader("status").equals(RESPONSE_STATUS.FEHLER.toString())){
+					out.println("<script type='text/javascript'>FehlermeldungOeffnen()</script>");
+				}else if(request.getHeader("status") != null && request.getHeader("status").equals(RESPONSE_STATUS.HINWEIS.toString())){
+					out.println("<script type='text/javascript'>HinweismeldungOeffnen()</script>");
+				}
+			%>
 			
 		</div>
 
-	
 	</body>
 </html>

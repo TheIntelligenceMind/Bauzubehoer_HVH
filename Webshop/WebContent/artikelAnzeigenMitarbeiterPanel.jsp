@@ -7,6 +7,19 @@
 	final DecimalFormat formaterArtikelMitarbeiter = new DecimalFormat("#0.00");
 
 %>
+
+<script type="text/javascript">
+function artikelBearbeitenAnzeigen(piArtikelNummer){
+	var artikelNummer = piArtikelNummer;
+
+	if(artikelNummer != null){
+		$(document).ready(function() {	      	               
+	          window.location.href = "artikel?method=artikelBearbeitenAnzeigen&artikelnummer="+artikelNummer;  
+		}); 
+	}	
+}
+</script>
+
 <div class="showing" id="artikelListeMitarbeiter">
 <h1>Artikelliste</h1>
 
@@ -35,33 +48,29 @@
 		        </thead>
 		        <tbody>
 		        	<%
-		        	List<Artikel> artikelListeMitarbeiter  = (List<Artikel>)request.getAttribute("artikelListeMitarbeiter");
+			        	List<?> artikelListeMitarbeiter  = (List<?>)request.getAttribute("artikelListeMitarbeiter");
 	
-		        	if(artikelListeMitarbeiter != null)
-		        	{
-			        	for(int i = 0; i <artikelListeMitarbeiter.size();i++)
-				        {
-			        		Artikel artikel = artikelListeMitarbeiter.get(i);
-			        		if(artikel != null)
-			        		{
-				        		out.println("<tr>" +
-				        		"<td class='tablerow'><div>" + artikel.getLagermenge() + "</div></td>" +
-				        		"<td class='tablerow'><div>" + String.format("%04d", artikel.getNummer()) + "</div></td>" +
-				        		"<td class='tablerow'><div>" + artikel.getBezeichnung() + "</div></td>" +
-				        		"<td class='tablerow'><div>" + artikel.getBeschreibung() + "</div></td>" +
-				        		"<td class='tablerow'><div>" + formaterArtikelMitarbeiter.format(artikel.getPreis()) +  "</div></td>" +
-				        		"<td class='tablerow'><div>" + artikel.getAktiv() + "</div></td>" +
-				        		"<td class='tablerow rightRow'>" + "<a href='artikelBearbeiten' class='PickSymbol'><i class='fa fa-pencil-square-o'></i></a>" + "</div></td>" +
-				        		"</tr>");
-				        	}
-		        		}
-		        	}
+			        	for(Object o : artikelListeMitarbeiter){	
+			        		Artikel art = (Artikel)o;
+	
+			        		out.println("<tr>" +
+			        		"<td class='tablerow'><div>" + art.getLagermenge() + "</div></td>" +
+			        		"<td class='tablerow'><div>" + String.format("%04d", art.getNummer()) + "</div></td>" +
+			        		"<td class='tablerow'><div>" + art.getBezeichnung() + "</div></td>" +
+			        		"<td class='tablerow'><div>" + art.getBeschreibung() + "</div></td>" +
+			        		"<td class='tablerow'><div>" + formaterArtikelMitarbeiter.format(art.getPreis()) +  "</div></td>" +
+			        		"<td class='tablerow'><div>" + art.getAktiv() + "</div></td>" +
+			        		"<td class='tablerow rightRow'>" + "<a onclick='artikelBearbeitenAnzeigen(" + art.getNummer() + ")' class='PickSymbol'><i class='fa fa-pencil-square-o'></i></a>" + "</div></td>" +
+			        		"</tr>");
+				        }
+		        	
 		        	%>
 		        </tbody>
 		    </table>
 	</div>
 	<div>
-		<form action="artikelAnlegen">
+		<form action="artikel">
+			<input type="hidden" name="method" value="artikelAnlegenAnzeigen">
 			<button id="btnArtikelAnlegen" type="submit"><i class="fa fa-plus"></i> Neuen Artikel anlegen</button>
 		</form>
 	</div>

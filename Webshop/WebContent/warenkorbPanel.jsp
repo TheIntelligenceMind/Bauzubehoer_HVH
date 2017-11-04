@@ -56,17 +56,14 @@ function updateQuantity(element, artikelnummer){
 	        </thead>
 	        <tbody>
 	        	<%
-	        	List<WarenkorbArtikel> warenkorbartikelListe = (List<WarenkorbArtikel>)session.getAttribute("warenkorbartikelliste");
-	        	double gesamt = 0;
-	        	int versandkosten = 20;
-	        	double mwst = 0;
-	        	if(warenkorbartikelListe != null)
-	        	{
-		        	for(int i = 0; i < warenkorbartikelListe.size();i++)
-			        {
-		        		WarenkorbArtikel warenkorbartikel = warenkorbartikelListe.get(i);
-		        		if(warenkorbartikel != null)
-		        		{
+		        	List<?> warenkorbartikelListe = (List<?>)session.getAttribute("warenkorbartikelliste");
+		        	double gesamt = 0;
+		        	int versandkosten = 20;
+		        	double mwst = 0;
+	
+			        	for(Object o : warenkorbartikelListe){
+			        		WarenkorbArtikel warenkorbartikel = (WarenkorbArtikel)o;
+			        		
 			        		out.println("<tr>" +
 			        		"<td><input style='font-size:14px; width:20px; border:none;' type='text' onchange='updateQuantity(this," + warenkorbartikel.getArtikel().getNummer() + ")' name='menge' value='" + String.valueOf(warenkorbartikel.getMenge()) + "'></td>" +
 			        		"<td>" + String.format("%04d", warenkorbartikel.getArtikel().getNummer()) + "</td>" +
@@ -75,10 +72,8 @@ function updateQuantity(element, artikelnummer){
 			        		"<td>" + "<a class='trashSymbol' onclick='deleteRow(this)'><i class='fa fa-trash-o'></i></a>" + "</td>" +
 			        		"</tr>");
 			        		gesamt = gesamt + (warenkorbartikel.getArtikel().getPreis() * warenkorbartikel.getMenge());
-			        		mwst = mwst + (warenkorbartikel.getArtikel().getPreis() * warenkorbartikel.getMenge())*0.19;
-			        	}
-	        		}
-	        	}
+			        		mwst = mwst + (warenkorbartikel.getArtikel().getPreis() * warenkorbartikel.getMenge())*0.19;  	
+		        	}	
 	        	%>
 	        </tbody>
 	      </table>
