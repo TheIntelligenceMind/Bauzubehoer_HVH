@@ -2,7 +2,7 @@ package entity;
 
 public class Adresse {
 
-	private String straﬂe;
+	private String stra√üe;
 	private String hausnummer;
 	private String postleitzahl;
 	private String ort;
@@ -12,8 +12,8 @@ public class Adresse {
 		
 	}
 	
-	public Adresse init(String piStraﬂe, String piHausnummer, String piPostleitzahl, String piOrt, String piZusatz){		
-		straﬂe = piStraﬂe != null ? piStraﬂe : "";	
+	public Adresse init(String piStra√üe, String piHausnummer, String piPostleitzahl, String piOrt, String piZusatz){		
+		stra√üe = piStra√üe != null ? piStra√üe : "";	
 		hausnummer = piHausnummer != null ? piHausnummer : "";	
 		postleitzahl = piPostleitzahl != null ? piPostleitzahl : "";
 		ort = piOrt != null ? piOrt : "";
@@ -24,15 +24,15 @@ public class Adresse {
 	
 
 	public String toString(){
-		return straﬂe + " " + hausnummer + "|" + postleitzahl + " " + ort;
+		return stra√üe + " " + hausnummer + "|" + postleitzahl + " " + ort;
 	}
 	
-	public String getStraﬂe() {
-		return straﬂe;
+	public String getStra√üe() {
+		return stra√üe;
 	}
 
-	public void setStraﬂe(String straﬂe) {
-		this.straﬂe = straﬂe;
+	public void setStra√üe(String stra√üe) {
+		this.stra√üe = stra√üe;
 	}
 
 	public String getHausnummer() {

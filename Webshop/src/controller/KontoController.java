@@ -58,7 +58,7 @@ public class KontoController extends HttpServlet {
 					resp.addHeader(MELDUNG_ART.HINWEISMELDUNG.toString(), hinweistext);
 						
 				}else{
-					String fehlermeldung = "ungültige Änderungen";	
+					String fehlermeldung = "ungï¿½ltige ï¾„nderungen";	
 					resp.addHeader("Status", RESPONSE_STATUS.FEHLER.toString());
 					resp.addHeader(MELDUNG_ART.FEHLERMELDUNG.toString(), fehlermeldung);
 				}	
@@ -73,7 +73,7 @@ public class KontoController extends HttpServlet {
 					resp.addHeader("Status", RESPONSE_STATUS.HINWEIS.toString());
 					resp.addHeader(MELDUNG_ART.HINWEISMELDUNG.toString(), hinweistext);			
 				}else{
-					String fehlermeldung = "ungültige Änderungen";	
+					String fehlermeldung = "ungï¿½ltige ï¾„nderungen";	
 					resp.addHeader("Status", RESPONSE_STATUS.FEHLER.toString());
 					resp.addHeader(MELDUNG_ART.FEHLERMELDUNG.toString(), fehlermeldung);
 				}
@@ -85,14 +85,14 @@ public class KontoController extends HttpServlet {
 				if(kontoLoeschen(req)){
 					rq = req.getRequestDispatcher("/abmelden");
 					
-					String hinweistext = "Das Benutzerkonto wurde erfolgreich gelöscht.";
+					String hinweistext = "Das Benutzerkonto wurde erfolgreich gelî’›cht.";
 					resp.addHeader("Status", RESPONSE_STATUS.HINWEIS.toString());
 					resp.addHeader(MELDUNG_ART.HINWEISMELDUNG.toString(), hinweistext);	
 				}else{
 					req.setAttribute("benutzer", benutzer);
 					resp.addHeader("contentSite", "meinKontoPanel");
 					
-					String fehlermeldung = "Das Benutzerkonto konnte nicht gelöscht werden.";	
+					String fehlermeldung = "Das Benutzerkonto konnte nicht gelî’›cht werden.";	
 					resp.addHeader("Status", RESPONSE_STATUS.FEHLER.toString());
 					resp.addHeader(MELDUNG_ART.FEHLERMELDUNG.toString(), fehlermeldung);	
 				}
@@ -147,7 +147,7 @@ public class KontoController extends HttpServlet {
     		if(strasse != null && !strasse.isEmpty() && hausnummer != null && !hausnummer.isEmpty() && plz != null && !plz.isEmpty() && ort != null && !ort.isEmpty()){
         		Adresse update_adresse = benutzer.getLieferAdresse();
         		
-        		update_adresse.setStraße(strasse);
+        		update_adresse.setStraÃŸe(strasse);
         		update_adresse.setHausnummer(hausnummer);
         		update_adresse.setPostleitzahl(plz);
         		update_adresse.setOrt(ort);
