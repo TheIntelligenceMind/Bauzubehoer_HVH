@@ -21,7 +21,8 @@
 				<input title="Vorname" class="inputField" type="text" name="vorname" placeholder="Vorname"  value="<% out.print(benutzer.getVorname()); %>">
 				<input title="Nachname" class="inputField" type="text" name="nachname" placeholder="Nachname" value="<% out.print(benutzer.getNachname()); %>">
 				<input title="E-Mail" class="inputField" type="text" name="emailadresse" placeholder="eMail" value="<% out.print(benutzer.getEmailadresse()); %>" disabled>				
-				<button class="btnSpeichern" type="submit" name="method" value="benutzerSpeichern">Speichern</button>
+				<button class="btnBenutzerSpeichern" type="submit" name="method" value="benutzerSpeichern">Speichern</button>
+				<button class="btnLoeschen" type="submit" name="method" value="benutzerLoeschen">L&oumlschen</button>
 			</form>
 			</div>
         </li>
