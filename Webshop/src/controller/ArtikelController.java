@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
+
 
 import db.QueryManager;
 import entity.Artikel;
@@ -27,6 +29,8 @@ public class ArtikelController extends HttpServlet {
 	private static final int MAX_ARTIKELNUMMER = 9999;
 	private static final QueryManager queryManager = QueryManager.getInstance();
 
+	private Artikel artikel = null;
+	
     public ArtikelController() {
         super();
 
@@ -68,7 +72,7 @@ public class ArtikelController extends HttpServlet {
 				double preis = NumberUtils.toDouble(req.getParameter("preis"), 0.00);
 				int lagermenge = NumberUtils.toInt(req.getParameter("lagermenge"), 0);
 				
-				if((fehlertext = validateAttributes(bezeichnung, nummer, beschreibung, preis, lagermenge)) == null){
+				if((fehlertext = validateAttributes(req, true)) == null){
 					
 					Artikel newArtikel = new Artikel().init(bezeichnung, nummer, beschreibung, preis, lagermenge, 1);
 					
@@ -88,8 +92,7 @@ public class ArtikelController extends HttpServlet {
 				resp.addHeader("contentSite", "artikelAnlegenPanel");
 				
 				break;
-			case "artikelBearbeitenAnzeigen":
-				Artikel artikel = null;
+			case "artikelBearbeitenAnzeigen":		
 				if(req.getParameter("artikelnummer") != null){	
 
 					int artikelnummer = Integer.valueOf(req.getParameter("artikelnummer"));
@@ -103,34 +106,76 @@ public class ArtikelController extends HttpServlet {
 				req.setAttribute("artikel", artikel);
 				resp.addHeader("contentSite", "artikelBearbeitenPanel");
 				break;				
-			case "artikelBearbeiten":
+			case "artikelBearbeiten":			
+				if(artikelSpeichern(req)){
+					
+					String hinweistext = "Die &Auml;nderungen wurden erfolgreich gespeichert.";
+					resp.addHeader("Status", RESPONSE_STATUS.HINWEIS.toString());
+					resp.addHeader(MELDUNG_ART.HINWEISMELDUNG.toString(), hinweistext);		
+				}else{
+					String fehlermeldung = "ung&uuml;ltige &Auml;nderungen.";
+					resp.addHeader("Status", RESPONSE_STATUS.FEHLER.toString());
+					resp.addHeader(MELDUNG_ART.FEHLERMELDUNG.toString(), fehlermeldung);
+				}
 				
-				
+				if(req.getParameter("nummer") == null){
+					artikel = new Artikel();
+					artikel.init("", -1, "", -1, -1, -1);
+				}else{
+					artikel = queryManager.searchArtikelByNummer(Integer.valueOf(req.getParameter("nummer")));
+				}
+
+				req.setAttribute("artikel", artikel);
 				resp.addHeader("contentSite", "artikelBearbeitenPanel");
-				break;
-				
+				break;	
 			default:
 				
-				break;
-			
+				break;		
 			}
 		}else{
 			resp.addHeader("contentSite", "artikelBearbeitenPanel");
 		}
-		
-	
+
 		rq.forward(req, resp);		
 	}
     
-    private String validateAttributes(String piBezeichnung, int piNummer, String piBeschreibung, double piPreis, int piLagermenge){	
-    	String fehlertext = null;
+    private boolean artikelSpeichern(HttpServletRequest req){
+    	if(validateAttributes(req, false) == null){
+	    	String bezeichnung = req.getParameter("bezeichnung");
+	    	int nummer = NumberUtils.toInt(req.getParameter("nummer"));
+	    	String beschreibung = req.getParameter("beschreibung");
+	    	double preis = NumberUtils.toDouble(req.getParameter("preis"));
+	    	int lagermenge = NumberUtils.toInt(req.getParameter("lagermenge"));
+	    	int aktiv = NumberUtils.toInt(req.getParameter("aktiv"));
+	    	  	
+	    	Artikel artikel_save = new Artikel().init(bezeichnung, nummer, beschreibung, preis, lagermenge, aktiv);
+	    	
+	    	// prüfen ob es den Artikel gibt
+	    	if(queryManager.searchArtikelByNummer(nummer) != null){
+	    		return queryManager.modifyArtikel(artikel_save);
+	    	}
+    	}
     	
-    	if(piBezeichnung != null && piNummer != 0 && piBeschreibung != null	&& piPreis != 0 && piLagermenge >= 0){
-    		if(piNummer <= MAX_ARTIKELNUMMER){
-    			if(queryManager.searchArtikelByNummer(piNummer) == null){
-        			return fehlertext;
-        		}else{
-        			fehlertext = "Die Artikelnummer wird schon verwendet.";
+    	return false;
+    }
+    
+    private String validateAttributes(HttpServletRequest req, boolean initial){	
+    	String fehlertext = null;
+    	int nummer = NumberUtils.toInt(req.getParameter("nummer"), 0);
+		String bezeichnung = req.getParameter("bezeichnung");
+		String beschreibung = req.getParameter("beschreibung");
+		double preis = NumberUtils.toDouble(req.getParameter("preis"), 0.00);
+		int lagermenge = NumberUtils.toInt(req.getParameter("lagermenge"), 0);
+		int aktiv = 1;
+		
+		if(!initial){
+			aktiv = NumberUtils.toInt(req.getParameter("aktiv"));
+		}
+		
+    	if(bezeichnung != null && nummer != 0 && beschreibung != null && preis != 0 && lagermenge >= 0 && (aktiv == 0 || aktiv == 1)){
+    		if(nummer <= MAX_ARTIKELNUMMER){
+    			if(queryManager.searchArtikelByNummer(nummer) != null && initial){
+    				fehlertext = "Die Artikelnummer wird schon verwendet.";
         		}
     		}else{
     			fehlertext = "Die Artikelnummer liegt außerhalb des Nummernbereichs";

@@ -437,7 +437,7 @@ html,body{
 .tabreiter
 {
     width: 100%;
-    height: 400px;
+    height: 300px;
     margin-top: 20px;
 }   
  
@@ -557,7 +557,6 @@ html,body{
 .btnBenutzerSpeichern
 {
 	margin-top: 40px;
-	margin-left: 95px;
 	width: 40%;
 	height: 35px;
 	font-size: 20px;
@@ -583,30 +582,28 @@ html,body{
 	background-color: #BF4D17;
 	border-radius: 5px;
 }
-.btnAdresseSpeichern:hover
-{
+.btnAdresseSpeichern:hover{
 	cursor:pointer;
 	background-color: #9b4013;
 	
 }
-.btnLoeschen
-{
+.btnLoeschen{
 	background-color: #F82D2D;
 	width: 15%;
 	color: white;
 	height: 25px;
 	float: right;
 	margin-right: 30px;
-	margin-top: 100px;
+	margin-top: 70px;
 	position: relative;
 	height: 30px;
 	font-size: 15px;
 	border-style: none;
 	border-radius: 5px;
 }
-.btnLoeschen:hover
-{
+.btnLoeschen:hover{
 	cursor:pointer;
+	background-color: #b40505;
 }
 /* ------------- Panel für die mein Konto Übersicht ------------------- */
 
@@ -855,7 +852,7 @@ html,body{
 #artikelBearbeitenPanel{
 	margin: 50px auto;
 	width: 700px;
-	height: 700px;
+	height: 620px;
 	text-align: center;
 	opacity: 0.9;
 	background-color: white;
@@ -868,14 +865,16 @@ html,body{
 	margin:0;
 	padding: 0;
 	padding-top: 20px;
+	padding-bottom: 20px;
 }
 #artikelBearbeitenPanel form{
 	text-align: center;
 }
-#artikelBearbeitenPanel h3
-{
-	padding-top: 5px;
-	margin-top: 10px;
+#artikelBearbeitenPanel h3{
+	margin: 0;
+	padding: 0;
+	padding-top: 10px;
+	padding-bottom: 5px;
 	font-size: 15px;
 }
 #artikelBearbeitenPanelBeschreibung .inputField{
@@ -906,7 +905,7 @@ html,body{
 }
 
 #btnArtikelSpeichern{
-	margin-top: 20px;
+	margin-top: 40px;
 	width: 40%;
 	height: 40px;
 	font-size: 20px;
