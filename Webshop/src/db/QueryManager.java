@@ -73,16 +73,30 @@ public class QueryManager {
 			String sql = "SELECT * FROM " + DB_TABELLE.BENUTZER.toString() + " left join " +  
 					DB_TABELLE.ADRESSE.toString() + " on "+ DB_TABELLE.ADRESSE.toString()
 					+".Benutzer_ID = " + DB_TABELLE.BENUTZER.toString() + ".ID  WHERE emailadresse=?";
-		
+			
+			String post_sql = "SELECT * FROM " + DB_TABELLE.ADRESSE.toString() + " WHERE Benutzer_ID = ?";					
+			
+			
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setString(1, piEMailAdresse);
 			
 			result = stmt.executeQuery();
-			
-			if(result.next()){
-				Adresse adresse = new Adresse().init(result.getString("strasse"), result.getString("hausnummer"), result.getString("postleitzahl"), result.getString("ort"), result.getString("zusatz"));
+				
+			if(result.next()){	
+				Adresse adresse = null;
+				
+				PreparedStatement post_stmt = getConnection().prepareStatement(post_sql);
+				post_stmt.setInt(1, getBenutzerIDbyEmailadresse(piEMailAdresse));
+					
+				ResultSet post_result = post_stmt.executeQuery();
+				
+				// Es soll nur ein Adress-Objekt angelegt werden wenn es einen Adresse Datensatz in der DB zu dem Benutzer gibt
+				if(post_result.next()){	
+					adresse = new Adresse().init(result.getString("strasse"), result.getString("hausnummer"), result.getString("postleitzahl"), result.getString("ort"), result.getString("zusatz"));		
+				}
 				
 				return benutzer.init(result.getString("emailadresse"), result.getString("passwort"), result.getString("vorname"), result.getString("nachname"), adresse);
+				
 			}
 			
 		} catch (SQLException e) {

@@ -1,7 +1,12 @@
 <%@page import="entity.Benutzer"%>
-
+<%@page import="entity.Adresse"%>
 <%
 	Benutzer benutzer = (Benutzer)request.getAttribute("benutzer");
+	Adresse adresse = benutzer.getLieferAdresse() ;
+
+	if(adresse == null){
+		adresse = new Adresse().init("", "", "", "", "");	
+	}
 %>
 
 <div class="showing" id="meinKontoPanel">
@@ -24,10 +29,10 @@
             <input type="radio" name="tabreiter-0" id="tabreiter-0-1" /><label for="tabreiter-0-1">Adresse</label>
             <div>
             <form action="meinKonto" method="post">
-	            <input title="Strasse" class="inputField" type="text" name="strasse" placeholder="Straße" id="Strasse" value="<% out.print(benutzer.getLieferAdresse().getStrasse()); %>">
-	            <input title="Hausnummer" class="inputField" type="text" name="hausnummer" placeholder="Hausnummer" id="Hausnummer" value="<% out.print(benutzer.getLieferAdresse().getHausnummer()); %>">
-				<input title="PLZ" class="inputField" type="text" name="postleitzahl" placeholder="PLZ" value="<% out.print(benutzer.getLieferAdresse().getPostleitzahl()); %>">
-				<input title="Ort" class="inputField" type="text" name="ort" placeholder="Ort" value="<% out.print(benutzer.getLieferAdresse().getOrt()); %>">
+	            <input title="Strasse" class="inputField" type="text" name="strasse" placeholder="Straße" id="Strasse" value="<% out.print(adresse.getStrasse()); %>">
+	            <input title="Hausnummer" class="inputField" type="text" name="hausnummer" placeholder="Hausnummer" id="Hausnummer" value="<% out.print(adresse.getHausnummer()); %>">
+				<input title="PLZ" class="inputField" type="text" name="postleitzahl" placeholder="PLZ" value="<% out.print(adresse.getPostleitzahl()); %>">
+				<input title="Ort" class="inputField" type="text" name="ort" placeholder="Ort" value="<% out.print(adresse.getOrt()); %>">
 				<button class="btnSpeichern" type="submit" name="method" value="adresseSpeichern">Speichern</button>
 			</form>	
             </div>
