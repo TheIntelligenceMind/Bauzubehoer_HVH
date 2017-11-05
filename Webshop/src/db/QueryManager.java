@@ -80,7 +80,7 @@ public class QueryManager {
 			result = stmt.executeQuery();
 			
 			if(result.next()){
-				Adresse adresse = new Adresse().init(result.getString("straï¾Ÿe"), result.getString("hausnummer"), result.getString("postleitzahl"), result.getString("ort"), result.getString("zusatz"));
+				Adresse adresse = new Adresse().init(result.getString("strasse"), result.getString("hausnummer"), result.getString("postleitzahl"), result.getString("ort"), result.getString("zusatz"));
 				
 				return benutzer.init(result.getString("emailadresse"), result.getString("passwort"), result.getString("vorname"), result.getString("nachname"), adresse);
 			}
@@ -140,7 +140,7 @@ public class QueryManager {
 			
 			//=============================================================================
 			
-			String sql = "INSERT INTO " + DB_TABELLE.ADRESSE.toString() + " (straÃŸe, hausnummer, postleitzahl, ort, zusatz, benutzer_id, erstellt_Benutzer) " 
+			String sql = "INSERT INTO " + DB_TABELLE.ADRESSE.toString() + " (strasse, hausnummer, postleitzahl, ort, zusatz, benutzer_id, erstellt_Benutzer) " 
 					+ " VALUES(?, ?, ?, ?, ?, ?, ?)";
 					
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
@@ -188,7 +188,7 @@ public class QueryManager {
 			benutzerID = first_result.getInt("id");
 			
 			//=============================================================================
-			String sql = "UPDATE " + DB_TABELLE.ADRESSE.toString() + " SET straÃŸe = ?, hausnummer = ?, postleitzahl = ?, ort = ?,"
+			String sql = "UPDATE " + DB_TABELLE.ADRESSE.toString() + " SET strasse = ?, hausnummer = ?, postleitzahl = ?, ort = ?,"
 					+ " zusatz = ?, geaendert_Benutzer = ?, geaendert_Datum = ? WHERE Benutzer_ID = ?";
 					
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
