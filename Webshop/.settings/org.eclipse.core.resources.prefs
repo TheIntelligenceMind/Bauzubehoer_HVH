@@ -1,2 +1,5 @@
 eclipse.preferences.version=1
 encoding//WebContent/artikelAnzeigenPanel.jsp=UTF-8
+encoding//src/controller/KontoController.java=UTF-8
+encoding//src/db/QueryManager.java=UTF-8
+encoding//src/entity/Adresse.java=UTF-8
