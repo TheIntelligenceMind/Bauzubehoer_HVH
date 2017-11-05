@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -147,7 +146,7 @@ public class KontoController extends HttpServlet {
     		if(strasse != null && !strasse.isEmpty() && hausnummer != null && !hausnummer.isEmpty() && plz != null && !plz.isEmpty() && ort != null && !ort.isEmpty()){
         		Adresse update_adresse = benutzer.getLieferAdresse();
         		
-        		update_adresse.setStraße(strasse);
+        		update_adresse.setStrasse(strasse);
         		update_adresse.setHausnummer(hausnummer);
         		update_adresse.setPostleitzahl(plz);
         		update_adresse.setOrt(ort);
