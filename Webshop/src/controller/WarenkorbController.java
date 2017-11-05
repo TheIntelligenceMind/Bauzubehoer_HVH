@@ -50,10 +50,10 @@ public class WarenkorbController extends HttpServlet {
 	    			updateWarenkorb(req);
 	    			
 	    			resp.addHeader("status", RESPONSE_STATUS.HINWEIS.toString());
-    				resp.addHeader("hinweismeldung", "Der Artikel wurde dem Warenkorb hinzugefügt.");
+    				resp.addHeader("hinweismeldung", "Der Artikel wurde dem Warenkorb hinzugef&uuml;gt.");
 	    		}else{
 	    			resp.addHeader("status", RESPONSE_STATUS.FEHLER.toString());
-    				resp.addHeader("fehlermeldung", "Der Artikel konnte nicht hinzugefügt werden.");	
+    				resp.addHeader("fehlermeldung", "Der Artikel konnte nicht hinzugef&uuml;gt werden.");	
 	    		}
 	    		
 	    		rq = req.getRequestDispatcher("/suchen");
@@ -72,7 +72,7 @@ public class WarenkorbController extends HttpServlet {
 	    				resp.addHeader("hinweismeldung", "Der Artikel wurde aus dem Warenkorb entfernt.");
 	    			}else{
 	    				resp.addHeader("status", RESPONSE_STATUS.FEHLER.toString());
-	    				resp.addHeader("fehlermeldung", "Es ist ein Problem beim Löschen aufgetreten.");	
+	    				resp.addHeader("fehlermeldung", "Es ist ein Problem beim L&ouml;schen aufgetreten.");	
 	    			}
 	    		}
 	    		
@@ -84,10 +84,10 @@ public class WarenkorbController extends HttpServlet {
 	    			updateWarenkorb(req);
 	    			
     				resp.addHeader("status", RESPONSE_STATUS.HINWEIS.toString());
-    				resp.addHeader("hinweismeldung", "Die Menge des Artikels wurde geändert.");
+    				resp.addHeader("hinweismeldung", "Die Menge des Artikels wurde ge&auml;ndert.");
     			}else{
     				resp.addHeader("status", RESPONSE_STATUS.FEHLER.toString());
-    				resp.addHeader("fehlermeldung", "Die Menge des Artikels konnte leider nicht geändert werden.");	
+    				resp.addHeader("fehlermeldung", "Die Menge des Artikels konnte leider nicht ge&auml;ndert werden.");	
     			}
 	    		
 	    		rq = req.getRequestDispatcher("index.jsp");
