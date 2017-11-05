@@ -131,7 +131,7 @@ public class QueryManager {
 			
 			first_result = pre_stmt.executeQuery();
 			
-			// sicherstellen, dass es ein BenutzerObjekt
+			// sicherstellen, dass es ein BenutzerObjekt gibt
 			if(!first_result.next()){
 				return false;
 			}
