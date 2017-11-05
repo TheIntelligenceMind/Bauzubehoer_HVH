@@ -3,7 +3,7 @@ package entity;
 public class Artikel {
 
 	private String bezeichnung;
-	public int nummer;
+	private int nummer;
 	private double preis;
 	private String beschreibung;
 	private int lagermenge;
