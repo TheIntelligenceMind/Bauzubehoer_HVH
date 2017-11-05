@@ -57,7 +57,7 @@ public class KontoController extends HttpServlet {
 					resp.addHeader(MELDUNG_ART.HINWEISMELDUNG.toString(), hinweistext);
 						
 				}else{
-					String fehlermeldung = "ung�ltige ﾄnderungen";	
+					String fehlermeldung = "ung&uuml;ltige &Auml;nderungen";	
 					resp.addHeader("Status", RESPONSE_STATUS.FEHLER.toString());
 					resp.addHeader(MELDUNG_ART.FEHLERMELDUNG.toString(), fehlermeldung);
 				}	
@@ -72,7 +72,7 @@ public class KontoController extends HttpServlet {
 					resp.addHeader("Status", RESPONSE_STATUS.HINWEIS.toString());
 					resp.addHeader(MELDUNG_ART.HINWEISMELDUNG.toString(), hinweistext);			
 				}else{
-					String fehlermeldung = "ung�ltige ﾄnderungen";	
+					String fehlermeldung = "ung&uuml;ltige &Auml;nderungen";	
 					resp.addHeader("Status", RESPONSE_STATUS.FEHLER.toString());
 					resp.addHeader(MELDUNG_ART.FEHLERMELDUNG.toString(), fehlermeldung);
 				}
@@ -84,14 +84,14 @@ public class KontoController extends HttpServlet {
 				if(kontoLoeschen(req)){
 					rq = req.getRequestDispatcher("/abmelden");
 					
-					String hinweistext = "Das Benutzerkonto wurde erfolgreich gelcht.";
+					String hinweistext = "Das Benutzerkonto wurde erfolgreich gel&ouml;scht.";
 					resp.addHeader("Status", RESPONSE_STATUS.HINWEIS.toString());
 					resp.addHeader(MELDUNG_ART.HINWEISMELDUNG.toString(), hinweistext);	
 				}else{
 					req.setAttribute("benutzer", benutzer);
 					resp.addHeader("contentSite", "meinKontoPanel");
 					
-					String fehlermeldung = "Das Benutzerkonto konnte nicht gelcht werden.";	
+					String fehlermeldung = "Das Benutzerkonto konnte nicht gel&ouml;scht werden.";	
 					resp.addHeader("Status", RESPONSE_STATUS.FEHLER.toString());
 					resp.addHeader(MELDUNG_ART.FEHLERMELDUNG.toString(), fehlermeldung);	
 				}
@@ -114,7 +114,7 @@ public class KontoController extends HttpServlet {
 			req.setAttribute("benutzer", benutzer);
 		}else{
 			benutzer = new Benutzer().init("", "", "", "", null);
-		}		
+		}
 		req.setAttribute("benutzer", benutzer);
 		resp.addHeader("contentSite", "meinKontoPanel");
     }

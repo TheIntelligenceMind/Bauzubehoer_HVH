@@ -85,7 +85,7 @@ public class RegistrationController extends HttpServlet{
 							}
 							
 						}else{
-							fehlertext = "Die Passwörter sind nicht identisch.";
+							fehlertext = "Die Passw&ouml;rter sind nicht identisch.";
 						}
 					}else{
 						fehlertext = "Das Passwort entspricht nicht den Richtlinien.";
@@ -94,10 +94,10 @@ public class RegistrationController extends HttpServlet{
 					fehlertext = "Die E-Mail-Adresse ist bereits registriert.";
 				}
 			}else{
-				fehlertext = "Die E-Mail-Adresse ist nicht gültig.";
+				fehlertext = "Die E-Mail-Adresse ist nicht g&uuml;ltig.";
 			}
 		}else{
-			fehlertext = "Es wurden nicht alle Felder ausgefüllt.";
+			fehlertext = "Es wurden nicht alle Felder ausgef&uuml;llt.";
 		}
 		
 		//falls ein alter Status besteht wird dieser gelöscht.

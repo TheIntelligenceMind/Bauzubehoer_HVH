@@ -136,7 +136,7 @@ public class ArtikelController extends HttpServlet {
     			fehlertext = "Die Artikelnummer liegt außerhalb des Nummernbereichs";
     		}
     	}else{
-    		fehlertext = "Bitte überprüfe die Eingaben auf Vollständigkeit und Gültigkeit.";
+    		fehlertext = "Bitte &uuml;berpr&uuml;fe die Eingaben auf Vollst&auml;ndigkeit und G&uuml;ltigkeit.";
     	}
     	return fehlertext;
     }
