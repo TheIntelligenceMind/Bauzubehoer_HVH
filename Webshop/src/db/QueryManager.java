@@ -21,7 +21,7 @@ import java.text.SimpleDateFormat;
 /**
  * <h3>Beschreibung:</h3>
  * <pre>
- * Die Klasse stellt Methoden zum Anlegen/Ver�ｿｽndern/L�ｿｽschen von Daten in der Datenbank zur Verf�ｿｽgung.
+ * Die Klasse stellt Methoden zum Anlegen/Verï¿½ï½¿ï½½ndern/Lï¿½ï½¿ï½½schen von Daten in der Datenbank zur Verfï¿½ï½¿ï½½gung.
  * </pre>
  * 
  * @author Tim Hermbecker
@@ -80,7 +80,7 @@ public class QueryManager {
 			result = stmt.executeQuery();
 			
 			if(result.next()){
-				Adresse adresse = new Adresse().init(result.getString("straﾟe"), result.getString("hausnummer"), result.getString("postleitzahl"), result.getString("ort"), result.getString("zusatz"));
+				Adresse adresse = new Adresse().init(result.getString("strasse"), result.getString("hausnummer"), result.getString("postleitzahl"), result.getString("ort"), result.getString("zusatz"));
 				
 				return benutzer.init(result.getString("emailadresse"), result.getString("passwort"), result.getString("vorname"), result.getString("nachname"), adresse);
 			}
@@ -140,11 +140,11 @@ public class QueryManager {
 			
 			//=============================================================================
 			
-			String sql = "INSERT INTO " + DB_TABELLE.ADRESSE.toString() + " (straße, hausnummer, postleitzahl, ort, zusatz, benutzer_id, erstellt_Benutzer) " 
+			String sql = "INSERT INTO " + DB_TABELLE.ADRESSE.toString() + " (strasse, hausnummer, postleitzahl, ort, zusatz, benutzer_id, erstellt_Benutzer) " 
 					+ " VALUES(?, ?, ?, ?, ?, ?, ?)";
 					
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
-			stmt.setString(1, adresse.getStraße());
+			stmt.setString(1, adresse.getStrasse());
 			stmt.setString(2, adresse.getHausnummer());
 			stmt.setString(3, adresse.getPostleitzahl());
 			stmt.setString(4, adresse.getOrt());
@@ -188,11 +188,11 @@ public class QueryManager {
 			benutzerID = first_result.getInt("id");
 			
 			//=============================================================================
-			String sql = "UPDATE " + DB_TABELLE.ADRESSE.toString() + " SET straße = ?, hausnummer = ?, postleitzahl = ?, ort = ?,"
+			String sql = "UPDATE " + DB_TABELLE.ADRESSE.toString() + " SET strasse = ?, hausnummer = ?, postleitzahl = ?, ort = ?,"
 					+ " zusatz = ?, geaendert_Benutzer = ?, geaendert_Datum = ? WHERE Benutzer_ID = ?";
 					
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
-			stmt.setString(1, adresse.getStraße());
+			stmt.setString(1, adresse.getStrasse());
 			stmt.setString(2, adresse.getHausnummer());		
 			stmt.setString(3, adresse.getPostleitzahl());
 			stmt.setString(4, adresse.getOrt());
@@ -433,7 +433,7 @@ public class QueryManager {
 	/**
 	 * <h3>Beschreibung: </h3>
 	 * <pre>
-	 * Die Methode liefert alle in der DB vorhandenen Artikel zur�ck
+	 * Die Methode liefert alle in der DB vorhandenen Artikel zurï¿½ck
 	 * </pre>
 	 * 
 	 * @return artikelliste
@@ -631,7 +631,7 @@ public class QueryManager {
 			}
 					
 			//==================================================
-			// pr�fen, ob sich der Artikel schon im Warenkorb befindet, wenn ja wird die Menge um 1 erht
+			// prï¿½fen, ob sich der Artikel schon im Warenkorb befindet, wenn ja wird die Menge um 1 erhî’�t
 			//==================================================			
 			if(isArtikelImWarenkorbVorhanden(benutzer_ID, artikel_ID)){	
 				
@@ -705,7 +705,7 @@ public class QueryManager {
 	/**
 	 * <pre>
 	 * <h3>Beschreibung:</h3>
-	 * Die Menge des Artikels im Warenkorb wird ver舅dert.
+	 * Die Menge des Artikels im Warenkorb wird verèˆ…dert.
 	 * 
 	 * </pre>
 	 * @param piMenge
@@ -753,9 +753,9 @@ public class QueryManager {
 	/**
 	 * <pre>
 	 * <h3>Beschreibung:</h3>
-	 * Die Menge des Artikels im Warenkorb wird erht.
+	 * Die Menge des Artikels im Warenkorb wird erhî’�t.
 	 * 
-	 * Wenn piMenge gleich -1 ist wird die Menge automatisch um 1 erht.
+	 * Wenn piMenge gleich -1 ist wird die Menge automatisch um 1 erhî’�t.
 	 * </pre>
 	 * @param piMenge
 	 * @param piArtikelnummer

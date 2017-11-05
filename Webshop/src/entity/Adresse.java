@@ -2,7 +2,7 @@ package entity;
 
 public class Adresse {
 
-	private String straße;
+	private String strasse;
 	private String hausnummer;
 	private String postleitzahl;
 	private String ort;
@@ -12,8 +12,8 @@ public class Adresse {
 		
 	}
 	
-	public Adresse init(String piStraße, String piHausnummer, String piPostleitzahl, String piOrt, String piZusatz){		
-		straße = piStraße != null ? piStraße : "";	
+	public Adresse init(String piStrasse, String piHausnummer, String piPostleitzahl, String piOrt, String piZusatz){		
+		strasse = piStrasse != null ? piStrasse : "";	
 		hausnummer = piHausnummer != null ? piHausnummer : "";	
 		postleitzahl = piPostleitzahl != null ? piPostleitzahl : "";
 		ort = piOrt != null ? piOrt : "";
@@ -24,15 +24,15 @@ public class Adresse {
 	
 
 	public String toString(){
-		return straße + " " + hausnummer + "|" + postleitzahl + " " + ort;
+		return strasse + " " + hausnummer + "|" + postleitzahl + " " + ort;
 	}
 	
-	public String getStraße() {
-		return straße;
+	public String getStrasse() {
+		return strasse;
 	}
 
-	public void setStraße(String straße) {
-		this.straße = straße;
+	public void setStrasse(String strasse) {
+		this.strasse = strasse;
 	}
 
 	public String getHausnummer() {
