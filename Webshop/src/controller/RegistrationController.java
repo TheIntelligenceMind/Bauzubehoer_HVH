@@ -3,6 +3,8 @@ package controller;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -21,38 +23,108 @@ import enums.RESPONSE_STATUS;
 @WebServlet("/registrieren")
 public class RegistrationController extends HttpServlet{
 	private static final long serialVersionUID = 8289722651997847704L;
-	
-	private boolean wurdeErstellt = false;
-	private String email = null;
-	private String vorname = null;
-	private String nachname = null;
-	private String passwort = null;
-	private String passwortBestaetigt = null;
-	private String fehlertext = "";
+
 	QueryManager queryManager = QueryManager.getInstance();
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		RequestDispatcher rd = req.getRequestDispatcher("index.jsp");
-		
-		resp.addHeader("contentSite", "registrierungPanel");
-		
-		rd.forward(req, resp);
+		doPost(req, resp);
 	}
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
 		resp.setContentType("text/html");  			
 		RequestDispatcher rd = req.getRequestDispatcher("index.jsp");;
-	
-		email = req.getParameter("emailadresse");
-		vorname = req.getParameter("vorname");
-		nachname = req.getParameter("nachname");
-		passwort = req.getParameter("passwort");
-		passwortBestaetigt = req.getParameter("passwortBestaetigt");
-	
+		String fehlertext = null;
+		
+		String method = req.getParameter("method");
 
+		
+		//falls ein alter Status besteht wird dieser gelöscht.
+		if(resp.getHeader("status") != null){
+			resp.setHeader("status", "");
+		}
+		
+		if(method != null){
+			switch(method){
+			case "registrieren":
+				fehlertext = validateRegistration(req);
+				
+				// aktueller Status wird gesetzt
+				if(fehlertext != null){
+					resp.addHeader("status", RESPONSE_STATUS.FEHLER.toString());
+					resp.addHeader("fehlermeldung", fehlertext);	
+				}else{
+					Benutzer benutzer = queryManager.getBenutzerByEMailAdresse(req.getParameter("emailadresse"));
+					
+					MailController.getInstance().sendBestaetigungsmail(benutzer);
+							
+					resp.addHeader("status", RESPONSE_STATUS.HINWEIS.toString());
+					resp.addHeader("hinweismeldung", "Erfolgreich registriert. Bitte prüfen Sie Ihre Mails.");
+				}
+				
+				break;
+			case "confirm":	
+				fehlertext = validateConfirmation(req);
+				
+				// aktueller Status wird gesetzt
+				if(fehlertext != null){
+					resp.addHeader("status", RESPONSE_STATUS.FEHLER.toString());
+					resp.addHeader("fehlermeldung", fehlertext);	
+				}else{
+
+					resp.addHeader("status", RESPONSE_STATUS.HINWEIS.toString());
+					resp.addHeader("hinweismeldung", "Das Benutzerkonto wurde erfolgreich aktiviert.");
+				}
+				
+				break;
+			default:
+				break;
+			}
+						
+			
+		}
+					
+		resp.addHeader("contentSite", "registrierungPanel");
+		resp.addHeader("result", String.valueOf(fehlertext == null));
+		
+		rd.forward(req, resp);
+	}	
+	
+	private String validateConfirmation(HttpServletRequest req){
+		String fehlertext = null;
+		String emailadresse = req.getParameter("ea");
+		Benutzer benutzer = null;
+		
+		benutzer = queryManager.getBenutzerByEMailAdresse(emailadresse);
+		
+		if(benutzer != null){
+			if(benutzer.getBestaetigt() == 0){
+				if(!benutzer.getRegistriertDatum().after(new Date(System.currentTimeMillis()-24*60*60*1000))){
+					fehlertext = "Der Aktivierungslink ist bereits abgelaufen.";
+				}else{
+					benutzer.setBestaetigt(1);
+					if(!queryManager.modifyBenutzer(benutzer)){
+						fehlertext = "Es ist ein unerwarteter Fehler bei der Aktivierung aufgetreten.";
+					}
+				}
+			}else{
+				fehlertext = "Das Benutzerkonto ist bereits aktiviert.";
+			}
+		}else{
+			fehlertext = "Es ist ein unerwarteter Fehler bei der Aktivierung aufgetreten.";
+		}
+		return fehlertext;
+	}
+	
+	private String validateRegistration(HttpServletRequest req){
+		String fehlertext = null;		
+		String email = req.getParameter("emailadresse");
+		String vorname = req.getParameter("vorname");
+		String nachname = req.getParameter("nachname");
+		String passwort = req.getParameter("passwort");
+		String passwortBestaetigt = req.getParameter("passwortBestaetigt");
+	
 		if(alleFelderGefuellt(email, vorname, nachname, passwort, passwortBestaetigt)){
 			if(isEmailValid(email)){
 				if(!isEmailUsed(email)){
@@ -75,15 +147,13 @@ public class RegistrationController extends HttpServlet{
 								e.printStackTrace();
 							}
 							
-							newBenutzer.init(email, hashPasswort, vorname, nachname,null);
+							newBenutzer.init(email, hashPasswort, vorname, nachname, null, 0, new Date(System.currentTimeMillis()));
 							
 							// Benutzerobjekt in der Datenbank anlegen
-							boolean result = queryManager.createBenutzer(newBenutzer);	
-							
-							if(result){
-								wurdeErstellt = true;
+							if(!queryManager.createBenutzer(newBenutzer)){
+								fehlertext = "Es ist ein unerwarteter Fehler aufgetreten.";
 							}
-							
+
 						}else{
 							fehlertext = "Die Passw&ouml;rter sind nicht identisch.";
 						}
@@ -100,25 +170,8 @@ public class RegistrationController extends HttpServlet{
 			fehlertext = "Es wurden nicht alle Felder ausgef&uuml;llt.";
 		}
 		
-		//falls ein alter Status besteht wird dieser gelöscht.
-		if(resp.getHeader("status") != null){
-			resp.setHeader("status", "");
-		}
-			
-		// aktueller Status wird gesetzt
-		if(!wurdeErstellt){
-			resp.addHeader("status", RESPONSE_STATUS.FEHLER.toString());
-			resp.addHeader("fehlermeldung", fehlertext);	
-		}else{
-			resp.addHeader("status", RESPONSE_STATUS.HINWEIS.toString());
-			resp.addHeader("hinweismeldung", "Der Benutzer wurde erfolgreich angelegt.");
-		}	
-		
-		resp.addHeader("contentSite", "registrierungPanel");
-		resp.addHeader("result", String.valueOf(wurdeErstellt));
-		
-		rd.forward(req, resp);
-	}	
+		return fehlertext;	
+	}
 	
 	/**
 	 * <h3>Beschreibung:</h3>

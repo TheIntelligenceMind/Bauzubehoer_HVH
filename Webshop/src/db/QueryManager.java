@@ -95,7 +95,7 @@ public class QueryManager {
 					adresse = new Adresse().init(result.getString("strasse"), result.getString("hausnummer"), result.getString("postleitzahl"), result.getString("ort"), result.getString("zusatz"));		
 				}
 				
-				return benutzer.init(result.getString("emailadresse"), result.getString("passwort"), result.getString("vorname"), result.getString("nachname"), adresse);
+				return benutzer.init(result.getString("emailadresse"), result.getString("passwort"), result.getString("vorname"), result.getString("nachname"), adresse, result.getInt("bestaetigt"), result.getDate("erstellt_Datum"));
 				
 			}
 			
@@ -269,12 +269,14 @@ public class QueryManager {
 		int result = 0;
 		
 		try {	
-			String sql = "UPDATE "+ DB_TABELLE.BENUTZER.toString() +" SET vorname = ?, nachname = ? WHERE emailadresse = ?";
+			String sql = "UPDATE "+ DB_TABELLE.BENUTZER.toString() +" SET vorname = ?, nachname = ?, bestaetigt = ? WHERE emailadresse = ?";
 		
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setString(1, benutzer.getVorname());
 			stmt.setString(2, benutzer.getNachname());
-			stmt.setString(3, benutzer.getEmailadresse());
+			stmt.setInt(3, benutzer.getBestaetigt());
+			stmt.setString(4, benutzer.getEmailadresse());
+			
 			
 			result = stmt.executeUpdate();
 			

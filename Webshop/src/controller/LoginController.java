@@ -38,7 +38,6 @@ public class LoginController extends HttpServlet{
 		String dispatchSite =  "/suchen";
 			
 		RequestDispatcher rd = req.getRequestDispatcher(dispatchSite);
-
 		
 		String emailadresse = req.getParameter("emailadresse");
 		String passwort = req.getParameter("passwort");
@@ -54,7 +53,7 @@ public class LoginController extends HttpServlet{
 				
 				String hashPasswort = DatatypeConverter.printHexBinary(str).toUpperCase();		
 
-				if(benutzer != null && benutzer.getPasswort().equals(hashPasswort)){
+				if(benutzer != null && benutzer.getBestaetigt() == 1 && benutzer.getPasswort().equals(hashPasswort)){
 					anmeldeStatus = true;
 					
 					session = req.getSession();
