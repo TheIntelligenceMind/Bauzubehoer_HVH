@@ -79,7 +79,6 @@ public class KontoController extends HttpServlet {
 				req.setAttribute("benutzer", benutzer);
 				resp.addHeader("contentSite", "meinKontoPanel");
 				break;
-				
 			case "loeschen":
 				if(kontoLoeschen(req)){
 					rq = req.getRequestDispatcher("/abmelden");
@@ -113,7 +112,7 @@ public class KontoController extends HttpServlet {
 		if(benutzer != null){
 			req.setAttribute("benutzer", benutzer);
 		}else{
-			benutzer = new Benutzer().init("", "", "", "", null);
+			benutzer = new Benutzer().init("", "", "", "", null, 0, null);
 		}
 		req.setAttribute("benutzer", benutzer);
 		resp.addHeader("contentSite", "meinKontoPanel");

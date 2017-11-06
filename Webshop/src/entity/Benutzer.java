@@ -1,5 +1,8 @@
 package entity;
 
+import java.sql.Date;
+import java.sql.Timestamp;
+
 import entity.Adresse;
 
 public class Benutzer {
@@ -9,17 +12,21 @@ public class Benutzer {
 	private String vorname;
 	private String nachname;
 	private Adresse lieferAdresse;	
+	private int bestaetigt;
+	private Date registriertDatum;
 	
 	public Benutzer(){		
 	
 	}
 	
-	public Benutzer init(String piEmail, String piPasswort, String piVorname, String piNachname, Adresse piLieferAdresse){		
+	public Benutzer init(String piEmail, String piPasswort, String piVorname, String piNachname, Adresse piLieferAdresse, int piBestaetigt, Date piRegistriertDatum){		
 		emailadresse = piEmail != null ? piEmail : "";
 		passwort = piPasswort != null ? piPasswort : "";	
 		vorname = piVorname != null ? piVorname : "";
 		nachname = piNachname != null ? piNachname : "";
-		lieferAdresse = piLieferAdresse != null ? piLieferAdresse : null;
+		lieferAdresse = piLieferAdresse;
+		bestaetigt = piBestaetigt;
+		registriertDatum = piRegistriertDatum != null ? piRegistriertDatum : new Date(System.currentTimeMillis());
 		
 		return this;
 	}
@@ -58,6 +65,22 @@ public class Benutzer {
 
 	public void setLieferAdresse(Adresse lieferAdresse) {
 		this.lieferAdresse = lieferAdresse;
+	}
+
+	public int getBestaetigt() {
+		return bestaetigt;
+	}
+
+	public void setBestaetigt(int bestaetigt) {
+		this.bestaetigt = bestaetigt;
+	}
+
+	public Date getRegistriertDatum() {
+		return registriertDatum;
+	}
+
+	public void setRegistriertDatum(Date registriertDatum) {
+		this.registriertDatum = registriertDatum;
 	}
 	
 }

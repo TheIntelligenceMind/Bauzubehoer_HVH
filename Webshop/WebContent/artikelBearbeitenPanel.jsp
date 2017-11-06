@@ -1,21 +1,19 @@
 <%@page import="entity.Artikel"%>
 
-<div class="showing" id="artikelBearbeitenPanel">
-
-	<h1>Artikel bearbeiten</h1>
-	
-	<%
+<%
 		Artikel artikel = (Artikel)request.getAttribute("artikel");
-	%>
-	
+%>
+
+<div class="showing" id="artikelBearbeitenPanel">
+	<h1>Artikel bearbeiten</h1>	
 	<form action="artikel" method="POST">
 		<div id="artikelBearbeitenPanelBeschreibung">
 			<h3>Artikelnummer</h3>
-			<input title="Hinweis: Nur eine vierstellige Artikelnummer eingeben." class="inputField" type="text" name="nummer" value="<% out.print(artikel.getNummer()); %>" placeholder="Artikelnummer">
+			<input title="Hinweis: Nur eine vierstellige Artikelnummer eingeben." class="inputField" type="text" name="nummer" value="<% out.print(artikel.getNummer()); %>" placeholder="Artikelnummer" readonly>
 			<h3>Bezeichnung</h3>
 			<input title="Bezeichnung" class="inputField" type="text" name="bezeichnung" value="<% out.print(artikel.getBezeichnung()); %>" placeholder="Bezeichnung">
 			<h3>Beschreibung</h3>
-			<input title="Beschreibung" class="inputArea" name="beschreibung" value="<% out.print(artikel.getBeschreibung()); %>" placeholder="Beschreibung">
+			<textarea title="Beschreibung" class="inputArea" wrap="soft" name="beschreibung" placeholder="Beschreibung"><% out.print(artikel.getBeschreibung()); %></textarea>
 		</div>
 		<div id="artikelBearbeitenPanelZahlen">
 			<h3>Preis</h3>
@@ -25,7 +23,7 @@
 			<h3>Aktiv</h3>
 			<input title="Aktiv" class="inputField" type="text" name="aktiv" value="<% out.print(artikel.getAktiv()); %>" placeholder="aktiv">
 		</div>
-			<input type="hidden" name="method" value="artikelBearbeitenAnzeigen">	
+			<input type="hidden" name="method" value="artikelBearbeiten">	
 			<input id="btnArtikelSpeichern" type="submit" value="Speichern">	
 	</form>
 	

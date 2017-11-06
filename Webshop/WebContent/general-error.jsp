@@ -22,7 +22,7 @@
 	<body>
 		<div class="errorpagecontainer">
 			<h1>Es ist ein unerwarteter Fehler aufgetreten!</h1>
-			<p>Sollten Sie diese Fehlermeldung erneut erhalten haben, können Sie sich an folgende E-Mail-Adresse wenden und Ihren Fehler melden: info@bauzubehoer-hvh.de</p>	
+			<p>Sollten Sie diese Fehlermeldung erneut erhalten haben, können Sie sich an folgende E-Mail-Adresse wenden und Ihren Fehler melden: bauzubehoer.hvh@gmail.com</p>	
 		</div>
 	</body>
 </html>
