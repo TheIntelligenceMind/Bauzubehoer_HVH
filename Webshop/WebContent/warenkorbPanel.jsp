@@ -38,9 +38,9 @@ function updateQuantity(element, artikelnummer){
 	<div id="warenkorbTabellen">
 	      <table id="artikelTabelle">
 	        <colgroup>
-		       <col span="1" style="width: 10%;">
-		       <col span="1" style="width: 20%;">
-		       <col span="1" style="width: 33%;">
+		       <col span="1" style="width: 8%;">
+		       <col span="1" style="width: 16%;">
+		       <col span="1" style="width: 39%;">
 		       <col span="1" style="width: 12%;">
 		       <col span="1" style="width: 5%;">
 		    </colgroup>

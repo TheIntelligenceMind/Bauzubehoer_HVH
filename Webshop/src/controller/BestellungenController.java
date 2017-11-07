@@ -44,9 +44,6 @@ public class BestellungenController extends HttpServlet {
 				resp.addHeader("contentSite", "meineBestellungenPanel");
 				break;
 		}	
-		
-	
-	
 
 		rq.forward(req, resp);	
 	}

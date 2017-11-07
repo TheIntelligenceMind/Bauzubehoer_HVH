@@ -72,13 +72,11 @@ public class QueryManager {
 		ResultSet result = null;
 		
 		try {
-			String sql = "SELECT * FROM " + DB_TABELLE.BENUTZER.toString() + " left join " +  
-					DB_TABELLE.ADRESSE.toString() + " on "+ DB_TABELLE.ADRESSE.toString()
-					+".Benutzer_ID = " + DB_TABELLE.BENUTZER.toString() + ".ID";
+			String sql = "SELECT * FROM " + DB_TABELLE.BENUTZER.toString() + " b "
+					+ "left join " + DB_TABELLE.ADRESSE.toString() + " a on(a.Benutzer_ID = b.ID) "
+					+ "left join " + DB_TABELLE.ROLLE.toString() + " r on(b.Rolle_ID = r.ID) WHERE b.emailadresse = ?";
 			
 			String post_sql = "SELECT * FROM " + DB_TABELLE.ADRESSE.toString() + " WHERE Benutzer_ID = ?";					
-			
-			String post_sql2 = "SELECT * FROM " + DB_TABELLE.ROLLE.toString() + " r inner join "+ DB_TABELLE.BENUTZER.toString() + " b ON(b.Rolle_ID = r.ID) WHERE Benutzer_ID = ?";	
 			
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setString(1, piEMailAdresse);
@@ -98,18 +96,8 @@ public class QueryManager {
 					adresse = new Adresse().init(result.getString("strasse"), result.getString("hausnummer"), result.getString("postleitzahl"), result.getString("ort"), result.getString("zusatz"));		
 				}
 				
-				//========================================
-				
-				Rolle rolle = null;
-				
-				PreparedStatement post_stmt2 = getConnection().prepareStatement(post_sql2);
-				post_stmt2.setInt(1, getBenutzerIDbyEmailadresse(piEMailAdresse));
-				
-				ResultSet post_result2 = post_stmt2.executeQuery();
-				
-				if(post_result2.next()){
-					rolle = new Rolle().init(post_result2.getString("bezeichnung"), post_result2.getInt("Sicht_Warenkorb"), post_result2.getInt("Sicht_Bestellungen"), post_result2.getInt("Sicht_Konto"), post_result2.getInt("Sicht_Artikelstammdaten"));
-				}
+
+				Rolle rolle = new Rolle().init(result.getString("bezeichnung"), result.getInt("Sicht_Warenkorb"), result.getInt("Sicht_Bestellungen"), result.getInt("Sicht_Konto"), result.getInt("Sicht_Artikelstammdaten"));
 	
 				return benutzer.init(result.getString("emailadresse"), result.getString("passwort"), result.getString("vorname"), result.getString("nachname"), adresse, rolle, result.getInt("bestaetigt"), result.getDate("erstellt_Datum"));
 				
