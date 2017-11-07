@@ -17,7 +17,7 @@
 			     		Artikel a = (Artikel)o;
 			     		
 			     		out.println("<div id='artikelListeKundenDesign'>" + 
-			    		"<div id='artikelListeKundenBild'>" + "BILD" + "</div>" +
+			    		"<div id='artikelListeKundenBild'></div>" +
 			     		"<div id='artikelListeKundenBezeichnung'>" + a.getBezeichnung() + "</div>" +
 			       		"<div id='artikelListeKundenPreis'>" + "&euro; " +  preisFormatter.format(a.getPreis()) + "</div>" +
 			     	    "<div id='artikelListeKundenBeschreibung'>" + a.getBeschreibung() + "</div>" +

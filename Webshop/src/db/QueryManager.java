@@ -827,5 +827,13 @@ public class QueryManager {
 	}
 	
 	
+	public List<Bestellung> selectAllBestellungenByBenutzeremailadresse(String piEmailadresse){
+		List<Bestellung> bestellungListe = null;
+		
+		
+		
+		return bestellungListe;
+	}
+	
 	
 }
