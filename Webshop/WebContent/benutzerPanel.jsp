@@ -12,6 +12,16 @@ function meinKontoAnzeigen(){
           window.location.href = "meinKonto?method=anzeigen";  
 	}); 
 }
+function meineBestellungenAnzeigen(){
+	$(document).ready(function() {	      	               
+          window.location.href = "meineBestellungen?method=bestellungenAnzeigen";  
+	}); 
+}
+function warenkorbAnzeigen(){
+	$(document).ready(function() {	      	               
+          window.location.href = "warenkorb?method=warenkorbAnzeigen";  
+	}); 
+}
 </script>
 
 <div id="benutzerPanel" class="controllPanel">
@@ -19,7 +29,7 @@ function meinKontoAnzeigen(){
 	<ul>
 		<li>
 			<i class="fa fa-cart-plus"></i>
-				<a href="warenkorb"> 
+				<a onclick="warenkorbAnzeigen()"> 
 					Warenkorb 
 					<% 
 						List<?> warenkorbartikelListe = (List<?>)session.getAttribute("warenkorbartikelliste");
@@ -32,7 +42,7 @@ function meinKontoAnzeigen(){
 					%>
 				</a>
 		</li>
-		<li><i class="fa fa-bars"></i><a href="meineBestellungen"> Meine Bestellungen</a></li>
+		<li><i class="fa fa-bars"></i><a onclick="meineBestellungenAnzeigen()"> Meine Bestellungen</a></li>
 		<li><i class="fa fa-user"></i><a onclick="meinKontoAnzeigen()"> Mein Konto</a></li>
 		<li><i class="fa fa-database"></i><a onclick="artikelListeMaAnzeigen()"> Artikelstammdaten</a>
 	</ul>

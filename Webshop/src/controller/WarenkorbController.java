@@ -35,7 +35,7 @@ public class WarenkorbController extends HttpServlet {
 
     @Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {	
-    	RequestDispatcher rq = null; 
+    	RequestDispatcher rq = req.getRequestDispatcher("index.jsp");; 
     	resp.setContentType("text/html");
     		  	
 		String method = req.getParameter("method");
@@ -45,6 +45,9 @@ public class WarenkorbController extends HttpServlet {
 		}
     	
     	switch(method){
+	    	case "warenkorbAnzeigen":
+	    		resp.addHeader("contentSite", "warenkorbPanel");	
+	    		break;
 	    	case "artikelInDenWarenkorb": 		
 	    		if(artikelHinzufuegen(req)){
 	    			updateWarenkorb(req);
@@ -75,8 +78,7 @@ public class WarenkorbController extends HttpServlet {
 	    				resp.addHeader("fehlermeldung", "Es ist ein Problem beim L&ouml;schen aufgetreten.");	
 	    			}
 	    		}
-	    		
-	    		rq = req.getRequestDispatcher("index.jsp");
+	  	    		
 	    		resp.addHeader("contentSite", "warenkorbPanel");		
 	    		break;    		
 	    	case "artikelMengeVeraendern":
@@ -90,11 +92,9 @@ public class WarenkorbController extends HttpServlet {
     				resp.addHeader("fehlermeldung", "Die Menge des Artikels konnte leider nicht ge&auml;ndert werden.");	
     			}
 	    		
-	    		rq = req.getRequestDispatcher("index.jsp");
 	    		resp.addHeader("contentSite", "warenkorbPanel");
 	    		break;
 	    	default:
-	    		rq = req.getRequestDispatcher("index.jsp");
 	    		resp.addHeader("contentSite", "warenkorbPanel");	
 	    		break;   	
     	}		

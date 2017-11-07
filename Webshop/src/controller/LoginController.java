@@ -17,6 +17,7 @@ import javax.xml.bind.DatatypeConverter;
 
 import db.QueryManager;
 import entity.Benutzer;
+import entity.Bestellung;
 import entity.WarenkorbArtikel;
 import enums.RESPONSE_STATUS;
 
@@ -66,6 +67,9 @@ public class LoginController extends HttpServlet{
 					
 					List<WarenkorbArtikel> warenkorbartikelListe = queryManager.selectAllWarenkorbartikelByBenutzeremailadresse(benutzer.getEmailadresse());	
 					session.setAttribute("warenkorbartikelliste", warenkorbartikelListe);
+					
+					List<Bestellung> bestellungenListe = queryManager.selectAllBestellungenByBenutzeremailadresse(benutzer.getEmailadresse());	
+					session.setAttribute("bestellungenliste", bestellungenListe);
 				}
 			
 			} catch (NoSuchAlgorithmException e) {

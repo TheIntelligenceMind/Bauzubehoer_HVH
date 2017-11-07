@@ -22,20 +22,32 @@ public class BestellungenController extends HttpServlet {
     }
 
     @Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doPost(request, response);
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		doPost(req, resp);
 	}
 
     @Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {		
+		RequestDispatcher rq = req.getRequestDispatcher("index.jsp");
 		
-		RequestDispatcher rq = request.getRequestDispatcher("index.jsp");
+		String method = req.getParameter("method");
 		
-		response.addHeader("contentSite", "meineBestellungenPanel");
+		if(method == null){
+			method = "";
+		}
+			
+		switch(method){
+			case "bestellungenAnzeigen":
+				resp.addHeader("contentSite", "meineBestellungenPanel");
+				break;
+			default:
+				resp.addHeader("contentSite", "meineBestellungenPanel");
+				break;
+		}	
 		
-		rq.forward(request, response);
-		
-		
-	}
+	
+	
 
+		rq.forward(req, resp);	
+	}
 }

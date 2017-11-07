@@ -61,6 +61,7 @@ function updateQuantity(element, artikelnummer){
 		        	int versandkosten = 20;
 		        	double mwst = 0;
 	
+		        	if(warenkorbartikelListe != null){
 			        	for(Object o : warenkorbartikelListe){
 			        		WarenkorbArtikel warenkorbartikel = (WarenkorbArtikel)o;
 			        		
@@ -73,7 +74,8 @@ function updateQuantity(element, artikelnummer){
 			        		"</tr>");
 			        		gesamt = gesamt + (warenkorbartikel.getArtikel().getPreis() * warenkorbartikel.getMenge());
 			        		mwst = mwst + (warenkorbartikel.getArtikel().getPreis() * warenkorbartikel.getMenge())*0.19;  	
-		        	}	
+		        		}	
+		        	}
 	        	%>
 	        </tbody>
 	      </table>
