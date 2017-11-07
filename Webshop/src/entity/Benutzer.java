@@ -12,6 +12,7 @@ public class Benutzer {
 	private String vorname;
 	private String nachname;
 	private Adresse lieferAdresse;	
+	private Rolle rolle;
 	private int bestaetigt;
 	private Date registriertDatum;
 	
@@ -19,18 +20,27 @@ public class Benutzer {
 	
 	}
 	
-	public Benutzer init(String piEmail, String piPasswort, String piVorname, String piNachname, Adresse piLieferAdresse, int piBestaetigt, Date piRegistriertDatum){		
+	public Benutzer init(String piEmail, String piPasswort, String piVorname, String piNachname, Adresse piLieferAdresse, Rolle piRolle, int piBestaetigt, Date piRegistriertDatum){		
 		emailadresse = piEmail != null ? piEmail : "";
 		passwort = piPasswort != null ? piPasswort : "";	
 		vorname = piVorname != null ? piVorname : "";
 		nachname = piNachname != null ? piNachname : "";
 		lieferAdresse = piLieferAdresse;
+		rolle = piRolle;
 		bestaetigt = piBestaetigt;
 		registriertDatum = piRegistriertDatum != null ? piRegistriertDatum : new Date(System.currentTimeMillis());
 		
 		return this;
 	}
 	
+	public Rolle getRolle() {
+		return rolle;
+	}
+
+	public void setRolle(Rolle rolle) {
+		this.rolle = rolle;
+	}
+
 	public String getPasswort(){
 		return passwort;
 	}
