@@ -13,6 +13,7 @@ import entity.Artikel;
 import entity.Benutzer;
 import entity.Bestellung;
 import entity.WarenkorbArtikel;
+import entity.Rolle;
 import enums.DB_TABELLE;
 
 import java.sql.Timestamp;
@@ -68,11 +69,14 @@ public class QueryManager {
 	public Benutzer getBenutzerByEMailAdresse(String piEMailAdresse){
 		Benutzer benutzer = new Benutzer();
 		ResultSet result = null;
+		Rolle rolle = null;
 		
 		try {
 			String sql = "SELECT * FROM " + DB_TABELLE.BENUTZER.toString() + " left join " +  
 					DB_TABELLE.ADRESSE.toString() + " on "+ DB_TABELLE.ADRESSE.toString()
-					+".Benutzer_ID = " + DB_TABELLE.BENUTZER.toString() + ".ID  WHERE emailadresse=?";
+					+".Benutzer_ID = " + DB_TABELLE.BENUTZER.toString() + ".ID left join " + 
+					DB_TABELLE.ROLLE.toString() + " on " + DB_TABELLE.ROLLE.toString() + ".ID = " 
+					+ DB_TABELLE.BENUTZER.toString() + ".Rolle_ID WHERE emailadresse=?";
 			
 			String post_sql = "SELECT * FROM " + DB_TABELLE.ADRESSE.toString() + " WHERE Benutzer_ID = ?";					
 			
@@ -95,7 +99,10 @@ public class QueryManager {
 					adresse = new Adresse().init(result.getString("strasse"), result.getString("hausnummer"), result.getString("postleitzahl"), result.getString("ort"), result.getString("zusatz"));		
 				}
 				
-				return benutzer.init(result.getString("emailadresse"), result.getString("passwort"), result.getString("vorname"), result.getString("nachname"), adresse, result.getInt("bestaetigt"), result.getDate("erstellt_Datum"));
+				//Prüfung für Rolle entfällt, da diese nicht NULL sein darf, daher kann direkt Zuweisung erfolgen
+				rolle = new Rolle().init(result.getString("bezeichnung"), result.getInt("sicht_warenkorb"), result.getInt("sicht_bestellungen"), result.getInt("sicht_konto"), result.getInt("sicht_artikelstammdaten"));
+				
+				return benutzer.init(result.getString("emailadresse"), result.getString("passwort"), result.getString("vorname"), result.getString("nachname"), adresse, rolle, result.getInt("bestaetigt"), result.getDate("erstellt_Datum"));
 				
 			}
 			

@@ -2,7 +2,7 @@ package enums;
 
 public enum DB_TABELLE {
 
-	ARTIKEL("artikel"), BENUTZER("benutzer"), WARENKORB("warenkorb"), BESTELLUNG("bestellung"), ADRESSE("adresse");
+	ARTIKEL("artikel"), BENUTZER("benutzer"), WARENKORB("warenkorb"), BESTELLUNG("bestellung"), ADRESSE("adresse"), ROLLE("rolle");
 	
 	private final String name;
 	
