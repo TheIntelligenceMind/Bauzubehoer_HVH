@@ -40,8 +40,8 @@ function updateQuantity(element, artikelnummer){
 	        <colgroup>
 		       <col span="1" style="width: 10%;">
 		       <col span="1" style="width: 20%;">
-		       <col span="1" style="width: 30%;">
-		       <col span="1" style="width: 15%;">
+		       <col span="1" style="width: 33%;">
+		       <col span="1" style="width: 12%;">
 		       <col span="1" style="width: 5%;">
 		    </colgroup>
 	        
@@ -69,7 +69,7 @@ function updateQuantity(element, artikelnummer){
 			        		"<td>" + String.format("%04d", warenkorbartikel.getArtikel().getNummer()) + "</td>" +
 			        		"<td>" + warenkorbartikel.getArtikel().getBezeichnung() + "</td>" +
 			        		"<td>" + formater.format(warenkorbartikel.getArtikel().getPreis()*warenkorbartikel.getMenge()) +  "</td>" +
-			        		"<td>" + "<a class='trashSymbol' onclick='deleteRow(this)'><i class='fa fa-trash-o'></i></a>" + "</td>" +
+			        		"<td class='rightcell'>" + "<a class='trashSymbol' onclick='deleteRow(this)'><i class='fa fa-trash-o'></i></a>" + "</td>" +
 			        		"</tr>");
 			        		gesamt = gesamt + (warenkorbartikel.getArtikel().getPreis() * warenkorbartikel.getMenge());
 			        		mwst = mwst + (warenkorbartikel.getArtikel().getPreis() * warenkorbartikel.getMenge())*0.19;  	
@@ -82,22 +82,22 @@ function updateQuantity(element, artikelnummer){
 	      	<colgroup>
 		       <col span="1" style="width: 10%;">
 		       <col span="1" style="width: 20%;">
-		       <col span="1" style="width: 30%;">
-		       <col span="1" style="width: 15%;">
+		       <col span="1" style="width: 33%;">
+		       <col span="1" style="width: 12%;">
 		       <col span="1" style="width: 5%;">
 		    </colgroup>
 	      	<tbody>
 	        	<tr>
-	          		<td class="textLeftBold" colspan="2">Versandkosten:</td>
+	          		<td class="textLeft" colspan="2">Versandkosten:</td>
 	          		<td colspan="1"></td>
 			        <td><% out.println(formater.format(versandkosten)); %></td>
 		       	</tr>
 				<tr>
-				 	<td class="textLeftBold" colspan="2">MwSt:</td>
+				 	<td class="textLeft" colspan="2">MwSt:</td>
 					<td colspan="1"></td>
 					<td><% out.println(formater.format(mwst)); %></td>
 				</tr>
-				<tr class="totalprice">
+				<tr>
 					<td class="textLeftBold" colspan="2">Gesamt (Brutto):</td>
 				 	<td colspan="1"></td>
 				 	<td style="font-weight:bold"><% out.println(formater.format(gesamt + mwst + versandkosten)); %><td>
