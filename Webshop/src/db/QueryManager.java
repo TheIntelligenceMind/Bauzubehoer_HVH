@@ -74,7 +74,7 @@ public class QueryManager {
 		try {
 			String sql = "SELECT * FROM " + DB_TABELLE.BENUTZER.toString() + " left join " +  
 					DB_TABELLE.ADRESSE.toString() + " on "+ DB_TABELLE.ADRESSE.toString()
-					+".Benutzer_ID = " + DB_TABELLE.BENUTZER.toString() + ".ID  WHERE emailadresse=?";
+					+".Benutzer_ID = " + DB_TABELLE.BENUTZER.toString() + ".ID";
 			
 			String post_sql = "SELECT * FROM " + DB_TABELLE.ADRESSE.toString() + " WHERE Benutzer_ID = ?";					
 			
@@ -109,10 +109,8 @@ public class QueryManager {
 				
 				if(post_result2.next()){
 					rolle = new Rolle().init(post_result2.getString("bezeichnung"), post_result2.getInt("Sicht_Warenkorb"), post_result2.getInt("Sicht_Bestellungen"), post_result2.getInt("Sicht_Konto"), post_result2.getInt("Sicht_Artikelstammdaten"));
-				}else{
-					return null;
 				}
-				
+	
 				return benutzer.init(result.getString("emailadresse"), result.getString("passwort"), result.getString("vorname"), result.getString("nachname"), adresse, rolle, result.getInt("bestaetigt"), result.getDate("erstellt_Datum"));
 				
 			}
