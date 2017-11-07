@@ -12,8 +12,10 @@ import entity.Adresse;
 import entity.Artikel;
 import entity.Benutzer;
 import entity.Bestellung;
+import entity.Rolle;
 import entity.WarenkorbArtikel;
 import enums.DB_TABELLE;
+import enums.ROLLENBEZEICHNUNG;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -76,6 +78,7 @@ public class QueryManager {
 			
 			String post_sql = "SELECT * FROM " + DB_TABELLE.ADRESSE.toString() + " WHERE Benutzer_ID = ?";					
 			
+			String post_sql2 = "SELECT * FROM " + DB_TABELLE.ROLLE.toString() + " r inner join "+ DB_TABELLE.BENUTZER.toString() + " b ON(b.Rolle_ID = r.ID) WHERE Benutzer_ID = ?";	
 			
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setString(1, piEMailAdresse);
@@ -95,7 +98,22 @@ public class QueryManager {
 					adresse = new Adresse().init(result.getString("strasse"), result.getString("hausnummer"), result.getString("postleitzahl"), result.getString("ort"), result.getString("zusatz"));		
 				}
 				
-				return benutzer.init(result.getString("emailadresse"), result.getString("passwort"), result.getString("vorname"), result.getString("nachname"), adresse, result.getInt("bestaetigt"), result.getDate("erstellt_Datum"));
+				//========================================
+				
+				Rolle rolle = null;
+				
+				PreparedStatement post_stmt2 = getConnection().prepareStatement(post_sql2);
+				post_stmt2.setInt(1, getBenutzerIDbyEmailadresse(piEMailAdresse));
+				
+				ResultSet post_result2 = post_stmt2.executeQuery();
+				
+				if(post_result2.next()){
+					rolle = new Rolle().init(post_result2.getString("bezeichnung"), post_result2.getInt("Sicht_Warenkorb"), post_result2.getInt("Sicht_Bestellungen"), post_result2.getInt("Sicht_Konto"), post_result2.getInt("Sicht_Artikelstammdaten"));
+				}else{
+					return null;
+				}
+				
+				return benutzer.init(result.getString("emailadresse"), result.getString("passwort"), result.getString("vorname"), result.getString("nachname"), adresse, rolle, result.getInt("bestaetigt"), result.getDate("erstellt_Datum"));
 				
 			}
 			

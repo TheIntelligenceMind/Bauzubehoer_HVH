@@ -112,7 +112,7 @@ public class KontoController extends HttpServlet {
 		if(benutzer != null){
 			req.setAttribute("benutzer", benutzer);
 		}else{
-			benutzer = new Benutzer().init("", "", "", "", null, 0, null);
+			benutzer = new Benutzer().init("", "", "", "", null, null, 0, null);
 		}
 		req.setAttribute("benutzer", benutzer);
 		resp.addHeader("contentSite", "meinKontoPanel");

@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
-import java.sql.Timestamp;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -18,7 +17,9 @@ import javax.xml.bind.DatatypeConverter;
 
 import db.QueryManager;
 import entity.Benutzer;
+import entity.Rolle;
 import enums.RESPONSE_STATUS;
+import enums.ROLLENBEZEICHNUNG;
 
 @WebServlet("/registrieren")
 public class RegistrationController extends HttpServlet{
@@ -47,8 +48,11 @@ public class RegistrationController extends HttpServlet{
 		
 		if(method != null){
 			switch(method){
-			case "registrieren":
-				fehlertext = validateRegistration(req);
+			case "registrierenMitarbeiter":
+				
+				break;
+			case "registrierenKunde":
+				fehlertext = registerKunde(req);
 				
 				// aktueller Status wird gesetzt
 				if(fehlertext != null){
@@ -117,7 +121,7 @@ public class RegistrationController extends HttpServlet{
 		return fehlertext;
 	}
 	
-	private String validateRegistration(HttpServletRequest req){
+	private String registerKunde(HttpServletRequest req){
 		String fehlertext = null;		
 		String email = req.getParameter("emailadresse");
 		String vorname = req.getParameter("vorname");
@@ -147,7 +151,8 @@ public class RegistrationController extends HttpServlet{
 								e.printStackTrace();
 							}
 							
-							newBenutzer.init(email, hashPasswort, vorname, nachname, null, 0, new Date(System.currentTimeMillis()));
+							Rolle kundenrolle = new Rolle().init(ROLLENBEZEICHNUNG.KUNDE.toString(), 1, 1, 1, 0);
+							newBenutzer.init(email, hashPasswort, vorname, nachname, null, kundenrolle, 0, new Date(System.currentTimeMillis()));
 							
 							// Benutzerobjekt in der Datenbank anlegen
 							if(!queryManager.createBenutzer(newBenutzer)){
