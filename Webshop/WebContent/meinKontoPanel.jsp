@@ -51,6 +51,6 @@ function kontoLoeschen(){
         </li>
     </ul> 
 </div>
-	<button class="btnLoeschen" onclick="kontoLoeschen()">Konto L&oumlschen</button>
+	<button class="btnLoeschen" onclick="kontoLoeschen()">Konto L&ouml;schen</button>
 
 </div>
