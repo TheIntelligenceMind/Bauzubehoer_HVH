@@ -53,7 +53,7 @@ public class RegistrationController extends HttpServlet{
 				break;
 			case "registrierenKunde":
 				fehlertext = registerKunde(req);
-				
+
 				// aktueller Status wird gesetzt
 				if(fehlertext != null){
 					resp.addHeader("status", RESPONSE_STATUS.FEHLER.toString());
@@ -90,7 +90,7 @@ public class RegistrationController extends HttpServlet{
 		}
 					
 		resp.addHeader("contentSite", "registrierungPanel");
-		resp.addHeader("result", String.valueOf(fehlertext == null));
+		resp.addHeader("result", String.valueOf(fehlertext));
 		
 		rd.forward(req, resp);
 	}	

@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.sun.corba.se.spi.orbutil.fsm.Guard.Result;
+
 import entity.Adresse;
 import entity.Artikel;
 import entity.Benutzer;
@@ -240,21 +242,49 @@ public class QueryManager {
 	}
 	
 	
+	private int getRolleIDbyBezeichnung(ROLLENBEZEICHNUNG bezeichnung){
+		int id = -1;
+		ResultSet result = null;
+		
+		if(bezeichnung == null){
+			return id;
+		}
+		
+		try {				
+			String sql = "SELECT * FROM " + DB_TABELLE.ROLLE.toString() + " WHERE bezeichnung = ?";
+			
+			PreparedStatement stmt = getConnection().prepareStatement(sql);
+			stmt.setString(1, bezeichnung.toString());
+			
+			result = stmt.executeQuery();
+			
+			if(result.next()){
+				return id = result.getInt("ID");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}		
+	
+		return id;
+	}
+	
 	
 	public boolean createBenutzer(Benutzer piBenutzer){
 		Benutzer benutzer = piBenutzer;
 		int result;
 		
 		try {				
-			String sql = "INSERT INTO " + DB_TABELLE.BENUTZER.toString() + " (emailadresse, passwort, vorname, nachname, erstellt_Benutzer) "
-						+ "VALUES( ?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO " + DB_TABELLE.BENUTZER.toString() + " (emailadresse, passwort, vorname, nachname, Rolle_ID, erstellt_Benutzer) "
+						+ "VALUES( ?, ?, ?, ?, ?, ?)";
 			
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setString(1, benutzer.getEmailadresse());
 			stmt.setString(2, benutzer.getPasswort());
 			stmt.setString(3, benutzer.getVorname());
 			stmt.setString(4, benutzer.getNachname());
-			stmt.setString(5, DBUSER);
+			stmt.setInt(5, getRolleIDbyBezeichnung(ROLLENBEZEICHNUNG.KUNDE));
+			stmt.setString(6, DBUSER);
 			
 			result = stmt.executeUpdate();
 			
