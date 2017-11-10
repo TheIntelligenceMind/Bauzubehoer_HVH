@@ -61,9 +61,7 @@ public class LoginController extends HttpServlet{
 					// Nach 10 Minuten wird die Session automatisch geloescht
 					session.setMaxInactiveInterval(10*60);
 					
-					session.setAttribute("vorname", benutzer.getVorname());
-					session.setAttribute("nachname", benutzer.getNachname());
-					session.setAttribute("emailadresse", benutzer.getEmailadresse());
+					session.setAttribute("benutzer", benutzer);
 					
 					List<WarenkorbArtikel> warenkorbartikelListe = queryManager.selectAllWarenkorbartikelByBenutzeremailadresse(benutzer.getEmailadresse());	
 					session.setAttribute("warenkorbartikelliste", warenkorbartikelListe);

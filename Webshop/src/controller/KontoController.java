@@ -48,7 +48,7 @@ public class KontoController extends HttpServlet {
 				break;
 			case "benutzerSpeichern":
 				if(speicherBenutzer(req)){
-					benutzer = queryManager.getBenutzerByEMailAdresse(req.getSession().getAttribute("emailadresse").toString());
+					benutzer = queryManager.getBenutzerByEMailAdresse(((Benutzer)req.getSession().getAttribute("benutzer")).getEmailadresse());
 
 					updateSessionDetails(req.getSession(), benutzer);
 
@@ -66,7 +66,7 @@ public class KontoController extends HttpServlet {
 				break;
 			case "adresseSpeichern":
 				if(speicherAdresse(req)){
-					benutzer = queryManager.getBenutzerByEMailAdresse(req.getSession().getAttribute("emailadresse").toString());
+					benutzer = queryManager.getBenutzerByEMailAdresse(((Benutzer)req.getSession().getAttribute("benutzer")).getEmailadresse());
 					
 					String hinweistext = "Die Benutzeradresse wurde erfolgreich gespeichert.";
 					resp.addHeader("Status", RESPONSE_STATUS.HINWEIS.toString());
@@ -107,7 +107,7 @@ public class KontoController extends HttpServlet {
 	}
     
     private void meinKontoAnzeigen(HttpServletRequest req, HttpServletResponse resp){
-    	benutzer = queryManager.getBenutzerByEMailAdresse(req.getSession().getAttribute("emailadresse").toString());
+    	benutzer = queryManager.getBenutzerByEMailAdresse(((Benutzer)req.getSession().getAttribute("benutzer")).getEmailadresse());
 		
 		if(benutzer != null){
 			req.setAttribute("benutzer", benutzer);
@@ -118,7 +118,7 @@ public class KontoController extends HttpServlet {
 		resp.addHeader("contentSite", "meinKontoPanel");
     }
     private boolean kontoLoeschen(HttpServletRequest req){
-    	String emailadresse = String.valueOf(req.getSession().getAttribute("emailadresse"));
+    	String emailadresse = ((Benutzer)req.getSession().getAttribute("benutzer")).getEmailadresse();
     	
     	return queryManager.deleteBenutzer(emailadresse);
     }
@@ -130,7 +130,7 @@ public class KontoController extends HttpServlet {
     	String plz = req.getParameter("postleitzahl");
     	String ort = req.getParameter("ort");
 
-    	Benutzer benutzer = queryManager.getBenutzerByEMailAdresse(req.getSession().getAttribute("emailadresse").toString());
+    	Benutzer benutzer = queryManager.getBenutzerByEMailAdresse(((Benutzer)req.getSession().getAttribute("benutzer")).getEmailadresse());
     	
     	if(benutzer != null && benutzer.getLieferAdresse() == null){
     		Adresse new_adresse = new Adresse().init(strasse, hausnummer, plz, ort, "");

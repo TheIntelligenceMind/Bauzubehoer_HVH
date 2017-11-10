@@ -631,7 +631,8 @@ public class QueryManager {
 			result = stmt.executeUpdate();
 
 			if(result != 0){
-				return updateWarenkorbPositions(position, benutzerID);
+				updateWarenkorbPositions(position, benutzerID);
+				return true;
 			}
 			
 		} catch (SQLException e) {
@@ -641,10 +642,9 @@ public class QueryManager {
 		return false;
 	}
 	
-	public boolean updateWarenkorbPositions(int piPosition, int piBenutzerID){
+	public void updateWarenkorbPositions(int piPosition, int piBenutzerID){
 		int position = piPosition;
 		int benutzerID = piBenutzerID;
-		int result;
 
 		try {
 			String sql = "UPDATE " + DB_TABELLE.WARENKORB.toString() + " SET Position = (Position-1) WHERE Benutzer_ID = ? AND Position > ?";
@@ -653,16 +653,11 @@ public class QueryManager {
 			stmt.setInt(1, benutzerID);
 			stmt.setInt(2, position);
 	
-			result = stmt.executeUpdate();
+			stmt.executeUpdate();
 			
-			if(result != 0){
-				return true;
-			}
-		
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
-		return false;		
+		}	
 	}
 	
 	public boolean addArtikelToWarenkorb(String piEmailadresse, int piArtikelnummer){

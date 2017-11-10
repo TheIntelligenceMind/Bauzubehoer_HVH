@@ -16,7 +16,7 @@
 		
 		
 		<%	  
-			if(session.getAttribute("emailadresse") == null){ 	
+			if(session.getAttribute("benutzer") == null){ 	
 				%>
 					<%@ include file="anmeldungPanel.jsp" %>
 				<%
@@ -85,7 +85,7 @@
 				
 				// Hier wird der Content dynamisch über das Attribut "ContentSite" geladen
 				if(siteContent != null ){ 	
-					if(session.getAttribute("emailadresse") == null){
+					if(session.getAttribute("benutzer") == null){
 						if(siteContent.equals("registrierungPanel")){
 							%>
 								<%@ include file="registrierungPanel.jsp" %>

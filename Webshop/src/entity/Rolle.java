@@ -1,5 +1,10 @@
 package entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import enums.SICHTEN;
+
 public class Rolle {
 
 	private String bezeichnung;
@@ -22,6 +27,17 @@ public class Rolle {
 		return this;
 	}
 
+	public List<SICHTEN> getSichten(){
+		List<SICHTEN> sichten = new ArrayList<SICHTEN>();
+		
+		if(sichtWarenkorb == 1){ sichten.add(SICHTEN.WARENKORB);}
+		if(sichtBestellungen == 1){ sichten.add(SICHTEN.BESTELLUNGEN);}
+		if(sichtKonto == 1){ sichten.add(SICHTEN.KONTO);}
+		if(sichtArtikelstammdaten == 1){ sichten.add(SICHTEN.ARTIKELSTAMMDATEN);}	
+		
+		return sichten;
+	}
+	
 	public String getBezeichnung() {
 		return bezeichnung;
 	}

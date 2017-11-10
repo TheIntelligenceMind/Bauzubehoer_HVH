@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import db.QueryManager;
+import entity.Benutzer;
 import entity.WarenkorbArtikel;
 import enums.RESPONSE_STATUS;
 
@@ -66,7 +67,7 @@ public class WarenkorbController extends HttpServlet {
 	    			int row = Integer.valueOf(req.getParameter("row") );
 	    			boolean hasDeleted = false;  
 	    			
-	    			hasDeleted = queryManager.deleteArtikelFromWarenkorb(row, req.getSession().getAttribute("emailadresse").toString());
+	    			hasDeleted = queryManager.deleteArtikelFromWarenkorb(row, ((Benutzer)req.getSession().getAttribute("benutzer")).getEmailadresse());
 	
 	    			if(hasDeleted){
 	    				updateWarenkorb(req);
@@ -105,7 +106,7 @@ public class WarenkorbController extends HttpServlet {
 	}
     
     private void updateWarenkorb(HttpServletRequest req){
-    	String benutzerEmailadresse = req.getSession().getAttribute("emailadresse").toString();
+    	String benutzerEmailadresse = ((Benutzer)req.getSession().getAttribute("benutzer")).getEmailadresse();
     	
     	List<WarenkorbArtikel> warenkorbartikelListe = queryManager.selectAllWarenkorbartikelByBenutzeremailadresse(benutzerEmailadresse);	
 
@@ -115,7 +116,7 @@ public class WarenkorbController extends HttpServlet {
     private boolean artikelHinzufuegen(HttpServletRequest req){  	
     	int artikelnummer = 0;
     	boolean added = false;
-    	String emailadresseBenutzer = String.valueOf(req.getSession().getAttribute("emailadresse"));
+    	String emailadresseBenutzer = ((Benutzer)req.getSession().getAttribute("benutzer")).getEmailadresse();
     	
     	try{
     		artikelnummer = Integer.valueOf(req.getParameter("artikelnummer"));
@@ -138,7 +139,7 @@ public class WarenkorbController extends HttpServlet {
     	try{
     		menge = Integer.valueOf(req.getParameter("menge"));
     		artikelnummer = Integer.valueOf(req.getParameter("artikelnummer"));
-    		emailadresseBenutzer = String.valueOf(req.getSession().getAttribute("emailadresse"));
+    		emailadresseBenutzer = ((Benutzer)req.getSession().getAttribute("benutzer")).getEmailadresse();
     	}catch (Exception e) {
 			e.printStackTrace();
 			return false;
