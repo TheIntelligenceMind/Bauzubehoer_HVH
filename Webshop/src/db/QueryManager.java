@@ -112,30 +112,6 @@ public class QueryManager {
 		return null;
 	}	
 	
-	private int getBenutzerIDbyEmailadresse(String piEmailadresse){
-		String emailadresse = piEmailadresse;
-		int benutzer_ID = -1;
-		ResultSet result = null;
-		
-		try {
-			String sql = "SELECT ID FROM " + DB_TABELLE.BENUTZER.toString() + " WHERE emailadresse = ?";
-			PreparedStatement stmt = getConnection().prepareStatement(sql);
-			stmt.setString(1, emailadresse);
-			
-			result = stmt.executeQuery();
-			
-			if(result.next()){
-				benutzer_ID = result.getInt("ID");
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}	
-		return benutzer_ID;	
-	}
-	
-	
-	
 	public boolean createAdresse(String piEmailAdresse, Adresse piAdresse){
 		String emailadresse = piEmailAdresse;
 		Adresse adresse = piAdresse;
@@ -184,6 +160,30 @@ public class QueryManager {
 			
 		return false;	
 	}
+
+	private int getBenutzerIDbyEmailadresse(String piEmailadresse){
+		String emailadresse = piEmailadresse;
+		int benutzer_ID = -1;
+		ResultSet result = null;
+		
+		try {
+			String sql = "SELECT ID FROM " + DB_TABELLE.BENUTZER.toString() + " WHERE emailadresse = ?";
+			PreparedStatement stmt = getConnection().prepareStatement(sql);
+			stmt.setString(1, emailadresse);
+			
+			result = stmt.executeQuery();
+			
+			if(result.next()){
+				benutzer_ID = result.getInt("ID");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}	
+		return benutzer_ID;	
+	}
+	
+	
 	
 	public boolean modifyAdresse(String piEmailAdresse, Adresse piAdresse){
 		String emailadresse = piEmailAdresse;
@@ -526,7 +526,7 @@ public class QueryManager {
 		ResultSet result = null;	
 		
 		try {			
-			String sql = "SELECT * FROM " + DB_TABELLE.ARTIKEL.toString() + " WHERE bezeichnung like ?";
+			String sql = "SELECT * FROM " + DB_TABELLE.ARTIKEL.toString() + " WHERE bezeichnung like ? AND aktiv = 1";
 			
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setString(1, "%" + bezeichnung + "%");
