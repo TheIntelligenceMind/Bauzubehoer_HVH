@@ -10,12 +10,12 @@
 	
 	        <thead>
 	          <tr>
-	            <th>Lagermenge</th>
-	            <th>Artikelnummer</th>
-	            <th>Produkt</th>
-	            <th>Produktbeschreibung</th>
-	            <th>Preis</th>
-	            <th>Aktiv</th>
+	            <th>Bestell-ID</th>
+	            <th>Lieferadresse</th>
+	            <th>Preis, Summe</th>
+	            <th>Keine Ahnung was noch</th>
+	            <th>Keine Ahnung was noch</th>
+	            <th>Status der Lieferung</th>
 	            <th></th>
 	          </tr>
 	        </thead>
