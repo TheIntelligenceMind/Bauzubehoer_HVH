@@ -35,11 +35,16 @@ public class LoginController extends HttpServlet{
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {		
+		RequestDispatcher rd = req.getRequestDispatcher("/suchen");
 		resp.setContentType("text/html");  		
-		String dispatchSite =  "/suchen";
-			
-		RequestDispatcher rd = req.getRequestDispatcher(dispatchSite);
 		
+		// Berechtigung für die Seite prüfen
+    	if(req.getSession().getAttribute("benutzer") != null){
+    		rd = req.getRequestDispatcher("/suchen");	
+    		rd.forward(req, resp);
+    		return;
+    	}
+				
 		String emailadresse = req.getParameter("emailadresse");
 		String passwort = req.getParameter("passwort");
 		boolean anmeldeStatus = false;
@@ -79,9 +84,7 @@ public class LoginController extends HttpServlet{
 			resp.addHeader("fehlermeldung", "E-Mail-Adresse oder Passwort ist falsch.");
 		}
 		
-		rd.forward(req, resp);
-		
-		
+		rd.forward(req, resp);		
 	}
 	
 }

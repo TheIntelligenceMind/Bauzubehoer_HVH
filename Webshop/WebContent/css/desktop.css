@@ -696,19 +696,19 @@ html,body{
 	height: 65%;
 	text-align: left;
 }
-#artikelTabelle{
+table#artikelTabelle{
 	width: 92%;
 	max-height: 70%;
 	margin-left: 4%;
 }
-#artikelTabelle .rightcell{
+table#artikelTabelle .rightcell{
 	text-align: center;
 }
-#artikelTabelle th{
+table#artikelTabelle th{
 	border-bottom: 1px solid #BF4D17;
 }
 
-#artikelTabelle tbody tr:hover{
+table#artikelTabelle tbody tr:hover{
 	background-color: #e0e0e0;
 }
 .trashSymbol:hover{
@@ -731,15 +731,18 @@ html,body{
 #zusatzTabelle th{
 	border-bottom: 1px solid #BF4D17;
 }
-#zusatzTabelle table tr{
+table#zusatzTabelle table tr{
 	border-collapse: collapse;
 	margin:auto;
 	margin-top: 10px;
 	padding: 5px;
 	empty-cells: hide;
 }
-#zusatzTabelle table tr{
+table#zusatzTabelle tr{
 	text-align: left;	
+}
+table#zusatzTabelle tbody td{
+	margin: 0;
 }
 #btnBestellen{
 	margin-top: 40px;

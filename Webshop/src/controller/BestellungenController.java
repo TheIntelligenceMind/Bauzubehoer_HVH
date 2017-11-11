@@ -9,17 +9,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import entity.Benutzer;
+
 /**
  * Servlet implementation class WarenkorbController
  */
 @WebServlet("/meineBestellungen")
 public class BestellungenController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-    public BestellungenController() {
-        super();
-
-    }
 
     @Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -28,8 +25,16 @@ public class BestellungenController extends HttpServlet {
 
     @Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {		
-		RequestDispatcher rq = req.getRequestDispatcher("index.jsp");
+		RequestDispatcher rd = req.getRequestDispatcher("index.jsp");
+		resp.setContentType("text/html"); 
 		
+		// Berechtigung für die Seite prüfen
+    	if(((Benutzer)req.getSession().getAttribute("benutzer")).getRolle().getSichtBestellungen() != 1){
+    		rd = req.getRequestDispatcher("/suchen");	
+    		rd.forward(req, resp);
+    		return;
+    	}
+			
 		String method = req.getParameter("method");
 		
 		if(method == null){
@@ -45,6 +50,6 @@ public class BestellungenController extends HttpServlet {
 				break;
 		}	
 
-		rq.forward(req, resp);	
+		rd.forward(req, resp);	
 	}
 }

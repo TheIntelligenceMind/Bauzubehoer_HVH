@@ -24,10 +24,6 @@ public class WarenkorbController extends HttpServlet {
 
 	private static final QueryManager queryManager = QueryManager.getInstance();
 	
-    public WarenkorbController() {
-        super();
-
-    }
 
     @Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -36,9 +32,17 @@ public class WarenkorbController extends HttpServlet {
 
     @Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {	
-    	RequestDispatcher rq = req.getRequestDispatcher("index.jsp");; 
+    	RequestDispatcher rd = req.getRequestDispatcher("index.jsp");
     	resp.setContentType("text/html");
-    		  	
+    	
+    	// Berechtigung für die Seite prüfen
+    	if(((Benutzer)req.getSession().getAttribute("benutzer")).getRolle().getSichtWarenkorb() != 1){
+    		rd = req.getRequestDispatcher("/suchen");	
+    		rd.forward(req, resp);
+    		return;
+    	}
+    	
+    	
 		String method = req.getParameter("method");
 		
 		if(method == null){
@@ -60,7 +64,7 @@ public class WarenkorbController extends HttpServlet {
     				resp.addHeader("fehlermeldung", "Der Artikel konnte nicht hinzugef&uuml;gt werden.");	
 	    		}
 	    		
-	    		rq = req.getRequestDispatcher("/suchen");
+	    		rd = req.getRequestDispatcher("/suchen");
 	    		break;
 	    	case "artikelAusWarenkorbLoeschen":
 	    		if(req.getParameter("row") != null){
@@ -102,7 +106,7 @@ public class WarenkorbController extends HttpServlet {
 		
 		
 		
-		rq.forward(req, resp);
+		rd.forward(req, resp);
 	}
     
     private void updateWarenkorb(HttpServletRequest req){

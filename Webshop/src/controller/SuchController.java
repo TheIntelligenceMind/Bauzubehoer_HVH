@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import db.QueryManager;
 import entity.Artikel;
+import entity.Benutzer;
 
 /**
  * Servlet implementation class WarenkorbController
@@ -27,28 +28,28 @@ public class SuchController extends HttpServlet {
     }
 
     @Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doPost(request, response);
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		doPost(req, resp);
 	}
 
     @Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		RequestDispatcher rq = request.getRequestDispatcher("index.jsp");	
-		String suchargument = request.getParameter("suchargument");
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {		
+		RequestDispatcher rd = req.getRequestDispatcher("index.jsp");	
+		resp.setContentType("text/html");
+    			
+		String suchargument = req.getParameter("suchargument");
 		List<Artikel> artikelliste = new ArrayList<Artikel>();
 		
 		artikelliste = QueryManager.getInstance().searchArtikelByBezeichnung(suchargument);
 		
-		request.setAttribute("artikelliste", artikelliste);
+		req.setAttribute("artikelliste", artikelliste);
 		
 		if(artikelliste.size() == 0){
-			response.addHeader("status", "hinweis");
-			response.addHeader("hinweismeldung", "Es wurden keine Artikel gefunden.");
-	
+			resp.addHeader("status", "hinweis");
+			resp.addHeader("hinweismeldung", "Es wurden keine Artikel gefunden.");
 		}
 		
-		rq.forward(request, response);	
+		rd.forward(req, resp);	
 	}
 
 }

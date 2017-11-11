@@ -16,6 +16,7 @@ import org.apache.commons.lang3.math.NumberUtils;
 
 import db.QueryManager;
 import entity.Artikel;
+import entity.Benutzer;
 import enums.MELDUNG_ART;
 import enums.RESPONSE_STATUS;
 
@@ -31,11 +32,6 @@ public class ArtikelController extends HttpServlet {
 
 	private Artikel artikel = null;
 	
-    public ArtikelController() {
-        super();
-
-    }
-
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doPost(req, resp);
@@ -43,7 +39,17 @@ public class ArtikelController extends HttpServlet {
 
     @Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {		
-		RequestDispatcher rq = req.getRequestDispatcher("index.jsp");
+		RequestDispatcher rd = req.getRequestDispatcher("index.jsp");
+		resp.setContentType("text/html");
+    	
+		
+		// Berechtigung für die Seite prüfen
+    	if(((Benutzer)req.getSession().getAttribute("benutzer")).getRolle().getSichtArtikelstammdaten() != 1){
+    		rd = req.getRequestDispatcher("/suchen");	
+    		rd.forward(req, resp);
+    		return;
+    	}
+    	
 		
 		String method = req.getParameter("method");
 		
@@ -136,7 +142,7 @@ public class ArtikelController extends HttpServlet {
 			resp.addHeader("contentSite", "artikelBearbeitenPanel");
 		}
 
-		rq.forward(req, resp);		
+		rd.forward(req, resp);		
 	}
     
     private boolean artikelSpeichern(HttpServletRequest req){

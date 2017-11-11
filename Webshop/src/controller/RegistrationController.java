@@ -34,9 +34,16 @@ public class RegistrationController extends HttpServlet{
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		resp.setContentType("text/html");  			
-		RequestDispatcher rd = req.getRequestDispatcher("index.jsp");;
+		RequestDispatcher rd = req.getRequestDispatcher("index.jsp");
+		resp.setContentType("text/html");  				
 		String fehlertext = null;
+		
+		// Berechtigung für die Seite prüfen
+    	if(req.getSession().getAttribute("benutzer") != null){
+    		rd = req.getRequestDispatcher("/suchen");	
+    		rd.forward(req, resp);
+    		return;
+    	}
 		
 		String method = req.getParameter("method");
 

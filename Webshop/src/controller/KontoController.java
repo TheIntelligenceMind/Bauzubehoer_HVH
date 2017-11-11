@@ -26,11 +26,6 @@ public class KontoController extends HttpServlet {
 	private static final QueryManager queryManager = QueryManager.getInstance();
 	private Benutzer benutzer = null;
 
-    public KontoController() {
-        super();
-
-    }
-
     @Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     	doPost(req,resp);
@@ -38,9 +33,19 @@ public class KontoController extends HttpServlet {
 
     @Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {		
-		RequestDispatcher rq = req.getRequestDispatcher("index.jsp");
+		RequestDispatcher rd = req.getRequestDispatcher("index.jsp");
+		resp.setContentType("text/html"); 
+		
+		// Berechtigung für die Seite prüfen
+    	if(((Benutzer)req.getSession().getAttribute("benutzer")).getRolle().getSichtKonto() != 1){
+    		rd = req.getRequestDispatcher("/suchen");	
+    		rd.forward(req, resp);
+    		return;
+    	}
+		
 		
 		String method = req.getParameter("method");
+		
 		if(method != null){
 			switch(method){
 			case "anzeigen":
@@ -81,7 +86,7 @@ public class KontoController extends HttpServlet {
 				break;
 			case "loeschen":
 				if(kontoLoeschen(req)){
-					rq = req.getRequestDispatcher("/abmelden");
+					rd = req.getRequestDispatcher("/abmelden");
 					
 					String hinweistext = "Das Benutzerkonto wurde erfolgreich gel&ouml;scht.";
 					resp.addHeader("Status", RESPONSE_STATUS.HINWEIS.toString());
@@ -103,7 +108,7 @@ public class KontoController extends HttpServlet {
 			meinKontoAnzeigen(req, resp);
 		}
 				
-		rq.forward(req, resp);	
+		rd.forward(req, resp);	
 	}
     
     private void meinKontoAnzeigen(HttpServletRequest req, HttpServletResponse resp){
