@@ -15,5 +15,6 @@
 			<input type="hidden" name="method" value="artikelAnlegen">
 			<input id="btnArtikelAnlegen" type="submit" value="Artikel anlegen">	
 	</form>
+		<a id="btnArtikelAnlegenZurueck"  onclick="artikelListeMaAnzeigen()">Zur&uumlck</a>
 	
 </div>

@@ -8,6 +8,7 @@ html,body{
 	min-height:100%;
 	background: url("../images/background.jpg") no-repeat center center fixed;
 	background-size:cover;
+	float: none;
 }
 /* ------------------ globale Werte ------------------- */
 
@@ -19,62 +20,67 @@ html,body{
 
 /* ------------- Panel für Seitenheader, Suchfunktion (links) --------------- */
 #sitebar{
-	min-width: 160px;
-	width: 16%;
+	min-width: 150px;
+	top: 0px;
+	float: left;
+	margin: 0;
+	width: 98%;
 	padding: 1%;
-	height: 350px;
+	height: 50px;
 	background-color: #BF4D17;
 	color: white;
 	opacity: 0.85;
-	float: left;
 	text-align: center;
 	position: -webkit-sticky;
 	position: sticky;
-	top: 0;
 	-webkit-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
 	-moz-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
-	box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
-	border-radius: 0px 0px 45px 0px;	
+	box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);	
 }
 
 /* Header der Webseite */
 #header{
 	height: 120px;
-	width: 100%;
+	width: 45%;
 	text-align:center;
-	border-bottom: 1px solid white;
+	float: left;
 }
 #header:hover{
 	cursor: pointer;
 }
 #header h1{
 	margin: 0;
-	padding-top: 20px;
+	float: left;
 }
 #header h3{
-	margin: 0px;;
-	padding-top: 5px;
+	margin: 0px;
+	padding: 10px;
+	float: left;
+	padding-left: 5px;
 }
 
 /* Suchfunktion */
 #searchPanel{
-	width: 100%;
+	width: 45%;
 	height: 180px;
+	float: right;
 }
 #searchPanel ul{
 	margin: 0;
 	padding:0;
-	padding-top: 30px;
-	padding-bottom: 30px;
 	text-align: center;
-	border-bottom: 1px solid white;
+	float: right;
+	padding-left: 3px;
 }
 #searchPanel ul li{
 	list-style-type: none;
+	float: left;
 }
 #searchPanel ul li a{
 	font-size: 25px;
+	padding-left: 3px;
 	text-decoration: none;
+	float: right;
 	color: white;	
 	-o-transition:color .2s ease-out, background 1s ease-in;
 	-ms-transition:color .2s ease-out, background 1s ease-in;
@@ -87,10 +93,14 @@ html,body{
 }
 #suchenHeader{
 	font-size:25px;
+	float: right;
+	padding-left: 3px;
 }
 #sucheEingabe{
-	padding: 3px;
-	margin-top: 15px;
+	padding-left: 3px;
+	float: right;
+	padding-right: 10px;
+	margin-top: 5px;
 	width: 80%;
 	height: 20px;
 	border: none;
@@ -104,11 +114,11 @@ html,body{
 
 
 
-/* ------------ Panel für Anmeldung, Benutzeransicht (rechts) ----------------- */
+/* ------------ Panel für Anmeldung, Benutzeransicht ----------------- */
 .controllPanel{
-	margin: 0;
+	margin-top: 1px;
 	padding:1%;
-	min-width: 240px;
+	min-width: 150px;
 	width: 16%;
 	height: 220px;
 	background-color: #BF4D17;
@@ -117,12 +127,12 @@ html,body{
 	text-align:center;
 	position: -webkit-sticky;
   	position: sticky;
-  	float: right;
+  	float: left;
   	top: 0px;
-  	border-radius: 0px 0px 0px 45px;
-  	-webkit-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
-	-moz-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
-	box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
+  		border-radius: 0px 0px 45px 0px;
+  	-webkit-box-shadow: 0px 0px 0px -7px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 0px 0px -7px rgba(0,0,0,0.75);
+	box-shadow: 0px 0px 0px -7px rgba(0,0,0,0.75);
 }
 
 .controllPanel i{
@@ -207,7 +217,7 @@ html,body{
 	color: #332714;
 	cursor: pointer;
 }
-/* ------------ Panel für Anmeldung, Benutzeransicht (rechts) ----------------- */
+/* ------------ Panel für Anmeldung, Benutzeransicht ----------------- */
 
 
 
@@ -882,6 +892,24 @@ html,body{
 	background-color: #9b4013;
 	cursor: pointer;
 }
+#btnArtikelAnlegenZurueck{
+	background-color: #BF4D17;
+	width: 80px;
+	color: white;
+	height: 20px;
+	float: right;
+	margin-right: 30px;
+	margin-top: 20px;
+	position: relative;
+	height: 25px;
+	font-size: 15px;
+	border-style: none;
+	border-radius: 5px;
+}
+#btnArtikelAnlegenZurueck:hover{
+	cursor:pointer;
+	background-color: #9b401;
+}
 /* ------------- Panel für das Artikel anlegen ------------------- */
 
 
@@ -891,7 +919,7 @@ html,body{
 #artikelBearbeitenPanel{
 	margin: 50px auto;
 	width: 700px;
-	height: 620px;
+	height: 650px;
 	text-align: center;
 	opacity: 0.9;
 	background-color: white;
@@ -960,6 +988,24 @@ html,body{
 	background-color: #9b4013;
 	cursor: pointer;
 }
+#btnArtikelBearbeitenZurueck{
+	background-color: #BF4D17;
+	width: 80px;
+	color: white;
+	height: 20px;
+	float: right;
+	margin-right: 30px;
+	margin-top: 20px;
+	position: relative;
+	height: 25px;
+	font-size: 15px;
+	border-style: none;
+	border-radius: 5px;
+}
+#btnArtikelBearbeitenZurueck:hover{
+	cursor:pointer;
+	background-color: #9b401;
+}
 /* ------------- Panel für das Bearbeiten von Artikeln ------------------- */
 
 
@@ -971,17 +1017,17 @@ html,body{
 #fehlermeldungPanel{
 	margin: 0;
 	padding: 0 7px 5px 7px;
-	top: 270px;
-	right: 0;
+	top: 500px;
+	float:left;
 	position: absolute;
 	height: 95px;
 	width: 18%;
-	min-width: 260px;
+	min-width: 220px;
 	text-align: center;
 	background-color: white;
 	opacity: 0.85;
 	color: red;
-	border-radius: 40px 0 0 40px;
+	border-radius: 0px 40px 40px 0px;
 	display: none;
 }
 #fehlermeldungPanel i{
@@ -1009,8 +1055,8 @@ html,body{
 #hinweismeldungPanel{
 	margin: 0;
 	padding: 0 7px 5px 7px;
-	top: 270px;
-	right: 0;
+	margin-top: 270px;
+	float:left;
 	position: absolute;
 	height: 90px;
 	width: 18%;
@@ -1050,24 +1096,24 @@ html,body{
     animation: opening 1s 1;
 }
 @-webkit-keyframes opening {
-    from {top: 330px; opacity: 0; }
-    to {top: 270px; opacity: 0.85;}
+    from {top: 560px; opacity: 0; }
+    to {top: 500px; opacity: 0.85;}
 }
 @keyframes opening {
-    from {top: 330px; opacity: 0; }
-    to {top: 270px; opacity: 0.85;}
+    from {top: 560px; opacity: 0; }
+    to {top: 500px; opacity: 0.85;}
 }
 .closing{
 	-webkit-animation: closing 1s 1; /* Safari 4.0 - 8.0 */
     animation: closing 1s 1;
 }
 @-webkit-keyframes closing {
-    from {top: 270px; opacity: 0.85;}
-    to {top: 330px; opacity: 0;}
+    from {top: 500px; opacity: 0.85;}
+    to {top: 560px; opacity: 0;}
 }
 @keyframes closing {
-    from {top: 270px; opacity: 0.85;}
-    to {top: 330px; opacity: 0;}
+    from {top: 500px; opacity: 0.85;}
+    to {top: 560px; opacity: 0;}
 }
 
 /* Schließensymbol im Panel */

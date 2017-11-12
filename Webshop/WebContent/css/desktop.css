@@ -885,6 +885,24 @@ table#zusatzTabelle tbody td{
 	background-color: #9b4013;
 	cursor: pointer;
 }
+#btnArtikelAnlegenZurueck{
+	background-color: #BF4D17;
+	width: 120px;
+	color: white;
+	height: 25px;
+	float: right;
+	margin-right: 30px;
+	margin-top: 20px;
+	position: relative;
+	height: 30px;
+	font-size: 15px;
+	border-style: none;
+	border-radius: 5px;
+}
+#btnArtikelAnlegenZurueck:hover{
+	cursor:pointer;
+	background-color: #9b4013;
+}
 /* ------------- Panel für das Artikel anlegen ------------------- */
 
 
@@ -894,7 +912,7 @@ table#zusatzTabelle tbody td{
 #artikelBearbeitenPanel{
 	margin: 50px auto;
 	width: 700px;
-	height: 620px;
+	height: 650px;
 	text-align: center;
 	opacity: 0.9;
 	background-color: white;
@@ -962,6 +980,24 @@ table#zusatzTabelle tbody td{
 #btnArtikelSpeichern:hover{
 	background-color: #9b4013;
 	cursor: pointer;
+}
+#btnArtikelBearbeitenZurueck{
+	background-color: #BF4D17;
+	width: 120px;
+	color: white;
+	height: 25px;
+	float: right;
+	margin-right: 30px;
+	margin-top: 20px;
+	position: relative;
+	height: 30px;
+	font-size: 15px;
+	border-style: none;
+	border-radius: 5px;
+}
+#btnArtikelBearbeitenZurueck:hover{
+	cursor:pointer;
+	background-color: #9b4013;
 }
 /* ------------- Panel für das Bearbeiten von Artikeln ------------------- */
 
