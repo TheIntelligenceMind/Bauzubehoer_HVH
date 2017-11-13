@@ -821,7 +821,7 @@ table#zusatzTabelle tbody td{
 #artikelAnlegenPanel{
 	margin: 50px auto;
 	width: 700px;
-	height: 500px;
+	height: 525px;
 	text-align: center;
 	opacity: 0.9;
 	background-color: white;
@@ -860,6 +860,27 @@ table#zusatzTabelle tbody td{
 	overflow: auto;
 	resize: none;
 }
+#artikelAnlegenPanelKategorie
+{
+	margin-top: 20px;
+	padding: 3px;
+	background-color: white;
+	width: 60%;
+	border: 1px solid #BF4D17;
+	height: 40px;
+	font-size: 14px;
+	font-family: sans-serif;
+}
+#artikelAnlegenKategorieText
+{
+	font-size: 15px;
+	padding: 1px;
+}
+#artikelKategorie
+{
+	width: 40%;
+	padding: 1px;
+}
 #artikelAnlegenPanelZahlen .inputField{
 	margin-top: 20px;
 	padding: 3px;
@@ -872,7 +893,7 @@ table#zusatzTabelle tbody td{
 }
 
 #btnArtikelAnlegen{
-	margin-top: 40px;
+	margin-top: 30px;
 	width: 40%;
 	height: 40px;
 	font-size: 20px;
