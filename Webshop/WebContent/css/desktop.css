@@ -14,6 +14,28 @@ html,body{
 
 
 
+/*---------------------------- Button Classes ------------------------*/
+.btnZurueck{
+	background-color: #BF4D17;
+	padding: 3px;
+	margin-left: 30px;
+	width: 110px;
+	color: white;
+	float: left;
+	height: 25px;
+	position: relative;
+	height: 30px;
+	font-size: 18px;
+	border-style: none;
+	border-radius: 5px;
+}
+.btnZurueck:hover{
+	cursor:pointer;
+	background-color: #9b4013;
+}
+/*---------------------------- Button Classes ------------------------*/
+
+
 
 
 
@@ -252,11 +274,6 @@ html,body{
 
 /* --------------- Panel mit Artikeln für Mitarbeiter ------------------- */
 
-
-
-
-
-
 #artikelListeMitarbeiter{
 	margin: 50px auto;
 	width: 900px;
@@ -365,6 +382,8 @@ html,body{
 }
 
 /* --------------- Panel mit Artikeln für Mitarbeiter ------------------- */
+
+
 
 
 
@@ -860,27 +879,18 @@ table#zusatzTabelle tbody td{
 	overflow: auto;
 	resize: none;
 }
-#artikelAnlegenPanelKategorie
-{
+#artikelAnlegenPanelKategorie{
 	margin-top: 20px;
-	padding: 3px;
+}
+#artikelAnlegenPanelKategorie select{
 	background-color: white;
-	width: 60%;
-	border: 1px solid #BF4D17;
+	width: 61%;
 	height: 30px;
 	font-size: 14px;
 	font-family: sans-serif;
-}
-#artikelAnlegenKategorieText
-{
-	font-size: 15px;
+	margin: 0;
 	padding: 3px;
-	width: 20%;
-}
-#kategorieDropdown
-{
-	width: 40%;
-	padding: 3px;
+	border: 1px solid #BF4D17;
 }
 #artikelAnlegenPanelZahlen .inputField{
 	margin-top: 20px;
@@ -907,24 +917,6 @@ table#zusatzTabelle tbody td{
 	background-color: #9b4013;
 	cursor: pointer;
 }
-#btnArtikelAnlegenZurueck{
-	background-color: #BF4D17;
-	width: 120px;
-	color: white;
-	height: 25px;
-	float: right;
-	margin-right: 30px;
-	margin-top: 20px;
-	position: relative;
-	height: 30px;
-	font-size: 20px;
-	border-style: none;
-	border-radius: 5px;
-}
-#btnArtikelAnlegenZurueck:hover{
-	cursor:pointer;
-	background-color: #9b4013;
-}
 /* ------------- Panel für das Artikel anlegen ------------------- */
 
 
@@ -934,7 +926,7 @@ table#zusatzTabelle tbody td{
 #artikelBearbeitenPanel{
 	margin: 50px auto;
 	width: 700px;
-	height: 650px;
+	height: 630px;
 	text-align: center;
 	opacity: 0.9;
 	background-color: white;
@@ -1002,24 +994,6 @@ table#zusatzTabelle tbody td{
 #btnArtikelSpeichern:hover{
 	background-color: #9b4013;
 	cursor: pointer;
-}
-#btnArtikelBearbeitenZurueck{
-	background-color: #BF4D17;
-	width: 120px;
-	color: white;
-	height: 25px;
-	float: right;
-	margin-right: 30px;
-	margin-top: 20px;
-	position: relative;
-	height: 30px;
-	font-size: 20px;
-	border-style: none;
-	border-radius: 5px;
-}
-#btnArtikelBearbeitenZurueck:hover{
-	cursor:pointer;
-	background-color: #9b4013;
 }
 /* ------------- Panel für das Bearbeiten von Artikeln ------------------- */
 

@@ -26,5 +26,7 @@
 			<input type="hidden" name="method" value="artikelBearbeiten">	
 			<input id="btnArtikelSpeichern" type="submit" value="Speichern">	
 	</form>
-	<a id="btnArtikelBearbeitenZurueck"  onclick="artikelListeMaAnzeigen()">Zur&uumlck</a>
+	<form action="artikel">
+		<button class="btnZurueck" type="submit" name="method" value="artikellisteAnzeigen"><i class="fa fa-arrow-left"></i> Zur&uumlck</button>
+	</form>
 </div>
