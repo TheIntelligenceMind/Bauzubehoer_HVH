@@ -327,13 +327,13 @@ html,body{
 	position: relative;
 }
 
-#artikelListeMitarbeiterTabelle td:nth-child(1), th:nth-child(1) { width: 90px; }
-#artikelListeMitarbeiterTabelle td:nth-child(2), th:nth-child(2) { width: 120px; }
-#artikelListeMitarbeiterTabelle td:nth-child(3), th:nth-child(3) { width: 140px; }
-#artikelListeMitarbeiterTabelle td:nth-child(4), th:nth-child(4) { width: 270px; }
-#artikelListeMitarbeiterTabelle td:nth-child(5), th:nth-child(5) { width: 80px; }
-#artikelListeMitarbeiterTabelle td:nth-child(6), th:nth-child(6) { width: 45px; }
-#artikelListeMitarbeiterTabelle td:nth-child(7), th:nth-child(7) { width: 30px; }
+#artikelListeMitarbeiter > table td:nth-child(1), #artikelListeMitarbeiter > table th:nth-child(1) { width: 90px; }
+#artikelListeMitarbeiter > table td:nth-child(2), #artikelListeMitarbeiter > table th:nth-child(2) { width: 120px; }
+#artikelListeMitarbeiter > table td:nth-child(3), #artikelListeMitarbeiter > table th:nth-child(3) { width: 140px; }
+#artikelListeMitarbeiter > table td:nth-child(4), #artikelListeMitarbeiter > table th:nth-child(4) { width: 270px; }
+#artikelListeMitarbeiter > table td:nth-child(5), #artikelListeMitarbeiter > table th:nth-child(5) { width: 80px; }
+#artikelListeMitarbeiter > table td:nth-child(6), #artikelListeMitarbeiter > table th:nth-child(6) { width: 45px; }
+#artikelListeMitarbeiter > table td:nth-child(7), #artikelListeMitarbeiter > table th:nth-child(7) { width: 30px; }
 
 #artikelListeMitarbeiterTabelle td.tablecell{
 	height: 22px;
@@ -665,7 +665,7 @@ html,body{
 /* ------------- Panel für meine Bestellungen Übersicht ------------------- */
 #meineBestellungenPanel{
 	margin: 50px auto;
-	width: 700px;
+	width: 800px;
 	height: 500px;
 	text-align: center;
 	opacity: 0.9;
@@ -679,6 +679,49 @@ html,body{
 	margin:0;
 	padding: 0;
 	padding-top: 20px;
+	padding-bottom: 20px;
+}
+#meineBestellungenTabelle{
+	width: 92%;
+	margin-left: 4%;
+	table-layout: fixed;
+}
+#meineBestellungenTabelle tbody{
+	height: 300px;
+	overflow: auto;
+	display: block;
+	width: 100%
+}
+#meineBestellungenTabelle thead th{
+	text-align: left;
+	border-bottom: 1px solid #BF4D17;		
+}
+#meineBestellungenTabelle tbody tr{
+	border-collapse: collapse;
+	margin:auto;
+	margin-top: 10px;
+	empty-cells: hide;
+	text-align: left;
+	max-height: 20px;
+}
+#meineBestellungenTabelle tbody tr:hover{
+	background-color: #e0e0e0;
+}
+#meineBestellungenTabelle thead tr{
+	display: block;
+	position: relative;
+}
+
+#meineBestellungenPanel > table td:nth-child(1), #meineBestellungenPanel > table th:nth-child(1) { width: 100px; }
+#meineBestellungenPanel > table td:nth-child(2), #meineBestellungenPanel > table th:nth-child(2) { width: 110px; }
+#meineBestellungenPanel > table td:nth-child(3), #meineBestellungenPanel > table th:nth-child(3) { width: 120px; }
+#meineBestellungenPanel > table td:nth-child(4), #meineBestellungenPanel > table th:nth-child(4) { width: 160px; }
+#meineBestellungenPanel > table td:nth-child(5), #meineBestellungenPanel > table th:nth-child(5) { width: 120px; }
+#meineBestellungenPanel > table td:nth-child(6), #meineBestellungenPanel > table th:nth-child(6) { width: 110px; }
+
+#meineBestellungenTabelle td.tablecell{
+	height: 22px;
+	padding: 3px;
 }
 /* ------------- Panel für meine Bestellungen Übersicht ------------------- */
 

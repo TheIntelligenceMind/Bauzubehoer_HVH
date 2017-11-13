@@ -30,6 +30,6 @@ IMPORT STATEMENTS HIER EINFÜGEN DIE FÜR DIE KATEGORIEN BENÖTIGT WERDEN!
 			<input id="btnArtikelAnlegen" type="submit" value="Artikel anlegen">	
 	</form>
 	<form action="artikel">
-		<button class="btnZurueck" type="submit" name="method" value="artikellisteAnzeigen"><i class="fa fa-arrow-left"></i> Zur&uumlck</button>
+		<button class="btnZurueck" type="submit" name="method" value="artikellisteAnzeigen"><i class="fa fa-arrow-left"></i> Zur&uuml;ck</button>
 	</form>
 </div>

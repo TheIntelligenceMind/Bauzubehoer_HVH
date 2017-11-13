@@ -1,11 +1,9 @@
-
 <%@page import="entity.Artikel"%>
 <%@page import="java.text.DecimalFormat"%>
 <%@page import="java.util.List"%>
 
 <%
 	final DecimalFormat formaterArtikelMitarbeiter = new DecimalFormat("#0.00");
-
 %>
 
 <script type="text/javascript">

@@ -27,6 +27,6 @@
 			<input id="btnArtikelSpeichern" type="submit" value="Speichern">	
 	</form>
 	<form action="artikel">
-		<button class="btnZurueck" type="submit" name="method" value="artikellisteAnzeigen"><i class="fa fa-arrow-left"></i> Zur&uumlck</button>
+		<button class="btnZurueck" type="submit" name="method" value="artikellisteAnzeigen"><i class="fa fa-arrow-left"></i> Zur&uuml;ck</button>
 	</form>
 </div>
