@@ -1063,18 +1063,19 @@ table#zusatzTabelle tbody td{
 }
 
 #btnArtikelDetailansichtWarenkorb{
-	margin-top: 30px;
-	width: 40%;
-	height: 40px;
-	font-size: 20px;
+	float: left;
+	padding: 7px;	
+	height: 30px;
 	border-style: none;
-	color: white;
+	margin-left: 2%;
+	margin-top: 60px;
 	background-color: #BF4D17;
+	color: white;
 	border-radius: 5px;
 }
 #btnArtikelDetailansichtWarenkorb:hover{
-	background-color: #9b4013;
 	cursor: pointer;
+	background-color: #9b4013;
 }
 /* ------------- Panel für die Detailansicht von Artikeln ------------------- */
 
