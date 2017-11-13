@@ -14,12 +14,12 @@ IMPORT STATEMENTS HIER EINFÜGEN DIE FÜR DIE KATEGORIEN BENÖTIGT WERDEN!
 		</div>
 		<div id="artikelAnlegenPanelKategorie">
 			<text id="artikelAnlegenKategorieText">Artikelkategorie</text>
-			<select name="artikelKategorie">
+			<select name="artikelKategorie" id="kategorieDropdown">
 			<%
 			/*
 			for:each kategorie in artikel ...
 			*/
-			out.print("<option value='test'>TESTHFHFHFHFHFHFHFHFHFHFHFHFHFHHFHFHFHFHF</option>");
+			out.print("<option value='test'>TEST</option>");
 			%>
 			</select>
 		</div>

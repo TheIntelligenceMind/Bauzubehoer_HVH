@@ -875,8 +875,9 @@ table#zusatzTabelle tbody td{
 {
 	font-size: 15px;
 	padding: 1px;
+	width: 20%;
 }
-#artikelKategorie
+#kategorieDropdown
 {
 	width: 40%;
 	padding: 1px;
