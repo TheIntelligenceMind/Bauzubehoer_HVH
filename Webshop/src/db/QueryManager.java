@@ -855,10 +855,52 @@ public class QueryManager {
 	
 	
 	public List<Bestellung> selectAllBestellungenByBenutzeremailadresse(String piEmailadresse){
-		List<Bestellung> bestellungListe = null;
+		String emailadresse = piEmailadresse;
+		List<Bestellung> bestellungListe = new ArrayList<Bestellung>();;
+		ResultSet result = null;
 		
+		if(emailadresse == null || emailadresse.isEmpty()){
+			return null;
+		}
 		
-		
+		try{
+
+			String sql = "SELECT best.bestellnummer, best.bestelldatum, best.status, best.zahlungsart, "
+					+ "best.voraussichtliches_Lieferdatum, best.bestellwert, adr.strasse, adr.hausnummer, adr.postleitzahl, "
+					+ "adr.ort, adr.zusatz, ben.vorname, ben.nachname, ben.bestaetigt, ben.erstellt_Datum , rol.Bezeichnung, "
+					+ "rol.Sicht_Warenkorb, rol.Sicht_Bestellungen, rol.Sicht_Konto, rol.Sicht_Artikelstammdaten FROM " 
+					+ DB_TABELLE.BESTELLUNG.toString() + " best INNER JOIN " + DB_TABELLE.BENUTZER.toString() + " ben ON "
+					+ "best.Benutzer_ID = ben.ID LEFT JOIN  " + DB_TABELLE.ADRESSE.toString() + " adr ON adr.Benutzer_ID = "
+					+ "ben.ID LEFT JOIN " + DB_TABELLE.ROLLE.toString() + " rol ON rol.ID = ben.Rolle_ID WHERE ben.emailadresse = ?";
+			
+			PreparedStatement stmt = getConnection().prepareStatement(sql);
+			stmt.setString(1, emailadresse);
+
+			result = stmt.executeQuery();
+			
+			while(result.next()){
+				
+				Adresse adresse = new Adresse().init(result.getString("strasse"), result.getString("hausnummer"), 
+						result.getString("postleitzahl"), result.getString("ort"), result.getString("zusatz"));
+				
+				Rolle rolle = new Rolle().init(result.getString("bezeichnung"), result.getInt("Sicht_Warenkorb"), 
+						result.getInt("Sicht_Bestellungen"), result.getInt("Sicht_Konto"), result.getInt("Sicht_Artikelstammdaten"));
+				
+				Benutzer benutzer = new Benutzer().init(emailadresse, "", result.getString("vorname"),
+					result.getString("nachname"), adresse, rolle, result.getInt("bestaetigt"),
+					result.getDate("erstellt_Datum"));
+				
+				Bestellung bestellung = new Bestellung().init(result.getInt("bestellnummer"), result.getDate("bestelldatum")
+					, result.getString("status"), result.getString("zahlungsart"), result.getDate("voraussichtliches_Lieferdatum"), 
+					result.getDouble("bestellwert"), benutzer);
+				
+				bestellungListe.add(bestellung);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+				
 		return bestellungListe;
 	}
 	
