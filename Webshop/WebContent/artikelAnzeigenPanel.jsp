@@ -2,6 +2,14 @@
 <%@page import="java.text.DecimalFormat"%>
 <%@page import="java.util.List"%>
 
+<!-- 
+Autor dieser Datei: Tim Hermbecker, Lukas Vechtel
+
+Diese Datei behandelt die Anzeige von Artikeln für den Kunden.
+Hier wird auch eine gefilterte Suche mit ausgegeben.
+ -->
+
+
 <%
 	final DecimalFormat preisFormatter = new DecimalFormat("#0.00");	
 %>

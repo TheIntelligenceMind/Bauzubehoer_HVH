@@ -2,6 +2,13 @@
 <%@page import="java.text.DecimalFormat"%>
 <%@page import="java.util.List"%>
 
+<!-- 
+Autor dieser Datei: Tim Hermbecker, Lukas Vechtel
+
+Diese Datei behandelt das Anzeigen eines bestimmten Artikels.
+ -->
+
+
 <%
 	final DecimalFormat preisFormatter = new DecimalFormat("#0.00");	
 	Artikel artikel = (Artikel)request.getAttribute("artikel");

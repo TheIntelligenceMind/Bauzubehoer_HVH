@@ -1,3 +1,11 @@
+<!-- 
+Autor dieser Datei: Tim Hermbecker
+
+Diese Datei behandelt die linke Sitebar auf der Website (Desktop-Version) oder die oben liegende Leiste (Smartphone-Version).
+Hier wurde das Suchfeld und das Logo implementiert.
+ -->
+
+
 <script type="text/javascript">
 function artikelAnzeigen(){
 	$(document).ready(function() {	      	               

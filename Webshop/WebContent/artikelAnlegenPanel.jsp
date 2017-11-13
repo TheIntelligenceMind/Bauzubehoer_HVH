@@ -2,6 +2,12 @@
 IMPORT STATEMENTS HIER EINFÜGEN DIE FÜR DIE KATEGORIEN BENÖTIGT WERDEN!
  -->
 
+<!-- 
+Autor dieser Datei: Tim Hermbecker, Lukas Vechtel
+
+Diese Datei behandelt das Anlegen von Artikeln.
+ -->
+
 <div class="showing" id="artikelAnlegenPanel">
 
 	<h1>Artikel anlegen</h1>

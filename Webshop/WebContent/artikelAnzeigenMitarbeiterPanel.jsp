@@ -2,6 +2,13 @@
 <%@page import="java.text.DecimalFormat"%>
 <%@page import="java.util.List"%>
 
+<!-- 
+Autor dieser Datei: Tim Hermbecker, Lukas Vechtel
+
+Diese Datei behandelt das Anzeigen der Artikelstammdaten für den Mitarbeiter und Admin.
+Aus dieser Ansicht kann das "artikelBearbeitenPanel" aufgerufen werden.
+ -->
+
 <%
 	final DecimalFormat formaterArtikelMitarbeiter = new DecimalFormat("#0.00");
 %>

@@ -1,5 +1,10 @@
 @CHARSET "ISO-8859-1";
 
+/*
+Autor dieser Datei: Tim Hermbecker, Lukas Vechtel
+
+Diese Datei wird für das Design der Website im Desktop-Modus (>1200px width) benötigt.
+*/
 
 /* ------------------ globale Werte ------------------- */
 html,body{

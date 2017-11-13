@@ -1,5 +1,12 @@
 <%@page import="entity.Artikel"%>
 
+<!-- 
+Autor dieser Datei: Tim Hermbecker, Lukas Vechtel
+
+Diese Datei behandelt das Bearbeiten von vorhandenen Artikeln.
+ -->
+
+
 <%
 		Artikel artikel = (Artikel)request.getAttribute("artikel");
 %>

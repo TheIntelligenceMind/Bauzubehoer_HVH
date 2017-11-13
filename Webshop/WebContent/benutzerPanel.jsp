@@ -3,6 +3,21 @@
 <%@page import="enums.SICHTEN"%>
 <%@page import="java.util.List"%>
 
+
+<!-- 
+Autor dieser Datei: Tim Hermbecker, Lukas Vechtel
+
+Diese Datei behandelt das Benutzerfeld mit all seinen Möglichkeiten zur Interaktion.
+Es werden je nach Zugriffsrichtlinien folgende Seiten angezeigt:
+ - Warenkorb anzeigen
+ - Mein Konto
+ - Meine Bestellungen
+ - Artikeldaten verwalten
+ - Benutzerdaten verwalten
+ -->
+
+
+
 <script type="text/javascript">
 function artikelListeMaAnzeigen(){
 	$(document).ready(function() {	      	               
