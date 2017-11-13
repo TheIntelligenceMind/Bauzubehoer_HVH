@@ -844,7 +844,7 @@ table#zusatzTabelle tbody td{
 	background-color: white;
 	width: 60%;
 	border: 1px solid #BF4D17;
-	height: 25px;
+	height: 30px;
 	font-size: 14px;
 	font-family: sans-serif;
 }
@@ -867,20 +867,20 @@ table#zusatzTabelle tbody td{
 	background-color: white;
 	width: 60%;
 	border: 1px solid #BF4D17;
-	height: 40px;
+	height: 30px;
 	font-size: 14px;
 	font-family: sans-serif;
 }
 #artikelAnlegenKategorieText
 {
 	font-size: 15px;
-	padding: 1px;
+	padding: 3px;
 	width: 20%;
 }
 #kategorieDropdown
 {
 	width: 40%;
-	padding: 1px;
+	padding: 3px;
 }
 #artikelAnlegenPanelZahlen .inputField{
 	margin-top: 20px;
