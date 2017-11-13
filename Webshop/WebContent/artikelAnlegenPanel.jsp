@@ -8,18 +8,17 @@ IMPORT STATEMENTS HIER EINFÜGEN DIE FÜR DIE KATEGORIEN BENÖTIGT WERDEN!
 	
 	<form action="artikel" method="POST">
 		<div id=artikelAnlegenPanelBeschreibung>
-			<input title="Hinweis: Nur eine vierstellige Artikelnummer eingeben." class="inputField" type="text" name="nummer" placeholder="Artikelnummer">
+			<input title="Hinweis: Die Artikelnummer muss vierstellig sein." class="inputField" type="text" name="nummer" placeholder="Artikelnummer">
 			<input title="Bezeichnung" class="inputField" type="text" name="bezeichnung" placeholder="Bezeichnung">
 			<textarea title="Beschreibung" class="inputArea" wrap="soft" name="beschreibung" placeholder="Beschreibung"></textarea>
 		</div>
 		<div id="artikelAnlegenPanelKategorie">
-			<text id="artikelAnlegenKategorieText">Artikelkategorie</text>
-			<select name="artikelKategorie" id="kategorieDropdown">
+			<select title="Artikelkategorie" name="artikelKategorie">
+			<option>Artikelkategorie</option>
 			<%
-			/*
-			for:each kategorie in artikel ...
-			*/
-			out.print("<option value='test'>TEST</option>");
+				/*
+				for:each kategorie in artikel ...
+				*/
 			%>
 			</select>
 		</div>
@@ -30,6 +29,7 @@ IMPORT STATEMENTS HIER EINFÜGEN DIE FÜR DIE KATEGORIEN BENÖTIGT WERDEN!
 			<input type="hidden" name="method" value="artikelAnlegen">
 			<input id="btnArtikelAnlegen" type="submit" value="Artikel anlegen">	
 	</form>
-		<a id="btnArtikelAnlegenZurueck"  onclick="artikelListeMaAnzeigen()">Zur&uumlck</a>
-	
+	<form action="artikel">
+		<button class="btnZurueck" type="submit" name="method" value="artikellisteAnzeigen"><i class="fa fa-arrow-left"></i> Zur&uumlck</button>
+	</form>
 </div>
