@@ -337,21 +337,18 @@ html,body{
 
 #artikelListeMitarbeiterTabelle td.tablecell{
 	height: 22px;
-	overflow: hidden;
-	padding-top: 3px;
-	padding-bottom: 3px;
+	padding: 3px;
 }
 #artikelListeMitarbeiterTabelle td.tablecellright{
 	text-align:center;
 	height: 22px;
-	overflow: hidden;
 	padding-top: 3px;
 	padding-bottom: 3px;
 }
 #artikelListeMitarbeiterTabelle td.tablecell > div {
     width: 100%;
-    height: 100%;
-    overflow:hidden;
+    height: 20px;
+    overflow: hidden;
 }
 
 .PickSymbol{
@@ -719,6 +716,10 @@ table#artikelTabelle{
 	width: 92%;
 	max-height: 70%;
 	margin-left: 4%;
+}
+table#artikelTabelle .tablecell{
+	height: 20px;
+	padding: 3px;
 }
 table#artikelTabelle .rightcell{
 	text-align: center;

@@ -24,16 +24,6 @@ function artikelBearbeitenAnzeigen(piArtikelNummer){
 <h1>Artikelliste</h1>
 
       <table id="artikelListeMitarbeiterTabelle">
-       <!--  <colgroup>
-	       <col span="1" style="width: 10%;">
-	       <col span="1" style="width: 15%;">
-	       <col span="1" style="width: 20%;">
-	       <col span="1" style="width: 36%;">
-	       <col span="1" style="width: 12%;">
-	       <col span="1" style="width: 7%;">
-	       <col span="1" style="width: 5%;">
-	    </colgroup>
-         -->
         <thead>
           <tr>
             <th>Lagermenge</th>
