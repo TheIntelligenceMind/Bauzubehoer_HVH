@@ -23,7 +23,7 @@ import java.text.SimpleDateFormat;
 /**
  * <h3>Beschreibung:</h3>
  * <pre>
- * Die Klasse stellt Methoden zum Anlegen/Verï¿½ï½¿ï½½ndern/Lï¿½ï½¿ï½½schen von Daten in der Datenbank zur Verfï¿½ï½¿ï½½gung.
+ * Die Klasse stellt Methoden zum Anlegen/Verändern/Löschen von Daten in der Datenbank zur Verfügung.
  * </pre>
  * 
  * @author Tim Hermbecker
@@ -436,6 +436,9 @@ public class QueryManager {
 			
 			result = stmt.executeUpdate();
 			
+			//übergebe Status (aktiv/deaktiv) an private Methode zur Übernahme in Warenkorb-Tabelle
+			activateDeaktivateWarenkorbArtikel(artikel.getNummer(), artikel.getAktiv());
+			
 			if(result != 0){
 				return true;
 			}
@@ -446,6 +449,39 @@ public class QueryManager {
 		
 		return false;
 	}
+	
+	private boolean activateDeaktivateWarenkorbArtikel(int piNummer, int piAktiv){
+		int nummer = piNummer;
+		int aktiv = piAktiv;
+		int artikelID;
+		int result = 0;
+		
+		try {
+			artikelID = getArtikelIDbyNummer(nummer);
+			
+			if(artikelID == -1){
+				return false;
+			}
+			
+			String sql = "UPDATE "+ DB_TABELLE.WARENKORB.toString() + " SET aktiv = ? WHERE Artikel_ID = ?";
+		
+			PreparedStatement stmt = getConnection().prepareStatement(sql);
+			stmt.setInt(1, aktiv);
+			stmt.setInt(2, artikelID);
+			
+			result = stmt.executeUpdate();
+			
+			if(result != 0){
+				return true;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
+	
 	
 	public boolean deleteArtikel(int piNummer){
 		int nummer = piNummer;
@@ -577,7 +613,7 @@ public class QueryManager {
 		try {					
 			String sql = "SELECT w.position, w.menge, a.nummer, a.bezeichnung, a.beschreibung, a.preis, a.lagermenge, a.aktiv FROM " + 
 			DB_TABELLE.WARENKORB.toString() + " w INNER JOIN "+ DB_TABELLE.BENUTZER.toString() + " b ON w.Benutzer_ID = b.ID LEFT JOIN " + 
-			DB_TABELLE.ARTIKEL.toString() + " a ON a.ID = w.Artikel_ID WHERE b.emailadresse = ?";
+			DB_TABELLE.ARTIKEL.toString() + " a ON a.ID = w.Artikel_ID WHERE b.emailadresse = ? AND w.aktiv = 1";
 			
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setString(1, piEmailadresse);
@@ -852,41 +888,23 @@ public class QueryManager {
 	}
 	
 	
-	public List<Bestellung> selectAllBestellungenByBenutzeremailadresse(String piEmailadresse){
-		String emailadresse = piEmailadresse;
+	public List<Bestellung> selectAllBestellungenByBenutzeremailadresse(Benutzer piBenutzer){
+		Benutzer benutzer = piBenutzer;
 		List<Bestellung> bestellungListe = new ArrayList<Bestellung>();;
 		ResultSet result = null;
 		
-		if(emailadresse == null || emailadresse.isEmpty()){
-			return null;
-		}
+		int benutzerID = getBenutzerIDbyEmailadresse(benutzer.getEmailadresse());
 		
 		try{
 
-			String sql = "SELECT best.bestellnummer, best.bestelldatum, best.status, best.zahlungsart, "
-					+ "best.voraussichtliches_Lieferdatum, best.bestellwert, adr.strasse, adr.hausnummer, adr.postleitzahl, "
-					+ "adr.ort, adr.zusatz, ben.vorname, ben.nachname, ben.bestaetigt, ben.erstellt_Datum , rol.Bezeichnung, "
-					+ "rol.Sicht_Warenkorb, rol.Sicht_Bestellungen, rol.Sicht_Konto, rol.Sicht_Artikelstammdaten FROM " 
-					+ DB_TABELLE.BESTELLUNG.toString() + " best INNER JOIN " + DB_TABELLE.BENUTZER.toString() + " ben ON "
-					+ "best.Benutzer_ID = ben.ID LEFT JOIN  " + DB_TABELLE.ADRESSE.toString() + " adr ON adr.Benutzer_ID = "
-					+ "ben.ID LEFT JOIN " + DB_TABELLE.ROLLE.toString() + " rol ON rol.ID = ben.Rolle_ID WHERE ben.emailadresse = ?";
+			String sql = "SELECT * FROM " + DB_TABELLE.BESTELLUNG.toString() + " WHERE Benutzer_ID = ?";
 			
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
-			stmt.setString(1, emailadresse);
+			stmt.setInt(1, benutzerID);
 
 			result = stmt.executeQuery();
 			
 			while(result.next()){
-				
-				Adresse adresse = new Adresse().init(result.getString("strasse"), result.getString("hausnummer"), 
-						result.getString("postleitzahl"), result.getString("ort"), result.getString("zusatz"));
-				
-				Rolle rolle = new Rolle().init(result.getString("bezeichnung"), result.getInt("Sicht_Warenkorb"), 
-						result.getInt("Sicht_Bestellungen"), result.getInt("Sicht_Konto"), result.getInt("Sicht_Artikelstammdaten"));
-				
-				Benutzer benutzer = new Benutzer().init(emailadresse, "", result.getString("vorname"),
-					result.getString("nachname"), adresse, rolle, result.getInt("bestaetigt"),
-					result.getDate("erstellt_Datum"));
 				
 				Bestellung bestellung = new Bestellung().init(result.getInt("bestellnummer"), result.getDate("bestelldatum")
 					, result.getString("status"), result.getString("zahlungsart"), result.getDate("voraussichtliches_Lieferdatum"), 
