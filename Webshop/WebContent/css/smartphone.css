@@ -1009,7 +1009,81 @@ html,body{
 /* ------------- Panel für das Bearbeiten von Artikeln ------------------- */
 
 
+/* ------------- Panel für die Detailansicht von Artikeln ------------------- */
+#artikelDetailansichtPanel{
+	margin: 50px auto;
+	width: 700px;
+	height: 650px;
+	text-align: center;
+	opacity: 0.9;
+	background-color: white;
+	border-radius: 20px;
+  	-webkit-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
+	box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
+}
+#artikelDetailansichtPanel h1{
+	margin:0;
+	padding: 0;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+#artikelDetailansichtPanel form{
+	text-align: center;
+}
+#artikelDetailansichtPanel h3{
+	margin: 0;
+	padding: 0;
+	padding-top: 10px;
+	padding-bottom: 5px;
+	font-size: 15px;
+}
+#artikelDetailansichtPanelBeschreibung .inputField{
+	background-color: white;
+	width: 60%;
+	padding-left: 3px;
+	border: 1px solid #BF4D17;
+	height: 25px;
+	font-size: 14px;
+	font-family: sans-serif;
+}
+#artikelDetailansichtPanelBeschreibung .inputArea{
+	background-color: white;
+	width: 60%;
+	padding: 3px;
+	border: 1px solid #BF4D17;
+	height: 85px;
+	font-size: 14px;
+	font-family: sans-serif;
+	overflow: auto;
+	resize: none;
+}
+#artikelDetailansichtPanelZahlen .inputField{
+	background-color: white;
+	width: 29%;
+	padding-left: 3px;
+	border: 1px solid #BF4D17;
+	height: 25px;
+	font-size: 14px;
+	font-family: sans-serif;
+}
 
+#btnArtikelDetailansichtWarenkorb{
+	float: left;
+	padding: 7px;	
+	height: 30px;
+	border-style: none;
+	margin-left: 2%;
+	margin-top: 60px;
+	background-color: #BF4D17;
+	color: white;
+	border-radius: 5px;
+}
+#btnArtikelDetailansichtWarenkorb:hover{
+	cursor: pointer;
+	background-color: #9b4013;
+}
+/* ------------- Panel für die Detailansicht von Artikeln ------------------- */
 
 
 
