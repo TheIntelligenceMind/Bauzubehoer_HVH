@@ -9,7 +9,7 @@
 	<form action="artikel" method="POST">
 		<div id="artikelBearbeitenPanelBeschreibung">
 			<h3>Artikelnummer</h3>
-			<input title="Hinweis: Nur eine vierstellige Artikelnummer eingeben." class="inputField" type="text" name="nummer" value="<% out.print(artikel.getNummer()); %>" placeholder="Artikelnummer" readonly>
+			<input title="Hinweis: Die Artikelnummer muss vierstellig sein." class="inputField" type="text" name="nummer" value="<% out.print(artikel.getNummer()); %>" placeholder="Artikelnummer" readonly>
 			<h3>Bezeichnung</h3>
 			<input title="Bezeichnung" class="inputField" type="text" name="bezeichnung" value="<% out.print(artikel.getBezeichnung()); %>" placeholder="Bezeichnung">
 			<h3>Beschreibung</h3>

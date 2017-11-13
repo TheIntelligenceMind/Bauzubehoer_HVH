@@ -8,7 +8,7 @@ IMPORT STATEMENTS HIER EINFÜGEN DIE FÜR DIE KATEGORIEN BENÖTIGT WERDEN!
 	
 	<form action="artikel" method="POST">
 		<div id=artikelAnlegenPanelBeschreibung>
-			<input title="Hinweis: Nur eine vierstellige Artikelnummer eingeben." class="inputField" type="text" name="nummer" placeholder="Artikelnummer">
+			<input title="Hinweis: Die Artikelnummer muss vierstellig sein." class="inputField" type="text" name="nummer" placeholder="Artikelnummer">
 			<input title="Bezeichnung" class="inputField" type="text" name="bezeichnung" placeholder="Bezeichnung">
 			<textarea title="Beschreibung" class="inputArea" wrap="soft" name="beschreibung" placeholder="Beschreibung"></textarea>
 		</div>

@@ -32,7 +32,7 @@ function kontoLoeschen(){
 		        <form action="meinKonto" method="post">
 					<input title="Vorname" class="inputField" type="text" name="vorname" placeholder="Vorname"  value="<% out.print(benutzer.getVorname()); %>">
 					<input title="Nachname" class="inputField" type="text" name="nachname" placeholder="Nachname" value="<% out.print(benutzer.getNachname()); %>">
-					<input title="E-Mail" class="inputField" type="text" name="emailadresse" placeholder="eMail" value="<% out.print(benutzer.getEmailadresse()); %>" disabled>				
+					<input title="E-Mail-Adresse" class="inputField" type="text" name="emailadresse" placeholder="eMail" value="<% out.print(benutzer.getEmailadresse()); %>" disabled>				
 					<button class="btnBenutzerSpeichern" type="submit" name="method" value="benutzerSpeichern">Speichern</button>
 				</form>
 			</div>
@@ -43,7 +43,7 @@ function kontoLoeschen(){
             <form action="meinKonto" method="post">
 	            <input title="Strasse" class="inputField" type="text" name="strasse" placeholder="Straße" id="Strasse" value="<% out.print(adresse.getStrasse()); %>">
 	            <input title="Hausnummer" class="inputField" type="text" name="hausnummer" placeholder="Hausnummer" id="Hausnummer" value="<% out.print(adresse.getHausnummer()); %>">
-				<input title="PLZ" class="inputField" type="text" name="postleitzahl" placeholder="PLZ" value="<% out.print(adresse.getPostleitzahl()); %>">
+				<input title="Postleitzahl" class="inputField" type="text" name="postleitzahl" placeholder="PLZ" value="<% out.print(adresse.getPostleitzahl()); %>">
 				<input title="Ort" class="inputField" type="text" name="ort" placeholder="Ort" value="<% out.print(adresse.getOrt()); %>">
 				<button class="btnAdresseSpeichern" type="submit" name="method" value="adresseSpeichern">Speichern</button>
 			</form>	
