@@ -1,6 +1,4 @@
-<!-- 
-IMPORT STATEMENTS HIER EINFÜGEN DIE FÜR DIE KATEGORIEN BENÖTIGT WERDEN!
- -->
+<%@page import="enums.ENUM_ARTIKELKATEGORIE"%>
 
 <!-- 
 Autor dieser Datei: Tim Hermbecker, Lukas Vechtel

@@ -14,8 +14,9 @@ import entity.Benutzer;
 import entity.Bestellung;
 import entity.Rolle;
 import entity.WarenkorbArtikel;
-import enums.DB_TABELLE;
-import enums.ROLLENBEZEICHNUNG;
+import enums.ENUM_DB_TABELLE;
+import enums.ENUM_ARTIKELKATEGORIE;
+import enums.ENUM_ROLLENBEZEICHNUNG;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -72,11 +73,11 @@ public class QueryManager {
 		ResultSet result = null;
 		
 		try {
-			String sql = "SELECT * FROM " + DB_TABELLE.BENUTZER.toString() + " b "
-					+ "left join " + DB_TABELLE.ADRESSE.toString() + " a on(a.Benutzer_ID = b.ID) "
-					+ "left join " + DB_TABELLE.ROLLE.toString() + " r on(b.Rolle_ID = r.ID) WHERE b.emailadresse = ?";
+			String sql = "SELECT * FROM " + ENUM_DB_TABELLE.BENUTZER.toString() + " b "
+					+ "left join " + ENUM_DB_TABELLE.ADRESSE.toString() + " a on(a.Benutzer_ID = b.ID) "
+					+ "left join " + ENUM_DB_TABELLE.ROLLE.toString() + " r on(b.Rolle_ID = r.ID) WHERE b.emailadresse = ?";
 			
-			String post_sql = "SELECT * FROM " + DB_TABELLE.ADRESSE.toString() + " WHERE Benutzer_ID = ?";					
+			String post_sql = "SELECT * FROM " + ENUM_DB_TABELLE.ADRESSE.toString() + " WHERE Benutzer_ID = ?";					
 			
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setString(1, piEMailAdresse);
@@ -116,7 +117,7 @@ public class QueryManager {
 		ResultSet result = null;
 		
 		try {
-			String sql = "SELECT ID FROM " + DB_TABELLE.BENUTZER.toString() + " WHERE emailadresse = ?";
+			String sql = "SELECT ID FROM " + ENUM_DB_TABELLE.BENUTZER.toString() + " WHERE emailadresse = ?";
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setString(1, emailadresse);
 			
@@ -140,7 +141,7 @@ public class QueryManager {
 		int result;
 		
 		try {
-			String pre_sql = "SELECT ID FROM " + DB_TABELLE.BENUTZER.toString() + " WHERE emailadresse = ?";
+			String pre_sql = "SELECT ID FROM " + ENUM_DB_TABELLE.BENUTZER.toString() + " WHERE emailadresse = ?";
 			
 			PreparedStatement pre_stmt = getConnection().prepareStatement(pre_sql);
 			pre_stmt.setString(1, emailadresse);
@@ -156,7 +157,7 @@ public class QueryManager {
 			
 			//=============================================================================
 			
-			String sql = "INSERT INTO " + DB_TABELLE.ADRESSE.toString() + " (strasse, hausnummer, postleitzahl, ort, zusatz, benutzer_id, erstellt_Benutzer) " 
+			String sql = "INSERT INTO " + ENUM_DB_TABELLE.ADRESSE.toString() + " (strasse, hausnummer, postleitzahl, ort, zusatz, benutzer_id, erstellt_Benutzer) " 
 					+ " VALUES(?, ?, ?, ?, ?, ?, ?)";
 					
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
@@ -189,7 +190,7 @@ public class QueryManager {
 		int result;
 		
 		try {
-			String pre_sql = "SELECT ID FROM " + DB_TABELLE.BENUTZER.toString() + " WHERE emailadresse = ?";
+			String pre_sql = "SELECT ID FROM " + ENUM_DB_TABELLE.BENUTZER.toString() + " WHERE emailadresse = ?";
 			
 			PreparedStatement pre_stmt = getConnection().prepareStatement(pre_sql);
 			pre_stmt.setString(1, emailadresse);
@@ -204,7 +205,7 @@ public class QueryManager {
 			benutzerID = first_result.getInt("id");
 			
 			//=============================================================================
-			String sql = "UPDATE " + DB_TABELLE.ADRESSE.toString() + " SET strasse = ?, hausnummer = ?, postleitzahl = ?, ort = ?,"
+			String sql = "UPDATE " + ENUM_DB_TABELLE.ADRESSE.toString() + " SET strasse = ?, hausnummer = ?, postleitzahl = ?, ort = ?,"
 					+ " zusatz = ?, geaendert_Benutzer = ?, geaendert_Datum = ? WHERE Benutzer_ID = ?";
 					
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
@@ -238,7 +239,7 @@ public class QueryManager {
 	}
 	
 	
-	private int getRolleIDbyBezeichnung(ROLLENBEZEICHNUNG bezeichnung){
+	private int getRolleIDbyBezeichnung(ENUM_ROLLENBEZEICHNUNG bezeichnung){
 		int id = -1;
 		ResultSet result = null;
 		
@@ -247,7 +248,7 @@ public class QueryManager {
 		}
 		
 		try {				
-			String sql = "SELECT * FROM " + DB_TABELLE.ROLLE.toString() + " WHERE bezeichnung = ?";
+			String sql = "SELECT * FROM " + ENUM_DB_TABELLE.ROLLE.toString() + " WHERE bezeichnung = ?";
 			
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setString(1, bezeichnung.toString());
@@ -271,7 +272,7 @@ public class QueryManager {
 		int result;
 		
 		try {				
-			String sql = "INSERT INTO " + DB_TABELLE.BENUTZER.toString() + " (emailadresse, passwort, vorname, nachname, Rolle_ID, erstellt_Benutzer) "
+			String sql = "INSERT INTO " + ENUM_DB_TABELLE.BENUTZER.toString() + " (emailadresse, passwort, vorname, nachname, Rolle_ID, erstellt_Benutzer) "
 						+ "VALUES( ?, ?, ?, ?, ?, ?)";
 			
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
@@ -279,7 +280,7 @@ public class QueryManager {
 			stmt.setString(2, benutzer.getPasswort());
 			stmt.setString(3, benutzer.getVorname());
 			stmt.setString(4, benutzer.getNachname());
-			stmt.setInt(5, getRolleIDbyBezeichnung(ROLLENBEZEICHNUNG.KUNDE));
+			stmt.setInt(5, getRolleIDbyBezeichnung(ENUM_ROLLENBEZEICHNUNG.KUNDE));
 			stmt.setString(6, DBUSER);
 			
 			result = stmt.executeUpdate();
@@ -299,7 +300,7 @@ public class QueryManager {
 		int result = 0;
 		
 		try {	
-			String sql = "UPDATE "+ DB_TABELLE.BENUTZER.toString() +" SET vorname = ?, nachname = ?, bestaetigt = ? WHERE emailadresse = ?";
+			String sql = "UPDATE "+ ENUM_DB_TABELLE.BENUTZER.toString() +" SET vorname = ?, nachname = ?, bestaetigt = ? WHERE emailadresse = ?";
 		
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setString(1, benutzer.getVorname());
@@ -333,7 +334,7 @@ public class QueryManager {
 				return false;
 			}
 			
-			String sql = "DELETE FROM "+ DB_TABELLE.BENUTZER.toString() +" WHERE ID = ?";
+			String sql = "DELETE FROM "+ ENUM_DB_TABELLE.BENUTZER.toString() +" WHERE ID = ?";
 		
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setInt(1, benutzerID);
@@ -363,7 +364,7 @@ public class QueryManager {
 		ResultSet result = null;
 		
 		try {
-			String sql = "SELECT ID FROM " + DB_TABELLE.ARTIKEL.toString() + " WHERE Nummer = ?";
+			String sql = "SELECT ID FROM " + ENUM_DB_TABELLE.ARTIKEL.toString() + " WHERE Nummer = ?";
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setInt(1, artikelnummer);
 			
@@ -385,7 +386,7 @@ public class QueryManager {
 		int result;
 		
 		try {	
-			String sql = "INSERT INTO " + DB_TABELLE.ARTIKEL.toString() + " (nummer, bezeichnung, beschreibung, preis, lagermenge, erstellt_Benutzer) " 
+			String sql = "INSERT INTO " + ENUM_DB_TABELLE.ARTIKEL.toString() + " (nummer, bezeichnung, beschreibung, preis, lagermenge, erstellt_Benutzer) " 
 			+ " VALUES(?, ?, ?, ?, ?, ?)";
 			
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
@@ -420,7 +421,7 @@ public class QueryManager {
 				return false;
 			}
 			
-			String sql = "UPDATE "+ DB_TABELLE.ARTIKEL.toString() +" SET nummer = ?, bezeichnung = ? , beschreibung = ?"
+			String sql = "UPDATE "+ ENUM_DB_TABELLE.ARTIKEL.toString() +" SET nummer = ?, bezeichnung = ? , beschreibung = ?"
 					+ ", preis = ?, lagermenge = ?, aktiv = ?, geaendert_Benutzer = ?, geaendert_Datum = ? WHERE ID = ?";
 		
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
@@ -463,7 +464,7 @@ public class QueryManager {
 				return false;
 			}
 			
-			String sql = "UPDATE "+ DB_TABELLE.WARENKORB.toString() + " SET aktiv = ? WHERE Artikel_ID = ?";
+			String sql = "UPDATE "+ ENUM_DB_TABELLE.WARENKORB.toString() + " SET aktiv = ? WHERE Artikel_ID = ?";
 		
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setInt(1, aktiv);
@@ -495,7 +496,7 @@ public class QueryManager {
 				return false;
 			}
 			
-			String sql = "DELETE FROM "+ DB_TABELLE.ARTIKEL.toString() +" WHERE ID = ?";
+			String sql = "DELETE FROM "+ ENUM_DB_TABELLE.ARTIKEL.toString() +" WHERE ID = ?";
 		
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setInt(1, artikelID);
@@ -527,10 +528,10 @@ public class QueryManager {
 		
 		try {
 			if (active){			
-				sql = "SELECT * FROM " + DB_TABELLE.ARTIKEL.toString() + " WHERE aktiv <> 0";
+				sql = "SELECT * FROM " + ENUM_DB_TABELLE.ARTIKEL.toString() + " WHERE aktiv <> 0";
 			}
 			else if(!active){
-				sql = "SELECT * FROM " + DB_TABELLE.ARTIKEL.toString();
+				sql = "SELECT * FROM " + ENUM_DB_TABELLE.ARTIKEL.toString();
 			}
 			
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
@@ -548,6 +549,14 @@ public class QueryManager {
 		return artikelliste;
 	}
 	
+	public List<Artikel> searchArtikelByKategorie(ENUM_ARTIKELKATEGORIE kategorie){
+		List<Artikel> artikelliste = new ArrayList<Artikel>();
+		
+		
+		return artikelliste;
+	}
+	
+	
 	public List<Artikel> searchArtikelByBezeichnung(String piBezeichnung){
 		if (piBezeichnung == null || piBezeichnung.isEmpty()){
 			return selectAllArtikel(true);
@@ -558,7 +567,7 @@ public class QueryManager {
 		ResultSet result = null;	
 		
 		try {			
-			String sql = "SELECT * FROM " + DB_TABELLE.ARTIKEL.toString() + " WHERE bezeichnung like ? AND aktiv = 1";
+			String sql = "SELECT * FROM " + ENUM_DB_TABELLE.ARTIKEL.toString() + " WHERE bezeichnung like ? AND aktiv = 1";
 			
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setString(1, "%" + bezeichnung + "%");
@@ -583,7 +592,7 @@ public class QueryManager {
 		ResultSet result = null;	
 		
 		try {				
-			String sql = "SELECT * FROM " + DB_TABELLE.ARTIKEL.toString() + " WHERE nummer = ?";
+			String sql = "SELECT * FROM " + ENUM_DB_TABELLE.ARTIKEL.toString() + " WHERE nummer = ?";
 			
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setLong(1, nummer);
@@ -612,8 +621,8 @@ public class QueryManager {
 		
 		try {					
 			String sql = "SELECT w.position, w.menge, a.nummer, a.bezeichnung, a.beschreibung, a.preis, a.lagermenge, a.aktiv FROM " + 
-			DB_TABELLE.WARENKORB.toString() + " w INNER JOIN "+ DB_TABELLE.BENUTZER.toString() + " b ON w.Benutzer_ID = b.ID LEFT JOIN " + 
-			DB_TABELLE.ARTIKEL.toString() + " a ON a.ID = w.Artikel_ID WHERE b.emailadresse = ? AND w.aktiv = 1";
+			ENUM_DB_TABELLE.WARENKORB.toString() + " w INNER JOIN "+ ENUM_DB_TABELLE.BENUTZER.toString() + " b ON w.Benutzer_ID = b.ID LEFT JOIN " + 
+			ENUM_DB_TABELLE.ARTIKEL.toString() + " a ON a.ID = w.Artikel_ID WHERE b.emailadresse = ? AND w.aktiv = 1";
 			
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setString(1, piEmailadresse);
@@ -641,7 +650,7 @@ public class QueryManager {
 		ResultSet first_result = null;
 		
 		try {	
-			String pre_sql = "SELECT ID FROM " + DB_TABELLE.BENUTZER.toString() + " WHERE emailadresse = ?";
+			String pre_sql = "SELECT ID FROM " + ENUM_DB_TABELLE.BENUTZER.toString() + " WHERE emailadresse = ?";
 			
 			PreparedStatement pre_stmt = getConnection().prepareStatement(pre_sql);
 			pre_stmt.setString(1, emailadresse);
@@ -656,7 +665,7 @@ public class QueryManager {
 
 		//====================================================
 			
-			String sql = "DELETE FROM " + DB_TABELLE.WARENKORB.toString() + " WHERE Benutzer_ID = ? AND Position = ?";
+			String sql = "DELETE FROM " + ENUM_DB_TABELLE.WARENKORB.toString() + " WHERE Benutzer_ID = ? AND Position = ?";
 			
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setInt(1, benutzerID);
@@ -681,7 +690,7 @@ public class QueryManager {
 		int benutzerID = piBenutzerID;
 
 		try {
-			String sql = "UPDATE " + DB_TABELLE.WARENKORB.toString() + " SET Position = (Position-1) WHERE Benutzer_ID = ? AND Position > ?";
+			String sql = "UPDATE " + ENUM_DB_TABELLE.WARENKORB.toString() + " SET Position = (Position-1) WHERE Benutzer_ID = ? AND Position > ?";
 			
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setInt(1, benutzerID);
@@ -716,7 +725,7 @@ public class QueryManager {
 				
 			}else{
 				ResultSet preResult = null;
-				String pre_sql = "SELECT MAX(Position) AS highestPos FROM " + DB_TABELLE.WARENKORB.toString() + " WHERE Benutzer_ID = ?";
+				String pre_sql = "SELECT MAX(Position) AS highestPos FROM " + ENUM_DB_TABELLE.WARENKORB.toString() + " WHERE Benutzer_ID = ?";
 				
 				PreparedStatement pre_stmt = getConnection().prepareStatement(pre_sql);
 				pre_stmt.setInt(1, benutzer_ID);
@@ -730,7 +739,7 @@ public class QueryManager {
 					
 				
 				//=====================================================
-				String sql = "INSERT INTO " + DB_TABELLE.WARENKORB.toString() + " (Position, Menge, Artikel_ID, Benutzer_ID, aktiv, erstellt_Benutzer) VALUES(?, ?, ?, ?, ?, ?)";
+				String sql = "INSERT INTO " + ENUM_DB_TABELLE.WARENKORB.toString() + " (Position, Menge, Artikel_ID, Benutzer_ID, aktiv, erstellt_Benutzer) VALUES(?, ?, ?, ?, ?, ?)";
 				
 				PreparedStatement stmt = getConnection().prepareStatement(sql);
 				stmt.setInt(1, highestPos + 1);
@@ -759,7 +768,7 @@ public class QueryManager {
 		ResultSet result = null;
 		
 		try {
-			String sql = "SELECT * FROM " + DB_TABELLE.WARENKORB.toString() + " WHERE Benutzer_ID = ? AND Artikel_ID = ?";
+			String sql = "SELECT * FROM " + ENUM_DB_TABELLE.WARENKORB.toString() + " WHERE Benutzer_ID = ? AND Artikel_ID = ?";
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setInt(1, benutzerID);
 			stmt.setInt(2, artikel_ID);
@@ -806,7 +815,7 @@ public class QueryManager {
 				return false;
 			}
 			
-			String sql = "UPDATE " + DB_TABELLE.WARENKORB.toString() + " SET Menge = ? WHERE Artikel_ID = ? AND Benutzer_ID = ?";
+			String sql = "UPDATE " + ENUM_DB_TABELLE.WARENKORB.toString() + " SET Menge = ? WHERE Artikel_ID = ? AND Benutzer_ID = ?";
 			
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setInt(1, menge);
@@ -859,13 +868,13 @@ public class QueryManager {
 			PreparedStatement stmt = null;
 			
 			if(menge == -1){
-				String sql = "UPDATE " + DB_TABELLE.WARENKORB.toString() + " SET Menge = Menge + 1 WHERE Artikel_ID = ? AND Benutzer_ID = ?";
+				String sql = "UPDATE " + ENUM_DB_TABELLE.WARENKORB.toString() + " SET Menge = Menge + 1 WHERE Artikel_ID = ? AND Benutzer_ID = ?";
 				
 				stmt = getConnection().prepareStatement(sql);
 				stmt.setInt(1, artikel_ID);
 				stmt.setInt(2, benutzer_ID);
 			}else{
-				String sql = "UPDATE " + DB_TABELLE.WARENKORB.toString() + " SET Menge = ? WHERE Artikel_ID = ? AND Benutzer_ID = ?";
+				String sql = "UPDATE " + ENUM_DB_TABELLE.WARENKORB.toString() + " SET Menge = ? WHERE Artikel_ID = ? AND Benutzer_ID = ?";
 
 				stmt = getConnection().prepareStatement(sql);
 				stmt.setInt(1, menge);
@@ -897,7 +906,7 @@ public class QueryManager {
 		
 		try{
 
-			String sql = "SELECT * FROM " + DB_TABELLE.BESTELLUNG.toString() + " WHERE Benutzer_ID = ?";
+			String sql = "SELECT * FROM " + ENUM_DB_TABELLE.BESTELLUNG.toString() + " WHERE Benutzer_ID = ?";
 			
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setInt(1, benutzerID);

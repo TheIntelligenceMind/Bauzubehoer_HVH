@@ -16,8 +16,8 @@ import org.apache.commons.lang3.math.NumberUtils;
 import db.QueryManager;
 import entity.Artikel;
 import entity.Benutzer;
-import enums.MELDUNG_ART;
-import enums.RESPONSE_STATUS;
+import enums.ENUM_MELDUNG_ART;
+import enums.ENUM_RESPONSE_STATUS;
 
 /**
  * Servlet implementation class WarenkorbController
@@ -95,12 +95,12 @@ public class ArtikelController extends HttpServlet {
 						
 				if(result){
 					String hinweistext = "Der Artikel wurde erfolgreich angelegt.";
-					resp.addHeader("Status", RESPONSE_STATUS.HINWEIS.toString());
-					resp.addHeader(MELDUNG_ART.HINWEISMELDUNG.toString(), hinweistext);
+					resp.addHeader("Status", ENUM_RESPONSE_STATUS.HINWEIS.toString());
+					resp.addHeader(ENUM_MELDUNG_ART.HINWEISMELDUNG.toString(), hinweistext);
 				}else{
 					String fehlermeldung = fehlertext.toString();	
-					resp.addHeader("Status", RESPONSE_STATUS.FEHLER.toString());
-					resp.addHeader(MELDUNG_ART.FEHLERMELDUNG.toString(), fehlermeldung);
+					resp.addHeader("Status", ENUM_RESPONSE_STATUS.FEHLER.toString());
+					resp.addHeader(ENUM_MELDUNG_ART.FEHLERMELDUNG.toString(), fehlermeldung);
 				}
 						
 				resp.addHeader("contentSite", "artikelAnlegenPanel");
@@ -117,19 +117,19 @@ public class ArtikelController extends HttpServlet {
 					artikel.init("", -1, "", -1, -1, -1);
 				}
 				
-				req.setAttribute("artikel", artikel);
+				req.setAttribute("bearbeitenArtikel", artikel);
 				resp.addHeader("contentSite", "artikelBearbeitenPanel");
 				break;				
 			case "artikelBearbeiten":			
 				if(artikelSpeichern(req)){
 					
 					String hinweistext = "Die &Auml;nderungen wurden erfolgreich gespeichert.";
-					resp.addHeader("Status", RESPONSE_STATUS.HINWEIS.toString());
-					resp.addHeader(MELDUNG_ART.HINWEISMELDUNG.toString(), hinweistext);		
+					resp.addHeader("Status", ENUM_RESPONSE_STATUS.HINWEIS.toString());
+					resp.addHeader(ENUM_MELDUNG_ART.HINWEISMELDUNG.toString(), hinweistext);		
 				}else{
 					String fehlermeldung = "ung&uuml;ltige &Auml;nderungen.";
-					resp.addHeader("Status", RESPONSE_STATUS.FEHLER.toString());
-					resp.addHeader(MELDUNG_ART.FEHLERMELDUNG.toString(), fehlermeldung);
+					resp.addHeader("Status", ENUM_RESPONSE_STATUS.FEHLER.toString());
+					resp.addHeader(ENUM_MELDUNG_ART.FEHLERMELDUNG.toString(), fehlermeldung);
 				}
 				
 				if(req.getParameter("nummer") == null){
@@ -139,7 +139,7 @@ public class ArtikelController extends HttpServlet {
 					artikel = queryManager.searchArtikelByNummer(Integer.valueOf(req.getParameter("nummer")));
 				}
 
-				req.setAttribute("artikel", artikel);
+				req.setAttribute("bearbeitenArtikel", artikel);
 				resp.addHeader("contentSite", "artikelBearbeitenPanel");
 				break;	
 			default:

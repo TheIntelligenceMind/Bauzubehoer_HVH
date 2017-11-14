@@ -44,11 +44,50 @@ public class BestellungenController extends HttpServlet {
 			case "bestellungenAnzeigen":				
 				resp.addHeader("contentSite", "meineBestellungenPanel");
 				break;
+			case "bestellungErfassenS1Anzeigen":
+				if(bestellungS1Validieren(req)){
+					
+				}else{
+					// Fehlermeldungen
+				}
+				
+				break;
+			case "bestellungErfassenS2Anzeigen":
+				if(bestellungS2Validieren(req)){
+					
+				}else{
+					// Fehlermeldungen
+				}		
+							
+				break;
+			case "bestellungErfassenS3Anzeigen":
+				if(bestellungS3Validieren(req)){
+					
+				}else{
+					// Fehlermeldungen
+				}
+				
+				break;
 			default:
 				resp.addHeader("contentSite", "meineBestellungenPanel");
 				break;
 		}	
 
 		rd.forward(req, resp);	
+	}
+    
+    private boolean bestellungS1Validieren(HttpServletRequest req){
+    	
+    	
+    	
+    	return false;
+    }
+    
+	private boolean bestellungS2Validieren(HttpServletRequest req){
+		return false; 	
+	}
+	
+	private boolean bestellungS3Validieren(HttpServletRequest req){
+		return false;
 	}
 }
