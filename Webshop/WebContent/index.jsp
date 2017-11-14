@@ -106,6 +106,10 @@ Die Index-Datei wird für die Zusammenfuehrung der Haupt-Files benötigt.
 							%>
 								<%@ include file="registrierungPanel.jsp" %>
 							<%		
+						}else if(siteContent.equals("artikelDetailansichtPanel")){
+							%>
+								<%@ include file="artikelDetailansichtPanel.jsp" %>
+							<%
 						}else{
 							%>
 								<%@ include file="artikelAnzeigenPanel.jsp" %>
@@ -144,9 +148,14 @@ Die Index-Datei wird für die Zusammenfuehrung der Haupt-Files benötigt.
 								<%@ include file="artikelBearbeitenPanel.jsp" %>
 							<%
 							break;
+						case "artikelDetailansichtPanel":
+							%>
+								<%@ include file="artikelDetailansichtPanel.jsp" %>
+							<%
+							break;
 						default:
 							%>
-								<%@ include file="artikelAnzeigenPanel.jsp" %>
+								<%@ include file="artikelAnzeigenPanel.jsp" %> 
 							<%
 							break;
 						}

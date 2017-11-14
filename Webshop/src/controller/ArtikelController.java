@@ -39,8 +39,7 @@ public class ArtikelController extends HttpServlet {
     @Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {		
 		RequestDispatcher rd = req.getRequestDispatcher("index.jsp");
-		resp.setContentType("text/html");
-    	
+		resp.setContentType("text/html"); 	
 		
 		// Berechtigung für die Seite prüfen
     	if(((Benutzer)req.getSession().getAttribute("benutzer")).getRolle().getSichtArtikelstammdaten() != 1){
@@ -48,12 +47,22 @@ public class ArtikelController extends HttpServlet {
     		rd.forward(req, resp);
     		return;
     	}
-    	
-		
+    		
 		String method = req.getParameter("method");
 		
 		if(method != null){
 			switch(method){
+			case "artikelDetailansichtAnzeigen":
+				if(req.getParameter("artikelnummer") != null){
+					Artikel artikel = queryManager.searchArtikelByNummer(Integer.valueOf(req.getParameter("artikelnummer")));
+							
+					req.setAttribute("detailansichtArtikel", artikel);
+					resp.addHeader("contentSite", "artikelDetailansichtPanel");	
+				}else{
+					rd = req.getRequestDispatcher("/suchen");
+				}
+				
+				break;
 			case "artikellisteAnzeigen":
 				List<Artikel> artikelliste = null;
 				
