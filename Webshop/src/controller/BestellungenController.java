@@ -46,13 +46,7 @@ public class BestellungenController extends HttpServlet {
 		}
 			
 		switch(method){
-			case "bestellungenAnzeigen":
-				String emailadresse = ((Benutzer)req.getSession().getAttribute("benutzer")).getEmailadresse();
-				
-				List<Bestellung> bestellungenListe = queryManager.selectAllBestellungenByBenutzeremailadresse(emailadresse);
-				
-				req.getSession().setAttribute("bestellungenListe", bestellungenListe);
-				
+			case "bestellungenAnzeigen":				
 				resp.addHeader("contentSite", "meineBestellungenPanel");
 				break;
 			default:
