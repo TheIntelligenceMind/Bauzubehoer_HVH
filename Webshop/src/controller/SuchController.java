@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import db.QueryManager;
 import entity.Artikel;
-import entity.Benutzer;
 
 /**
  * Servlet implementation class WarenkorbController

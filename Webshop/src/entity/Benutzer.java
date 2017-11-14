@@ -1,7 +1,6 @@
 package entity;
 
 import java.sql.Date;
-import java.sql.Timestamp;
 
 import entity.Adresse;
 
