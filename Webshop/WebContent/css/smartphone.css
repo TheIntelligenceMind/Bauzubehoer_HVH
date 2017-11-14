@@ -18,6 +18,27 @@ html,body{
 /* ------------------ globale Werte ------------------- */
 
 
+/*---------------------------- Button Classes ------------------------*/
+.btnZurueck{
+	background-color: #BF4D17;
+	padding: 3px;
+	margin-left: 30px;
+	width: 110px;
+	color: white;
+	float: left;
+	height: 25px;
+	position: relative;
+	height: 30px;
+	font-size: 18px;
+	border-style: none;
+	border-radius: 5px;
+}
+.btnZurueck:hover{
+	cursor:pointer;
+	background-color: #9b4013;
+}
+/*---------------------------- Button Classes ------------------------*/
+
 
 
 
