@@ -16,7 +16,11 @@ import entity.WarenkorbArtikel;
 import enums.ENUM_RESPONSE_STATUS;
 
 /**
- * Servlet implementation class WarenkorbController
+ * <pre>
+ * <h3>Beschreibung:</h3> Die Klasse ist für den Themenbereich Warenkorb zuständig. 
+ * Hier werden alle GET- und POST-Schnittstellenaufrufe verarbeitet und an die View weitergeleitet
+ * </pre>
+ * @author Tim Hermbecker
  */
 @WebServlet("/warenkorb")
 public class WarenkorbController extends HttpServlet {

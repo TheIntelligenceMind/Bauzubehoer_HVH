@@ -16,7 +16,11 @@ import entity.Artikel;
 import enums.ENUM_ARTIKELKATEGORIE;
 
 /**
- * Servlet implementation class WarenkorbController
+ * <pre>
+ * <h3>Beschreibung:</h3> Die Klasse ist für den Themenbereich Suche nach Begriffen oder Kategorien zuständig. 
+ * Hier werden alle GET- und POST-Schnittstellenaufrufe verarbeitet und an die View weitergeleitet
+ * </pre>
+ * @author Tim Hermbecker
  */
 @WebServlet("/suchen")
 public class SuchController extends HttpServlet {

@@ -21,6 +21,13 @@ import entity.Bestellung;
 import entity.WarenkorbArtikel;
 import enums.ENUM_RESPONSE_STATUS;
 
+/**
+ * <pre>
+ * <h3>Beschreibung:</h3> Die Klasse ist für den Themenbereich Login zuständig. 
+ * Hier werden alle GET- und POST-Schnittstellenaufrufe verarbeitet und an die View weitergeleitet
+ * </pre>
+ * @author Tim Hermbecker
+ */
 @WebServlet("/anmelden")
 public class LoginController extends HttpServlet{
 	private static final long serialVersionUID = -6106934665383263630L;

@@ -22,6 +22,13 @@ import enums.ENUM_RESPONSE_STATUS;
 import enums.ENUM_ROLLENBEZEICHNUNG;
 import helper.MailHelper;
 
+/**
+ * <pre>
+ * <h3>Beschreibung:</h3> Die Klasse ist für den Themenbereich Registration zuständig. 
+ * Hier werden alle GET- und POST-Schnittstellenaufrufe verarbeitet und an die View weitergeleitet
+ * </pre>
+ * @author Tim Hermbecker
+ */
 @WebServlet("/registrieren")
 public class RegistrationController extends HttpServlet{
 	private static final long serialVersionUID = 8289722651997847704L;
