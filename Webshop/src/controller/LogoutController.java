@@ -23,8 +23,8 @@ public class LogoutController extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		RequestDispatcher rd = req.getRequestDispatcher("/suchen");
-		
-		// Berechtigung für die Seite prüfen
+
+		// prüfen ob es eine Session gibt, wenn nicht an die Startseite weiterleiten
     	if(req.getSession().getAttribute("benutzer") == null){
     		rd = req.getRequestDispatcher("/suchen");	
     		rd.forward(req, resp);

@@ -39,6 +39,13 @@ public class KontoController extends HttpServlet {
 		resp.setContentType("text/html"); 
 		RequestDispatcher rd = null;
 		
+		// prüfen ob es eine Session gibt, wenn nicht an die Startseite weiterleiten
+		if(req.getSession().getAttribute("benutzer") == null){
+			rd = req.getRequestDispatcher("/suchen");	
+    		rd.forward(req, resp);
+    		return;
+		}
+		
 		// Berechtigung für die Seite prüfen
     	if(((Benutzer)req.getSession().getAttribute("benutzer")).getRolle().getSichtKonto() != 1){
     		dispatchSite = "/suchen";	
