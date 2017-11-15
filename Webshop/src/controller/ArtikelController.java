@@ -97,10 +97,13 @@ public class ArtikelController extends HttpServlet {
 				String beschreibung = req.getParameter("beschreibung");
 				double preis = NumberUtils.toDouble(req.getParameter("preis"), 0.00);
 				int lagermenge = NumberUtils.toInt(req.getParameter("lagermenge"), 0);
+				String kategorie_1 = req.getParameter("kategorie_1");
+				String kategorie_2 = req.getParameter("kategorie_2");
 				
 				if((fehlertext = validateAttributes(req, true)) == null){
 					
-					Artikel newArtikel = new Artikel().init(bezeichnung, nummer, beschreibung, preis, lagermenge, 1);
+					Artikel newArtikel = new Artikel().init(bezeichnung, nummer, beschreibung, preis, lagermenge, kategorie_1,
+							kategorie_2, 1);
 					
 					result = QueryManager.getInstance().createArtikel(newArtikel);
 				}
@@ -126,7 +129,7 @@ public class ArtikelController extends HttpServlet {
 					artikel = queryManager.searchArtikelByNummer(artikelnummer);								
 				}else{
 					artikel = new Artikel();
-					artikel.init("", -1, "", -1, -1, -1);
+					artikel.init("", -1, "", -1, -1, "", "", -1);
 				}
 				
 				req.setAttribute("bearbeitenArtikel", artikel);
@@ -147,7 +150,7 @@ public class ArtikelController extends HttpServlet {
 				
 				if(req.getParameter("nummer") == null){
 					artikel = new Artikel();
-					artikel.init("", -1, "", -1, -1, -1);
+					artikel.init("", -1, "", -1, -1, "", "", -1);
 				}else{
 					artikel = queryManager.searchArtikelByNummer(Integer.valueOf(req.getParameter("nummer")));
 				}
@@ -181,9 +184,12 @@ public class ArtikelController extends HttpServlet {
 	    	String beschreibung = req.getParameter("beschreibung");
 	    	double preis = NumberUtils.toDouble(req.getParameter("preis"));
 	    	int lagermenge = NumberUtils.toInt(req.getParameter("lagermenge"));
+			String kategorie_1 = req.getParameter("kategorie_1");
+			String kategorie_2 = req.getParameter("kategorie_2");
 	    	int aktiv = NumberUtils.toInt(req.getParameter("aktiv"));
 	    	  	
-	    	Artikel artikel_save = new Artikel().init(bezeichnung, nummer, beschreibung, preis, lagermenge, aktiv);
+	    	Artikel artikel_save = new Artikel().init(bezeichnung, nummer, beschreibung, preis, lagermenge, kategorie_1, 
+	    			kategorie_2, aktiv);
 	    	
 	    	// prüfen ob es den Artikel gibt
 	    	if(queryManager.searchArtikelByNummer(nummer) != null){
