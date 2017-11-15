@@ -1,5 +1,9 @@
+<%@page import="enums.ENUM_ARTIKELKATEGORIE"%>
+
 <!-- 
-IMPORT STATEMENTS HIER EINFÜGEN DIE FÜR DIE KATEGORIEN BENÖTIGT WERDEN!
+Autor dieser Datei: Tim Hermbecker, Lukas Vechtel
+
+Diese Datei behandelt das Anlegen von Artikeln.
  -->
 
 <div class="showing" id="artikelAnlegenPanel">

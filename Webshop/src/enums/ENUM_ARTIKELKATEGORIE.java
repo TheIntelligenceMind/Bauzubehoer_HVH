@@ -1,12 +1,12 @@
 package enums;
 
-public enum ROLLENBEZEICHNUNG {
+public enum ENUM_ARTIKELKATEGORIE {
 
-	KUNDE("Kunde"), MITARBEITER("Mitarbeiter"), ADMINISTRATOR("Administrator");
+	BEKLEIDUNG("Bekleidung");
 	
 	private final String name;
 	
-	ROLLENBEZEICHNUNG(String name){
+	ENUM_ARTIKELKATEGORIE(String name){
 		this.name= name;
 	}
 	

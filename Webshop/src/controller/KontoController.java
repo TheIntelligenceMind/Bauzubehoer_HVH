@@ -13,8 +13,8 @@ import javax.servlet.http.HttpSession;
 import db.QueryManager;
 import entity.Adresse;
 import entity.Benutzer;
-import enums.MELDUNG_ART;
-import enums.RESPONSE_STATUS;
+import enums.ENUM_MELDUNG_ART;
+import enums.ENUM_RESPONSE_STATUS;
 
 /**
  * Servlet implementation class WarenkorbController
@@ -58,13 +58,13 @@ public class KontoController extends HttpServlet {
 					updateSessionDetails(req.getSession(), benutzer);
 
 					String hinweistext = "Die Benutzerdaten wurden erfolgreich gespeichert.";
-					resp.addHeader("Status", RESPONSE_STATUS.HINWEIS.toString());
-					resp.addHeader(MELDUNG_ART.HINWEISMELDUNG.toString(), hinweistext);
+					resp.addHeader("Status", ENUM_RESPONSE_STATUS.HINWEIS.toString());
+					resp.addHeader(ENUM_MELDUNG_ART.HINWEISMELDUNG.toString(), hinweistext);
 						
 				}else{
 					String fehlermeldung = "ung&uuml;ltige &Auml;nderungen";	
-					resp.addHeader("Status", RESPONSE_STATUS.FEHLER.toString());
-					resp.addHeader(MELDUNG_ART.FEHLERMELDUNG.toString(), fehlermeldung);
+					resp.addHeader("Status", ENUM_RESPONSE_STATUS.FEHLER.toString());
+					resp.addHeader(ENUM_MELDUNG_ART.FEHLERMELDUNG.toString(), fehlermeldung);
 				}	
 				req.setAttribute("benutzer", benutzer);
 				resp.addHeader("contentSite", "meinKontoPanel");
@@ -74,12 +74,12 @@ public class KontoController extends HttpServlet {
 					benutzer = queryManager.getBenutzerByEMailAdresse(((Benutzer)req.getSession().getAttribute("benutzer")).getEmailadresse());
 					
 					String hinweistext = "Die Benutzeradresse wurde erfolgreich gespeichert.";
-					resp.addHeader("Status", RESPONSE_STATUS.HINWEIS.toString());
-					resp.addHeader(MELDUNG_ART.HINWEISMELDUNG.toString(), hinweistext);			
+					resp.addHeader("Status", ENUM_RESPONSE_STATUS.HINWEIS.toString());
+					resp.addHeader(ENUM_MELDUNG_ART.HINWEISMELDUNG.toString(), hinweistext);			
 				}else{
 					String fehlermeldung = "ung&uuml;ltige &Auml;nderungen";	
-					resp.addHeader("Status", RESPONSE_STATUS.FEHLER.toString());
-					resp.addHeader(MELDUNG_ART.FEHLERMELDUNG.toString(), fehlermeldung);
+					resp.addHeader("Status", ENUM_RESPONSE_STATUS.FEHLER.toString());
+					resp.addHeader(ENUM_MELDUNG_ART.FEHLERMELDUNG.toString(), fehlermeldung);
 				}
 				req.setAttribute("benutzer", benutzer);
 				resp.addHeader("contentSite", "meinKontoPanel");
@@ -89,15 +89,15 @@ public class KontoController extends HttpServlet {
 					rd = req.getRequestDispatcher("/abmelden");
 					
 					String hinweistext = "Das Benutzerkonto wurde erfolgreich gel&ouml;scht.";
-					resp.addHeader("Status", RESPONSE_STATUS.HINWEIS.toString());
-					resp.addHeader(MELDUNG_ART.HINWEISMELDUNG.toString(), hinweistext);	
+					resp.addHeader("Status", ENUM_RESPONSE_STATUS.HINWEIS.toString());
+					resp.addHeader(ENUM_MELDUNG_ART.HINWEISMELDUNG.toString(), hinweistext);	
 				}else{
 					req.setAttribute("benutzer", benutzer);
 					resp.addHeader("contentSite", "meinKontoPanel");
 					
 					String fehlermeldung = "Das Benutzerkonto konnte nicht gel&ouml;scht werden.";	
-					resp.addHeader("Status", RESPONSE_STATUS.FEHLER.toString());
-					resp.addHeader(MELDUNG_ART.FEHLERMELDUNG.toString(), fehlermeldung);	
+					resp.addHeader("Status", ENUM_RESPONSE_STATUS.FEHLER.toString());
+					resp.addHeader(ENUM_MELDUNG_ART.FEHLERMELDUNG.toString(), fehlermeldung);	
 				}
 				break;
 			default:

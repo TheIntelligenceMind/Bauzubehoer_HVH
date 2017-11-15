@@ -2,6 +2,13 @@
 <%@page import="java.util.List"%>
 <%@page import="java.text.DecimalFormat"%>
 
+<!-- 
+Autor dieser Datei: Tim Hermbecker, Lukas Vechtel
+
+Diese Datei behandelt die Darstellung der gesamten Bestellungen des eingeloggten Accounts.
+ -->
+
+
 <%
 	final DecimalFormat formaterBestellungen = new DecimalFormat("#0.00");
 %>

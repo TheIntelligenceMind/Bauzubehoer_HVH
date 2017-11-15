@@ -1,12 +1,12 @@
 package enums;
 
-public enum MELDUNG_ART {
+public enum ENUM_MELDUNG_ART {
 
 	HINWEISMELDUNG("hinweismeldung"), FEHLERMELDUNG("fehlermeldung");
 	
 	private final String name;
 	
-	MELDUNG_ART(String name){
+	ENUM_MELDUNG_ART(String name){
 		this.name = name;
 	}
 	

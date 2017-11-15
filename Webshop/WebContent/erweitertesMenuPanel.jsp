@@ -1,12 +1,28 @@
+<%@page import="enums.ENUM_ARTIKELKATEGORIE"%>
+
+<!-- 
+Autor dieser Datei: Tim Hermbecker
+
+Diese Datei behandelt die linke Sitebar auf der Website (Desktop-Version) oder die oben liegende Leiste (Smartphone-Version).
+Hier wurde das Suchfeld und das Logo implementiert.
+ -->
+
+
 <script type="text/javascript">
-function artikelAnzeigen(){
+function artikelSuchenNachKategorie(kategorie){
+	$(document).ready(function() {	      	               
+          window.location.href = "suchen";  
+	}); 	
+}
+
+function artikelSuchenNachBegriff(){
 	$(document).ready(function() {	      	               
           window.location.href = "suchen";  
 	}); 	
 }
 </script>
 <div id="sitebar">
-	<div onclick="artikelAnzeigen()" id="header">
+	<div onclick="artikelSuchenNachBegriff()" id="header">
 		<h1>Bauzubehör HVH</h1>
 		<h3>Online Shop</h3>
 	</div>
@@ -20,5 +36,14 @@ function artikelAnzeigen(){
 				</form>
 			<li>
 		</ul>	
+	</div>
+	
+	<!-- Hier kommen die Artikelkategorien -->
+	<div>
+		<!-- am besten als onclickEvent implementieren und die Funktion artikelSuchenNachKategorie 
+		aufrufen mit dem ausgewählten Kategoriewert(auf ENUM_ARTIKELKATEGORIE beziehen) 
+		-->	
+	
+	
 	</div>
 </div>

@@ -18,8 +18,8 @@ import javax.xml.bind.DatatypeConverter;
 import db.QueryManager;
 import entity.Benutzer;
 import entity.Rolle;
-import enums.RESPONSE_STATUS;
-import enums.ROLLENBEZEICHNUNG;
+import enums.ENUM_RESPONSE_STATUS;
+import enums.ENUM_ROLLENBEZEICHNUNG;
 
 @WebServlet("/registrieren")
 public class RegistrationController extends HttpServlet{
@@ -63,14 +63,14 @@ public class RegistrationController extends HttpServlet{
 
 				// aktueller Status wird gesetzt
 				if(fehlertext != null){
-					resp.addHeader("status", RESPONSE_STATUS.FEHLER.toString());
+					resp.addHeader("status", ENUM_RESPONSE_STATUS.FEHLER.toString());
 					resp.addHeader("fehlermeldung", fehlertext);	
 				}else{
 					Benutzer benutzer = queryManager.getBenutzerByEMailAdresse(req.getParameter("emailadresse"));
 					
 					MailController.getInstance().sendBestaetigungsmail(benutzer);
 							
-					resp.addHeader("status", RESPONSE_STATUS.HINWEIS.toString());
+					resp.addHeader("status", ENUM_RESPONSE_STATUS.HINWEIS.toString());
 					resp.addHeader("hinweismeldung", "Erfolgreich registriert. Bitte prüfen Sie Ihre Mails.");
 				}
 				
@@ -80,11 +80,11 @@ public class RegistrationController extends HttpServlet{
 				
 				// aktueller Status wird gesetzt
 				if(fehlertext != null){
-					resp.addHeader("status", RESPONSE_STATUS.FEHLER.toString());
+					resp.addHeader("status", ENUM_RESPONSE_STATUS.FEHLER.toString());
 					resp.addHeader("fehlermeldung", fehlertext);	
 				}else{
 
-					resp.addHeader("status", RESPONSE_STATUS.HINWEIS.toString());
+					resp.addHeader("status", ENUM_RESPONSE_STATUS.HINWEIS.toString());
 					resp.addHeader("hinweismeldung", "Das Benutzerkonto wurde erfolgreich aktiviert.");
 				}
 				
@@ -158,7 +158,7 @@ public class RegistrationController extends HttpServlet{
 								e.printStackTrace();
 							}
 							
-							Rolle kundenrolle = new Rolle().init(ROLLENBEZEICHNUNG.KUNDE.toString(), 1, 1, 1, 0);
+							Rolle kundenrolle = new Rolle().init(ENUM_ROLLENBEZEICHNUNG.KUNDE.toString(), 1, 1, 1, 0);
 							newBenutzer.init(email, hashPasswort, vorname, nachname, null, kundenrolle, 0, new Date(System.currentTimeMillis()));
 							
 							// Benutzerobjekt in der Datenbank anlegen

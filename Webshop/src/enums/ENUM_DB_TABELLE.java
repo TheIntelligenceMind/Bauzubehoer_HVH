@@ -1,13 +1,13 @@
 package enums;
 
-public enum DB_TABELLE {
+public enum ENUM_DB_TABELLE {
 
 	ARTIKEL("artikel"), BENUTZER("benutzer"), WARENKORB("warenkorb"), BESTELLUNG("bestellung"), BESTELLARTIKEL("bestellartikel"),
 	ADRESSE("adresse"), ROLLE("rolle");
 	
 	private final String name;
 	
-	DB_TABELLE(String name){
+	ENUM_DB_TABELLE(String name){
 		this.name= name;
 	}
 	

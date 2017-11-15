@@ -19,7 +19,7 @@ import db.QueryManager;
 import entity.Benutzer;
 import entity.Bestellung;
 import entity.WarenkorbArtikel;
-import enums.RESPONSE_STATUS;
+import enums.ENUM_RESPONSE_STATUS;
 
 @WebServlet("/anmelden")
 public class LoginController extends HttpServlet{
@@ -71,7 +71,7 @@ public class LoginController extends HttpServlet{
 					List<WarenkorbArtikel> warenkorbartikelListe = queryManager.selectAllWarenkorbartikelByBenutzeremailadresse(benutzer.getEmailadresse());	
 					session.setAttribute("warenkorbartikelliste", warenkorbartikelListe);
 					
-					List<Bestellung> bestellungenListe = queryManager.selectAllBestellungenByBenutzeremailadresse(benutzer.getEmailadresse());	
+					List<Bestellung> bestellungenListe = queryManager.selectAllBestellungenByBenutzeremailadresse(benutzer);	
 					session.setAttribute("bestellungenliste", bestellungenListe);
 				}
 			
@@ -80,7 +80,7 @@ public class LoginController extends HttpServlet{
 			}
 		}
 		if(!anmeldeStatus){
-			resp.addHeader("status", RESPONSE_STATUS.FEHLER.toString());
+			resp.addHeader("status", ENUM_RESPONSE_STATUS.FEHLER.toString());
 			resp.addHeader("fehlermeldung", "E-Mail-Adresse oder Passwort ist falsch.");
 		}
 		

@@ -1,7 +1,22 @@
 <%@page import="entity.WarenkorbArtikel"%>
 <%@page import="entity.Benutzer"%>
-<%@page import="enums.SICHTEN"%>
+<%@page import="enums.ENUM_SICHTEN"%>
 <%@page import="java.util.List"%>
+
+
+<!-- 
+Autor dieser Datei: Tim Hermbecker, Lukas Vechtel
+
+Diese Datei behandelt das Benutzerfeld mit all seinen Möglichkeiten zur Interaktion.
+Es werden je nach Zugriffsrichtlinien folgende Seiten angezeigt:
+ - Warenkorb anzeigen
+ - Mein Konto
+ - Meine Bestellungen
+ - Artikeldaten verwalten
+ - Benutzerdaten verwalten
+ -->
+
+
 
 <script type="text/javascript">
 function artikelListeMaAnzeigen(){
@@ -34,10 +49,10 @@ function warenkorbAnzeigen(){
 	<h3>Hallo, <i id="name"><% out.print(benutzer.getVorname() + " " + benutzer.getNachname()); %></i></h3>
 	<ul>			
 	<%
-		List<SICHTEN> sichten = benutzer.getRolle().getSichten();
+		List<ENUM_SICHTEN> sichten = benutzer.getRolle().getSichten();
 	
 		if(sichten != null){
-			for(SICHTEN sicht : sichten){
+			for(ENUM_SICHTEN sicht : sichten){
 				switch(sicht){
 					case WARENKORB:
 						%>

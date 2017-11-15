@@ -1,12 +1,12 @@
 package enums;
 
-public enum SICHTEN {
+public enum ENUM_SICHTEN {
 
 	WARENKORB("Warenkorb"), BESTELLUNGEN("meine Bestellungen"), KONTO("mein Konto"), ARTIKELSTAMMDATEN("Artikelstammdaten");
 	
 	private final String name;
 	
-	SICHTEN(String name){
+	ENUM_SICHTEN(String name){
 		this.name= name;
 	}
 	

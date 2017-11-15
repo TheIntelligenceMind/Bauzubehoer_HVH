@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,17 +9,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import db.QueryManager;
 import entity.Benutzer;
-import entity.Bestellung;
-
 /**
  * Servlet implementation class WarenkorbController
  */
 @WebServlet("/meineBestellungen")
 public class BestellungenController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final QueryManager queryManager = QueryManager.getInstance();
 
     @Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -46,14 +41,32 @@ public class BestellungenController extends HttpServlet {
 		}
 			
 		switch(method){
-			case "bestellungenAnzeigen":
-				String emailadresse = ((Benutzer)req.getSession().getAttribute("benutzer")).getEmailadresse();
-				
-				List<Bestellung> bestellungenListe = queryManager.selectAllBestellungenByBenutzeremailadresse(emailadresse);
-				
-				req.getSession().setAttribute("bestellungenListe", bestellungenListe);
-				
+			case "bestellungenAnzeigen":				
 				resp.addHeader("contentSite", "meineBestellungenPanel");
+				break;
+			case "bestellungErfassenS1Anzeigen":
+				if(bestellungS1Validieren(req)){
+					
+				}else{
+					// Fehlermeldungen
+				}
+				
+				break;
+			case "bestellungErfassenS2Anzeigen":
+				if(bestellungS2Validieren(req)){
+					
+				}else{
+					// Fehlermeldungen
+				}		
+							
+				break;
+			case "bestellungErfassenS3Anzeigen":
+				if(bestellungS3Validieren(req)){
+					
+				}else{
+					// Fehlermeldungen
+				}
+				
 				break;
 			default:
 				resp.addHeader("contentSite", "meineBestellungenPanel");
@@ -61,5 +74,20 @@ public class BestellungenController extends HttpServlet {
 		}	
 
 		rd.forward(req, resp);	
+	}
+    
+    private boolean bestellungS1Validieren(HttpServletRequest req){
+    	
+    	
+    	
+    	return false;
+    }
+    
+	private boolean bestellungS2Validieren(HttpServletRequest req){
+		return false; 	
+	}
+	
+	private boolean bestellungS3Validieren(HttpServletRequest req){
+		return false;
 	}
 }

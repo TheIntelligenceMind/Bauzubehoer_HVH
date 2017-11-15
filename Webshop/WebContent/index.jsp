@@ -1,7 +1,14 @@
-<%@page import="enums.RESPONSE_STATUS"%>
+<%@page import="enums.ENUM_RESPONSE_STATUS"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<!--
+Autor dieser Datei: Tim Hermbecker, Lukas Vechtel
+
+Die Index-Datei wird für die Zusammenfuehrung der Haupt-Files benötigt.
+-->
+
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -15,7 +22,7 @@
 <!--  		  < in die "smartphone css link wieder einbinden.
 -->
 		
-		<link rel="stylesheet" type="text/css" media="screen and (max-device width: 1200px)" href="./css/smartphone.css">
+		<link rel="stylesheet" type="text/css" media="screen and (max-device-width: 1200px)" href="./css/smartphone.css">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<script src="js/jquery-1.11.1.js" type="text/javascript"></script>
 	</head>
@@ -99,6 +106,10 @@
 							%>
 								<%@ include file="registrierungPanel.jsp" %>
 							<%		
+						}else if(siteContent.equals("artikelDetailansichtPanel")){
+							%>
+								<%@ include file="artikelDetailansichtPanel.jsp" %>
+							<%
 						}else{
 							%>
 								<%@ include file="artikelAnzeigenPanel.jsp" %>
@@ -137,9 +148,14 @@
 								<%@ include file="artikelBearbeitenPanel.jsp" %>
 							<%
 							break;
+						case "artikelDetailansichtPanel":
+							%>
+								<%@ include file="artikelDetailansichtPanel.jsp" %>
+							<%
+							break;
 						default:
 							%>
-								<%@ include file="artikelAnzeigenPanel.jsp" %>
+								<%@ include file="artikelAnzeigenPanel.jsp" %> 
 							<%
 							break;
 						}
@@ -153,15 +169,15 @@
 
 			<!-- Hier wird der der Hinweis/Fehlerdialog via Javascript aufgerufen -->		
 			<%
-				if(response.getHeader("status") != null && response.getHeader("status").equals(RESPONSE_STATUS.FEHLER.toString())){
+				if(response.getHeader("status") != null && response.getHeader("status").equals(ENUM_RESPONSE_STATUS.FEHLER.toString())){
 					out.println("<script type='text/javascript'>FehlermeldungOeffnen()</script>");
-				}else if(response.getHeader("status") != null && response.getHeader("status").equals(RESPONSE_STATUS.HINWEIS.toString())){
+				}else if(response.getHeader("status") != null && response.getHeader("status").equals(ENUM_RESPONSE_STATUS.HINWEIS.toString())){
 					out.println("<script type='text/javascript'>HinweismeldungOeffnen()</script>");
 				}
 			
-				if(request.getHeader("status") != null && request.getHeader("status").equals(RESPONSE_STATUS.FEHLER.toString())){
+				if(request.getHeader("status") != null && request.getHeader("status").equals(ENUM_RESPONSE_STATUS.FEHLER.toString())){
 					out.println("<script type='text/javascript'>FehlermeldungOeffnen()</script>");
-				}else if(request.getHeader("status") != null && request.getHeader("status").equals(RESPONSE_STATUS.HINWEIS.toString())){
+				}else if(request.getHeader("status") != null && request.getHeader("status").equals(ENUM_RESPONSE_STATUS.HINWEIS.toString())){
 					out.println("<script type='text/javascript'>HinweismeldungOeffnen()</script>");
 				}
 			%>

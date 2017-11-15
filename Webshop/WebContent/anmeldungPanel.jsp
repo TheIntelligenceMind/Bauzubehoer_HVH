@@ -1,3 +1,10 @@
+
+<!-- 
+Autor dieser Datei: Tim Hermbecker
+
+Diese Datei behandelt das Anmeldungspanel, bevor es zum Benutzerpanel wird.
+ -->
+
 <div id="anmeldungPanel" class="controllPanel">
 	<h3>Anmeldung</h3>
 	<form action="anmelden" method="POST">

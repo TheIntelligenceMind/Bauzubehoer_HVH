@@ -1,12 +1,12 @@
 package enums;
 
-public enum RESPONSE_STATUS {
+public enum ENUM_RESPONSE_STATUS {
 
 	HINWEIS("hinweis"), FEHLER("fehler"), WARNUNG("warnung"), OK("ok");
 	
 	private final String name;
 	
-	RESPONSE_STATUS(String name){
+	ENUM_RESPONSE_STATUS(String name){
 		this.name = name;
 	}
 	

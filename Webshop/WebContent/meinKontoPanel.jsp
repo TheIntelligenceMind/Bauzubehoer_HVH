@@ -1,5 +1,16 @@
 <%@page import="entity.Benutzer"%>
 <%@page import="entity.Adresse"%>
+
+<!-- 
+Autor dieser Datei: Tim Hermbecker, Lukas Vechtel
+
+Diese Datei behandelt die Darstellung des Kontos vom eingeloggten Benutzers.
+Hier kann der Benutzer seine persönlichen Daten verändern.
+ -->
+
+
+
+
 <%
 	Benutzer benutzer = (Benutzer)request.getAttribute("benutzer");
 	Adresse adresse = benutzer.getLieferAdresse() ;

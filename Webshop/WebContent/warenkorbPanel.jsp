@@ -2,6 +2,17 @@
 <%@page import="java.text.DecimalFormat"%>
 <%@page import="java.util.List"%>
 
+
+<!-- 
+Autor dieser Datei: Tim Hermbecker, Lukas Vechtel
+
+Diese Datei behandelt den Warenkorb, indem Artikel entfernt, Mengen angepasst oder per Link auf die Artikeldetailansicht verwiesen werden können.
+ -->
+
+
+
+
+
 <%
 	final DecimalFormat formater = new DecimalFormat("#0.00");
 %>
