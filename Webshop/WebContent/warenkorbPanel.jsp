@@ -117,5 +117,5 @@ function updateQuantity(element, artikelnummer){
 		</table>
   	</div>
 	
-  	<button id="btnBestellen">Bestellen</button>
+  	<button id="btnBestellen" type="submit" name="method" value="zahlungsartBestimmen">Bestellen</button>
 </div>
