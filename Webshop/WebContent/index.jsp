@@ -22,7 +22,7 @@ Die Index-Datei wird für die Zusammenfuehrung der Haupt-Files benötigt.
 <!--  		  < in die "smartphone css link wieder einbinden.
 -->
 		
-		<link rel="stylesheet" type="text/css" media="screen and (max-device width: 1200px)" href="./css/smartphone.css">
+		<link rel="stylesheet" type="text/css" media="screen and (max-device-width: 1200px)" href="./css/smartphone.css">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<script src="js/jquery-1.11.1.js" type="text/javascript"></script>
 	</head>
