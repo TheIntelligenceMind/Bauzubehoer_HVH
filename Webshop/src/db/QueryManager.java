@@ -888,7 +888,7 @@ public class QueryManager {
 	}
 	
 	
-	public List<Bestellung> selectAllBestellungenByBenutzeremailadresse(Benutzer piBenutzer){
+	public List<Bestellung> selectAllBestellungenByBenutzer(Benutzer piBenutzer){
 		Benutzer benutzer = piBenutzer;
 		List<Bestellung> bestellungListe = new ArrayList<Bestellung>();;
 		ResultSet result = null;
