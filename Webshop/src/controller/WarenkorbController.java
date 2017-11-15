@@ -16,7 +16,11 @@ import entity.WarenkorbArtikel;
 import enums.ENUM_RESPONSE_STATUS;
 
 /**
- * Servlet implementation class WarenkorbController
+ * <pre>
+ * <h3>Beschreibung:</h3> Die Klasse ist für den Themenbereich Warenkorb zuständig. 
+ * Hier werden alle GET- und POST-Schnittstellenaufrufe verarbeitet und an die View weitergeleitet
+ * </pre>
+ * @author Tim Hermbecker
  */
 @WebServlet("/warenkorb")
 public class WarenkorbController extends HttpServlet {
@@ -35,6 +39,13 @@ public class WarenkorbController extends HttpServlet {
     	RequestDispatcher rd = req.getRequestDispatcher("index.jsp");
     	resp.setContentType("text/html");
     	
+    	// prüfen ob es eine Session gibt, wenn nicht an die Startseite weiterleiten
+		if(req.getSession().getAttribute("benutzer") == null){
+			rd = req.getRequestDispatcher("/suchen");	
+    		rd.forward(req, resp);
+    		return;
+		}
+    	
     	// Berechtigung für die Seite prüfen
     	if(((Benutzer)req.getSession().getAttribute("benutzer")).getRolle().getSichtWarenkorb() != 1){
     		rd = req.getRequestDispatcher("/suchen");	
@@ -51,6 +62,8 @@ public class WarenkorbController extends HttpServlet {
     	
     	switch(method){
 	    	case "warenkorbAnzeigen":
+	    		updateWarenkorb(req);
+	    		
 	    		resp.addHeader("contentSite", "warenkorbPanel");	
 	    		break;
 	    	case "artikelInDenWarenkorb": 		

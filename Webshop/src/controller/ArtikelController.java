@@ -16,11 +16,16 @@ import org.apache.commons.lang3.math.NumberUtils;
 import db.QueryManager;
 import entity.Artikel;
 import entity.Benutzer;
+import entity.WarenkorbArtikel;
 import enums.ENUM_MELDUNG_ART;
 import enums.ENUM_RESPONSE_STATUS;
 
 /**
- * Servlet implementation class WarenkorbController
+ * <pre>
+ * <h3>Beschreibung:</h3> Die Klasse ist für den Themenbereich Artikel zuständig. 
+ * Hier werden alle GET- und POST-Schnittstellenaufrufe verarbeitet und an die View weitergeleitet
+ * </pre>
+ *  @author Tim Hermbecker
  */
 @WebServlet("/artikel")
 public class ArtikelController extends HttpServlet {
@@ -40,6 +45,13 @@ public class ArtikelController extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {		
 		RequestDispatcher rd = req.getRequestDispatcher("index.jsp");
 		resp.setContentType("text/html"); 	
+		
+		// prüfen ob es eine Session gibt, wenn nicht an die Startseite weiterleiten
+		if(req.getSession().getAttribute("benutzer") == null){
+			rd = req.getRequestDispatcher("/suchen");	
+    		rd.forward(req, resp);
+    		return;
+		}
 		
 		// Berechtigung für die Seite prüfen
     	if(((Benutzer)req.getSession().getAttribute("benutzer")).getRolle().getSichtArtikelstammdaten() != 1){
@@ -122,6 +134,7 @@ public class ArtikelController extends HttpServlet {
 				break;				
 			case "artikelBearbeiten":			
 				if(artikelSpeichern(req)){
+					updateWarenkorbArtikel(req);
 					
 					String hinweistext = "Die &Auml;nderungen wurden erfolgreich gespeichert.";
 					resp.addHeader("Status", ENUM_RESPONSE_STATUS.HINWEIS.toString());
@@ -152,6 +165,14 @@ public class ArtikelController extends HttpServlet {
 
 		rd.forward(req, resp);		
 	}
+    
+    private void updateWarenkorbArtikel(HttpServletRequest req){
+    	String benutzerEmailadresse = ((Benutzer)req.getSession().getAttribute("benutzer")).getEmailadresse();
+    	
+    	List<WarenkorbArtikel> warenkorbartikelListe = queryManager.selectAllWarenkorbartikelByBenutzeremailadresse(benutzerEmailadresse);	
+
+    	req.getSession().setAttribute("warenkorbartikelliste", warenkorbartikelListe);   	
+    }
     
     private boolean artikelSpeichern(HttpServletRequest req){
     	if(validateAttributes(req, false) == null){

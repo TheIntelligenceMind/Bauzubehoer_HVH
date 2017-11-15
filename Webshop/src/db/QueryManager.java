@@ -27,7 +27,7 @@ import java.text.SimpleDateFormat;
  * Die Klasse stellt Methoden zum Anlegen/Verändern/Löschen von Daten in der Datenbank zur Verfügung.
  * </pre>
  * 
- * @author Tim Hermbecker
+ * @author Tim Hermbecker, Julian Hanfgarn
  */
 public class QueryManager {
 	

@@ -9,13 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import entity.Adresse;
 import entity.Benutzer;
+import enums.ENUM_MELDUNG_ART;
+import enums.ENUM_RESPONSE_STATUS;
 /**
- * Servlet implementation class WarenkorbController
+ * <pre>
+ * <h3>Beschreibung:</h3> Die Klasse ist für den Themenbereich Bestellungen zuständig. 
+ * Hier werden alle GET- und POST-Schnittstellenaufrufe verarbeitet und an die View weitergeleitet
+ * </pre>
+ * @author Tim Hermbecker
  */
 @WebServlet("/meineBestellungen")
 public class BestellungenController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private String dispatchSite = "index.jsp";
 
     @Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -24,8 +32,16 @@ public class BestellungenController extends HttpServlet {
 
     @Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {		
-		RequestDispatcher rd = req.getRequestDispatcher("index.jsp");
+		RequestDispatcher rd = req.getRequestDispatcher(dispatchSite);
 		resp.setContentType("text/html"); 
+		
+		// prüfen ob es eine Session gibt, wenn nicht an die Startseite weiterleiten
+		if(req.getSession().getAttribute("benutzer") == null){
+			rd = req.getRequestDispatcher("/suchen");	
+    		rd.forward(req, resp);
+    		return;
+		}
+		
 		
 		// Berechtigung für die Seite prüfen
     	if(((Benutzer)req.getSession().getAttribute("benutzer")).getRolle().getSichtBestellungen() != 1){
@@ -45,49 +61,56 @@ public class BestellungenController extends HttpServlet {
 				resp.addHeader("contentSite", "meineBestellungenPanel");
 				break;
 			case "bestellungErfassenS1Anzeigen":
-				if(bestellungS1Validieren(req)){
-					
-				}else{
-					// Fehlermeldungen
-				}
 				
 				break;
 			case "bestellungErfassenS2Anzeigen":
-				if(bestellungS2Validieren(req)){
-					
-				}else{
-					// Fehlermeldungen
-				}		
-							
+				
 				break;
 			case "bestellungErfassenS3Anzeigen":
-				if(bestellungS3Validieren(req)){
-					
-				}else{
-					// Fehlermeldungen
-				}
-				
+						
+				break;
+			case "bestellungErfassenS1Bestaetigt":
+				bestellungS1Validieren(req, resp);
+				break;
+			case "bestellungErfassenS2Bestaetigt":
+				bestellungS2Validieren(req, resp);
+				break;
+			case "bestellungErfassenS3Bestaetigt":
+				bestellungS3Validieren(req, resp);			
 				break;
 			default:
 				resp.addHeader("contentSite", "meineBestellungenPanel");
 				break;
 		}	
-
+		
+		rd = req.getRequestDispatcher(dispatchSite);
 		rd.forward(req, resp);	
 	}
     
-    private boolean bestellungS1Validieren(HttpServletRequest req){
+    private boolean bestellungS1Validieren(HttpServletRequest req, HttpServletResponse resp){
+    	Adresse lieferAdresse = new Adresse().init(req.getParameter("strasse"), req.getParameter("hausnummer"), req.getParameter("postleitzahl"), req.getParameter("ort"), "");
     	
+    	req.getSession().setAttribute("bestellvorgang_lieferadresse", lieferAdresse);
     	
-    	
+    	if(!lieferAdresse.getStrasse().isEmpty() && !lieferAdresse.getHausnummer().isEmpty() && !lieferAdresse.getPostleitzahl().isEmpty() && !lieferAdresse.getOrt().isEmpty()){
+    		req.setAttribute("method", "bestellungErfassenS2Anzeigen");
+    		dispatchSite = "/meineBestellungen";	
+    	}else{
+    		resp.addHeader("Status", ENUM_RESPONSE_STATUS.FEHLER.toString());
+			resp.addHeader(ENUM_MELDUNG_ART.HINWEISMELDUNG.toString(), "Die Lieferadresse ist nicht vollständig.");
+			
+			req.setAttribute("method", "bestellungErfassenS1Anzeigen");
+    		dispatchSite = "/meineBestellungen";
+    	}
+   	
     	return false;
     }
     
-	private boolean bestellungS2Validieren(HttpServletRequest req){
+	private boolean bestellungS2Validieren(HttpServletRequest req, HttpServletResponse resp){
 		return false; 	
 	}
 	
-	private boolean bestellungS3Validieren(HttpServletRequest req){
+	private boolean bestellungS3Validieren(HttpServletRequest req, HttpServletResponse resp){
 		return false;
 	}
 }
