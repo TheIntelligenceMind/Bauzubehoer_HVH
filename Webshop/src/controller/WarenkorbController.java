@@ -51,6 +51,8 @@ public class WarenkorbController extends HttpServlet {
     	
     	switch(method){
 	    	case "warenkorbAnzeigen":
+	    		updateWarenkorb(req);
+	    		
 	    		resp.addHeader("contentSite", "warenkorbPanel");	
 	    		break;
 	    	case "artikelInDenWarenkorb": 		
