@@ -35,6 +35,13 @@ public class WarenkorbController extends HttpServlet {
     	RequestDispatcher rd = req.getRequestDispatcher("index.jsp");
     	resp.setContentType("text/html");
     	
+    	// prüfen ob es eine Session gibt, wenn nicht an die Startseite weiterleiten
+		if(req.getSession().getAttribute("benutzer") == null){
+			rd = req.getRequestDispatcher("/suchen");	
+    		rd.forward(req, resp);
+    		return;
+		}
+    	
     	// Berechtigung für die Seite prüfen
     	if(((Benutzer)req.getSession().getAttribute("benutzer")).getRolle().getSichtWarenkorb() != 1){
     		rd = req.getRequestDispatcher("/suchen");	
