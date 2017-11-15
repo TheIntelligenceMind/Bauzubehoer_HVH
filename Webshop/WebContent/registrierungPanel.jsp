@@ -4,8 +4,6 @@ Autor dieser Datei: Tim Hermbecker
 Diese Datei behandelt das Registrieren von neuen Benutzern.
  -->
 
-
-
 <div class="showing" id="registrierungPanel">
 	<h1>Registrierung</h1>
 	<form action="registrieren" method="POST">

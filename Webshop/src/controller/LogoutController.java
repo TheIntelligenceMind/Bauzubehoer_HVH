@@ -10,6 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+/**
+ * <pre>
+ * <h3>Beschreibung:</h3> Die Klasse ist für den Themenbereich Logout zuständig. 
+ * Hier werden alle GET- und POST-Schnittstellenaufrufe verarbeitet und an die View weitergeleitet
+ * </pre>
+ * @author Tim Hermbecker
+ */
 @WebServlet("/abmelden")
 public class LogoutController extends HttpServlet{
 	private static final long serialVersionUID = 7132205047322448035L;

@@ -28,7 +28,17 @@ Diese Datei behandelt das Bearbeiten von vorhandenen Artikeln.
 			<h3>Lagermenge</h3>
 			<input title="Lagermenge" class="inputField" type="text" name="lagermenge" value="<% out.print(bearbeitenArtikel.getLagermenge()); %>" placeholder="Lagermenge">
 			<h3>Aktiv</h3>
-			<input title="Aktiv" class="inputField" type="text" name="aktiv" value="<% out.print(bearbeitenArtikel.getAktiv()); %>" placeholder="aktiv">
+			
+			<div id="togglebutton">
+  				<input type="checkbox" id="tButton"
+  					<% if(bearbeitenArtikel.getAktiv()==1)
+						{
+							out.print("checked");
+						}
+					%>
+	 			>
+	  			<label for="tButton"><i></i></label>
+			</div>
 		</div>
 			<input type="hidden" name="method" value="artikelBearbeiten">	
 			<input id="btnArtikelSpeichern" type="submit" value="Speichern">	

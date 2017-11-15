@@ -21,7 +21,11 @@ import enums.ENUM_MELDUNG_ART;
 import enums.ENUM_RESPONSE_STATUS;
 
 /**
- * Servlet implementation class WarenkorbController
+ * <pre>
+ * <h3>Beschreibung:</h3> Die Klasse ist für den Themenbereich Artikel zuständig. 
+ * Hier werden alle GET- und POST-Schnittstellenaufrufe verarbeitet und an die View weitergeleitet
+ * </pre>
+ *  @author Tim Hermbecker
  */
 @WebServlet("/artikel")
 public class ArtikelController extends HttpServlet {

@@ -18,7 +18,11 @@ import enums.ENUM_RESPONSE_STATUS;
 import helper.AdressenHelper;
 
 /**
- * Servlet implementation class WarenkorbController
+ * <pre>
+ * <h3>Beschreibung:</h3> Die Klasse ist für den Themenbereich Benutzerkonto zuständig. 
+ * Hier werden alle GET- und POST-Schnittstellenaufrufe verarbeitet und an die View weitergeleitet
+ * </pre>
+ * @author Tim Hermbecker
  */
 @WebServlet("/meinKonto")
 public class KontoController extends HttpServlet {
