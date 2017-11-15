@@ -32,7 +32,6 @@ import java.text.SimpleDateFormat;
 public class QueryManager {
 	
 	private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 	
     private final static String DBUSER = "db_user";
 	private final static QueryManager instance = new QueryManager();	
@@ -56,6 +55,20 @@ public class QueryManager {
 	
 	public static QueryManager getInstance(){
 		return instance;
+	}
+	
+	/**
+	 * <h3>Beschreibung:</h3>
+	 * <pre>
+	 * Die Methode liefert den aktuellen Zeitstempel für 
+	 * Eintragungen in der Datenbank
+	 * </pre>
+	 * 
+	 * @return Timestamp
+	 */	
+	public Timestamp getCurrentTimestamp(){
+    	Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+    	return timestamp;
 	}
 	
 	/**
@@ -215,7 +228,7 @@ public class QueryManager {
 			stmt.setString(4, adresse.getOrt());
 			stmt.setString(5, adresse.getZusatz());
 			stmt.setString(6, DBUSER);
-			stmt.setString(7, sdf.format(timestamp));
+			stmt.setString(7, sdf.format(getCurrentTimestamp()));
 			stmt.setInt(8, benutzerID);
 			
 			result = stmt.executeUpdate();
@@ -300,14 +313,16 @@ public class QueryManager {
 		int result = 0;
 		
 		try {	
-			String sql = "UPDATE "+ ENUM_DB_TABELLE.BENUTZER.toString() +" SET vorname = ?, nachname = ?, bestaetigt = ? WHERE emailadresse = ?";
+			String sql = "UPDATE "+ ENUM_DB_TABELLE.BENUTZER.toString() +" SET vorname = ?, nachname = ?, "
+					+ "bestaetigt = ?, geaendert_Benutzer = ?, geaendert_Datum = ? WHERE emailadresse = ?";
 		
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setString(1, benutzer.getVorname());
 			stmt.setString(2, benutzer.getNachname());
 			stmt.setInt(3, benutzer.getBestaetigt());
-			stmt.setString(4, benutzer.getEmailadresse());
-			
+			stmt.setString(4, DBUSER);
+			stmt.setString(5, sdf.format(getCurrentTimestamp()));
+			stmt.setString(6, benutzer.getEmailadresse());
 			
 			result = stmt.executeUpdate();
 			
@@ -432,7 +447,7 @@ public class QueryManager {
 			stmt.setInt(5, artikel.getLagermenge());
 			stmt.setInt(6, artikel.getAktiv());
 			stmt.setString(7, DBUSER);
-			stmt.setString(8, sdf.format(timestamp));
+			stmt.setString(8, sdf.format(getCurrentTimestamp()));
 			stmt.setInt(9, artikelID);
 			
 			result = stmt.executeUpdate();
@@ -464,11 +479,14 @@ public class QueryManager {
 				return false;
 			}
 			
-			String sql = "UPDATE "+ ENUM_DB_TABELLE.WARENKORB.toString() + " SET aktiv = ? WHERE Artikel_ID = ?";
+			String sql = "UPDATE "+ ENUM_DB_TABELLE.WARENKORB.toString() + " SET aktiv = ?, geaendert_Benutzer = ?, "
+					+ "geaendert_Datum = ? WHERE Artikel_ID = ?";
 		
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setInt(1, aktiv);
-			stmt.setInt(2, artikelID);
+			stmt.setString(2, DBUSER);
+			stmt.setString(3, sdf.format(getCurrentTimestamp()));
+			stmt.setInt(4, artikelID);
 			
 			result = stmt.executeUpdate();
 			
@@ -690,11 +708,14 @@ public class QueryManager {
 		int benutzerID = piBenutzerID;
 
 		try {
-			String sql = "UPDATE " + ENUM_DB_TABELLE.WARENKORB.toString() + " SET Position = (Position-1) WHERE Benutzer_ID = ? AND Position > ?";
+			String sql = "UPDATE " + ENUM_DB_TABELLE.WARENKORB.toString() + " SET Position = (Position-1), "
+					+ "geaendert_Benutzer = ?, geaendert_Datum = ? WHERE Benutzer_ID = ? AND Position > ?";
 			
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
-			stmt.setInt(1, benutzerID);
-			stmt.setInt(2, position);
+			stmt.setString(1, DBUSER);
+			stmt.setString(2, sdf.format(getCurrentTimestamp()));
+			stmt.setInt(3, benutzerID);
+			stmt.setInt(4, position);
 	
 			stmt.executeUpdate();
 			
@@ -815,12 +836,15 @@ public class QueryManager {
 				return false;
 			}
 			
-			String sql = "UPDATE " + ENUM_DB_TABELLE.WARENKORB.toString() + " SET Menge = ? WHERE Artikel_ID = ? AND Benutzer_ID = ?";
+			String sql = "UPDATE " + ENUM_DB_TABELLE.WARENKORB.toString() + " SET Menge = ?, geaendert_Benutzer = ?, "
+					+ "geaendert_Datum = ? WHERE Artikel_ID = ? AND Benutzer_ID = ?";
 			
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setInt(1, menge);
-			stmt.setInt(2, artikel_ID);
-			stmt.setInt(3, benutzer_ID);
+			stmt.setString(2, DBUSER);
+			stmt.setString(3, sdf.format(getCurrentTimestamp()));
+			stmt.setInt(4, artikel_ID);
+			stmt.setInt(5, benutzer_ID);
 			
 			result = stmt.executeUpdate();
 		
@@ -868,18 +892,24 @@ public class QueryManager {
 			PreparedStatement stmt = null;
 			
 			if(menge == -1){
-				String sql = "UPDATE " + ENUM_DB_TABELLE.WARENKORB.toString() + " SET Menge = Menge + 1 WHERE Artikel_ID = ? AND Benutzer_ID = ?";
+				String sql = "UPDATE " + ENUM_DB_TABELLE.WARENKORB.toString() + " SET Menge = Menge + 1, "
+						+ "geaendert_Benutzer = ?, geaendert_Datum = ? WHERE Artikel_ID = ? AND Benutzer_ID = ?";
 				
 				stmt = getConnection().prepareStatement(sql);
-				stmt.setInt(1, artikel_ID);
-				stmt.setInt(2, benutzer_ID);
+				stmt.setString(1, DBUSER);
+				stmt.setString(2, sdf.format(getCurrentTimestamp()));
+				stmt.setInt(3, artikel_ID);
+				stmt.setInt(4, benutzer_ID);
 			}else{
-				String sql = "UPDATE " + ENUM_DB_TABELLE.WARENKORB.toString() + " SET Menge = ? WHERE Artikel_ID = ? AND Benutzer_ID = ?";
+				String sql = "UPDATE " + ENUM_DB_TABELLE.WARENKORB.toString() + " SET Menge = ?, geaendert_Benutzer = ?, "
+						+ "geaendert_Datum = ? WHERE Artikel_ID = ? AND Benutzer_ID = ?";
 
 				stmt = getConnection().prepareStatement(sql);
 				stmt.setInt(1, menge);
-				stmt.setInt(2, artikel_ID);
-				stmt.setInt(3, benutzer_ID);	
+				stmt.setString(2, DBUSER);
+				stmt.setString(3, sdf.format(getCurrentTimestamp()));
+				stmt.setInt(4, artikel_ID);
+				stmt.setInt(5, benutzer_ID);	
 			}
 
 			result = stmt.executeUpdate();
