@@ -8,8 +8,18 @@ Diese Datei behandelt das Bearbeiten von vorhandenen Artikeln.
 
 
 <%
-		Artikel bearbeitenArtikel = (Artikel)request.getAttribute("bearbeitenArtikel");
+	Artikel bearbeitenArtikel = (Artikel)request.getAttribute("bearbeitenArtikel");
 %>
+
+<script type="text/javascript">
+function updateToggleButtonAktiv(){
+	if($('#tButton').is(":checked")){
+		$('#tButton').val("1");
+	}else{
+		$('#tButton').val("0");
+	}
+}
+</script>
 
 <div class="showing" id="artikelBearbeitenPanel">
 	<h1>Artikel bearbeiten</h1>	
@@ -31,7 +41,15 @@ Diese Datei behandelt das Bearbeiten von vorhandenen Artikeln.
 			
 			<div id="togglebutton">
   				<label class="switch">
-				  <input type="checkbox" checked>
+				  <input id="tButton" onchange="updateToggleButtonAktiv()" type="checkbox" name="aktiv"
+					<% 
+						if(bearbeitenArtikel.getAktiv() == 1){	
+							out.print("value='1' checked");
+						}else{
+							out.print("value='0' unchecked");
+						}
+					%>
+				  >
 				  <span class="slider round"></span>
 				</label>
 			</div>
