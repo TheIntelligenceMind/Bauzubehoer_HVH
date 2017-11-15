@@ -1,4 +1,4 @@
-package controller;
+package helper;
 
 import entity.Benutzer;
 
@@ -9,16 +9,16 @@ import javax.mail.internet.*;
 import com.sun.mail.smtp.SMTPMessage;
 
 
-public class MailController {
+public class MailHelper {
 
-	private static final MailController instance = new MailController();
+	private static final MailHelper instance = new MailHelper();
 	
-	private MailController(){
+	private MailHelper(){
 		
 	}
 	
 	
-	public static MailController getInstance(){
+	public static MailHelper getInstance(){
 		return instance;
 	}
 	
