@@ -30,14 +30,10 @@ Diese Datei behandelt das Bearbeiten von vorhandenen Artikeln.
 			<h3>Aktiv</h3>
 			
 			<div id="togglebutton">
-  				<input type="checkbox" id="tButton"
-  					<% if(bearbeitenArtikel.getAktiv()==1)
-						{
-							out.print("checked");
-						}
-					%>
-	 			>
-	  			<label for="tButton"><i></i></label>
+  				<label class="switch">
+				  <input type="checkbox" checked>
+				  <span class="slider round"></span>
+				</label>
 			</div>
 		</div>
 			<input type="hidden" name="method" value="artikelBearbeiten">	

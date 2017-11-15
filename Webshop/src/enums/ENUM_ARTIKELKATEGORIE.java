@@ -2,7 +2,13 @@ package enums;
 
 public enum ENUM_ARTIKELKATEGORIE {
 
-	BEKLEIDUNG("Bekleidung");
+	BEKLEIDUNG("Bekleidung"),
+		KOPF("Helme, Mützen, Kappen"),
+		JACKEN("Jacken"),
+		HOSEN("Hosen"),
+		SCHUHE("Schuhe"),
+		ZUBEHOER("Zubehör");
+	
 	
 	private final String name;
 	
