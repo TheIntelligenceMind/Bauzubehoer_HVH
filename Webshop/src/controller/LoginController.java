@@ -71,7 +71,7 @@ public class LoginController extends HttpServlet{
 					List<WarenkorbArtikel> warenkorbartikelListe = queryManager.selectAllWarenkorbartikelByBenutzeremailadresse(benutzer.getEmailadresse());	
 					session.setAttribute("warenkorbartikelliste", warenkorbartikelListe);
 					
-					List<Bestellung> bestellungenListe = queryManager.selectAllBestellungenByBenutzeremailadresse(benutzer);	
+					List<Bestellung> bestellungenListe = queryManager.selectAllBestellungenByBenutzer(benutzer);	
 					session.setAttribute("bestellungenliste", bestellungenListe);
 				}
 			
