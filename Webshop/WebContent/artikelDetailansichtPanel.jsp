@@ -16,7 +16,12 @@ Diese Datei behandelt das Anzeigen eines bestimmten Artikels.
 
 <div class="showing" id="ArtikelDetailansichtPanel">
 
-    <div id="artikelDetailansichtPanelBeschreibung">
+		<div id="artikelDetailansichtKategorie">
+			<input title="Kategorie1" class="inputField" type="text" name="kategorie1" value="<% out.print(detailansichtArtikel.getKategorie_1());%>" readonly>
+			<input title="Kategorie2" class="inputField" type="text" name="kategorie2" value="<% out.print(detailansichtArtikel.getKategorie_2()); %>" readonly>
+		</div>
+		
+    	<div id="artikelDetailansichtPanelBeschreibung">
 			<h3>Artikelnummer</h3>
 			<input title="Hinweis: Nur eine vierstellige Artikelnummer eingeben." class="inputField" type="text" name="nummer" value="<% out.print(detailansichtArtikel.getNummer()); %>" placeholder="Artikelnummer" readonly>
 			<h3>Bezeichnung</h3>
@@ -24,12 +29,14 @@ Diese Datei behandelt das Anzeigen eines bestimmten Artikels.
 			<h3>Beschreibung</h3>
 			<textarea title="Beschreibung" class="inputArea" wrap="soft" name="beschreibung" placeholder="Beschreibung" readonly><% out.print(detailansichtArtikel.getBeschreibung()); %></textarea>
 		</div>
+		
 		<div id="artikelDetailansichtPanelZahlen">
 			<h3>Preis</h3>
 			<input title="Hinweis: Der Preis muss mit einem Punkt getrennt sein!" class="inputField" type="text" name="preis" value="<% out.print(preisFormatter2.format(detailansichtArtikel.getPreis())); %>" placeholder="Preis" readonly>
 			<h3>Lagermenge</h3>
 			<input title="Lagermenge" class="inputField" type="text" name="lagermenge" value="<% out.print(detailansichtArtikel.getLagermenge()); %>" placeholder="Lagermenge" readonly>
 		</div>	
+		
 		<div id="btnArtikelDetailansichtWarenkorb">
 			<form action='warenkorb'><input type='hidden' name='method' value='artikelInDenWarenkorb'><input type='hidden' name='artikelnummer' value='" + a.getNummer() + "'><button id='artikelListeKundenWarenkorbButton'>In den Warenkorb</button></form>
 		</div>

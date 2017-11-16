@@ -24,6 +24,8 @@ function updateToggleButtonAktiv(){
 <div class="showing" id="artikelBearbeitenPanel">
 	<h1>Artikel bearbeiten</h1>	
 	<form action="artikel" method="POST">
+	
+	
 		<div id="artikelBearbeitenPanelBeschreibung">
 			<h3>Artikelnummer</h3>
 			<input title="Artikelnummer" class="inputField" type="text" name="nummer" value="<% out.print(bearbeitenArtikel.getNummer()); %>" placeholder="Artikelnummer" readonly>
