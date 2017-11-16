@@ -38,6 +38,10 @@ html,body{
 	cursor:pointer;
 	background-color: #9b4013;
 }
+@media (max-width: 1200px)
+{
+
+}
 /*---------------------------- Button Classes ------------------------*/
 
 
@@ -122,6 +126,10 @@ html,body{
 	height: 20px;
 	border: none;
 	border-radius: 5px;	
+}
+@media (max-width: 1200px)
+{
+	
 }
 /* ------------- Panel für Seitenheader, Suchfunktion (links) --------------- */
 
@@ -234,6 +242,10 @@ html,body{
 	color: #332714;
 	cursor: pointer;
 }
+@media (max-width: 1200px)
+{
+	
+}
 /* ------------ Panel für Anmeldung, Benutzeransicht (rechts) ----------------- */
 
 
@@ -267,6 +279,10 @@ html,body{
 @keyframes showing {
     from {opacity: 0;}
     to {opacity: 0.9;}
+}
+@media (max-width: 1200px)
+{
+	
 }
 /* -------------- Wrapper für den Seitencontent ------------------- */
 
@@ -382,7 +398,10 @@ html,body{
 	cursor:pointer;
 	background-color: #9b4013;
 }
-
+@media (max-width: 1200px)
+{
+	
+}
 /* --------------- Panel mit Artikeln für Mitarbeiter ------------------- */
 
 
@@ -463,6 +482,10 @@ html,body{
 #artikelListeKundenWarenkorbButton:hover{
 	cursor: pointer;
 	background-color: #9b4013;
+}
+@media (max-width: 1200px)
+{
+	
 }
 /* --------------- Panel mit Artikeln für Kunden  ------------------- */
 
@@ -658,6 +681,10 @@ html,body{
 	cursor:pointer;
 	background-color: #b40505;
 }
+@media (max-width: 1200px)
+{
+	
+}
 /* ------------- Panel für die mein Konto Übersicht ------------------- */
 
 
@@ -727,6 +754,10 @@ html,body{
 #meineBestellungenTabelle td.tablecell{
 	height: 22px;
 	padding: 3px;
+}
+@media (max-width: 1200px)
+{
+	
 }
 /* ------------- Panel für meine Bestellungen Übersicht ------------------- */
 
@@ -834,6 +865,10 @@ table#zusatzTabelle tbody td{
 .trashSymbol:hover{
 	color: black;
 }
+@media (max-width: 1200px)
+{
+	
+}
 /* -------------- Panel für den Warenkorb  ------------------- */
 
 
@@ -880,6 +915,10 @@ table#zusatzTabelle tbody td{
 #btnRegistrieren:hover{
 	background-color: #9b4013;
 	cursor: pointer;
+}
+@media (max-width: 1200px)
+{
+	
 }
 /* ------------- Panel für die Registrierung ------------------- */
 
@@ -978,6 +1017,10 @@ table#zusatzTabelle tbody td{
 #btnArtikelAnlegen:hover{
 	background-color: #9b4013;
 	cursor: pointer;
+}
+@media (max-width: 1200px)
+{
+	
 }
 /* ------------- Panel für das Artikel anlegen ------------------- */
 
@@ -1083,8 +1126,6 @@ table#zusatzTabelle tbody td{
 	cursor: pointer;
 }
 
-
-
 /* Toggle Button */
 #togglebutton .switch {
   position: relative;
@@ -1133,6 +1174,10 @@ table#zusatzTabelle tbody td{
 }
 #togglebutton .slider.round:before {
   border-radius: 50%;
+}
+@media (max-width: 1200px)
+{
+	
 }
 /* ------------- Panel für das Bearbeiten von Artikeln ------------------- */
 
@@ -1213,6 +1258,10 @@ table#zusatzTabelle tbody td{
 	cursor: pointer;
 	background-color: #9b4013;
 }
+@media (max-width: 1200px)
+{
+	
+}
 /* ------------- Panel für die Detailansicht von Artikeln ------------------- */
 
 
@@ -1248,6 +1297,10 @@ table#zusatzTabelle tbody td{
 }
 #fehlermeldungPanel p{
 	margin: 0;
+}
+@media (max-width: 1200px)
+{
+	
 }
 /* ---------- Panel für Fehlermeldungen ----------------- */
 
@@ -1286,6 +1339,10 @@ table#zusatzTabelle tbody td{
 }
 #hinweismeldungPanel p{
 	margin: 0;
+}
+@media (max-width: 1200px)
+{
+	
 }
 /* ---------- Panel für Hinweismeldungen ----------------- */
 
@@ -1326,6 +1383,10 @@ table#zusatzTabelle tbody td{
 	height: 10px;
 	width: 96%;
 	text-align: right;
+}
+@media (max-width: 1200px)
+{
+	
 }
 /* ------------- Animationen für das Meldungs Panel ------------ */
 
