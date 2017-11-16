@@ -34,6 +34,26 @@ function updateToggleButtonAktiv(){
 			<h3>Beschreibung</h3>
 			<textarea title="Beschreibung" class="inputArea" wrap="soft" name="beschreibung" placeholder="Beschreibung"><% out.print(bearbeitenArtikel.getBeschreibung()); %></textarea>
 		</div>
+		<div id="artikelBearbeitenPanelKategorie_1">
+			<select title="Artikelkategorie" name="artikelKategorie">
+			<option>Artikelkategorie_1</option>
+			<%
+				/*
+				for:each kategorie in artikel ...
+				*/
+			%>
+			</select>
+		</div>
+		<div id="artikelBearbeitenPanelKategorie_2">
+			<select title="Artikelkategorie" name="artikelKategorie">
+			<option>Artikelkategorie_2</option>
+			<%
+				/*
+				for:each kategorie in artikel ...
+				*/
+			%>
+			</select>
+		</div>
 		<div id="artikelBearbeitenPanelZahlen">
 			<h3>Preis</h3>
 			<input title="Hinweis: Der Preis muss mit einem Punkt getrennt sein!" class="inputField" type="text" name="preis" value="<% out.print(bearbeitenArtikel.getPreis()); %>" placeholder="Preis">

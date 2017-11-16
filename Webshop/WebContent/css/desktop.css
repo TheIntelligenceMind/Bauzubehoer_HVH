@@ -889,7 +889,7 @@ table#zusatzTabelle tbody td{
 #artikelAnlegenPanel{
 	margin: 50px auto;
 	width: 700px;
-	height: 525px;
+	height: 535px;
 	text-align: center;
 	opacity: 0.9;
 	background-color: white;
@@ -928,10 +928,23 @@ table#zusatzTabelle tbody td{
 	overflow: auto;
 	resize: none;
 }
-#artikelAnlegenPanelKategorie{
+#artikelAnlegenPanelKategorie_1{
 	margin-top: 20px;
 }
-#artikelAnlegenPanelKategorie select{
+#artikelAnlegenPanelKategorie_1 select{
+	background-color: white;
+	width: 61%;
+	height: 30px;
+	font-size: 14px;
+	font-family: sans-serif;
+	margin: 0;
+	padding: 3px;
+	border: 1px solid #BF4D17;
+}
+#artikelAnlegenPanelKategorie_2{
+	margin-top: 5px;
+}
+#artikelAnlegenPanelKategorie_2 select{
 	background-color: white;
 	width: 61%;
 	height: 30px;
@@ -975,7 +988,7 @@ table#zusatzTabelle tbody td{
 #artikelBearbeitenPanel{
 	margin: 50px auto;
 	width: 700px;
-	height: 630px;
+	height: 700px;
 	text-align: center;
 	opacity: 0.9;
 	background-color: white;
@@ -1029,7 +1042,32 @@ table#zusatzTabelle tbody td{
 	font-size: 14px;
 	font-family: sans-serif;
 }
-
+#artikelBearbeitenPanelKategorie_1{
+	margin-top: 20px;
+}
+#artikelBearbeitenPanelKategorie_1 select{
+	background-color: white;
+	width: 61%;
+	height: 30px;
+	font-size: 14px;
+	font-family: sans-serif;
+	margin: 0;
+	padding: 3px;
+	border: 1px solid #BF4D17;
+}
+#artikelBearbeitenPanelKategorie_2{
+	margin-top: 5px;
+}
+#artikelBearbeitenPanelKategorie_2 select{
+	background-color: white;
+	width: 61%;
+	height: 30px;
+	font-size: 14px;
+	font-family: sans-serif;
+	margin: 0;
+	padding: 3px;
+	border: 1px solid #BF4D17;
+}
 #btnArtikelSpeichern{
 	margin-top: 30px;
 	width: 40%;

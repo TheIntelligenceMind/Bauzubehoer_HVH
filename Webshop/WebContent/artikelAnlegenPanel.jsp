@@ -16,9 +16,19 @@ Diese Datei behandelt das Anlegen von Artikeln.
 			<input title="Bezeichnung" class="inputField" type="text" name="bezeichnung" placeholder="Bezeichnung">
 			<textarea title="Beschreibung" class="inputArea" wrap="soft" name="beschreibung" placeholder="Beschreibung"></textarea>
 		</div>
-		<div id="artikelAnlegenPanelKategorie">
+		<div id="artikelAnlegenPanelKategorie_1">
 			<select title="Artikelkategorie" name="artikelKategorie">
-			<option>Artikelkategorie</option>
+			<option>Artikelkategorie_1</option>
+			<%
+				/*
+				for:each kategorie in artikel ...
+				*/
+			%>
+			</select>
+		</div>
+		<div id="artikelAnlegenPanelKategorie_2">
+			<select title="Artikelkategorie" name="artikelKategorie">
+			<option>Artikelkategorie_2</option>
 			<%
 				/*
 				for:each kategorie in artikel ...

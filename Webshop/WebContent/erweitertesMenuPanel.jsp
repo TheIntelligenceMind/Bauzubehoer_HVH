@@ -42,14 +42,18 @@ function artikelSuchenNachBegriff(){
 	
 	<!-- Hier kommen die Artikelkategorien -->
 	<div id="artikelKategorie">
-			<ul>
-				<li> <a href="#"> Kategorie Eins </a>
-					<ul>
-						<li><button class="btnSuchenNachKategorie" type="submit" name="method" onclick="artikelSuchenNachKategorie()">Kategorie Zwei</button></li>
-					</ul>
-				</li>
-			</ul>						
-		</div>
+		<ul>
+			<li><a class="active">Kategorien</a>
+				<ul>
+					<li> <a href="#"> Kategorie Eins </a>
+						<ul>
+							<li><button class="btnSuchenNachKategorie" type="submit" name="method" onclick="artikelSuchenNachKategorie()">Kategorie Zwei</button></li>
+						</ul>
+					</li>
+				</ul>	
+			</li>
+		</ul>						
+	</div>
 			<!-- am besten als onclickEvent implementieren und die Funktion artikelSuchenNachKategorie 
 		aufrufen mit dem ausgewählten Kategoriewert(auf ENUM_ARTIKELKATEGORIE beziehen) 
 		-->	
