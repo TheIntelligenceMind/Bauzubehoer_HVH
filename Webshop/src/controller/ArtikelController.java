@@ -91,6 +91,7 @@ public class ArtikelController extends HttpServlet {
 			case "artikelAnlegen":		
 				boolean result = false;
 				String fehlertext = null;
+				Artikel anlegenArtikel = null;
 				
 				int nummer = NumberUtils.toInt(req.getParameter("nummer"), 0);
 				String bezeichnung = req.getParameter("bezeichnung");
@@ -100,12 +101,11 @@ public class ArtikelController extends HttpServlet {
 				String kategorie_1 = req.getParameter("kategorie_1");
 				String kategorie_2 = req.getParameter("kategorie_2");
 				
-				if((fehlertext = validateAttributes(req, true)) == null){
-					
-					Artikel newArtikel = new Artikel().init(bezeichnung, nummer, beschreibung, preis, lagermenge, kategorie_1,
-							kategorie_2, 1);
-					
-					result = QueryManager.getInstance().createArtikel(newArtikel);
+				anlegenArtikel = new Artikel().init(bezeichnung, nummer, beschreibung, preis, lagermenge, kategorie_1,
+						kategorie_2, 1);
+				
+				if((fehlertext = validateAttributes(req, true)) == null){	
+					result = QueryManager.getInstance().createArtikel(anlegenArtikel);
 				}
 						
 				if(result){
@@ -116,6 +116,7 @@ public class ArtikelController extends HttpServlet {
 					String fehlermeldung = fehlertext.toString();	
 					resp.addHeader("Status", ENUM_RESPONSE_STATUS.FEHLER.toString());
 					resp.addHeader(ENUM_MELDUNG_ART.FEHLERMELDUNG.toString(), fehlermeldung);
+					req.setAttribute("anlegenArtikel", anlegenArtikel);
 				}
 						
 				resp.addHeader("contentSite", "artikelAnlegenPanel");
@@ -207,6 +208,8 @@ public class ArtikelController extends HttpServlet {
 		String beschreibung = req.getParameter("beschreibung");
 		double preis = NumberUtils.toDouble(req.getParameter("preis"), 0.00);
 		int lagermenge = NumberUtils.toInt(req.getParameter("lagermenge"), 0);
+		String kategorie_1 = req.getParameter("kategorie_1");
+		String kategorie_2 = req.getParameter("kategorie_2");
 		int aktiv = 1;
 		
 		if(!initial){
@@ -214,12 +217,20 @@ public class ArtikelController extends HttpServlet {
 		}
 		
     	if(bezeichnung != null && nummer != 0 && beschreibung != null && preis != 0 && lagermenge >= 0 && (aktiv == 0 || aktiv == 1)){
-    		if(nummer <= MAX_ARTIKELNUMMER){
-    			if(queryManager.searchArtikelByNummer(nummer) != null && initial){
-    				fehlertext = "Die Artikelnummer wird schon verwendet.";
-        		}
+    		if(kategorie_1 != null && !kategorie_1.equals("artikelkategorie_1") && kategorie_2 != null && !kategorie_2.equals("artikelkategorie_2")){
+    			if(nummer <= MAX_ARTIKELNUMMER){
+    				if(initial){
+    					if(queryManager.searchArtikelByNummer(nummer) == null){
+            				return null;
+                		}else{
+                			fehlertext = "Die Artikelnummer wird schon verwendet.";
+                		}
+    				}
+        		}else{
+        			fehlertext = "Die Artikelnummer liegt außerhalb des Nummernbereichs";
+        		}			
     		}else{
-    			fehlertext = "Die Artikelnummer liegt außerhalb des Nummernbereichs";
+    			fehlertext = "Es m&uuml;ssen Artikelkategorien für den Artikel ausgew&auml;hlt werden";
     		}
     	}else{
     		fehlertext = "Bitte &uuml;berpr&uuml;fe die Eingaben auf Vollst&auml;ndigkeit und G&uuml;ltigkeit.";

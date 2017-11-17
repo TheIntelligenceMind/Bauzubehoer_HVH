@@ -1,44 +1,65 @@
 <%@page import="enums.ENUM_ARTIKELKATEGORIE"%>
+<%@page import="java.util.List"%>
+<%@page import="entity.Artikel"%>
 
 <!-- 
 Autor dieser Datei: Tim Hermbecker, Lukas Vechtel
 
 Diese Datei behandelt das Anlegen von Artikeln.
  -->
-
+ 
+ 
+<%
+	Artikel anlegenArtikel = (Artikel)request.getAttribute("anlegenArtikel");
+	if(anlegenArtikel == null){
+		anlegenArtikel = new Artikel().init("", -1, "", -1, -1, "", "", 0);
+	}
+%>
 <div class="showing" id="artikelAnlegenPanel">
 
 	<h1>Artikel anlegen</h1>
 	
 	<form action="artikel" method="POST">
 		<div id=artikelAnlegenPanelBeschreibung>
-			<input title="Hinweis: Die Artikelnummer muss vierstellig sein." class="inputField" type="text" name="nummer" placeholder="Artikelnummer">
-			<input title="Bezeichnung" class="inputField" type="text" name="bezeichnung" placeholder="Bezeichnung">
-			<textarea title="Beschreibung" class="inputArea" wrap="soft" name="beschreibung" placeholder="Beschreibung"></textarea>
+			<input title="Hinweis: Die Artikelnummer muss vierstellig sein." class="inputField" type="text" name="nummer" value="<% if(anlegenArtikel.getNummer() != -1){out.print(String.format("%04d", anlegenArtikel.getNummer())); }%>" placeholder="Artikelnummer">
+			<input title="Bezeichnung" class="inputField" type="text" name="bezeichnung" value="<% out.print(anlegenArtikel.getBezeichnung()); %>" placeholder="Bezeichnung">
+			<textarea title="Beschreibung" class="inputArea" wrap="soft" name="beschreibung" placeholder="Beschreibung"><% out.print(anlegenArtikel.getBeschreibung()); %></textarea>
 		</div>
 		<div id="artikelAnlegenPanelKategorie_1">
-			<select title="Artikelkategorie" name="artikelKategorie">
-			<option>Artikelkategorie_1</option>
+			<select id="ddKategorie1" title="Artikelkategorie" name="kategorie_1" onchange="updateDDKategorie2(this, <% ENUM_ARTIKELKATEGORIE.getArtikelkategorien1Array(); %>)">
+			<option value="artikelkategorie_1" selected>Artikelkategorie 1</option>
 			<%
-				/*
-				for:each kategorie in artikel ...
-				*/
+				List<ENUM_ARTIKELKATEGORIE> kategorien_a_1 = ENUM_ARTIKELKATEGORIE.getArtikelkategorien1List();
+				
+				for(ENUM_ARTIKELKATEGORIE e: kategorien_a_1){
+					String selected = "";
+					if(e.toString().equals(anlegenArtikel.getKategorie_1())){
+						selected = "selected";
+					}
+					out.print("<option value='" + e.toString() + "'" + selected + ">" + e.toString() + "</option>");
+				}
 			%>
 			</select>
 		</div>
 		<div id="artikelAnlegenPanelKategorie_2">
-			<select title="Artikelkategorie" name="artikelKategorie">
-			<option>Artikelkategorie_2</option>
+			<select id="ddKategorie2" title="Artikelkategorie" name="kategorie_2">
+			<option value="artikelkategorie_2" selected>Artikelkategorie 2</option>
 			<%
-				/*
-				for:each kategorie in artikel ...
-				*/
+				List<ENUM_ARTIKELKATEGORIE> kategorien_a_2 = ENUM_ARTIKELKATEGORIE.getArtikelkategorien2List();
+				
+				for(ENUM_ARTIKELKATEGORIE e: kategorien_a_2){
+					String selected = "";
+					if(e.toString().equals(anlegenArtikel.getKategorie_2())){
+						selected = "selected";
+					}
+					out.print("<option value='" + e.toString() + "'" + selected + ">" + e.toString() + "</option>");
+				}
 			%>
 			</select>
 		</div>
 		<div id=artikelAnlegenPanelZahlen>
-			<input title="Hinweis: Der Preis muss mit einem Punkt getrennt sein!" class="inputField" type="text" name="preis" placeholder="Preis">
-			<input title="Lagermenge" class="inputField" type="text" name="lagermenge" placeholder="Lagermenge">
+			<input title="Hinweis: Der Preis muss mit einem Punkt getrennt sein!" class="inputField" type="text" name="preis" value="<% if(anlegenArtikel.getPreis() != -1){ out.print(anlegenArtikel.getPreis()); } %>" placeholder="Preis">
+			<input title="Lagermenge" class="inputField" type="text" name="lagermenge" value="<% if(anlegenArtikel.getLagermenge() != -1){ out.print(anlegenArtikel.getLagermenge()); } %>" placeholder="Lagermenge">
 		</div>	
 			<input type="hidden" name="method" value="artikelAnlegen">
 			<input id="btnArtikelAnlegen" type="submit" value="Artikel anlegen">	

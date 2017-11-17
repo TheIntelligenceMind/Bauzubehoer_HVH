@@ -1,4 +1,6 @@
+<%@page import="enums.ENUM_ARTIKELKATEGORIE"%>
 <%@page import="entity.Artikel"%>
+<%@page import="java.util.List"%>
 
 <!-- 
 Autor dieser Datei: Tim Hermbecker, Lukas Vechtel
@@ -12,13 +14,13 @@ Diese Datei behandelt das Bearbeiten von vorhandenen Artikeln.
 %>
 
 <script type="text/javascript">
-function updateToggleButtonAktiv(){
-	if($('#tButton').is(":checked")){
-		$('#tButton').val("1");
-	}else{
-		$('#tButton').val("0");
+	function updateToggleButtonAktiv(){
+		if($('#tButton').is(":checked")){
+			$('#tButton').val("1");
+		}else{
+			$('#tButton').val("0");
+		}
 	}
-}
 </script>
 
 <div class="showing" id="artikelBearbeitenPanel">
@@ -35,22 +37,32 @@ function updateToggleButtonAktiv(){
 			<textarea title="Beschreibung" class="inputArea" wrap="soft" name="beschreibung" placeholder="Beschreibung"><% out.print(bearbeitenArtikel.getBeschreibung()); %></textarea>
 		</div>
 		<div id="artikelBearbeitenPanelKategorie_1">
-			<select title="Artikelkategorie" name="artikelKategorie">
-			<option>Artikelkategorie_1</option>
+			<select title="Artikelkategorie 1" name="kategorie_1" >
 			<%
-				/*
-				for:each kategorie in artikel ...
-				*/
+				List<ENUM_ARTIKELKATEGORIE> kategorien_b_1 = ENUM_ARTIKELKATEGORIE.getArtikelkategorien1List();
+				
+				for(ENUM_ARTIKELKATEGORIE e: kategorien_b_1){
+					String selected = "";
+					if(e.toString().equals(bearbeitenArtikel.getKategorie_1())){
+						selected = "selected";
+					}
+					out.print("<option value='" + e.toString() + "'" + selected + ">" + e.toString() + "</option>");
+				}
 			%>
 			</select>
 		</div>
 		<div id="artikelBearbeitenPanelKategorie_2">
-			<select title="Artikelkategorie" name="artikelKategorie">
-			<option>Artikelkategorie_2</option>
+			<select title="Artikelkategorie 2" name="kategorie_2">
 			<%
-				/*
-				for:each kategorie in artikel ...
-				*/
+				List<ENUM_ARTIKELKATEGORIE> kategorien_b_2 = ENUM_ARTIKELKATEGORIE.getArtikelkategorien2List();
+				
+				for(ENUM_ARTIKELKATEGORIE e: kategorien_b_2){
+					String selected = "";
+					if(e.toString().equals(bearbeitenArtikel.getKategorie_2())){
+						selected = "selected";
+					}
+					out.print("<option value='" + e.toString() + "'" + selected + ">" + e.toString() + "</option>");
+				}
 			%>
 			</select>
 		</div>
