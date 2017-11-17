@@ -129,7 +129,71 @@ html,body{
 }
 @media (max-width: 1200px)
 {
+	#sitebar{
+		min-width: 150px;
+		top: 0px;
+		float: left;
+		margin: 0;
+		width: 98%;
+		padding: 1%;
+		height: 50px;
+		opacity: 0.85;
+		border-radius: 0px 0px 0px 0px;	
+	}
 	
+	/* Header der Webseite */
+	#header{
+		height: 120px;
+		width: 45%;
+		float: left;
+	}
+	#header h1{
+		margin: 0;
+		float: left;
+	}
+	#header h3{
+		margin: 0px;
+		padding: 10px;
+		float: left;
+		padding-left: 5px;
+	}
+	
+	/* Suchfunktion */
+	#searchPanel{
+		width: 45%;
+		height: 180px;
+		float: right;
+	}
+	#searchPanel ul{
+		margin: 0;
+		padding:0;
+		float: right;
+		padding-left: 3px;
+	}
+	#searchPanel ul li{
+		list-style-type: none;
+		float: left;
+	}
+	#searchPanel ul li a{
+		font-size: 25px;
+		padding-left: 3px;
+		float: right;	
+	}
+	#suchenHeader{
+		font-size:25px;
+		float: right;
+		padding-left: 3px;
+	}
+	#sucheEingabe{
+		padding-left: 3px;
+		float: right;
+		padding-right: 10px;
+		margin-top: 5px;
+		width: 80%;
+		height: 20px;
+		border: none;
+		border-radius: 5px;	
+	}
 }
 /* ------------- Panel für Seitenheader, Suchfunktion (links) --------------- */
 
@@ -244,7 +308,108 @@ html,body{
 }
 @media (max-width: 1200px)
 {
+	.controllPanel{
+		margin-top: 1px;
+		padding:1%;
+		min-width: 150px;
+		width: 16%;
+		height: 220px;
+		background-color: #BF4D17;
+		color:white;
+		opacity: 0.85;
+		text-align:center;
+		position: -webkit-sticky;
+	  	position: sticky;
+	  	float: left;
+	  	top: 0px;
+	  		border-radius: 0px 0px 45px 0px;
+	  	-webkit-box-shadow: 0px 0px 0px -7px rgba(0,0,0,0.75);
+		-moz-box-shadow: 0px 0px 0px -7px rgba(0,0,0,0.75);
+		box-shadow: 0px 0px 0px -7px rgba(0,0,0,0.75);
+	}
 	
+	.controllPanel i{
+		width: 15px;
+	}
+	.controllPanel h3{
+		margin: 0;
+		padding: 0;	
+		font-size: 25px;
+		font-weight: normal;
+	}
+	.controllPanel ul{
+		margin-top: 25px;
+		margin-bottom: 10px;
+		text-align: left;	
+	}
+	
+	.controllPanel ul li {
+		line-height: 27px;
+		width: 90%;
+		list-style-type: none;
+	}
+	.controllPanel a{
+		color: white;
+		text-decoration:none;
+		margin: 5px;
+		-o-transition:color .2s ease-out, background 1s ease-in;
+		-ms-transition:color .2s ease-out, background 1s ease-in;
+		-moz-transition:color .2s ease-out, background 1s ease-in;
+		-webkit-transition:color .2s ease-out, background 1s ease-in;
+		transition:color .2s ease-out, background 1s ease-in;
+	}
+	.controllPanel li a:hover{
+		color: #332714;
+		cursor: pointer;
+	}
+	#registrierungLink{
+		color: white;
+		margin-top: 10px;
+	}
+	
+	/* Eingabefelder für die Anmeldung*/
+	#inputBenutzername{
+		margin-top: 5%;
+		padding: 3px;
+		height: 20px;
+		width: 80%;
+		border-radius: 5px;
+		border-style: none;
+	}
+	#inputPasswort{
+		margin-top: 5%;
+		padding: 3px;
+		height: 20px;
+		width: 80%;
+		border-radius: 5px;
+		border-style: none;
+	}
+	#btnAnmelden{
+		margin-top: 8%;
+		height: 26px;
+		width: 60%;
+		background-color: white;
+		color: black;
+		border-radius: 5px;
+		border-style:none;
+	}
+	#btnAnmelden:hover{
+		background-color: #e1e1e1;
+		cursor: pointer;
+	}
+	
+	/* Link zum Abmelden */
+	#abmelden{
+		top: 220px;
+		right: 20px;
+		position: absolute;
+		text-decoration: none;
+		font-style: italic;
+	}
+	#abmelden:hover{
+		color: #332714;
+		cursor: pointer;
+	}	
 }
 /* ------------ Panel für Anmeldung, Benutzeransicht (rechts) ----------------- */
 
