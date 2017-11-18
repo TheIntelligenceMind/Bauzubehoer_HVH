@@ -7,11 +7,11 @@ public enum ENUM_ARTIKELKATEGORIE {
 
 	NULL(""),
 	BEKLEIDUNG("Bekleidung"),
-		KOPF("Helme, Mützen, Kappen"),
+		KOPF("Helme, M&uuml;tzen, Kappen"),
 		JACKEN("Jacken"),
 		HOSEN("Hosen"),
 		SCHUHE("Schuhe"),
-		ZUBEHOER("Zubehör"),
+		ZUBEHOER("Zubeh&ouml;r"),
 	WERKZEUG("Werkzeug"),
 		ABRISS("Abriss");
 	
