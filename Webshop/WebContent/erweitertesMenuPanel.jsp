@@ -1,5 +1,6 @@
 <%@page import="enums.ENUM_ARTIKELKATEGORIE"%>
-
+<%@page import="java.util.List"%>
+<%@page import="entity.Artikel"%>
 <!-- 
 Autor dieser Datei: Tim Hermbecker
 
@@ -7,6 +8,12 @@ Diese Datei behandelt die linke Sitebar auf der Website (Desktop-Version) oder d
 Hier wurde das Suchfeld und das Logo implementiert.
  -->
 
+<%
+	Artikel suchenArtikel = (Artikel)request.getAttribute("anlegenArtikel");
+	if(suchenArtikel == null){
+		suchenArtikel = new Artikel().init("", -1, "", -1, -1, "", "", 0);
+	}
+%>
 
 <script type="text/javascript">
 function artikelSuchenNachKategorie(kategorie){
@@ -41,19 +48,32 @@ function artikelSuchenNachBegriff(){
 	</div>
 	
 	<!-- Hier kommen die Artikelkategorien -->
+<!-- 
 	<div id="artikelKategorie">
 		<ul>
 			<li><a class="active">Kategorien</a>
 				<ul>
-					<li> <a href="#"> Kategorie Eins </a>
-						<ul>
-							<li><button class="btnSuchenNachKategorie" type="submit" name="method" onclick="artikelSuchenNachKategorie()">Kategorie Zwei</button></li>
-						</ul>
-					</li>
+					<%
+					/*
+						List<ENUM_ARTIKELKATEGORIE> kategorien_a_1 = ENUM_ARTIKELKATEGORIE.getArtikelkategorien1List();
+						
+						for(ENUM_ARTIKELKATEGORIE e: kategorien_a_1){
+							out.print("<li><a href='#'>" + e.toString());
+								List<ENUM_ARTIKELKATEGORIE> kategorien_a_2 = ENUM_ARTIKELKATEGORIE.getArtikelkategorien2List();
+								out.print("<ul>");
+									for(ENUM_ARTIKELKATEGORIE f: kategorien_a_2){
+										out.print("<li><button class='btnSuchenNachKategorie' type='submit' name='method' onlick='artikelSuchenNachKategorie(" + f.toString() + ")>" + f.toString() + "</button></li>");
+									}
+								out.print("</ul>");
+							out.print("</li>");
+						}
+						*/
+					%>
 				</ul>	
 			</li>
 		</ul>						
 	</div>
+ -->
 			<!-- am besten als onclickEvent implementieren und die Funktion artikelSuchenNachKategorie 
 		aufrufen mit dem ausgewählten Kategoriewert(auf ENUM_ARTIKELKATEGORIE beziehen) 
 		-->	

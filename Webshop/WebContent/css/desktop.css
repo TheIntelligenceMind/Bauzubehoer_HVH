@@ -146,9 +146,10 @@ html,body{
 		height: 120px;
 		width: 45%;
 		float: left;
+		border-bottom: none;
 	}
 	#header h1{
-		margin: 0;
+		padding-top:5px;
 		float: left;
 	}
 	#header h3{
@@ -169,6 +170,7 @@ html,body{
 		padding:0;
 		float: right;
 		padding-left: 3px;
+		border-bottom: none;
 	}
 	#searchPanel ul li{
 		list-style-type: none;
@@ -182,13 +184,15 @@ html,body{
 	#suchenHeader{
 		font-size:25px;
 		float: right;
+		padding-top: 5px;
 		padding-left: 3px;
 	}
 	#sucheEingabe{
 		padding-left: 3px;
+		margin-top: 5px;
 		float: right;
 		padding-right: 10px;
-		margin-top: 5px;
+		padding-top: 5px;
 		width: 80%;
 		height: 20px;
 		border: none;
@@ -311,9 +315,9 @@ html,body{
 	.controllPanel{
 		margin-top: 1px;
 		padding:1%;
-		min-width: 150px;
+		min-width: 220px;
 		width: 16%;
-		height: 220px;
+		height: 230px;
 		background-color: #BF4D17;
 		color:white;
 		opacity: 0.85;
@@ -322,7 +326,7 @@ html,body{
 	  	position: sticky;
 	  	float: left;
 	  	top: 0px;
-	  		border-radius: 0px 0px 45px 0px;
+	  	border-radius: 0px 0px 45px 0px;
 	  	-webkit-box-shadow: 0px 0px 0px -7px rgba(0,0,0,0.75);
 		-moz-box-shadow: 0px 0px 0px -7px rgba(0,0,0,0.75);
 		box-shadow: 0px 0px 0px -7px rgba(0,0,0,0.75);
@@ -358,10 +362,6 @@ html,body{
 		-webkit-transition:color .2s ease-out, background 1s ease-in;
 		transition:color .2s ease-out, background 1s ease-in;
 	}
-	.controllPanel li a:hover{
-		color: #332714;
-		cursor: pointer;
-	}
 	#registrierungLink{
 		color: white;
 		margin-top: 10px;
@@ -393,11 +393,7 @@ html,body{
 		border-radius: 5px;
 		border-style:none;
 	}
-	#btnAnmelden:hover{
-		background-color: #e1e1e1;
-		cursor: pointer;
-	}
-	
+		
 	/* Link zum Abmelden */
 	#abmelden{
 		top: 220px;
@@ -406,10 +402,6 @@ html,body{
 		text-decoration: none;
 		font-style: italic;
 	}
-	#abmelden:hover{
-		color: #332714;
-		cursor: pointer;
-	}	
 }
 /* ------------ Panel für Anmeldung, Benutzeransicht (rechts) ----------------- */
 
@@ -459,7 +451,6 @@ html,body{
 
 
 /* --------------- Panel mit Artikeln für Mitarbeiter ------------------- */
-
 #artikelListeMitarbeiter{
 	margin: 50px auto;
 	width: 900px;
@@ -565,7 +556,82 @@ html,body{
 }
 @media (max-width: 1200px)
 {
+	#artikelListeMitarbeiter{
+		width: 600px;
+		height: 490px;
+		text-align: center;
+	}
+	#artikelListeMitarbeiter p{
+		margin: 0;
+		padding: 2%;
+		font-family: sans-serif;
+	}
+	#artikelListeMitarbeiter h1{
+		margin: 0;
+		padding: 15px;
+		color: #BF4D17;	
+	}
+	#artikelListeMitarbeiterTabelle{
+		width: 92%;
+		margin-left: 4%;
+		table-layout: fixed;
+	}
+	#artikelListeMitarbeiterTabelle tbody{
+		height: 300px;
+		overflow: auto;
+		display: block;
+		width: 100%
+	}
+	#artikelListeMitarbeiterTabelle thead th{
+		text-align: left;
+		font-size: 13px;
+		border-bottom: 1px solid #BF4D17;		
+	}
+	#artikelListeMitarbeiterTabelle tbody tr{
+		border-collapse: collapse;
+		margin:auto;
+		margin-top: 10px;
+		empty-cells: hide;
+		text-align: left;
+		max-height: 20px;
+	}
 	
+	#artikelListeMitarbeiterTabelle td:nth-child(1), th:nth-child(1) { width: 80px; }
+	#artikelListeMitarbeiterTabelle td:nth-child(2), th:nth-child(2) { width: 110px; }
+	#artikelListeMitarbeiterTabelle td:nth-child(3), th:nth-child(3) { width: 130px; }
+	#artikelListeMitarbeiterTabelle td:nth-child(4), th:nth-child(4) { width: 260px; }
+	#artikelListeMitarbeiterTabelle td:nth-child(5), th:nth-child(5) { width: 70px; }
+	#artikelListeMitarbeiterTabelle td:nth-child(6), th:nth-child(6) { width: 30px; }
+	#artikelListeMitarbeiterTabelle td:nth-child(7), th:nth-child(7) { width: 20px; }
+	
+	#artikelListeMitarbeiterTabelle td.tablecell{
+		height: 22px;
+		padding: 3px;
+	}
+	#artikelListeMitarbeiterTabelle td.tablecellright{
+		text-align:center;
+		height: 22px;
+		padding-top: 3px;
+		padding-bottom: 3px;
+	}
+	#artikelListeMitarbeiterTabelle td.tablecell > div {
+	    width: 100%;
+	    height: 20px;
+	    overflow: hidden;
+	}	
+	#artikelListeMitarbeiter #btnArtikelAnlegen{
+		float: right;
+		margin-right: 4%;
+		margin-top: 30px;
+		width: 30%;
+		position: relative;
+		height: 30px;
+		font-size: 15px;
+		border-style: none;
+		color: white;
+		background-color: #BF4D17;
+		border-radius: 5px;
+	}
 }
 /* --------------- Panel mit Artikeln für Mitarbeiter ------------------- */
 
@@ -650,7 +716,53 @@ html,body{
 }
 @media (max-width: 1200px)
 {
-	
+	#artikelListeKunden{
+		margin: 0px auto;
+		padding: 15px;
+	}
+	#artikelListeKundenDesign{
+		text-align: center;
+		opacity: 0.9;
+		background-color: #fdf3ee;
+		border-radius: 20px;
+	  	-webkit-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
+		-moz-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
+		box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
+		border: solid 2px #BF4D17;;
+		border-radius: 20px;
+		border-collapse: collapse;
+		width: 70%;
+		height: 120px;
+		margin: 20px auto;
+		margin-top: 20px;
+	}
+	#artikelListeKundenBezeichnung{
+		text-align: left;
+		float: left;
+		margin-left: 2%;
+		width: 50%;
+		margin-top: 20px;
+		font-size: 20px;
+	}
+	#artikelListeKundenBeschreibung{
+		display: none;
+	}
+	#artikelListeKundenPreis{
+		float: left;
+		margin-left: 2%;
+		margin-top: 20px;
+		width: 25%;
+		text-align: left;
+		font-size: 18px;
+	}
+	#artikelListeKundenWarenkorbButton{
+		float: left;
+		padding: 7px;	
+		height: 15px;
+		border-style: none;
+		margin-left: 5%;
+		margin-top: 60px;
+	}
 }
 /* --------------- Panel mit Artikeln für Kunden  ------------------- */
 
@@ -846,9 +958,15 @@ html,body{
 	cursor:pointer;
 	background-color: #b40505;
 }
+
 @media (max-width: 1200px)
 {
-	
+	#meinKontoPanel{
+		margin: 50px auto;
+		width: 600px;
+		height: 450px;
+		text-align: center;
+	}
 }
 /* ------------- Panel für die mein Konto Übersicht ------------------- */
 
@@ -922,7 +1040,14 @@ html,body{
 }
 @media (max-width: 1200px)
 {
-	
+	#meineBestellungenPanel{
+	margin: 50px auto;
+	width: 600px;
+	height: 500px;
+	}
+	#meineBestellungenTabelle thead th{
+	font-size: 13px;		
+	}
 }
 /* ------------- Panel für meine Bestellungen Übersicht ------------------- */
 
@@ -935,7 +1060,7 @@ html,body{
 /* ------------- Panel für den Warenkorb ------------------- */
 #warenkorbPanel{
 	margin: 50px auto;
-	width: 700px;
+	width: 670px;
 	height: auto;
 	text-align: center;
 	opacity: 0.9;
@@ -1032,7 +1157,14 @@ table#zusatzTabelle tbody td{
 }
 @media (max-width: 1200px)
 {
-	
+	#btnBestellen{
+	margin-top: 40px;
+	margin-bottom: 30px;
+	width: 36%;
+	position: relative;
+	height: 35px;
+	font-size: 20px;
+	}
 }
 /* -------------- Panel für den Warenkorb  ------------------- */
 
@@ -1083,7 +1215,12 @@ table#zusatzTabelle tbody td{
 }
 @media (max-width: 1200px)
 {
-	
+	#btnRegistrieren{
+	margin-top: 40px;
+	width: 40%;
+	height: 45px;
+	font-size: 25px;
+	}
 }
 /* ------------- Panel für die Registrierung ------------------- */
 
@@ -1183,9 +1320,21 @@ table#zusatzTabelle tbody td{
 	background-color: #9b4013;
 	cursor: pointer;
 }
+
 @media (max-width: 1200px)
 {
-	
+	#artikelAnlegenPanel{
+	margin: 50px auto;
+	width: 600px;
+	height: 550px;
+	text-align: center;
+	opacity: 0.9;
+	background-color: white;
+	border-radius: 20px;
+  	-webkit-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
+	box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
+	}
 }
 /* ------------- Panel für das Artikel anlegen ------------------- */
 
@@ -1340,9 +1489,20 @@ table#zusatzTabelle tbody td{
 #togglebutton .slider.round:before {
   border-radius: 50%;
 }
+
 @media (max-width: 1200px)
 {
-	
+	#artikelBearbeitenPanel{
+	margin: 50px auto;
+	width: 600px;
+	height: 715px;
+	text-align: center;
+	opacity: 0.9;
+	}
+	#btnArtikelSpeichern{
+	height: 35px;
+	font-size: 20px;
+	}
 }
 /* ------------- Panel für das Bearbeiten von Artikeln ------------------- */
 
@@ -1352,8 +1512,8 @@ table#zusatzTabelle tbody td{
 /* ------------- Panel für die Detailansicht von Artikeln ------------------- */
 #artikelDetailansichtPanel{
 	margin: 50px auto;
-	width: 700px;
-	height: 650px;
+	width: 800px;
+	height: 500px;
 	text-align: center;
 	opacity: 0.9;
 	background-color: white;
@@ -1361,6 +1521,10 @@ table#zusatzTabelle tbody td{
   	-webkit-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
 	-moz-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
 	box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
+}
+#artikelDetailansichtKategorie
+{
+	background: none;
 }
 #artikelDetailansichtPanel h1{
 	margin:0;
@@ -1372,10 +1536,37 @@ table#zusatzTabelle tbody td{
 	text-align: center;
 }
 #artikelDetailansichtPanel h3{
+	float: none;
 	margin: 0;
 	padding: 0;
 	padding-top: 10px;
 	padding-bottom: 5px;
+	font-size: 15px;
+}
+#artikelDetailansichtPanelZahlen
+{
+	margin-top:10px;
+}
+#artikelDetailansichtBild{
+	background: url("../images/articles/warnweste.jpg");
+	float: left;
+	margin-left: 3%;
+	margin-top: 15px;
+	border: solid 1px black;
+	border-radius: 2px;
+	height: 90px;
+	width: 80px;
+}
+#artikelDetailansichtTabelle tr
+{
+	float: left;
+	padding: 5px;
+	background: white;
+	margin-left: 5px;
+	width: 80%;
+}
+#artikelDetailansichtTabelle td
+{
 	font-size: 15px;
 }
 #artikelDetailansichtPanelBeschreibung .inputField{
@@ -1398,20 +1589,13 @@ table#zusatzTabelle tbody td{
 	overflow: auto;
 	resize: none;
 }
-#artikelDetailansichtPanelZahlen .inputField{
-	background-color: white;
-	width: 29%;
-	padding-left: 3px;
-	border: 1px solid #BF4D17;
-	height: 25px;
-	font-size: 14px;
-	font-family: sans-serif;
-}
 
-#btnArtikelDetailansichtWarenkorb{
+#artikelListeKundenWarenkorbButton{
 	float: left;
 	padding: 7px;	
-	height: 30px;
+	height: 40px;
+	width: 150px;
+	font-size: 13px;
 	border-style: none;
 	margin-left: 2%;
 	margin-top: 60px;
@@ -1419,16 +1603,49 @@ table#zusatzTabelle tbody td{
 	color: white;
 	border-radius: 5px;
 }
-#btnArtikelDetailansichtWarenkorb:hover{
+#artikelListeKundenWarenkorbButton:hover{
 	cursor: pointer;
 	background-color: #9b4013;
 }
 @media (max-width: 1200px)
 {
-	
+	#artikelDetailansichtPanel{
+	margin: 50px auto;
+	width: 600px;
+	height: 500px;
+	text-align: center;
+	opacity: 0.9;
+}
 }
 /* ------------- Panel für die Detailansicht von Artikeln ------------------- */
 
+/* ------------- Panel für die Bestellung: Auswählen von Zahlungsarten ------------------- */
+#bestellungZahlungsartPanel{
+	margin: 50px auto;
+	width: 800px;
+	height: 500px;
+	text-align: center;
+	opacity: 0.9;
+	background-color: white;
+	border-radius: 20px;
+  	-webkit-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
+	box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
+}
+#bestellungZahlungsartPanel h1{
+	margin:0;
+	padding: 0;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+#bestellungZahlungsartPanel form{
+	text-align: center;
+}
+@media (max-width: 1200px)
+{
+	
+}
+/* ------------- Panel für die Bestellung: Auswählen von Zahlungsarten ------------------- */
 
 
 /* ---------- Panel für Fehlermeldungen ----------------- */
@@ -1465,7 +1682,22 @@ table#zusatzTabelle tbody td{
 }
 @media (max-width: 1200px)
 {
-	
+	#fehlermeldungPanel{
+	margin: 0;
+	padding: 0 7px 5px 7px;
+	top: 330px;
+	left: 0;
+	position: absolute;
+	height: 95px;
+	width: 18%;
+	min-width: 240px;
+	text-align: center;
+	background-color: white;
+	opacity: 0.85;
+	color: red;
+	border-radius: 0px 40px 40px 0px;
+	display: none;
+}
 }
 /* ---------- Panel für Fehlermeldungen ----------------- */
 
@@ -1507,7 +1739,22 @@ table#zusatzTabelle tbody td{
 }
 @media (max-width: 1200px)
 {
-	
+	#hinweismeldungPanel{
+	margin: 0;
+	padding: 0 7px 5px 7px;
+	top: 330px;
+	left: 0;
+	position: absolute;
+	height: 90px;
+	width: 18%;
+	min-width: 240px;
+	text-align: center;
+	background-color: white;
+	opacity: 0.85;
+	color: green;
+	border-radius: 40px 0 0 40px;
+	display: none;
+}
 }
 /* ---------- Panel für Hinweismeldungen ----------------- */
 
@@ -1551,7 +1798,38 @@ table#zusatzTabelle tbody td{
 }
 @media (max-width: 1200px)
 {
+	.opening{
+	-webkit-animation: opening 1s 1; /* Safari 4.0 - 8.0 */
+    animation: opening 1s 1;
+	}
+	@-webkit-keyframes opening {
+	    from {top: 390px; opacity: 0; }
+	    to {top: 330px; opacity: 0.85;}
+	}
+	@keyframes opening {
+	    from {top: 390px; opacity: 0; }
+	    to {top: 330px; opacity: 0.85;}
+	}
+	.closing{
+		-webkit-animation: closing 1s 1; /* Safari 4.0 - 8.0 */
+	    animation: closing 1s 1;
+	}
+	@-webkit-keyframes closing {
+	    from {top: 330px; opacity: 0.85;}
+	    to {top: 390px; opacity: 0;}
+	}
+	@keyframes closing {
+	    from {top: 330px; opacity: 0.85;}
+	    to {top: 390px; opacity: 0;}
+	}
 	
+	/* Schließensymbol im Panel */
+	#meldungPanelClose{
+		padding: 2%;
+		height: 10px;
+		width: 92%;
+		text-align: right;
+	}
 }
 /* ------------- Animationen für das Meldungs Panel ------------ */
 

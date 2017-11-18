@@ -14,12 +14,22 @@ Diese Datei behandelt das Anzeigen eines bestimmten Artikels.
 	Artikel detailansichtArtikel = (Artikel)request.getAttribute("detailansichtArtikel");
 %>
 
-<div class="showing" id="ArtikelDetailansichtPanel">
-
-		<div id="artikelDetailansichtKategorie">
-			<input title="Kategorie1" class="inputField" type="text" name="kategorie1" value="<% out.print(detailansichtArtikel.getKategorie_1());%>" readonly>
-			<input title="Kategorie2" class="inputField" type="text" name="kategorie2" value="<% out.print(detailansichtArtikel.getKategorie_2()); %>" readonly>
-		</div>
+<div class="showing" id="artikelDetailansichtPanel">
+		
+		<div id="artikelDetailansichtPanelZahlen">
+			<div id='artikelDetailansichtBild'>
+			</div>
+			<table id="artikelDetailansichtTabelle">
+				<tr>
+					<td><p>Preis:</p></td>
+					<td><p><%out.print(preisFormatter2.format(detailansichtArtikel.getPreis()));%> </p></td>
+				</tr>
+				<tr>
+					<td><p>Lagermenge:</p></td>
+					<td><p><%out.print(detailansichtArtikel.getLagermenge());%></p></td>
+				</tr>					
+			</table>
+		</div>	
 		
     	<div id="artikelDetailansichtPanelBeschreibung">
 			<h3>Artikelnummer</h3>
@@ -30,15 +40,12 @@ Diese Datei behandelt das Anzeigen eines bestimmten Artikels.
 			<textarea title="Beschreibung" class="inputArea" wrap="soft" name="beschreibung" placeholder="Beschreibung" readonly><% out.print(detailansichtArtikel.getBeschreibung()); %></textarea>
 		</div>
 		
-		<div id="artikelDetailansichtPanelZahlen">
-			<h3>Preis</h3>
-			<input title="Hinweis: Der Preis muss mit einem Punkt getrennt sein!" class="inputField" type="text" name="preis" value="<% out.print(preisFormatter2.format(detailansichtArtikel.getPreis())); %>" placeholder="Preis" readonly>
-			<h3>Lagermenge</h3>
-			<input title="Lagermenge" class="inputField" type="text" name="lagermenge" value="<% out.print(detailansichtArtikel.getLagermenge()); %>" placeholder="Lagermenge" readonly>
-		</div>	
-		
 		<div id="btnArtikelDetailansichtWarenkorb">
-			<form action='warenkorb'><input type='hidden' name='method' value='artikelInDenWarenkorb'><input type='hidden' name='artikelnummer' value='" + a.getNummer() + "'><button id='artikelListeKundenWarenkorbButton'>In den Warenkorb</button></form>
+			<form action="warenkorb">
+			     	    <input type="hidden" name="method" value="artikelInDenWarenkorb">
+			     	    <input type="hidden" name="artikelnummer" value="<% detailansichtArtikel.getNummer();%>">
+			     	    <button id="artikelListeKundenWarenkorbButton">In den Warenkorb</button>
+			</form>
 		</div>
 
 
