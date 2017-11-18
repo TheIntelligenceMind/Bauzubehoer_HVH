@@ -1,5 +1,4 @@
 <%@page import="entity.Artikel"%>
-<%@page import="java.text.DecimalFormat"%>
 <%@page import="java.util.List"%>
 
 <!-- 
@@ -8,11 +7,6 @@ Autor dieser Datei: Tim Hermbecker, Lukas Vechtel
 Diese Datei behandelt die Anzeige von Artikeln für den Kunden.
 Hier wird auch eine gefilterte Suche mit ausgegeben.
  -->
-
-
-<%
-	final DecimalFormat preisFormatter = new DecimalFormat("#0.00");	
-%>
 
 <script type="text/javascript">
 	function artikelDetailansichtAnzeigen(artikelnummer){
@@ -35,7 +29,7 @@ Hier wird auch eine gefilterte Suche mit ausgegeben.
 			     		out.println("<div onclick='artikelDetailansichtAnzeigen(" + a.getNummer() + ")' id='artikelListeKundenDesign'>" + 
 			    		"<div id='artikelListeKundenBild'></div>" +
 			     		"<div id='artikelListeKundenBezeichnung'>" + a.getBezeichnung() + "</div>" +
-			       		"<div id='artikelListeKundenPreis'>" + "&euro; " +  preisFormatter.format(a.getPreis()) + "</div>" +
+			       		"<div id='artikelListeKundenPreis'>" + "&euro; " +  formater.format(a.getPreis()) + "</div>" +
 			     	    "<div id='artikelListeKundenBeschreibung'>" + a.getBeschreibung() + "</div>" +
 			     	    "<form action='warenkorb'>" +
 			     	    "<input type='hidden' name='method' value='artikelInDenWarenkorb'>" +

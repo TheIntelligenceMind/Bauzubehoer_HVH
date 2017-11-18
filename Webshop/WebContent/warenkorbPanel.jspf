@@ -1,5 +1,4 @@
 <%@page import="entity.WarenkorbArtikel"%>
-<%@page import="java.text.DecimalFormat"%>
 <%@page import="java.util.List"%>
 
 
@@ -9,39 +8,29 @@ Autor dieser Datei: Tim Hermbecker, Lukas Vechtel
 Diese Datei behandelt den Warenkorb, indem Artikel entfernt, Mengen angepasst oder per Link auf die Artikeldetailansicht verwiesen werden können.
  -->
 
-
-
-
-
-<%
-	final DecimalFormat formater = new DecimalFormat("#0.00");
-%>
-
 <script type="text/javascript">
-
-function deleteRow(element){
-	var result = confirm("Sind Sie sicher, dass der Artikel entfernt werden soll?");
-	
-	if(result){
-		$(document).ready(function() {
-			var row = element.closest('tr').rowIndex;
-	      	               
-           window.location.href = "warenkorb?method=artikelAusWarenkorbLoeschen&row="+row;
-           element.closest('tr').remove();    
-		});
+	function deleteRow(element){
+		var result = confirm("Sind Sie sicher, dass der Artikel entfernt werden soll?");
+		
+		if(result){
+			$(document).ready(function() {
+				var row = element.closest('tr').rowIndex;
+		      	               
+	           window.location.href = "warenkorb?method=artikelAusWarenkorbLoeschen&row="+row;
+	           element.closest('tr').remove();    
+			});
+		}
 	}
-}
-
-function updateQuantity(element, artikelnummer){
-	var menge = element.value;
-
-	if(menge != null && artikelnummer != null){
-		$(document).ready(function() {	      	               
-	          window.location.href = "warenkorb?method=artikelMengeVeraendern&artikelnummer="+artikelnummer+"&menge="+menge;  
-		}); 
-	}	
-}
-
+	
+	function updateQuantity(element, artikelnummer){
+		var menge = element.value;
+	
+		if(menge != null && artikelnummer != null){
+			$(document).ready(function() {	      	               
+		          window.location.href = "warenkorb?method=artikelMengeVeraendern&artikelnummer="+artikelnummer+"&menge="+menge;  
+			}); 
+		}	
+	}
 </script>
 
 <div class="showing" id="warenkorbPanel">
@@ -116,6 +105,7 @@ function updateQuantity(element, artikelnummer){
 	        </tbody>  
 		</table>
   	</div>
-	
-  	<button id="btnBestellen" type="submit" name="method" value="zahlungsartenAnzeigen()">Bestellen</button>
+	<form action="meineBestellungen">
+  		<button id="btnBestellen" type="submit" name="method" value="bestellungErfassenS1Anzeigen">Bestellen</button>
+  	</form>
 </div>

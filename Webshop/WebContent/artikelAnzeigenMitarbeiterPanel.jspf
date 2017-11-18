@@ -1,5 +1,4 @@
 <%@page import="entity.Artikel"%>
-<%@page import="java.text.DecimalFormat"%>
 <%@page import="java.util.List"%>
 
 <!-- 
@@ -9,9 +8,6 @@ Diese Datei behandelt das Anzeigen der Artikelstammdaten für den Mitarbeiter und
 Aus dieser Ansicht kann das "artikelBearbeitenPanel" aufgerufen werden.
  -->
 
-<%
-	final DecimalFormat formaterArtikelMitarbeiter = new DecimalFormat("#0.00");
-%>
 
 <script type="text/javascript">
 function artikelBearbeitenAnzeigen(piArtikelNummer){
@@ -52,7 +48,7 @@ function artikelBearbeitenAnzeigen(piArtikelNummer){
 	        		"<td class='tablecell'><div>" + String.format("%04d", art.getNummer()) + "</div></td>" +
 	        		"<td class='tablecell'><div>" + art.getBezeichnung() + "</div></td>" +
 	        		"<td class='tablecell'><div>" + art.getBeschreibung() + "</div></td>" +
-	        		"<td class='tablecell'><div>" + formaterArtikelMitarbeiter.format(art.getPreis()) +  "</div></td>" +
+	        		"<td class='tablecell'><div>" + formater.format(art.getPreis()) +  "</div></td>" +
 	        		"<td class='tablecell'><div>" + art.getAktiv() + "</div></td>" +
 	        		"<td class='tablecellright'>" + "<a onclick='artikelBearbeitenAnzeigen(" + art.getNummer() + ")' class='PickSymbol'><i class='fa fa-pencil-square-o'></i></a>" + "</div></td>" +
 	        		"</tr>");

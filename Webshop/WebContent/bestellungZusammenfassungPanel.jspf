@@ -1,6 +1,5 @@
 <%@page import="java.util.List"%>
 <%@page import="entity.Benutzer"%>
-<%@page import="java.text.DecimalFormat"%>
 <%@page import="entity.WarenkorbArtikel"%>
 
 <!-- 
@@ -8,29 +7,17 @@ Autor dieser Datei: Tim Hermbecker, Lukas Vechtel
 
 Diese Datei behandelt die Zusammenfassung der Bestellung.
  -->
- 
-<script type="text/javascript"> 
-	function meineBestellungenAnzeigen(){
-		$(document).ready(function() {	      	               
-	          window.location.href = "meineBestellungen?method=bestellungenAnzeigen";  
-		}); 
-	}
-</script>
- 
- <%
-	final DecimalFormat formater = new DecimalFormat("#0.00");
- %>
- 
- <div class="showing"  id="zusammenfassungBestellung">
- 
- <div id="divZahlungsart">
- 
- </div>
- <div id="divLieferadresse">
- 
- </div>
- <div id="divArtikelTabelle">
- 	<table id="artikelTabelle">
+
+<div class="showing"  id="bestellungZusammenfassungPanel">
+
+	<div id="divZahlungsart">
+	
+	</div>
+	<div id="divLieferadresse">
+	
+	</div>
+	<div id="divArtikelTabelle">
+		<table id="artikelTabelle">
 	        <colgroup>
 		       <col span="1" style="width: 8%;">
 		       <col span="1" style="width: 16%;">
@@ -49,13 +36,10 @@ Diese Datei behandelt die Zusammenfassung der Bestellung.
 	        </thead>
 	        <tbody>
 	        	<%
-		        	List<?> warenkorbartikelListe = (List<?>)session.getAttribute("warenkorbartikelliste");
-		        	double gesamt = 0;
-		        	int versandkosten = 20;
-		        	double mwst = 0;
+		        	List<?> warenkorbartikelListeB = (List<?>)session.getAttribute("warenkorbartikelliste");
 	
-		        	if(warenkorbartikelListe != null){
-			        	for(Object o : warenkorbartikelListe){
+		        	if(warenkorbartikelListeB != null){
+			        	for(Object o : warenkorbartikelListeB){
 			        		WarenkorbArtikel warenkorbartikel = (WarenkorbArtikel)o;
 			        		
 			        		out.println("<tr>" +
@@ -68,8 +52,12 @@ Diese Datei behandelt die Zusammenfassung der Bestellung.
 		        	}
 	        	%>
 	        </tbody>
-	      </table>
-	 </div>
-   	<button class="btnWeiter" type="submit" name="method" onclick="meineBestellungenAnzeigen">Jetzt Kaufen</button>
-   	<button class="btnZurueck" type="submit" name="method" onclick="lieferadresseAnzeigen()"><i class="fa fa-arrow-left"></i> Zur&uuml;ck</button>
- </div> 
+      	</table>
+ 	</div>
+ 	<form action="meineBestellungen">
+  		<button class="btnWeiter" type="submit" name="method" value="bestellungErfassenS4Anzeigen"><i class="fa fa-shopping-basket"></i> Jetzt Kaufen</button>
+  	</form>
+  	<form action="meineBestellungen">
+  		<button class="btnZurueck" type="submit" name="method" value="bestellungErfassenS2Anzeigen"><i class="fa fa-arrow-left"></i> Zur&uuml;ck</button>
+	</form>
+</div> 

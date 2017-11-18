@@ -1,5 +1,4 @@
 <%@page import="entity.Artikel"%>
-<%@page import="java.text.DecimalFormat"%>
 <%@page import="java.util.List"%>
 
 <!-- 
@@ -10,7 +9,6 @@ Diese Datei behandelt das Anzeigen eines bestimmten Artikels.
 
 
 <%
-	final DecimalFormat preisFormatter2 = new DecimalFormat("#0.00");	
 	Artikel detailansichtArtikel = (Artikel)request.getAttribute("detailansichtArtikel");
 %>
 
@@ -22,7 +20,7 @@ Diese Datei behandelt das Anzeigen eines bestimmten Artikels.
 			<table id="artikelDetailansichtTabelle">
 				<tr>
 					<td><p>Preis:</p></td>
-					<td><p><%out.print(preisFormatter2.format(detailansichtArtikel.getPreis()));%> </p></td>
+					<td><p><%out.print(formater.format(detailansichtArtikel.getPreis()));%> </p></td>
 				</tr>
 				<tr>
 					<td><p>Lagermenge:</p></td>

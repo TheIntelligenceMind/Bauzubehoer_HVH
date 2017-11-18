@@ -1,5 +1,4 @@
 <%@page import="java.util.List"%>
-<%@page import="java.text.DecimalFormat"%>
 <%@page import="entity.WarenkorbArtikel"%>
 
 <!-- 
@@ -7,15 +6,6 @@ Autor dieser Datei: Tim Hermbecker, Lukas Vechtel
 
 Diese Datei behandelt das Panel zur Zahlungsartauswahl. Hier können verschieden Arten der Bezahlung ausgewählt werden.
  -->
-
- 
-<script type="text/javascript">
- function warenkorbAnzeigen(){
-	$(document).ready(function() {	      	               
-          window.location.href = "warenkorb?method=warenkorbAnzeigen";  
-	}); 
-}
-</script>
 
  
   <div class="showing" id="bestellungZahlungsartPanel">
@@ -45,6 +35,10 @@ Diese Datei behandelt das Panel zur Zahlungsartauswahl. Hier können verschieden 
 		 	
 		 </fieldset>
 	 </form>
-	 <button class="btnWeiter" type="submit" name="method" onclick="lieferadresseAnzeigen()">Jetzt Kaufen</button>
-	 <button class="btnZurueck" type="submit" name="method" onclick="warenkorbAnzeigen()"><i class="fa fa-arrow-left"></i> Zur&uuml;ck</button>
+	 <form action="meineBestellungen">
+	 	<button class="btnWeiter" type="submit" name="method" value="bestellungErfassenS3Anzeigen"><i class="fa fa-arrow-right"></i> Weiter</button>
+	 </form>
+	 <form action="meineBestellungen">
+	 	<button class="btnZurueck" type="submit" name="method" value="bestellungErfassenS1Anzeigen"><i class="fa fa-arrow-left"></i> Zur&uuml;ck</button>
+ 	</form>
  </div>

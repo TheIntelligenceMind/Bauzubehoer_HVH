@@ -1,4 +1,5 @@
 <%@page import="enums.ENUM_RESPONSE_STATUS"%>
+<%@page import="java.text.DecimalFormat"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -13,26 +14,30 @@ Die Index-Datei wird für die Zusammenfuehrung der Haupt-Files benötigt.
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1; width=device-width, initial-scale=1.0, user-scalable=no">
 		<title>Bauzubehör HVH</title>
-	
-	
-	
+
 		<link rel="stylesheet" type="text/css" media="screen and (min-device-width: 1200px)" href="./css/desktop.css">	 
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<script src="js/jquery-1.11.1.js" type="text/javascript"></script>
 	</head>
 	<body>
-		
-		<%@ include file="erweitertesMenuPanel.jsp" %>	
+	
+		<!-- Allgemeine Helper, die in mehreren Sub-JSP Dateien verwendet werden -->
+		<%
+			final DecimalFormat formater = new DecimalFormat("#0.00");
+		%>
+	
+		<!-- Seitenmenü mit Logo, Suchfeld und Kategorien -->
+		<%@ include file="erweitertesMenuPanel.jspf" %>	
 		
 		
 		<%	  
 			if(session.getAttribute("benutzer") == null){ 	
 				%>
-					<%@ include file="anmeldungPanel.jsp" %>
+					<%@ include file="anmeldungPanel.jspf" %>
 				<%
 			}else{ 
 				%>
-					<%@ include file="benutzerPanel.jsp" %>
+					<%@ include file="benutzerPanel.jspf" %>
 				<%
 			}
 		%>
@@ -98,15 +103,15 @@ Die Index-Datei wird für die Zusammenfuehrung der Haupt-Files benötigt.
 					if(session.getAttribute("benutzer") == null){
 						if(siteContent.equals("registrierungPanel")){
 							%>
-								<%@ include file="registrierungPanel.jsp" %>
+								<%@ include file="registrierungPanel.jspf" %>
 							<%		
 						}else if(siteContent.equals("artikelDetailansichtPanel")){
 							%>
-								<%@ include file="artikelDetailansichtPanel.jsp" %>
+								<%@ include file="artikelDetailansichtPanel.jspf" %>
 							<%
 						}else{
 							%>
-								<%@ include file="artikelAnzeigenPanel.jsp" %>
+								<%@ include file="artikelAnzeigenPanel.jspf" %>
 							<%	
 						}
 							
@@ -114,49 +119,64 @@ Die Index-Datei wird für die Zusammenfuehrung der Haupt-Files benötigt.
 						switch(siteContent){
 						case "warenkorbPanel":
 							%>
-								<%@ include file="warenkorbPanel.jsp" %>
+								<%@ include file="warenkorbPanel.jspf" %>
 							<%
 							break;
 						case "meineBestellungenPanel":
 							%>
-								<%@ include file="meineBestellungenPanel.jsp" %>
+								<%@ include file="meineBestellungenPanel.jspf" %>
+							<%
+							break;
+						case "bestellungLieferadressePanel":
+							%>
+								<%@ include file="bestellungLieferadressePanel.jspf" %>
+							<%
+							break;
+						case "bestellungZahlungsartenPanel":
+							%>
+								<%@ include file="bestellungZahlungsartenPanel.jspf" %>
+							<%
+							break;
+						case "bestellungZusammenfassungPanel":
+							%>
+								<%@ include file="bestellungZusammenfassungPanel.jspf" %>
 							<%
 							break;
 						case "meinKontoPanel":
 							%>
-								<%@ include file="meinKontoPanel.jsp" %>
+								<%@ include file="meinKontoPanel.jspf" %>
 							<%
 							break;
 						case "artikelAnlegenPanel":
 							%>
-								<%@ include file="artikelAnlegenPanel.jsp" %>
+								<%@ include file="artikelAnlegenPanel.jspf" %>
 							<%
 							break;
 						case "artikelAnzeigenMitarbeiterPanel":
 							%>
-								<%@ include file="artikelAnzeigenMitarbeiterPanel.jsp" %>
+								<%@ include file="artikelAnzeigenMitarbeiterPanel.jspf" %>
 							<%
 							break;
 						case "artikelBearbeitenPanel":
 							%>
-								<%@ include file="artikelBearbeitenPanel.jsp" %>
+								<%@ include file="artikelBearbeitenPanel.jspf" %>
 							<%
 							break;
 						case "artikelDetailansichtPanel":
 							%>
-								<%@ include file="artikelDetailansichtPanel.jsp" %>
+								<%@ include file="artikelDetailansichtPanel.jspf" %>
 							<%
 							break;
 						default:
 							%>
-								<%@ include file="artikelAnzeigenPanel.jsp" %> 
+								<%@ include file="artikelAnzeigenPanel.jspf" %> 
 							<%
 							break;
 						}
 					}
 				}else{
 					%>
-						<%@ include file="artikelAnzeigenPanel.jsp" %>
+						<%@ include file="artikelAnzeigenPanel.jspf" %>
 					<%
 				}
 			%>

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import db.QueryManager;
 import entity.Adresse;
 import entity.Benutzer;
 import enums.ENUM_MELDUNG_ART;
@@ -23,6 +24,7 @@ import enums.ENUM_RESPONSE_STATUS;
 @WebServlet("/meineBestellungen")
 public class BestellungenController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private final static QueryManager queryManager = QueryManager.getInstance();
 	private String dispatchSite = "index.jsp";
 
     @Override
@@ -32,7 +34,7 @@ public class BestellungenController extends HttpServlet {
 
     @Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {		
-		RequestDispatcher rd = req.getRequestDispatcher(dispatchSite);
+		RequestDispatcher rd = null;
 		resp.setContentType("text/html"); 
 		
 		// prüfen ob es eine Session gibt, wenn nicht an die Startseite weiterleiten
@@ -61,13 +63,18 @@ public class BestellungenController extends HttpServlet {
 				resp.addHeader("contentSite", "meineBestellungenPanel");
 				break;
 			case "bestellungErfassenS1Anzeigen":
-				
+				Benutzer benutzer = queryManager.getBenutzerByEMailAdresse(((Benutzer)req.getSession().getAttribute("benutzer")).getEmailadresse());			
+				req.setAttribute("benutzer", benutzer);
+				resp.addHeader("contentSite", "bestellungLieferadressePanel");
 				break;
 			case "bestellungErfassenS2Anzeigen":
-				
+				resp.addHeader("contentSite", "bestellungZahlungsartenPanel");
 				break;
 			case "bestellungErfassenS3Anzeigen":
-						
+				resp.addHeader("contentSite", "bestellungZusammenfassungPanel");	
+				break;
+			case "bestellungErfassenS4Anzeigen":
+				resp.addHeader("contentSite", "bestellungAbschlussPanel");	
 				break;
 			case "bestellungErfassenS1Bestaetigt":
 				bestellungS1Validieren(req, resp);

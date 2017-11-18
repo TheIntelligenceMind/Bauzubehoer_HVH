@@ -1610,14 +1610,48 @@ table#zusatzTabelle tbody td{
 @media (max-width: 1200px)
 {
 	#artikelDetailansichtPanel{
+		margin: 50px auto;
+		width: 600px;
+		height: 500px;
+		text-align: center;
+		opacity: 0.9;
+	}
+}
+/* ------------- Panel für die Detailansicht von Artikeln ------------------- */
+
+
+
+
+/* ------------- Panel für die Bestellung: Lieferadresse eingeben ------------------- */
+#bestellungLieferadressePanel{
 	margin: 50px auto;
-	width: 600px;
+	width: 800px;
 	height: 500px;
 	text-align: center;
 	opacity: 0.9;
+	background-color: white;
+	border-radius: 20px;
+  	-webkit-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
+	box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
 }
+#bestellungLieferadressePanel h1{
+	margin:0;
+	padding: 0;
+	padding-top: 20px;
+	padding-bottom: 20px;
 }
-/* ------------- Panel für die Detailansicht von Artikeln ------------------- */
+#bestellungLieferadressePanel form{
+	text-align: center;
+}
+@media (max-width: 1200px)
+{
+	
+}
+/* ------------- Panel für die Bestellung: Lieferadresse eingeben ------------------- */
+
+
+
 
 /* ------------- Panel für die Bestellung: Auswählen von Zahlungsarten ------------------- */
 #bestellungZahlungsartPanel{
@@ -1646,6 +1680,40 @@ table#zusatzTabelle tbody td{
 	
 }
 /* ------------- Panel für die Bestellung: Auswählen von Zahlungsarten ------------------- */
+
+
+
+
+/* ------------- Panel für die Bestellung: Zusammenfassung ------------------- */
+#bestellungZusammenfassungPanel{
+	margin: 50px auto;
+	width: 800px;
+	height: 500px;
+	text-align: center;
+	opacity: 0.9;
+	background-color: white;
+	border-radius: 20px;
+  	-webkit-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
+	box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
+}
+#bestellungZusammenfassungPanel h1{
+	margin:0;
+	padding: 0;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+#bestellungZusammenfassungPanel form{
+	text-align: center;
+}
+@media (max-width: 1200px)
+{
+	
+}
+/* ------------- Panel für die Bestellung: Zusammenfassung ------------------- */
+
+
+
 
 
 /* ---------- Panel für Fehlermeldungen ----------------- */
