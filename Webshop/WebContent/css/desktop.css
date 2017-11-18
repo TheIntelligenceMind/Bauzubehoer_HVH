@@ -758,7 +758,7 @@ html,body{
 	#artikelListeKundenWarenkorbButton{
 		float: left;
 		padding: 7px;	
-		height: 15px;
+		height: 25px;
 		border-style: none;
 		margin-left: 5%;
 		margin-top: 60px;
@@ -1590,7 +1590,7 @@ table#zusatzTabelle tbody td{
 	resize: none;
 }
 
-#artikelListeKundenWarenkorbButton{
+#artikelDetailansichtWarenkorbButton{
 	float: left;
 	padding: 7px;	
 	height: 40px;
@@ -1603,7 +1603,7 @@ table#zusatzTabelle tbody td{
 	color: white;
 	border-radius: 5px;
 }
-#artikelListeKundenWarenkorbButton:hover{
+#artikelDetailansichtWarenkorbButton:hover{
 	cursor: pointer;
 	background-color: #9b4013;
 }

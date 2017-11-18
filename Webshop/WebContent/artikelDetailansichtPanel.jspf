@@ -42,7 +42,7 @@ Diese Datei behandelt das Anzeigen eines bestimmten Artikels.
 			<form action="warenkorb">
 			     	    <input type="hidden" name="method" value="artikelInDenWarenkorb">
 			     	    <input type="hidden" name="artikelnummer" value="<% detailansichtArtikel.getNummer();%>">
-			     	    <button id="artikelListeKundenWarenkorbButton">In den Warenkorb</button>
+			     	    <button id="artikelDetailansichtWarenkorbButton">In den Warenkorb</button>
 			</form>
 		</div>
 
