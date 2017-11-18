@@ -65,15 +65,19 @@ public class BestellungenController extends HttpServlet {
 			case "bestellungErfassenS1Anzeigen":
 				Benutzer benutzer = queryManager.getBenutzerByEMailAdresse(((Benutzer)req.getSession().getAttribute("benutzer")).getEmailadresse());			
 				req.setAttribute("benutzer", benutzer);
+				dispatchSite = "index.jsp";
 				resp.addHeader("contentSite", "bestellungLieferadressePanel");
 				break;
 			case "bestellungErfassenS2Anzeigen":
+				dispatchSite = "index.jsp";
 				resp.addHeader("contentSite", "bestellungZahlungsartenPanel");
 				break;
 			case "bestellungErfassenS3Anzeigen":
+				dispatchSite = "index.jsp";
 				resp.addHeader("contentSite", "bestellungZusammenfassungPanel");	
 				break;
 			case "bestellungErfassenS4Anzeigen":
+				dispatchSite = "index.jsp";
 				resp.addHeader("contentSite", "bestellungAbschlussPanel");	
 				break;
 			case "bestellungErfassenS1Bestaetigt":
@@ -94,23 +98,26 @@ public class BestellungenController extends HttpServlet {
 		rd.forward(req, resp);	
 	}
     
-    private boolean bestellungS1Validieren(HttpServletRequest req, HttpServletResponse resp){
+    private void bestellungS1Validieren(HttpServletRequest req, HttpServletResponse resp){
     	Adresse lieferAdresse = new Adresse().init(req.getParameter("strasse"), req.getParameter("hausnummer"), req.getParameter("postleitzahl"), req.getParameter("ort"), "");
     	
     	req.getSession().setAttribute("bestellvorgang_lieferadresse", lieferAdresse);
     	
     	if(!lieferAdresse.getStrasse().isEmpty() && !lieferAdresse.getHausnummer().isEmpty() && !lieferAdresse.getPostleitzahl().isEmpty() && !lieferAdresse.getOrt().isEmpty()){
-    		req.setAttribute("method", "bestellungErfassenS2Anzeigen");
-    		dispatchSite = "/meineBestellungen";	
+
+    		dispatchSite = "/meineBestellungen?method=bestellungErfassenS2Anzeigen";	
     	}else{
-    		resp.addHeader("Status", ENUM_RESPONSE_STATUS.FEHLER.toString());
-			resp.addHeader(ENUM_MELDUNG_ART.HINWEISMELDUNG.toString(), "Die Lieferadresse ist nicht vollständig.");
+			Benutzer benutzer = queryManager.getBenutzerByEMailAdresse(((Benutzer)req.getSession().getAttribute("benutzer")).getEmailadresse());			
+			req.setAttribute("benutzer", benutzer);
 			
-			req.setAttribute("method", "bestellungErfassenS1Anzeigen");
-    		dispatchSite = "/meineBestellungen";
+			dispatchSite = "index.jsp";
+			resp.addHeader("contentSite", "bestellungLieferadressePanel");
+			
+			resp.addHeader("Status", ENUM_RESPONSE_STATUS.FEHLER.toString());
+			resp.addHeader(ENUM_MELDUNG_ART.FEHLERMELDUNG.toString(), "Die Lieferadresse ist nicht vollständig.");
+			
     	}
-   	
-    	return false;
+
     }
     
 	private boolean bestellungS2Validieren(HttpServletRequest req, HttpServletResponse resp){

@@ -55,9 +55,9 @@ Diese Datei behandelt die Zusammenfassung der Bestellung.
       	</table>
  	</div>
  	<form action="meineBestellungen">
-  		<button class="btnWeiter" type="submit" name="method" value="bestellungErfassenS4Anzeigen"><i class="fa fa-shopping-basket"></i> Jetzt Kaufen</button>
-  	</form>
-  	<form action="meineBestellungen">
-  		<button class="btnZurueck" type="submit" name="method" value="bestellungErfassenS2Anzeigen"><i class="fa fa-arrow-left"></i> Zur&uuml;ck</button>
+  		<button class="btnLeft btnStandardKlein" type="submit" name="method" value="bestellungErfassenS2Anzeigen"><i class="fa fa-arrow-left"></i> Zur&uuml;ck</button>
 	</form>
+ 	<form action="meineBestellungen">
+  		<button class="btnRight btnBestellungKaufen" type="submit" name="method" value="bestellungErfassenS4Anzeigen"><i class="fa fa-shopping-basket"></i> Jetzt Kaufen</button>
+  	</form>
 </div> 

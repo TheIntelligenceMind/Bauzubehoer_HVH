@@ -1,3 +1,4 @@
+<%@page import="javax.websocket.Session"%>
 <%@page import="entity.Benutzer"%>
 <%@page import="java.util.List"%>
 <%@page import="entity.Adresse"%>
@@ -11,28 +12,35 @@ Diese Datei behandelt die Bestimmung der Lieferadresse.
 
 
 <%
+	Adresse adresseB = null;
 	Benutzer benutzerB = (Benutzer)request.getAttribute("benutzer");
-	Adresse adresseB = benutzerB.getLieferAdresse();
+	
+	if(request.getSession().getAttribute("bestellvorgang_lieferadresse") != null){
+		adresseB = (Adresse)request.getSession().getAttribute("bestellvorgang_lieferadresse");
+	}else{
+		adresseB = benutzerB.getLieferAdresse();
 
-	if(adresseB == null){
-		adresseB = new Adresse().init("", "", "", "", "");	
-	}
+		if(adresseB == null){
+			adresseB = new Adresse().init("", "", "", "", "");	
+		}
+	}	 
 %>
 
  <div class="showing"  id="bestellungLieferadressePanel">
- 	<h3>Versandadresse</h3>
+ 	<h3>Lieferadresse</h3>
  	
- 	<!-- BENUTZERINFORMATIONEN !!!NICHT BEARBEITBAR!!! -->
- 	<input title="Vorname" class="inputField" type="text" name="vorname" placeholder="Vorname"  value="<% out.print(benutzerB.getVorname()); %>"disabled>
- 	<input title="Nachname" class="inputField" type="text" name="nachname" placeholder="Nachname"  value="<% out.print(benutzerB.getNachname()); %>" disabled>
- 	 
- 	 <!-- ADRESSINFORMATIONEN  !!!BEARBEITBAR!!! -->
- 	<input title="Strasse" class="inputField" type="text" name="strasse" placeholder="Straße" id="Strasse" value="<% out.print(adresseB.getStrasse()); %>">
-	<input title="Hausnummer" class="inputField" type="text" name="hausnummer" placeholder="Hausnummer" id="Hausnummer" value="<% out.print(adresseB.getHausnummer()); %>">
-	<input title="Postleitzahl" class="inputField" type="text" name="postleitzahl" placeholder="PLZ" value="<% out.print(adresseB.getPostleitzahl()); %>">
-	<input title="Ort" class="inputField" type="text" name="ort" placeholder="Ort" value="<% out.print(adresseB.getOrt()); %>">
+ 	<form action="meineBestellungen" method="POST">
+ 	
+	 	<!-- BENUTZERINFORMATIONEN !!!NICHT BEARBEITBAR!!! -->
+	 	<input title="Vorname" class="inputField" type="text" name="vorname" placeholder="Vorname"  value="<% out.print(benutzerB.getVorname()); %>"disabled>
+	 	<input title="Nachname" class="inputField" type="text" name="nachname" placeholder="Nachname"  value="<% out.print(benutzerB.getNachname()); %>" disabled>
+	 	 
+	 	 <!-- ADRESSINFORMATIONEN  !!!BEARBEITBAR!!! -->
+	 	<input title="Strasse" class="inputField" type="text" name="strasse" placeholder="Straße" id="Strasse" value="<% out.print(adresseB.getStrasse()); %>">
+		<input title="Hausnummer" class="inputField" type="text" name="hausnummer" placeholder="Hausnummer" id="Hausnummer" value="<% out.print(adresseB.getHausnummer()); %>">
+		<input title="Postleitzahl" class="inputField" type="text" name="postleitzahl" placeholder="Postleitzahl" value="<% out.print(adresseB.getPostleitzahl()); %>">
+		<input title="Ort" class="inputField" type="text" name="ort" placeholder="Ort" value="<% out.print(adresseB.getOrt()); %>">	
 	
-	<form action="meineBestellungen">
-		<button class="btnWeiter" type="submit" name="method" value="bestellungErfassenS2Anzeigen"><i class="fa fa-arrow-right"></i> Weiter</button>
+		<button class="btnRight btnStandardKlein" type="submit" name="method" value="bestellungErfassenS1Bestaetigt"><i class="fa fa-arrow-right"></i> Weiter</button>
  	</form>
  </div>

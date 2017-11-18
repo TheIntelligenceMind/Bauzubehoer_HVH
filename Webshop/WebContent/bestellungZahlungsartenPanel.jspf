@@ -1,6 +1,3 @@
-<%@page import="java.util.List"%>
-<%@page import="entity.WarenkorbArtikel"%>
-
 <!-- 
 Autor dieser Datei: Tim Hermbecker, Lukas Vechtel
 
@@ -11,7 +8,7 @@ Diese Datei behandelt das Panel zur Zahlungsartauswahl. Hier können verschieden 
   <div class="showing" id="bestellungZahlungsartPanel">
 	 <h1>Zahlungsart ausw&auml;hlen</h1>
 	 
-	 <form id="zahlungsartBestimmenForm">
+	 <form id="zahlungsartBestimmenForm" method="POST">
 		 <fieldset>
 		 	<input type="radio" id="creditcard" name="Zahlungsmethode" value="Kreditkarte">
 		 	<label for="creditcard">Kreditkarte</label>
@@ -36,9 +33,10 @@ Diese Datei behandelt das Panel zur Zahlungsartauswahl. Hier können verschieden 
 		 </fieldset>
 	 </form>
 	 <form action="meineBestellungen">
-	 	<button class="btnWeiter" type="submit" name="method" value="bestellungErfassenS3Anzeigen"><i class="fa fa-arrow-right"></i> Weiter</button>
-	 </form>
-	 <form action="meineBestellungen">
-	 	<button class="btnZurueck" type="submit" name="method" value="bestellungErfassenS1Anzeigen"><i class="fa fa-arrow-left"></i> Zur&uuml;ck</button>
+	 	<button class="btnLeft btnStandardKlein" type="submit" name="method" value="bestellungErfassenS1Anzeigen"><i class="fa fa-arrow-left"></i> Zur&uuml;ck</button>
  	</form>
+	 <form action="meineBestellungen">
+	 	<button class="btnRight btnStandardKlein" type="submit" name="method" value="bestellungErfassenS3Anzeigen"><i class="fa fa-arrow-right"></i> Weiter</button>
+	 </form>
+	 
  </div>

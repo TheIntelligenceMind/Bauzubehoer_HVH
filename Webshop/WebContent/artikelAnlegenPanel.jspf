@@ -65,6 +65,6 @@ Diese Datei behandelt das Anlegen von Artikeln.
 			<input id="btnArtikelAnlegen" type="submit" value="Artikel anlegen">	
 	</form>
 	<form action="artikel">
-		<button class="btnZurueck" type="submit" name="method" value="artikellisteAnzeigen"><i class="fa fa-arrow-left"></i> Zur&uuml;ck</button>
+		<button class="btnLeft btnStandardKlein" type="submit" name="method" value="artikellisteAnzeigen"><i class="fa fa-arrow-left"></i> Zur&uuml;ck</button>
 	</form>
 </div>
