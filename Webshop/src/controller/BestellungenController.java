@@ -14,6 +14,7 @@ import entity.Adresse;
 import entity.Benutzer;
 import enums.ENUM_MELDUNG_ART;
 import enums.ENUM_RESPONSE_STATUS;
+import helper.AdressenHelper;
 /**
  * <pre>
  * <h3>Beschreibung:</h3> Die Klasse ist für den Themenbereich Bestellungen zuständig. 
@@ -87,7 +88,7 @@ public class BestellungenController extends HttpServlet {
 				bestellungS2Validieren(req, resp);
 				break;
 			case "bestellungErfassenS3Bestaetigt":
-				bestellungS3Validieren(req, resp);			
+				bestellungAbschliessen(req, resp);			
 				break;
 			default:
 				resp.addHeader("contentSite", "meineBestellungenPanel");
@@ -105,7 +106,18 @@ public class BestellungenController extends HttpServlet {
     	
     	if(!lieferAdresse.getStrasse().isEmpty() && !lieferAdresse.getHausnummer().isEmpty() && !lieferAdresse.getPostleitzahl().isEmpty() && !lieferAdresse.getOrt().isEmpty()){
 
-    		dispatchSite = "/meineBestellungen?method=bestellungErfassenS2Anzeigen";	
+    		if(AdressenHelper.getInstance().validateAdresse(lieferAdresse)){
+    			dispatchSite = "/meineBestellungen?method=bestellungErfassenS2Anzeigen";	
+    		}else{
+    			Benutzer benutzer = queryManager.getBenutzerByEMailAdresse(((Benutzer)req.getSession().getAttribute("benutzer")).getEmailadresse());			
+    			req.setAttribute("benutzer", benutzer);
+    			
+    			dispatchSite = "index.jsp";
+    			resp.addHeader("contentSite", "bestellungLieferadressePanel");
+    			
+    			resp.addHeader("Status", ENUM_RESPONSE_STATUS.FEHLER.toString());
+    			resp.addHeader(ENUM_MELDUNG_ART.FEHLERMELDUNG.toString(), "Die Lieferadresse ist nicht gültig.");
+    		}		
     	}else{
 			Benutzer benutzer = queryManager.getBenutzerByEMailAdresse(((Benutzer)req.getSession().getAttribute("benutzer")).getEmailadresse());			
 			req.setAttribute("benutzer", benutzer);
@@ -115,16 +127,17 @@ public class BestellungenController extends HttpServlet {
 			
 			resp.addHeader("Status", ENUM_RESPONSE_STATUS.FEHLER.toString());
 			resp.addHeader(ENUM_MELDUNG_ART.FEHLERMELDUNG.toString(), "Die Lieferadresse ist nicht vollständig.");
-			
     	}
-
     }
     
 	private boolean bestellungS2Validieren(HttpServletRequest req, HttpServletResponse resp){
 		return false; 	
 	}
 	
-	private boolean bestellungS3Validieren(HttpServletRequest req, HttpServletResponse resp){
+	private boolean bestellungAbschliessen(HttpServletRequest req, HttpServletResponse resp){
+		
+		//Mail Versand
+		
 		return false;
 	}
 }
