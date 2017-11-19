@@ -897,7 +897,7 @@ html,body{
 	height: 25px;
 	font-size: 14px;
 }
-#Strasse{
+#meinKontoStrasse{
 	margin-top: 20px;
 	padding: 3px;
 	background-color: white;
@@ -906,7 +906,7 @@ html,body{
 	height: 25px;
 	font-size: 14px;
 }
-#Hausnummer{
+#meinKontoHausnummer{
 	padding: 3px;
 	background-color: white;
 	width: 24%;
@@ -1520,7 +1520,7 @@ table#zusatzTabelle tbody td{
 #artikelDetailansichtPanel{
 	margin: 50px auto;
 	width: 800px;
-	height: 500px;
+	height: 430px;
 	text-align: center;
 	opacity: 0.9;
 	background-color: white;
@@ -1529,32 +1529,8 @@ table#zusatzTabelle tbody td{
 	-moz-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
 	box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
 }
-#artikelDetailansichtKategorie
+#artikelDetailansichtBild
 {
-	background: none;
-}
-#artikelDetailansichtPanel h1{
-	margin:0;
-	padding: 0;
-	padding-top: 20px;
-	padding-bottom: 20px;
-}
-#artikelDetailansichtPanel form{
-	text-align: center;
-}
-#artikelDetailansichtPanel h3{
-	float: none;
-	margin: 0;
-	padding: 0;
-	padding-top: 10px;
-	padding-bottom: 5px;
-	font-size: 15px;
-}
-#artikelDetailansichtPanelZahlen
-{
-	margin-top:10px;
-}
-#artikelDetailansichtBild{
 	background: url("../images/articles/warnweste.jpg");
 	float: left;
 	margin-left: 3%;
@@ -1564,48 +1540,16 @@ table#zusatzTabelle tbody td{
 	height: 90px;
 	width: 80px;
 }
-#artikelDetailansichtTabelle tr
-{
-	float: left;
-	padding: 5px;
-	background: white;
-	margin-left: 5px;
-	width: 80%;
-}
-#artikelDetailansichtTabelle td
-{
-	font-size: 15px;
-}
-#artikelDetailansichtPanelBeschreibung .inputField{
-	background-color: white;
-	width: 60%;
-	padding-left: 3px;
-	border: 1px solid #BF4D17;
-	height: 25px;
-	font-size: 14px;
-	font-family: sans-serif;
-}
-#artikelDetailansichtPanelBeschreibung .inputArea{
-	background-color: white;
-	width: 60%;
-	padding: 3px;
-	border: 1px solid #BF4D17;
-	height: 85px;
-	font-size: 14px;
-	font-family: sans-serif;
-	overflow: auto;
-	resize: none;
-}
 
 #artikelDetailansichtWarenkorbButton{
-	float: left;
+	float: right;
 	padding: 7px;	
 	height: 40px;
 	width: 150px;
 	font-size: 13px;
 	border-style: none;
-	margin-left: 3%;
-	margin-top: 60px;
+	margin-right: 10px;
+	margin-top: 20px;
 	background-color: #BF4D17;
 	color: white;
 	border-radius: 5px;
@@ -1633,7 +1577,7 @@ table#zusatzTabelle tbody td{
 #bestellungLieferadressePanel{
 	margin: 50px auto;
 	width: 800px;
-	height: 500px;
+	height: 300px;
 	text-align: center;
 	opacity: 0.9;
 	background-color: white;
@@ -1649,6 +1593,24 @@ table#zusatzTabelle tbody td{
 	padding-bottom: 20px;
 }
 #bestellungLieferadressePanel form{
+	text-align: center;
+}
+#bestellungBenutzer
+{
+	margin: auto;
+	margin-top: 5px;
+	text-align: center;
+}
+#bestellungLieferadresseStrasse
+{
+	margin: auto;
+	margin-top: 5px;
+	text-align: center;
+}
+#bestellungLieferadresseOrt
+{
+	margin: auto;
+	margin-top: 5px;
 	text-align: center;
 }
 @media (max-width: 1200px)
@@ -1681,6 +1643,22 @@ table#zusatzTabelle tbody td{
 }
 #bestellungZahlungsartPanel form{
 	text-align: center;
+}
+#zahlungsarten input
+{
+	width: 10%;
+	float: left;
+}
+#zahlungarten label
+{
+	width: 30%;
+	float: left;
+}
+#zahlungsarten
+{
+	height: 300px;
+	width: 100%;
+	float:left;
 }
 @media (max-width: 1200px)
 {

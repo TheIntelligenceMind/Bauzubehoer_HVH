@@ -13,11 +13,25 @@ Diese Datei behandelt das Anzeigen eines bestimmten Artikels.
 %>
 
 <div class="showing" id="artikelDetailansichtPanel">
-		
+				
 		<div id="artikelDetailansichtPanelZahlen">
+			
 			<div id='artikelDetailansichtBild'>
 			</div>
+			<div id="btnArtikelDetailansichtWarenkorb">
+				<form action="warenkorb">
+		     	    <input type="hidden" name="artikelnummer" value="<% out.print(detailansichtArtikel.getNummer());%>">
+					<button id="artikelDetailansichtWarenkorbButton" name="method" value="artikelInDenWarenkorb">In den Warenkorb</button>
+				</form>
+			</div>
 			<table id="artikelDetailansichtTabelle">
+				<tr>
+					<td><p><% out.print(detailansichtArtikel.getBezeichnung()); %></p></td>
+				</tr>
+				<tr>
+					<td><p>Artikelnummer:</p></td>
+					<td><p><% out.print(detailansichtArtikel.getNummer()); %></p></td>
+				</tr>		
 				<tr>
 					<td><p>Preis:</p></td>
 					<td><p><%out.print(formater.format(detailansichtArtikel.getPreis()));%> </p></td>
@@ -25,25 +39,14 @@ Diese Datei behandelt das Anzeigen eines bestimmten Artikels.
 				<tr>
 					<td><p>Lagermenge:</p></td>
 					<td><p><%out.print(detailansichtArtikel.getLagermenge());%></p></td>
-				</tr>					
+				</tr>			
 			</table>
 		</div>	
 		
-    	<div id="artikelDetailansichtPanelBeschreibung">
-			<h3>Artikelnummer</h3>
-			<input title="Hinweis: Nur eine vierstellige Artikelnummer eingeben." class="inputField" type="text" name="nummer" value="<% out.print(detailansichtArtikel.getNummer()); %>" placeholder="Artikelnummer" readonly>
-			<h3>Bezeichnung</h3>
-			<input title="Bezeichnung" class="inputField" type="text" name="bezeichnung" value="<% out.print(detailansichtArtikel.getBezeichnung()); %>" placeholder="Bezeichnung" readonly>
-			<h3>Beschreibung</h3>
-			<textarea title="Beschreibung" class="inputArea" wrap="soft" name="beschreibung" placeholder="Beschreibung" readonly><% out.print(detailansichtArtikel.getBeschreibung()); %></textarea>
-		</div>
 		
-		<div id="btnArtikelDetailansichtWarenkorb">
-			<form action="warenkorb">
-	     	    <input type="hidden" name="artikelnummer" value="<% out.print(detailansichtArtikel.getNummer());%>">
-				<button id="artikelDetailansichtWarenkorbButton" name="method" value="artikelInDenWarenkorb">In den Warenkorb</button>
-			</form>
+		<div id="artikelDetailansichtPanelBeschreibung">
+				<p>Beschreibung</p>
+				<textarea title="Beschreibung" class="inputArea" wrap="soft" name="artikelDetailbeschreibung" placeholder="Beschreibung" readonly><% out.print(detailansichtArtikel.getBeschreibung()); %></textarea>
 		</div>
-
 
 </div>
