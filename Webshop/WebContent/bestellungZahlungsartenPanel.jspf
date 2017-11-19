@@ -9,28 +9,28 @@ Diese Datei behandelt das Panel zur Zahlungsartauswahl. Hier können verschieden 
 	 <h1>Zahlungsart ausw&auml;hlen</h1>
 	 
 	 <form id="zahlungsartBestimmenForm" method="POST">
-		 <fieldset>
-		 	<input type="radio" id="creditcard" name="Zahlungsmethode" value="Kreditkarte">
-		 	<label for="creditcard">Kreditkarte</label>
-		 	<img alt="mastercard" src="../images/mastercard.png">
-		 	
-		 	<input type="radio" id="lastschrift" name="Zahlungsmethode" value="Lastschrift">
-		 	<label for="lastschrift">Lastschrift</label>
-			<img alt="Lastschrift" src="../images/text-lastschrift.png">
-		 	
-		 	<input type="radio" id="rechnung" name="Zahlungsmethode" value="Rechnung">
-		 	<label for="rechnung">Rechnung</label>
-		 	<img alt="Rechnung" src="../images/text-rechnung.png">
-		 	
-		 	<input type="radio" id="ueberweisung" name="Zahlungsmethode" value="Ueberweisung">
-		 	<label for="ueberweisung">&Uuml;berweisung</label>
-		 	<img alt="'&Uuml;berweisung'" src="../images/payment-in-advance.png">
-		 	
-		 	<input type="radio" id="paypal" name="Zahlungsmethode" value="PayPal" checked="checked">
-		 	<label for="paypal">PayPal</label>
-		 	<img alt="PayPal" src="../images/paypal-alternative.png">
-		 	
-		 </fieldset>
+			<div id="zahlungsarten"> 
+					<input type="radio" id="creditcard" name="Zahlungsmethode" value="Kreditkarte" disabled>
+			 		<label for="creditcard">Kreditkarte</label>
+			 		<img alt="mastercard" src="../images/mastercard.png">
+
+			 		<input type="radio" id="lastschrift" name="Zahlungsmethode" value="Lastschrift" disabled>
+			 		<label for="lastschrift">Lastschrift</label>
+					<img alt="Lastschrift" src="../images/text-lastschrift.png">
+			 	
+			 	
+			 		<input type="radio" id="rechnung" name="Zahlungsmethode" value="Rechnung"  checked="checked">
+			 		<label for="rechnung">Rechnung</label>
+			 		<img alt="Rechnung" src="../images/text-rechnung.png">
+			 	
+			 		<input type="radio" id="ueberweisung" name="Zahlungsmethode" value="Ueberweisung" disabled>
+			 		<label for="ueberweisung">&Uuml;berweisung</label>
+			 		<img alt="&Uuml;berweisung" src="../images/payment-in-advance.png">
+			 	
+			 		<input type="radio" id="paypal" name="Zahlungsmethode" value="PayPal" disabled>
+			 		<label for="paypal">PayPal</label>
+			 		<img alt="PayPal" src="../images/paypal-alternative.png">
+			 </div>	
 	 </form>
 	 <form action="meineBestellungen">
 	 	<button class="btnLeft btnStandardKlein" type="submit" name="method" value="bestellungErfassenS1Anzeigen"><i class="fa fa-arrow-left"></i> Zur&uuml;ck</button>
