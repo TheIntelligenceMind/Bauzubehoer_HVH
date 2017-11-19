@@ -16,17 +16,19 @@ Hier wurde das Suchfeld und das Logo implementiert.
 %>
 
 <script type="text/javascript">
-function artikelSuchenNachKategorie(kategorie){
-	$(document).ready(function() {	      	               
-          window.location.href = "suchen";  
-	}); 	
-}
+	function artikelSuchenNachKategorie(kategorie){
+		
+		$(document).ready(function() {	      	               
+	          window.location.href = "suchen";  
+		}); 	
+	}
+	
+	function artikelSuchenNachBegriff(){
+		$(document).ready(function() {	      	               
+	          window.location.href = "suchen";  
+		}); 	
+	}
 
-function artikelSuchenNachBegriff(){
-	$(document).ready(function() {	      	               
-          window.location.href = "suchen";  
-	}); 	
-}
 </script>
 <div id="sitebar">
 	<div onclick="artikelSuchenNachBegriff()" id="header">
@@ -49,32 +51,31 @@ function artikelSuchenNachBegriff(){
 	
 	<!-- Hier kommen die Artikelkategorien -->
 
-	<%-- <div id="artikelKategorie">
+	<div id="artikelKategoriePanel">
 		<ul>
-			<li><a class="active">Kategorien</a>
+			<li class="kategorie1"><a onclick="artikelSuchenNachKategorie(Bekleidung)">Bekleidung</a>
 				<ul>
-					<%
-					
-						List<ENUM_ARTIKELKATEGORIE> kategorien_a_1 = ENUM_ARTIKELKATEGORIE.getArtikelkategorien1List();
-						
-						for(ENUM_ARTIKELKATEGORIE e: kategorien_a_1){
-							out.print("<li><a href='#'>" + e.toString());
-								List<ENUM_ARTIKELKATEGORIE> kategorien_a_2 = ENUM_ARTIKELKATEGORIE.getArtikelkategorien2List();
-								out.print("<ul>");
-									for(ENUM_ARTIKELKATEGORIE f: kategorien_a_2){
-										out.print("<li><button class='btnSuchenNachKategorie' type='submit' name='method' onlick='artikelSuchenNachKategorie(" + f.toString() + ")>" + f.toString() + "</button></li>");
-									}
-								out.print("</ul>");
-							out.print("</li>");
-						}
-						
-					%>
-				</ul>	
+					<li class="kategorie2"><a onclick="artikelSuchenNachKategorie(Kopf)">Kopf</a></li>
+					<li class="kategorie2" ><a onclick="artikelSuchenNachKategorie(Oberk&ouml;rper)">Oberk&ouml;rper</a></li>
+					<li class="kategorie2" ><a onclick="artikelSuchenNachKategorie(Beine)">Beine</a></li>
+					<li class="kategorie2" ><a onclick="artikelSuchenNachKategorie(F&uuml;sse)">F&uuml;sse</a></li>
+					<li class="kategorie2" ><a onclick="artikelSuchenNachKategorie(Sonstiges)">Sonstiges</a></li>
+				</ul>
+			</li>
+			<li class="kategorie1"><a onclick="artikelSuchenNachKategorie(Werkzeug)">Werkzeug</a>
+				<ul>
+					<li class="kategorie2"><a onclick="artikelSuchenNachKategorie(Maschinen)">Maschinen</a></li>
+					<li class="kategorie2"><a onclick="artikelSuchenNachKategorie(Handwerkzeug)">Handwerkzeug</a></li>
+					<li class="kategorie2"><a onclick="artikelSuchenNachKategorie(Sonstiges)">Sonstiges</a></li>
+				</ul>
+			</li>
+			<li class="kategorie1"><a onclick="artikelSuchenNachKategorie(Sicherheit)">Sicherheit</a>
+				<ul>
+					<li class="kategorie2"><a onclick="artikelSuchenNachKategorie(Absperrung)">Absperrung</a></li>
+					<li class="kategorie2"><a onclick="artikelSuchenNachKategorie(Sonstiges)">Sonstiges</a></li>
+				</ul>
 			</li>
 		</ul>						
-	</div> --%>
+	</div>
 
-			<!-- am besten als onclickEvent implementieren und die Funktion artikelSuchenNachKategorie 
-		aufrufen mit dem ausgewählten Kategoriewert(auf ENUM_ARTIKELKATEGORIE beziehen) 
-		-->	
 </div>
