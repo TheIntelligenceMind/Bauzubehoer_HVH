@@ -1,6 +1,6 @@
 package entity;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class Bestellung {
 	private int bestellnummer;

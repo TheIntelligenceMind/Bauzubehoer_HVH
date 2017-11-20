@@ -60,8 +60,7 @@ public class QueryManager {
 	/**
 	 * <h3>Beschreibung:</h3>
 	 * <pre>
-	 * Die Methode liefert den aktuellen Zeitstempel für 
-	 * Eintragungen in der Datenbank
+	 * Die Methode liefert den aktuellen Zeitstempel für Eintragungen in der Datenbank
 	 * </pre>
 	 * 
 	 * @return Timestamp
@@ -124,6 +123,16 @@ public class QueryManager {
 		return null;
 	}	
 	
+	/**
+	 * <h3>Beschreibung:</h3>
+	 * <pre>
+	 * Die Methode liefert zu einer EmailAdresse die zugehörige
+	 * BenutzerID aus der Datenbank.
+	 * </pre>
+	 * 
+	 * @param piEMailAdresse String
+	 * @return benutzer_ID
+	 */
 	private int getBenutzerIDbyEmailadresse(String piEmailadresse){
 		String emailadresse = piEmailadresse;
 		int benutzer_ID = -1;
@@ -145,7 +154,59 @@ public class QueryManager {
 		}	
 		return benutzer_ID;	
 	}
+	
+	/**
+	 * <h3>Beschreibung:</h3>
+	 * <pre>
+	 * Die Methode löscht den Datensatz für einen Benutzer.
+	 * </pre>
+	 * 
+	 * @param piEMailAdresse String
+	 * @return true, wenn die Löschung erfolgreich war;
+	 * andernfalls: false
+	 */
+	public boolean deleteBenutzer(String piEmailadresse){		
+		String emailadresse = piEmailadresse;
+		int benutzerID;
+		int result = 0;
+		
+		try {
+			benutzerID = getBenutzerIDbyEmailadresse(emailadresse);
+			
+			if(benutzerID == -1){
+				return false;
+			}
+			
+			String sql = "DELETE FROM "+ ENUM_DB_TABELLE.BENUTZER.toString() +" WHERE ID = ?";
+		
+			PreparedStatement stmt = getConnection().prepareStatement(sql);
+			stmt.setInt(1, benutzerID);
+			
+			result = stmt.executeUpdate();
+			
+			if(result != 0){
+				return true;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
 
+	/**
+	 * <h3>Beschreibung:</h3>
+	 * <pre>
+	 * Die Methode erstellt zu einem vorhandenen Benutzer
+	 * den dazugehörigen Adress-Datensatz.
+	 * </pre>
+	 * 
+	 * @param piEMailAdresse String
+	 * @param piAdresse Adresse
+	 * @return true, wenn die Adress-Anlage erfolgreich war;
+	 * andernfalls: false
+	 */
 	public boolean createAdresse(String piEmailAdresse, Adresse piAdresse){
 		String emailadresse = piEmailAdresse;
 		Adresse adresse = piAdresse;
@@ -195,6 +256,17 @@ public class QueryManager {
 		return false;	
 	}
 
+	/**
+	 * <h3>Beschreibung:</h3>
+	 * <pre>
+	 * Die Methode ändert die Adresse eines Benutzers.
+	 * </pre>
+	 * 
+	 * @param piEMailAdresse String
+	 * @param piEAdresse Adresse
+	 * @return true, wenn die Änderung erfolgreich war;
+	 * andernfalls: false
+	 */
 	public boolean modifyAdresse(String piEmailAdresse, Adresse piAdresse){
 		String emailadresse = piEmailAdresse;
 		Adresse adresse = piAdresse;
@@ -244,14 +316,16 @@ public class QueryManager {
 		return false;
 	}
 
-	
-	public boolean deleteAdresse(int id){
-		
-		
-		return true;
-	}
-	
-	
+	/**
+	 * <h3>Beschreibung:</h3>
+	 * <pre>
+	 * Die Methode liefert die ID der Rolle des
+	 * jeweiligen Benutzers
+	 * </pre>
+	 * 
+	 * @param bezeichnung ENUM_ROLLENBEZEICHNUNG
+	 * @return id
+	 */
 	private int getRolleIDbyBezeichnung(ENUM_ROLLENBEZEICHNUNG bezeichnung){
 		int id = -1;
 		ResultSet result = null;
@@ -279,7 +353,16 @@ public class QueryManager {
 		return id;
 	}
 	
-	
+	/**
+	 * <h3>Beschreibung:</h3>
+	 * <pre>
+	 * Die Methode erstellt den Datensatz für einen Benutzer.
+	 * </pre>
+	 * 
+	 * @param piBenutzer Benutzer
+	 * @return true, wenn die Anlage erfolgreich war;
+	 * andernfalls: false
+	 */
 	public boolean createBenutzer(Benutzer piBenutzer){
 		Benutzer benutzer = piBenutzer;
 		int result;
@@ -308,6 +391,16 @@ public class QueryManager {
 		return false;
 	}
 	
+	/**
+	 * <h3>Beschreibung:</h3>
+	 * <pre>
+	 * Die Methode ändert den Datensatz für einen Benutzer.
+	 * </pre>
+	 * 
+	 * @param piBenutzer Benutzer
+	 * @return true, wenn die Änderung erfolgreich war;
+	 * andernfalls: false
+	 */
 	public boolean modifyBenutzer(Benutzer piBenutzer){	
 		Benutzer benutzer = piBenutzer;
 		int result = 0;
@@ -337,42 +430,36 @@ public class QueryManager {
 		return false;
 	}
 	
-	public boolean deleteBenutzer(String piEmailadresse){		
-		String emailadresse = piEmailadresse;
-		int benutzerID;
-		int result = 0;
+	/**
+	 * <h3>Beschreibung:</h3>
+	 * <pre>
+	 * Die Methode erstellt den Datensatz für eine Bestellung 
+	 * in den entsprechenden Tabellen.
+	 * </pre>
+	 * 
+	 * @param piBestellung Bestellung
+	 * @return true, wenn die Anlage des Datensatzes erfolgreich 
+	 * war; andernfalls: false
+	 */
+	public Bestellung createBestellung(Bestellung piBestellung){
+		Bestellung bestellung = null;
 		
-		try {
-			benutzerID = getBenutzerIDbyEmailadresse(emailadresse);
-			
-			if(benutzerID == -1){
-				return false;
-			}
-			
-			String sql = "DELETE FROM "+ ENUM_DB_TABELLE.BENUTZER.toString() +" WHERE ID = ?";
+		// Bitte nach erstellung der BEstellung die Bestellung nocheinmal in der Tabelle selecten und mir zurückgeben. 
+		// Da ich die generierten Timestamps und Bestellnummer benötige
 		
-			PreparedStatement stmt = getConnection().prepareStatement(sql);
-			stmt.setInt(1, benutzerID);
-			
-			result = stmt.executeUpdate();
-			
-			if(result != 0){
-				return true;
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		return false;
+		return bestellung;
 	}
 	
-	public boolean createBestellung(Bestellung piBestellung){
-		
-		
-		return true;
-	}
-	
+	/**
+	 * <h3>Beschreibung:</h3>
+	 * <pre>
+	 * Die Methode liefert die Artikel-ID eines Artikels 
+	 * aufgrund seiner Artikelnummer.
+	 * </pre>
+	 * 
+	 * @param piNummer int
+	 * @return Artikel_ID
+	 */
 	private int getArtikelIDbyNummer(int piNummer){
 		int artikelnummer = piNummer;
 		int Artikel_ID = -1;
@@ -395,7 +482,16 @@ public class QueryManager {
 		return Artikel_ID;	
 	}
 	
-	
+	/**
+	 * <h3>Beschreibung:</h3>
+	 * <pre>
+	 * Die Methode erstellt den Datensatz für einen Artikel.
+	 * </pre>
+	 * 
+	 * @param piArtikel Artikel
+	 * @return true, wenn die Anlage erfolgreich war;
+	 * andernfalls: false
+	 */
 	public boolean createArtikel(Artikel piArtikel){
 		Artikel artikel = piArtikel;
 		int result;
@@ -426,6 +522,16 @@ public class QueryManager {
 		return false;	
 	}
 	
+	/**
+	 * <h3>Beschreibung:</h3>
+	 * <pre>
+	 * Die Methode ändert den Datensatz für einen Artikel.
+	 * </pre>
+	 * 
+	 * @param piArtikel Artikel
+	 * @return true, wenn die Änderung erfolgreich war;
+	 * andernfalls: false
+	 */
 	public boolean modifyArtikel(Artikel piArtikel){	
 		Artikel artikel = piArtikel;
 		int artikelID;
@@ -471,6 +577,19 @@ public class QueryManager {
 		return false;
 	}
 	
+	/**
+	 * <h3>Beschreibung:</h3>
+	 * <pre>
+	 * Die Methode ändert Datensätze in der Warenkorb-Tabelle 
+	 * abhängig davon, ob der entsprechende Artikel aktiv oder
+	 * deaktiv ist.
+	 * </pre>
+	 * 
+	 * @param piNummer int
+	 * @param piAktiv int
+	 * @return true, wenn die Änderung(en) erfolgreich war(en);
+	 * andernfalls: false
+	 */
 	private boolean activateDeaktivateWarenkorbArtikel(int piNummer, int piAktiv){
 		int nummer = piNummer;
 		int aktiv = piAktiv;
@@ -505,37 +624,7 @@ public class QueryManager {
 		
 		return false;
 	}
-	
-	
-	public boolean deleteArtikel(int piNummer){
-		int nummer = piNummer;
-		int artikelID;
-		int result = 0;
 		
-		try {
-			artikelID = getArtikelIDbyNummer(nummer);
-			
-			if(artikelID == -1){
-				return false;
-			}
-			
-			String sql = "DELETE FROM "+ ENUM_DB_TABELLE.ARTIKEL.toString() +" WHERE ID = ?";
-		
-			PreparedStatement stmt = getConnection().prepareStatement(sql);
-			stmt.setInt(1, artikelID);
-			
-			result = stmt.executeUpdate();
-			
-			if(result != 0){
-				return true;
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		return false;
-	}
 	/**
 	 * <h3>Beschreibung: </h3>
 	 * <pre>
@@ -572,6 +661,15 @@ public class QueryManager {
 		return artikelliste;
 	}
 	
+	/**
+	 * <h3>Beschreibung:</h3>
+	 * <pre>
+	 * Die Methode liefert alle Artikel einer Kategorie.
+	 * </pre>
+	 * 
+	 * @param kategorie ENUM_ARTIKELKATEGORIE
+	 * @return artikelliste
+	 */
 	public List<Artikel> searchArtikelByKategorie(ENUM_ARTIKELKATEGORIE kategorie){
 		List<Artikel> artikelliste = new ArrayList<Artikel>();
 		
@@ -601,7 +699,16 @@ public class QueryManager {
 		return artikelliste;
 	}
 	
-	
+	/**
+	 * <h3>Beschreibung:</h3>
+	 * <pre>
+	 * Die Methode liefert alle Artikel, die der 
+	 * gesuchten Bezeichnung entsprechen.
+	 * </pre>
+	 * 
+	 * @param piBezeichung String
+	 * @return artikelliste
+	 */
 	public List<Artikel> searchArtikelByBezeichnung(String piBezeichnung){
 		if (piBezeichnung == null || piBezeichnung.isEmpty()){
 			return selectAllArtikel(true);
@@ -631,6 +738,16 @@ public class QueryManager {
 		return artikelliste;
 	}
 	
+	/**
+	 * <h3>Beschreibung:</h3>
+	 * <pre>
+	 * Die Methode liefert einen Artikel mit 
+	 * der gesuchten Artikelnummer.
+	 * </pre>
+	 * 
+	 * @param piNummer int
+	 * @return artikel
+	 */
 	public Artikel searchArtikelByNummer(int piNummer){
 		int nummer = piNummer;
 		Artikel artikel = null;
@@ -655,6 +772,16 @@ public class QueryManager {
 		return artikel;
 	}
 	
+	/**
+	 * <h3>Beschreibung:</h3>
+	 * <pre>
+	 * Die Methode liefert alle Artikel, die der gesuchte 
+	 * Benutzer in seinen Warenkorb gelegt hat.
+	 * </pre>
+	 * 
+	 * @param piEMailAdresse String
+	 * @return artikelliste
+	 */
 	public List<WarenkorbArtikel> selectAllWarenkorbartikelByBenutzeremailadresse(String piEmailadresse){
 		String emailadresse = piEmailadresse;
 		List<WarenkorbArtikel> artikelliste = new ArrayList<WarenkorbArtikel>();
@@ -686,7 +813,17 @@ public class QueryManager {
 		return artikelliste;	
 	}
 	
-	
+	/**
+	 * <h3>Beschreibung:</h3>
+	 * <pre>
+	 * Die Methode löscht Artikel aus dem Warenkorb eines Benutzers.
+	 * </pre>
+	 * 
+	 * @param piPosition int
+	 * @param piEMailAdresse String
+	 * @return true, wenn die Löschung erfolgreich war;
+	 * andernfalls: false
+	 */
 	public boolean deleteArtikelFromWarenkorb(int piPosition, String piEmailAdresse){
 		int position = piPosition;
 		String emailadresse = piEmailAdresse;
@@ -730,6 +867,16 @@ public class QueryManager {
 		return false;
 	}
 	
+	/**
+	 * <h3>Beschreibung:</h3>
+	 * <pre>
+	 * Die Methode ändert die Position eines Artikels 
+	 * im Warenkorb eines Benutzers.
+	 * </pre>
+	 * 
+	 * @param piPosition int
+	 * @param piBenutzerID int
+	 */
 	public void updateWarenkorbPositions(int piPosition, int piBenutzerID){
 		int position = piPosition;
 		int benutzerID = piBenutzerID;
@@ -751,6 +898,18 @@ public class QueryManager {
 		}	
 	}
 	
+	/**
+	 * <h3>Beschreibung:</h3>
+	 * <pre>
+	 * Die Methode fügt dem Warenkorb eines Benutzers einen 
+	 * Artikel hinzu.
+	 * </pre>
+	 * 
+	 * @param piEMailAdresse String
+	 * @param piArtikelnummer int
+	 * @return true, wenn die Anlage erfolgreich war;
+	 * andernfalls: false
+	 */
 	public boolean addArtikelToWarenkorb(String piEmailadresse, int piArtikelnummer){
 		String emailadresse = piEmailadresse;
 		int artikelnummer = piArtikelnummer;	
@@ -765,7 +924,7 @@ public class QueryManager {
 			}
 					
 			//==================================================
-			// prï¿½fen, ob sich der Artikel schon im Warenkorb befindet, wenn ja wird die Menge um 1 erhî’�t
+			// prüfen, ob sich der Artikel schon im Warenkorb befindet, wenn ja wird die Menge um 1 erhöht
 			//==================================================			
 			if(isArtikelImWarenkorbVorhanden(benutzer_ID, artikel_ID)){	
 				
@@ -810,6 +969,17 @@ public class QueryManager {
 		return false;
 	}
 	
+	/**
+	 * <h3>Beschreibung:</h3>
+	 * <pre>
+	 * Die Methode prüft, ob sich ein Artikel im Warenkorb befindet.
+	 * </pre>
+	 * 
+	 * @param piBenutzerID int
+	 * @param piArtikelID int
+	 * @return true, wenn die Prüfung erfolgreich war;
+	 * andernfalls: false
+	 */
 	private boolean isArtikelImWarenkorbVorhanden(int piBenutzerID, int piArtikelID){
 		int benutzerID = piBenutzerID;
 		int artikel_ID = piArtikelID;
@@ -839,13 +1009,14 @@ public class QueryManager {
 	/**
 	 * <pre>
 	 * <h3>Beschreibung:</h3>
-	 * Die Menge des Artikels im Warenkorb wird verèˆ…dert.
-	 * 
+	 * Die Menge des Artikels im Warenkorb wird verändert.
 	 * </pre>
+	 * 
 	 * @param piMenge
 	 * @param piArtikelnummer
 	 * @param piEmailAdresse
-	 * @return true or false
+	 * @return true, wenn die Änderung erfolgreich war;
+	 * andernfalls: false
 	 */
 	public boolean modifyWarenkorbArtikelMenge(int piMenge, int piArtikelnummer, String piEmailAdresse){
 		String emailadresse = piEmailAdresse;
@@ -885,19 +1056,18 @@ public class QueryManager {
 		return true;
 	}
 	
-	
-	
 	/**
 	 * <pre>
 	 * <h3>Beschreibung:</h3>
-	 * Die Menge des Artikels im Warenkorb wird erhî’�t.
-	 * 
-	 * Wenn piMenge gleich -1 ist wird die Menge automatisch um 1 erhî’�t.
+	 * Die Menge des Artikels im Warenkorb wird erhöht.
+	 * Wenn piMenge gleich -1 ist wird die Menge automatisch um 1 erhöht.
 	 * </pre>
+	 * 
 	 * @param piMenge
 	 * @param piArtikelnummer
 	 * @param piEmailAdresse
-	 * @return true or false
+	 * @return true, wenn die Änderung erfolgreich war;
+	 * andernfalls: false
 	 */
 	private boolean warenkorbArtikelMengeErhoehen(int piMenge, int piArtikelnummer, String piEmailAdresse){
 		String emailadresse = piEmailAdresse;
@@ -953,7 +1123,15 @@ public class QueryManager {
 		return true;
 	}
 	
-	
+	/**
+	 * <pre>
+	 * <h3>Beschreibung:</h3>
+	 * Die Methode liefert alle Bestellungen eines Benutzers
+	 * </pre>
+	 * 
+	 * @param piBenutzer Benutzer
+	 * @return bestellungListe
+	 */
 	public List<Bestellung> selectAllBestellungenByBenutzer(Benutzer piBenutzer){
 		Benutzer benutzer = piBenutzer;
 		List<Bestellung> bestellungListe = new ArrayList<Bestellung>();;

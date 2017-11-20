@@ -8,12 +8,19 @@ public enum ENUM_ARTIKELKATEGORIE {
 	NULL(""),
 	BEKLEIDUNG("Bekleidung"),
 		KOPF("Helme, M&uuml;tzen, Kappen"),
-		JACKEN("Jacken"),
-		HOSEN("Hosen"),
-		SCHUHE("Schuhe"),
-		ZUBEHOER("Zubeh&ouml;r"),
+		OBERKOERPER("Jacken"),
+		BEINE("Hosen"),
+		FUESSE("Schuhe"),
+		// SONSTIGES
+	SICHERHEIT("Sicherheit"),
+		ABSPERRUNG("Absperrung"),
+		// SONSTIGES
 	WERKZEUG("Werkzeug"),
-		ABRISS("Abriss");
+		MASCHINEN("Maschinen"),
+		HANDWERKZEUG("Handwerkzeug"),
+		// SONSTIGES
+		
+		SONSTIGES("Sonstiges");
 	
 	
 	private final String name;
@@ -31,6 +38,7 @@ public enum ENUM_ARTIKELKATEGORIE {
 		List<ENUM_ARTIKELKATEGORIE> list = new ArrayList<ENUM_ARTIKELKATEGORIE>();
 		
 		list.add(BEKLEIDUNG);
+		list.add(SICHERHEIT);
 		list.add(WERKZEUG);
 		
 		return list;
@@ -46,11 +54,13 @@ public enum ENUM_ARTIKELKATEGORIE {
 		List<ENUM_ARTIKELKATEGORIE> list = new ArrayList<ENUM_ARTIKELKATEGORIE>();
 
 		list.add(KOPF);
-		list.add(JACKEN);
-		list.add(HOSEN);
-		list.add(SCHUHE);
-		list.add(ZUBEHOER);
-		list.add(ABRISS);
+		list.add(OBERKOERPER);
+		list.add(BEINE);
+		list.add(FUESSE);
+		list.add(ABSPERRUNG);
+		list.add(MASCHINEN);
+		list.add(HANDWERKZEUG);
+		list.add(SONSTIGES);
 
 		return list;
 	}
@@ -61,18 +71,23 @@ public enum ENUM_ARTIKELKATEGORIE {
 		switch (kategorie1) {
 			case BEKLEIDUNG:
 				list.add(KOPF);
-				list.add(JACKEN);
-				list.add(HOSEN);
-				list.add(SCHUHE);
-				list.add(ZUBEHOER);
+				list.add(OBERKOERPER);
+				list.add(BEINE);
+				list.add(FUESSE);
+				list.add(SONSTIGES);
+				break;
+			case SICHERHEIT:
+				list.add(ABSPERRUNG);
+				list.add(SONSTIGES);
 				break;
 			case WERKZEUG:
-				list.add(ABRISS);
+				list.add(MASCHINEN);
+				list.add(HANDWERKZEUG);
+				list.add(SONSTIGES);
 				break;
 			default:
 				break;
 		}
-
 		return list;
 	}
 }

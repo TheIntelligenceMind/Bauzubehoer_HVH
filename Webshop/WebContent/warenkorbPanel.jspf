@@ -79,7 +79,15 @@ Diese Datei behandelt den Warenkorb, indem Artikel entfernt, Mengen angepasst od
 	        	%>
 	        </tbody>
 	      </table>
-      
+	    	<%
+	        	if(warenkorbartikelListe == null || warenkorbartikelListe.size() == 0){
+				%>
+					<div id="keineWarenkorbArtikelPanel">
+						<h3>Es befinden sich derzeit keine Artikel im Warenkorb.</h3>
+					</div>
+				<%
+	        	}
+	       	%>
 	      <table id="zusatzTabelle">
 	      	<colgroup>
 		       <col span="1" style="width: 24%;">
@@ -106,6 +114,12 @@ Diese Datei behandelt den Warenkorb, indem Artikel entfernt, Mengen angepasst od
 		</table>
   	</div>
 	<form action="meineBestellungen">
-  		<button id="btnBestellen" type="submit" name="method" value="bestellungErfassenS1Anzeigen">Bestellen</button>
+		<% 
+			if(warenkorbartikelListe == null || warenkorbartikelListe.size() == 0){
+				out.print("<button id='btnBestellenDisabled' disabled>Bestellen</button>");
+			}else{
+				out.print("<button id='btnBestellen' type='submit' name='method' value='bestellungErfassenS1Anzeigen'>Bestellen</button>");
+			}
+		%>	
   	</form>
 </div>

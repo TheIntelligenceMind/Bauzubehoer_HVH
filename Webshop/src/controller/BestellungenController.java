@@ -1,7 +1,11 @@
 package controller;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.util.Date;
+import java.util.List;
 
+import javax.print.attribute.standard.DateTimeAtCompleted;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,10 +15,16 @@ import javax.servlet.http.HttpServletResponse;
 
 import db.QueryManager;
 import entity.Adresse;
+import entity.Artikel;
 import entity.Benutzer;
+import entity.Bestellung;
+import entity.WarenkorbArtikel;
+import enums.ENUM_BESTELLSTATUS;
 import enums.ENUM_MELDUNG_ART;
 import enums.ENUM_RESPONSE_STATUS;
+import enums.ENUM_ZAHLUNGSART;
 import helper.AdressenHelper;
+import helper.MailHelper;
 /**
  * <pre>
  * <h3>Beschreibung:</h3> Die Klasse ist für den Themenbereich Bestellungen zuständig. 
@@ -26,6 +36,7 @@ import helper.AdressenHelper;
 public class BestellungenController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private final static QueryManager queryManager = QueryManager.getInstance();
+	private final static MailHelper mailHelper = MailHelper.getInstance();
 	private String dispatchSite = "index.jsp";
 
     @Override
@@ -130,14 +141,51 @@ public class BestellungenController extends HttpServlet {
     	}
     }
     
-	private boolean bestellungS2Validieren(HttpServletRequest req, HttpServletResponse resp){
-		return false; 	
+	private void bestellungS2Validieren(HttpServletRequest req, HttpServletResponse resp){
+		
 	}
 	
-	private boolean bestellungAbschliessen(HttpServletRequest req, HttpServletResponse resp){
+	private void bestellungAbschliessen(HttpServletRequest req, HttpServletResponse resp){
 		
-		//Mail Versand
+		double bestellwert = 0.0;
 		
-		return false;
+		List<WarenkorbArtikel> bestellartikelliste = (List<WarenkorbArtikel>)req.getSession().getAttribute("warenkorbartikelliste");
+		
+		for(WarenkorbArtikel artikel : bestellartikelliste){
+			bestellwert += (artikel.getArtikel().getPreis() * artikel.getMenge());
+		}
+		
+		Benutzer benutzer = (Benutzer)req.getSession().getAttribute("benutzer");
+		Bestellung bestellung = new Bestellung().init(4124, new Date(), ENUM_BESTELLSTATUS.NEU.toString(), ENUM_ZAHLUNGSART.RECHNUNG.toString(), new Date(), bestellwert , benutzer);
+		
+		bestellung = queryManager.createBestellung(bestellung);
+		
+		if(bestellung != null){
+			mailHelper.sendRechnungsmail(benutzer, bestellung, bestellartikelliste);
+	 		
+			dispatchSite = "/meineBestellungen?method=bestellungErfassenS4Anzeigen";
+		}else{
+			req.setAttribute("benutzer", benutzer);
+			
+			dispatchSite = "index.jsp";
+			resp.addHeader("contentSite", "bestellungAbschlussPanel");
+			
+			resp.addHeader("Status", ENUM_RESPONSE_STATUS.FEHLER.toString());
+			resp.addHeader(ENUM_MELDUNG_ART.FEHLERMELDUNG.toString(), "Es ist ein unerwarteter Fehler beim Abschliessen der Bestellung aufgetreten.");
+		}
+			
+	}
+	
+	/**
+	 * <h3>Beschreibung:</h3>
+	 * <pre>
+	 * Die Methode liefert den aktuellen Zeitstempel
+	 * </pre>
+	 * 
+	 * @return Timestamp
+	 */	
+	public Timestamp getCurrentTimestamp(){
+    	Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+    	return timestamp;
 	}
 }

@@ -2,6 +2,12 @@ package helper;
 
 import entity.Adresse;
 
+/**
+ * <pre>
+ * <h3>Beschreibung:</h3> Die Klasse ist für die Validierung von Adressdaten zuständig. 
+ * </pre>
+ *  @author Tim Hermbecker
+ */
 public class AdressenHelper {
 	private static final AdressenHelper instance = new AdressenHelper();
 	
