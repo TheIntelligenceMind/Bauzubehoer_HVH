@@ -441,10 +441,13 @@ public class QueryManager {
 	 * @return true, wenn die Anlage des Datensatzes erfolgreich 
 	 * war; andernfalls: false
 	 */
-	public boolean createBestellung(Bestellung piBestellung){
+	public Bestellung createBestellung(Bestellung piBestellung){
+		Bestellung bestellung = null;
 		
+		// Bitte nach erstellung der BEstellung die Bestellung nocheinmal in der Tabelle selecten und mir zurückgeben. 
+		// Da ich die generierten Timestamps und Bestellnummer benötige
 		
-		return true;
+		return bestellung;
 	}
 	
 	/**

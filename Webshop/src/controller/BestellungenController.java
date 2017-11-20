@@ -141,8 +141,8 @@ public class BestellungenController extends HttpServlet {
     	}
     }
     
-	private boolean bestellungS2Validieren(HttpServletRequest req, HttpServletResponse resp){
-		return false; 	
+	private void bestellungS2Validieren(HttpServletRequest req, HttpServletResponse resp){
+		
 	}
 	
 	private void bestellungAbschliessen(HttpServletRequest req, HttpServletResponse resp){
@@ -158,9 +158,22 @@ public class BestellungenController extends HttpServlet {
 		Benutzer benutzer = (Benutzer)req.getSession().getAttribute("benutzer");
 		Bestellung bestellung = new Bestellung().init(4124, new Date(), ENUM_BESTELLSTATUS.NEU.toString(), ENUM_ZAHLUNGSART.RECHNUNG.toString(), new Date(), bestellwert , benutzer);
 		
-		mailHelper.sendRechnungsmail(benutzer, bestellung, bestellartikelliste);
- 		
-		dispatchSite = "/meineBestellungen?method=bestellungErfassenS4Anzeigen";		
+		bestellung = queryManager.createBestellung(bestellung);
+		
+		if(bestellung != null){
+			mailHelper.sendRechnungsmail(benutzer, bestellung, bestellartikelliste);
+	 		
+			dispatchSite = "/meineBestellungen?method=bestellungErfassenS4Anzeigen";
+		}else{
+			req.setAttribute("benutzer", benutzer);
+			
+			dispatchSite = "index.jsp";
+			resp.addHeader("contentSite", "bestellungAbschlussPanel");
+			
+			resp.addHeader("Status", ENUM_RESPONSE_STATUS.FEHLER.toString());
+			resp.addHeader(ENUM_MELDUNG_ART.FEHLERMELDUNG.toString(), "Es ist ein unerwarteter Fehler beim Abschliessen der Bestellung aufgetreten.");
+		}
+			
 	}
 	
 	/**
