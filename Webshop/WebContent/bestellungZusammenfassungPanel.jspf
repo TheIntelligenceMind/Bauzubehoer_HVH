@@ -9,14 +9,18 @@ Diese Datei behandelt die Zusammenfassung der Bestellung.
  -->
 
 <div class="showing"  id="bestellungZusammenfassungPanel">
-
-	<div id="divZahlungsart">
-	
+	<div class="bestellvorgangUebersichtPanel">
+		<ul>
+			<li class="activeBestellschritt">Lieferadresse eingeben</li>
+			<li class="activeArrowBestellschritt"><i class="fa fa-arrow-right"></i></li>
+			<li class="activeBestellschritt">Zahlungsart ausw&auml;hlen</li>
+			<li class="activeArrowBestellschritt"><i class="fa fa-arrow-right"></i></li>
+			<li class="activeBestellschritt">Zusammenfassung und Best&auml;tigung</li>
+		</ul>
 	</div>
-	<div id="divLieferadresse">
 	
-	</div>
-	<div id="divArtikelTabelle">
+	<h2 class="ueberschriftBestellschritt">Zusammenfassung und Best&auml;tigung</h2>
+	<div class="bestellArtikelTabellenPanel">
 		<table id="artikelTabelle">
 	        <colgroup>
 		       <col span="1" style="width: 8%;">
@@ -54,10 +58,12 @@ Diese Datei behandelt die Zusammenfassung der Bestellung.
 	        </tbody>
       	</table>
  	</div>
- 	<form action="meineBestellungen">
-  		<button class="btnLeft btnStandardKlein" type="submit" name="method" value="bestellungErfassenS2Anzeigen"><i class="fa fa-arrow-left"></i> Zur&uuml;ck</button>
-	</form>
- 	<form action="meineBestellungen">
-  		<button class="btnRight btnBestellungKaufen" type="submit" name="method" value="bestellungErfassenS4Anzeigen"><i class="fa fa-shopping-basket"></i> Jetzt Kaufen</button>
-  	</form>
+ 	<div class="buttonPanel">
+	 	<form action="meineBestellungen">
+	  		<button class="btnLeft btnStandardKlein" type="submit" name="method" value="bestellungErfassenS2Anzeigen"><i class="fa fa-arrow-left"></i> Zur&uuml;ck</button>
+		</form>
+	 	<form action="meineBestellungen">
+	  		<button class="btnRight btnBestellungKaufen" type="submit" name="method" value="bestellungErfassenS3Bestaetigt"><i class="fa fa-shopping-basket"></i> Jetzt Kaufen</button>
+	  	</form>
+	</div>
 </div> 

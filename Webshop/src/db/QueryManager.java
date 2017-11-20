@@ -158,6 +158,46 @@ public class QueryManager {
 	/**
 	 * <h3>Beschreibung:</h3>
 	 * <pre>
+	 * Die Methode löscht den Datensatz für einen Benutzer.
+	 * </pre>
+	 * 
+	 * @param piEMailAdresse String
+	 * @return true, wenn die Löschung erfolgreich war;
+	 * andernfalls: false
+	 */
+	public boolean deleteBenutzer(String piEmailadresse){		
+		String emailadresse = piEmailadresse;
+		int benutzerID;
+		int result = 0;
+		
+		try {
+			benutzerID = getBenutzerIDbyEmailadresse(emailadresse);
+			
+			if(benutzerID == -1){
+				return false;
+			}
+			
+			String sql = "DELETE FROM "+ ENUM_DB_TABELLE.BENUTZER.toString() +" WHERE ID = ?";
+		
+			PreparedStatement stmt = getConnection().prepareStatement(sql);
+			stmt.setInt(1, benutzerID);
+			
+			result = stmt.executeUpdate();
+			
+			if(result != 0){
+				return true;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
+
+	/**
+	 * <h3>Beschreibung:</h3>
+	 * <pre>
 	 * Die Methode erstellt zu einem vorhandenen Benutzer
 	 * den dazugehörigen Adress-Datensatz.
 	 * </pre>
@@ -383,46 +423,6 @@ public class QueryManager {
 			stmt.setString(4, DBUSER);
 			stmt.setString(5, sdf.format(getCurrentTimestamp()));
 			stmt.setString(6, benutzer.getEmailadresse());
-			
-			result = stmt.executeUpdate();
-			
-			if(result != 0){
-				return true;
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		return false;
-	}
-	
-	/**
-	 * <h3>Beschreibung:</h3>
-	 * <pre>
-	 * Die Methode löscht den Datensatz für einen Benutzer.
-	 * </pre>
-	 * 
-	 * @param piEMailAdresse String
-	 * @return true, wenn die Löschung erfolgreich war;
-	 * andernfalls: false
-	 */
-	public boolean deleteBenutzer(String piEmailadresse){		
-		String emailadresse = piEmailadresse;
-		int benutzerID;
-		int result = 0;
-		
-		try {
-			benutzerID = getBenutzerIDbyEmailadresse(emailadresse);
-			
-			if(benutzerID == -1){
-				return false;
-			}
-			
-			String sql = "DELETE FROM "+ ENUM_DB_TABELLE.BENUTZER.toString() +" WHERE ID = ?";
-		
-			PreparedStatement stmt = getConnection().prepareStatement(sql);
-			stmt.setInt(1, benutzerID);
 			
 			result = stmt.executeUpdate();
 			

@@ -1188,6 +1188,18 @@ table#zusatzTabelle tbody td{
 	background-color: #BF4D17;
 	border-radius: 5px;
 }
+#btnBestellenDisabled{
+	margin-top: 40px;
+	margin-bottom: 30px;
+	width: 46%;
+	position: relative;
+	height: 45px;
+	font-size: 20px;
+	border-style: none;
+	color: white;
+	background-color: #efa27c;
+	border-radius: 5px;
+}
 #btnBestellen:hover{
 	cursor:pointer;
 	background-color: #9b4013;
@@ -1208,6 +1220,14 @@ table#zusatzTabelle tbody td{
 	height: 35px;
 	font-size: 20px;
 	}
+}
+
+#keineWarenkorbArtikelPanel{
+	width: 100%;
+	text-align: center;
+	height: 100px;
+	padding-top: 50px;
+	margin: 0;
 }
 /* -------------- Panel für den Warenkorb  ------------------- */
 
@@ -1609,11 +1629,63 @@ table#zusatzTabelle tbody td{
 
 
 
+/* -----------------  Bestellvorgangpanel allgemein ----------------------*/
+
+.bestellvorgangUebersichtPanel{
+	height: 70px;
+	width: 100%;
+	line-height: 70px;
+	text-align:center;
+	border-bottom: 1px solid gray;
+}
+.bestellvorgangUebersichtPanel ul{
+	display: inline;
+	margin: 0;
+	padding: 0;
+}
+.bestellvorgangUebersichtPanel ul li{
+	list-style-type: none;
+	display: inline;
+	padding: 5px;
+	color: #939393;
+	border: 1px solid #939393;
+	border-radius: 5px;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+.bestellvorgangUebersichtPanel .arrowBestellschritt{
+	color: #939393;
+	width: 20px;
+	border: none;
+}
+.bestellvorgangUebersichtPanel .activeArrowBestellschritt{
+	color: #BF4D17;
+	width: 20px;
+	border: none;
+}
+.bestellvorgangUebersichtPanel .activeBestellschritt{
+	color: #BF4D17;
+	border-color: #BF4D17;
+}
+
+.ueberschriftBestellschritt{
+	margin:0;
+	padding: 0;
+	height: 60px;
+	line-height: 60px;
+	margin-bottom: 40px;
+}
+
+/* -----------------  Bestellvorgangpanel allgemein ----------------------*/
+
+
+
+
 /* ------------- Panel für die Bestellung: Lieferadresse eingeben ------------------- */
 #bestellungLieferadressePanel{
 	margin: 50px auto;
 	width: 800px;
-	height: 300px;
+	height: 450px;
 	text-align: center;
 	opacity: 0.9;
 	background-color: white;
@@ -1622,19 +1694,11 @@ table#zusatzTabelle tbody td{
 	-moz-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
 	box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
 }
-#bestellungLieferadressePanel h1{
-	margin:0;
-	padding: 0;
-	padding-top: 20px;
-	padding-bottom: 20px;
-}
 #bestellungLieferadressePanel form{
 	text-align: center;
 }
-#bestellungBenutzer
-{
+#bestellungBenutzer{
 	margin: auto;
-	margin-top: 5px;
 	text-align: center;
 }
 #bestellungLieferadresseStrasse
@@ -1643,15 +1707,16 @@ table#zusatzTabelle tbody td{
 	margin-top: 5px;
 	text-align: center;
 }
-#bestellungLieferadresseOrt
-{
+#bestellungLieferadresseOrt{
 	margin: auto;
 	margin-top: 5px;
 	text-align: center;
 }
-@media (max-width: 1200px)
-{
-	
+#bestellungLieferadressePanel .adressfelderPanel{
+	height: 230px;
+}
+#bestellungLieferadressePanel .buttonPanel{
+	height: 50px;
 }
 /* ------------- Panel für die Bestellung: Lieferadresse eingeben ------------------- */
 
@@ -1662,7 +1727,7 @@ table#zusatzTabelle tbody td{
 #bestellungZahlungsartPanel{
 	margin: 50px auto;
 	width: 800px;
-	height: 500px;
+	height: 450px;
 	text-align: center;
 	opacity: 0.9;
 	background-color: white;
@@ -1671,34 +1736,24 @@ table#zusatzTabelle tbody td{
 	-moz-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
 	box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
 }
-#bestellungZahlungsartPanel h1{
-	margin:0;
-	padding: 0;
-	padding-top: 20px;
-	padding-bottom: 20px;
-}
 #bestellungZahlungsartPanel form{
 	text-align: center;
 }
-#zahlungsarten input
-{
+#bestellungZahlungsartPanel .zahlungsartPanel input{
 	width: 10%;
 	float: left;
 }
-#zahlungarten label
-{
+#bestellungZahlungsartPanel .zahlungsartPanel label{
 	width: 30%;
 	float: left;
 }
-#zahlungsarten
-{
-	height: 300px;
+#bestellungZahlungsartPanel .zahlungsartPanel{
+	height: 230px;
 	width: 100%;
-	float:left;
+	float: left;
 }
-@media (max-width: 1200px)
-{
-	
+#bestellungZahlungsartPanel .buttonPanel{
+	height: 50px;
 }
 /* ------------- Panel für die Bestellung: Auswählen von Zahlungsarten ------------------- */
 
@@ -1709,7 +1764,7 @@ table#zusatzTabelle tbody td{
 #bestellungZusammenfassungPanel{
 	margin: 50px auto;
 	width: 800px;
-	height: 500px;
+	height: 450px;
 	text-align: center;
 	opacity: 0.9;
 	background-color: white;
@@ -1717,12 +1772,6 @@ table#zusatzTabelle tbody td{
   	-webkit-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
 	-moz-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
 	box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
-}
-#bestellungZusammenfassungPanel h1{
-	margin:0;
-	padding: 0;
-	padding-top: 20px;
-	padding-bottom: 20px;
 }
 #bestellungZusammenfassungPanel form{
 	text-align: center;
@@ -1745,10 +1794,11 @@ table#zusatzTabelle tbody td{
 	cursor:pointer;
 	background-color: #9b4013;
 }
-
-@media (max-width: 1200px)
-{
-	
+#bestellungZusammenfassungPanel .bestellArtikelTabellenPanel{
+	height: 230px;
+}
+#bestellungZusammenfassungPanel .buttonPanel{
+	height: 50px;
 }
 /* ------------- Panel für die Bestellung: Zusammenfassung ------------------- */
 
@@ -1784,10 +1834,6 @@ table#zusatzTabelle tbody td{
 	text-align: center;
 }
 
-@media (max-width: 1200px)
-{
-	
-}
 /* ------------- Panel für die Bestellung: Abschluss ------------------- */
 
 
