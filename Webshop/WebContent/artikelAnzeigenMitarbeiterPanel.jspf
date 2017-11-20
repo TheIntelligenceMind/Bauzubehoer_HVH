@@ -39,17 +39,26 @@ function artikelBearbeitenAnzeigen(piArtikelNummer){
         <tbody>
         	<%
 	        	List<?> artikelListeMitarbeiter  = (List<?>)request.getAttribute("artikelListeMitarbeiter");
-
+				String artikelAktivSymbol;
+				
 	        	for(Object o : artikelListeMitarbeiter){	
 	        		Artikel art = (Artikel)o;
 
+	        		if(art.getAktiv() == 1)
+	        		{
+	        			artikelAktivSymbol = "<i class='fa fa-check' aria-hidden='true'></i>";
+	        		}
+	        		else
+	        		{
+	        			artikelAktivSymbol = "<i class='fa fa-times' aria-hidden='true'></i>";
+	        		}
 	        		out.println("<tr>" +
 	        		"<td class='tablecell'><div>" + art.getLagermenge() + "</div></td>" +
 	        		"<td class='tablecell'><div>" + String.format("%04d", art.getNummer()) + "</div></td>" +
 	        		"<td class='tablecell'><div>" + art.getBezeichnung() + "</div></td>" +
 	        		"<td class='tablecell'><div>" + art.getBeschreibung() + "</div></td>" +
 	        		"<td class='tablecell'><div>" + formater.format(art.getPreis()) +  "</div></td>" +
-	        		"<td class='tablecell'><div>" + art.getAktiv() + "</div></td>" +
+	        		"<td class='tablecell'><div>" + artikelAktivSymbol + "</div></td>" +
 	        		"<td class='tablecellright'>" + "<a onclick='artikelBearbeitenAnzeigen(" + art.getNummer() + ")' class='PickSymbol'><i class='fa fa-pencil-square-o'></i></a>" + "</div></td>" +
 	        		"</tr>");
 		        }

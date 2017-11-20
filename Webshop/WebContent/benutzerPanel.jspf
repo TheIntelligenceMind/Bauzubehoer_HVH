@@ -80,7 +80,7 @@ function warenkorbAnzeigen(){
 						break;
 					case KONTO:
 						%>
-							<li><i class="fa fa-user"></i><a onclick="meinKontoAnzeigen()"> Mein Konto</a></li>
+							<li><i class="fa fa-user"></i><a onclick="meinKontoAnzeigen()"> Mein Konto (<% out.print(benutzer.getRolle().getBezeichnung()); %>)</a></li>
 						<%
 						break;
 					case ARTIKELSTAMMDATEN:
