@@ -52,9 +52,9 @@ function kontoLoeschen(){
             <input type="radio" name="tabreiter-0" id="tabreiter-0-1" /><label for="tabreiter-0-1">Adresse</label>
             <div>
             <form action="meinKonto" method="post">
-	            <input title="Strasse" class="inputField" type="text" name="meinKontoStrasse" placeholder="Straße" id="Strasse" value="<% out.print(adresse.getStrasse()); %>">
-	            <input title="Hausnummer" class="inputField" type="text" name="meinKontoHausnummer" placeholder="Hausnummer" id="Hausnummer" value="<% out.print(adresse.getHausnummer()); %>">
-				<input title="Postleitzahl" class="inputField" type="text" name="meinKontoPostleitzahl" placeholder="PLZ" value="<% out.print(adresse.getPostleitzahl()); %>">
+	            <input title="Strasse" class="inputField" type="text" name="strasse" placeholder="Straße" id="meinKontoStrasse" value="<% out.print(adresse.getStrasse()); %>">
+	            <input title="Hausnummer" class="inputField" type="text" name="hausnummer" placeholder="Hausnummer" id="meinKontoHausnummer" value="<% out.print(adresse.getHausnummer()); %>">
+				<input title="Postleitzahl" class="inputField" type="text" name="postleitzahl" placeholder="PLZ" value="<% out.print(adresse.getPostleitzahl()); %>">
 				<input title="Ort" class="inputField" type="text" name="meinKontoOrt" placeholder="Ort" value="<% out.print(adresse.getOrt()); %>">
 				<button class="btnAdresseSpeichern" type="submit" name="method" value="adresseSpeichern">Speichern</button>
 			</form>	
