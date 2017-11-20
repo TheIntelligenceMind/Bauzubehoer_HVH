@@ -316,13 +316,6 @@ public class QueryManager {
 		return false;
 	}
 
-	
-	public boolean deleteAdresse(int id){
-		
-		
-		return true;
-	}
-	
 	/**
 	 * <h3>Beschreibung:</h3>
 	 * <pre>
@@ -628,47 +621,7 @@ public class QueryManager {
 		
 		return false;
 	}
-	
-	/**
-	 * <h3>Beschreibung:</h3>
-	 * <pre>
-	 * Die Methode löscht den Datensatz eines Artikels.
-	 * </pre>
-	 * 
-	 * @param piNummer int
-	 * @return true, wenn die Löschung erfolgreich war;
-	 * andernfalls: false
-	 */
-	public boolean deleteArtikel(int piNummer){
-		int nummer = piNummer;
-		int artikelID;
-		int result = 0;
 		
-		try {
-			artikelID = getArtikelIDbyNummer(nummer);
-			
-			if(artikelID == -1){
-				return false;
-			}
-			
-			String sql = "DELETE FROM "+ ENUM_DB_TABELLE.ARTIKEL.toString() +" WHERE ID = ?";
-		
-			PreparedStatement stmt = getConnection().prepareStatement(sql);
-			stmt.setInt(1, artikelID);
-			
-			result = stmt.executeUpdate();
-			
-			if(result != 0){
-				return true;
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		return false;
-	}
-	
 	/**
 	 * <h3>Beschreibung: </h3>
 	 * <pre>
