@@ -31,6 +31,12 @@ Diese Datei behandelt den Warenkorb, indem Artikel entfernt, Mengen angepasst od
 			}); 
 		}	
 	}
+	
+	function artikelDetailansichtOeffnen(artikelnummer){
+		$(document).ready(function() {	      	               
+	          window.location.href = "suchen?method=artikelDetailansichtAnzeigen&artikelnummer="+artikelnummer;  
+		});
+	}
 </script>
 
 <div class="showing" id="warenkorbPanel">
@@ -67,9 +73,9 @@ Diese Datei behandelt den Warenkorb, indem Artikel entfernt, Mengen angepasst od
 			        		
 			        		out.println("<tr>" +
 			        		"<td class='tablecell'><input style='font-size:14px; width:20px; border:none;' type='text' onchange='updateQuantity(this," + warenkorbartikel.getArtikel().getNummer() + ")' name='menge' value='" + String.valueOf(warenkorbartikel.getMenge()) + "'></td>" +
-			        		"<td class='tablecell'>" + String.format("%04d", warenkorbartikel.getArtikel().getNummer()) + "</td>" +
-			        		"<td class='tablecell'>" + warenkorbartikel.getArtikel().getBezeichnung() + "</td>" +
-			        		"<td class='tablecell'>" + formater.format(warenkorbartikel.getArtikel().getPreis()*warenkorbartikel.getMenge()) +" &euro;</td>" +
+			        		"<td onclick='artikelDetailansichtOeffnen(" + warenkorbartikel.getArtikel().getNummer() + ")' class='tablecell'>" + String.format("%04d", warenkorbartikel.getArtikel().getNummer()) + "</td>" +
+			        		"<td onclick='artikelDetailansichtOeffnen(" + warenkorbartikel.getArtikel().getNummer() + ")' class='tablecell'>" + warenkorbartikel.getArtikel().getBezeichnung() + "</td>" +
+			        		"<td onclick='artikelDetailansichtOeffnen(" + warenkorbartikel.getArtikel().getNummer() + ")' class='tablecell'>" + formater.format(warenkorbartikel.getArtikel().getPreis()*warenkorbartikel.getMenge()) +" &euro;</td>" +
 			        		"<td class='rightcell'>" + "<a class='trashSymbol' onclick='deleteRow(this)'><i class='fa fa-trash-o'></i></a>" + "</td>" +
 			        		"</tr>");
 			        		gesamt = gesamt + (warenkorbartikel.getArtikel().getPreis() * warenkorbartikel.getMenge());

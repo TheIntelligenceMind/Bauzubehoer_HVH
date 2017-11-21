@@ -1145,9 +1145,9 @@ table#artikelTabelle .rightcell{
 table#artikelTabelle th{
 	border-bottom: 1px solid #BF4D17;
 }
-
 table#artikelTabelle tbody tr:hover{
 	background-color: #e0e0e0;
+	cursor: pointer;
 }
 .trashSymbol:hover{
 	cursor: pointer;
