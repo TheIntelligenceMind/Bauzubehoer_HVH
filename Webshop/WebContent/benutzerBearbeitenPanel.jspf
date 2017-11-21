@@ -35,7 +35,7 @@ function kontoLoeschen(){
 <div class="showing" id="benutzerkontoPanel">
 	<h1>Konto</h1>
 
-<div class="tabreiter">
+<div class="tabreiterB">
     <ul>
         <li>
             <input type="radio" name="tabreiter-0" checked="checked" id="tabreiter-0-0" /><label for="tabreiter-0-0">Benutzer</label>

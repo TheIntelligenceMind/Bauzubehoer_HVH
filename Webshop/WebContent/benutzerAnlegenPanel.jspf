@@ -10,10 +10,13 @@ Diese Datei behandelt das Anlegen von neuen Benutzern.
 		<input title="E-Mail-Adresse" class="inputField" type="text" name="benutzerAnlegenEmailadresse" placeholder="E-Mail-Adresse">
 		<input title="Vorname" class="inputField" type="text" name="benutzerAnlegenName" placeholder="Vorname">
 		<input title="Nachname" class="inputField" type="text" name="benutzerAnlegenNachname" placeholder="Nachname">
+		
 		<input title="Strasse" class="inputField" type="text" name="benutzerAnlegenStrasse" placeholder="Strasse">
 		<input title="Hausnummer" class="inputField" type="text" name="benutzerAnlegenHausnummer" placeholder="Hausnmmer">
+		
 		<input title="Ort" class="inputField" type="text" name="benutzerAnlegenOrt" placeholder="Ort">
 		<input title="PLZ" class="inputField" type="text" name="benutzerAnlegenPLZ" placeholder="PLZ">
+		
 		<input title="Hinweis: Das Passwort muss mindestens 6 Zeichen lang sein." class="inputField" type="password" name="benutzerAnlegenPasswort" placeholder="Passwort">
 		<input title="Passwort bestätigen" class="inputField" type="password" name="benutzerAnlegenPasswortBestaetigt" placeholder="Passwort bestätigen">
 		<button id="btnBenutzerAnlegen" type="submit" name="method" value="benutzerAnlegen">anlegen</button>
