@@ -64,14 +64,14 @@ public class ArtikelController extends HttpServlet {
 		
 		if(method != null){
 			switch(method){
-			case "artikellisteAnzeigen":
+			case "artikelstammdatenAnzeigen":
 				List<Artikel> artikelliste = null;
 				
 				artikelliste = queryManager.selectAllArtikel(false);
 
 				req.setAttribute("artikelListeMitarbeiter", artikelliste);
 						
-				resp.addHeader("contentSite", "artikelAnzeigenMitarbeiterPanel");	
+				resp.addHeader("contentSite", "artikelstammdatenPanel");	
 				break;
 			case "artikelAnlegenAnzeigen":
 				resp.addHeader("contentSite", "artikelAnlegenPanel");	

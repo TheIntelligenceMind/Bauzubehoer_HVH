@@ -19,26 +19,31 @@ Es werden je nach Zugriffsrichtlinien folgende Seiten angezeigt:
 
 
 <script type="text/javascript">
-function artikelListeMaAnzeigen(){
-	$(document).ready(function() {	      	               
-          window.location.href = "artikel?method=artikellisteAnzeigen";  
-	}); 
-}
-function meinKontoAnzeigen(){
-	$(document).ready(function() {	      	               
-          window.location.href = "meinKonto?method=anzeigen";  
-	}); 
-}
-function meineBestellungenAnzeigen(){
-	$(document).ready(function() {	      	               
-          window.location.href = "meineBestellungen?method=bestellungenAnzeigen";  
-	}); 
-}
-function warenkorbAnzeigen(){
-	$(document).ready(function() {	      	               
-          window.location.href = "warenkorb?method=warenkorbAnzeigen";  
-	}); 
-}
+	function warenkorbAnzeigen(){
+		$(document).ready(function() {	      	               
+	          window.location.href = "warenkorb?method=warenkorbAnzeigen";  
+		}); 
+	}
+	function meineBestellungenAnzeigen(){
+		$(document).ready(function() {	      	               
+	          window.location.href = "meineBestellungen?method=bestellungenAnzeigen";  
+		}); 
+	}
+	function meinKontoAnzeigen(){
+		$(document).ready(function() {	      	               
+	          window.location.href = "meinKonto?method=anzeigen";  
+		}); 
+	}
+	function artikelstammdatenAnzeigen(){
+		$(document).ready(function() {	      	               
+	          window.location.href = "artikel?method=artikelstammdatenAnzeigen";  
+		}); 
+	}
+	function benutzerstammdatenAnzeigen(){
+		$(document).ready(function() {	      	               
+	          window.location.href = "benutzer?method=benutzerstammdatenAnzeigen";  
+		}); 
+	}
 </script>
 
 <%
@@ -94,7 +99,12 @@ function warenkorbAnzeigen(){
 						break;
 					case ARTIKELSTAMMDATEN:
 						%>
-							<li><i class="fa fa-database"></i><a onclick="artikelListeMaAnzeigen()"> Artikelstammdaten</a>
+							<li><i class="fa fa-database"></i><a onclick="artikelstammdatenAnzeigen()"> Artikelstammdaten</a>
+						<%
+						break;
+					case BENUTZERSTAMMDATEN:
+						%>
+							<li><i class="fa fa-address-card-o" aria-hidden="true"><a onclick="benutzerstammdatenAnzeigen()"> Benutzerstammdaten</a></i></li>
 						<%
 						break;
 					default:
@@ -104,7 +114,6 @@ function warenkorbAnzeigen(){
 			}			
 		}		
 	%>	
-	<li><i class="fa fa-address-card-o" aria-hidden="true"><a onclick="benutzerstammdatenAnzeigen()"> Benutzerstammdaten</a></i></li>
 	
 	</ul>	
 	<a href="abmelden" id="abmelden"><i class="fa fa-sign-out"></i> abmelden</a>
