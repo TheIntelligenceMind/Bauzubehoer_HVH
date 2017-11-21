@@ -36,7 +36,7 @@ Es werden je nach Zugriffsrichtlinien folgende Seiten angezeigt:
 	}
 	function artikelstammdatenAnzeigen(){
 		$(document).ready(function() {	      	               
-	          window.location.href = "artikel?method=artikellisteAnzeigen";  
+	          window.location.href = "artikel?method=artikelstammdatenAnzeigen";  
 		}); 
 	}
 	function benutzerstammdatenAnzeigen(){
