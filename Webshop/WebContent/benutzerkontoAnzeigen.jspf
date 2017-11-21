@@ -1,0 +1,70 @@
+<%@page import="entity.Benutzer"%>
+<%@page import="entity.Adresse"%>
+
+<!-- 
+Autor dieser Datei: Tim Hermbecker, Lukas Vechtel
+
+Diese Datei behandelt die Darstellung des Kontos des ausgewählten Benutzers aus dem Benutzerstammdaten.
+Hier kann der Admin die persönlichen Daten verändern.
+ -->
+
+
+
+
+<%
+	Benutzer benutzer = (Benutzer)request.getAttribute("benutzer");
+	Adresse adresse = benutzer.getLieferAdresse() ;
+
+	if(adresse == null){
+		adresse = new Adresse().init("", "", "", "", "");	
+	}
+%>
+
+<script type="text/javascript">
+function kontoLoeschen(){
+	var result = confirm("Sind Sie sicher, dass das Benutzerkonto gelöscht werden soll?");
+	
+	if(result){
+		$(document).ready(function() {
+           window.location.href = "benutzerkonto?method=loeschen";  
+		});
+	}
+}
+</script>
+
+<div class="showing" id="benutzerkontoPanel">
+	<h1>Konto</h1>
+
+<div class="tabreiter">
+    <ul>
+        <li>
+            <input type="radio" name="tabreiter-0" checked="checked" id="tabreiter-0-0" /><label for="tabreiter-0-0">Benutzer</label>
+            <div>
+		        <form action="meinKonto" method="post">
+					<input title="Vorname" class="inputField" type="text" name="benutzerkontoVorname" placeholder="Vorname"  value="<% out.print(benutzer.getVorname()); %>">
+					<input title="Nachname" class="inputField" type="text" name="benutzerkontoNachname" placeholder="Nachname" value="<% out.print(benutzer.getNachname()); %>">
+					<input title="E-Mail-Adresse" class="inputField" type="text" name="benutzerkontoEmailadresse" placeholder="eMail" value="<% out.print(benutzer.getEmailadresse()); %>" disabled>
+					<select id="rollenauswahl">
+					<option value="ggg"></option>			
+					</select>
+					<button class="btnBenutzerSpeichern" type="submit" name="method" value="benutzerSpeichern">Speichern</button>
+				</form>
+			</div>
+        </li>
+        <li>
+            <input type="radio" name="tabreiter-0" id="tabreiter-0-1" /><label for="tabreiter-0-1">Adresse</label>
+            <div>
+            <form action="meinKonto" method="post">
+	            <input title="Strasse" class="inputField" type="text" name="strasse" placeholder="Straße" id="benutzerkontoStrasse" value="<% out.print(adresse.getStrasse()); %>">
+	            <input title="Hausnummer" class="inputField" type="text" name="hausnummer" placeholder="Hausnummer" id="benutzerkontoHausnummer" value="<% out.print(adresse.getHausnummer()); %>">
+				<input title="Postleitzahl" class="inputField" type="text" name="postleitzahl" placeholder="PLZ" id="benutzerkontoPostleitzahl" value="<% out.print(adresse.getPostleitzahl()); %>">
+				<input title="Ort" class="inputField" type="text" name="ort" placeholder="Ort" id="benutzerkontoOrt" value="<% out.print(adresse.getOrt()); %>">
+				<button class="btnAdresseSpeichern" type="submit" name="method" value="adresseSpeichern">Speichern</button>
+			</form>	
+            </div>
+        </li>
+    </ul> 
+</div>
+	<button class="btnLoeschen" onclick="kontoLoeschen()">Konto L&ouml;schen</button>
+
+</div>
