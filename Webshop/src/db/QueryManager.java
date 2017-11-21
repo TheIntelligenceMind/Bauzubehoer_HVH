@@ -1185,9 +1185,9 @@ public class QueryManager {
 			
 			while(result.next()){
 				
-				Bestellung bestellung = new Bestellung().init(result.getInt("bestellnummer"), result.getDate("bestelldatum")
+				Bestellung bestellung = new Bestellung().init(result.getString("bestellnummer"), result.getDate("bestelldatum")
 					, result.getString("status"), result.getString("zahlungsart"), result.getDate("voraussichtliches_Lieferdatum"), 
-					result.getDouble("bestellwert"), benutzer);
+					result.getDouble("bestellwert"), result.getDouble("versandkosten"), benutzer);
 				
 				bestellungListe.add(bestellung);
 			}
