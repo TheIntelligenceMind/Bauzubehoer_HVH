@@ -16,19 +16,23 @@ Hier wurde das Suchfeld und das Logo implementiert.
 %>
 
 <script type="text/javascript">
-	function artikelSuchenNachKategorie(kategorie){
-		
-		$(document).ready(function() {	      	               
-	          window.location.href = "suchen";  
-		}); 	
-	}
-	
 	function artikelSuchenNachBegriff(){
 		$(document).ready(function() {	      	               
 	          window.location.href = "suchen";  
 		}); 	
 	}
 
+	function artikelSuchenNachKategorie1(kategorie){	
+		alert("hier");
+		$(document).ready(function() {	      	               
+	          window.location.href = "suchen?method=suchKategorie1&kategorie=" + kategorie;  
+		}); 	
+	}
+	function artikelSuchenNachKategorie2(kategorie1, kategorie2){	
+		$(document).ready(function() {	      	               
+	          window.location.href = "suchen?method=suchKategorie2&kategorie1=" + kategorie1 + "&kategorie2=" + kategorie2;  
+		}); 	
+	}
 </script>
 <div id="sitebar">
 	<div onclick="artikelSuchenNachBegriff()" id="header">
@@ -53,26 +57,26 @@ Hier wurde das Suchfeld und das Logo implementiert.
 
 	<div id="artikelKategoriePanel">
 		<ul>
-			<li class="kategorie1"><a onclick="artikelSuchenNachKategorie(Bekleidung)">Bekleidung</a>
+			<li class="kategorie1"><a href="suchen?method=suchKategorie1&kategorie=<% out.print(ENUM_ARTIKELKATEGORIE.BEKLEIDUNG); %>">Bekleidung</a>
 				<ul>
-					<li class="kategorie2"><a onclick="artikelSuchenNachKategorie(Kopf)">Kopf</a></li>
-					<li class="kategorie2" ><a onclick="artikelSuchenNachKategorie(Oberk&ouml;rper)">Oberk&ouml;rper</a></li>
-					<li class="kategorie2" ><a onclick="artikelSuchenNachKategorie(Beine)">Beine</a></li>
-					<li class="kategorie2" ><a onclick="artikelSuchenNachKategorie(F&uuml;sse)">F&uuml;sse</a></li>
-					<li class="kategorie2" ><a onclick="artikelSuchenNachKategorie(Sonstiges)">Sonstiges</a></li>
+					<li class="kategorie2" ><a href="suchen?method=suchKategorie2&kategorie1=<% out.print(ENUM_ARTIKELKATEGORIE.BEKLEIDUNG.toString()); %>&kategorie2=<% out.print(ENUM_ARTIKELKATEGORIE.KOPF.toString()); %>">Kopf</a></li>
+					<li class="kategorie2" ><a href="suchen?method=suchKategorie2&kategorie1=<% out.print(ENUM_ARTIKELKATEGORIE.BEKLEIDUNG.toString()); %>&kategorie2=<% out.print(ENUM_ARTIKELKATEGORIE.OBERKOERPER.toString()); %>">Oberk&ouml;rper</a></li>
+					<li class="kategorie2" ><a href="suchen?method=suchKategorie2&kategorie1=<% out.print(ENUM_ARTIKELKATEGORIE.BEKLEIDUNG.toString()); %>&kategorie2=<% out.print(ENUM_ARTIKELKATEGORIE.BEINE.toString()); %>">Beine</a></li>
+					<li class="kategorie2" ><a href="suchen?method=suchKategorie2&kategorie1=<% out.print(ENUM_ARTIKELKATEGORIE.BEKLEIDUNG.toString()); %>&kategorie2=<% out.print(ENUM_ARTIKELKATEGORIE.FUESSE.toString()); %>">F&uuml;sse</a></li>
+					<li class="kategorie2" ><a href="suchen?method=suchKategorie2&kategorie1=<% out.print(ENUM_ARTIKELKATEGORIE.BEKLEIDUNG.toString()); %>&kategorie2=<% out.print(ENUM_ARTIKELKATEGORIE.SONSTIGES.toString()); %>">Sonstiges</a></li>
 				</ul>
 			</li>
-			<li class="kategorie1"><a onclick="artikelSuchenNachKategorie(Werkzeug)">Werkzeug</a>
+			<li class="kategorie1"><a href="suchen?method=suchKategorie1&kategorie=<% out.print(ENUM_ARTIKELKATEGORIE.WERKZEUG.toString()); %>">Werkzeug</a>
 				<ul>
-					<li class="kategorie2"><a onclick="artikelSuchenNachKategorie(Maschinen)">Maschinen</a></li>
-					<li class="kategorie2"><a onclick="artikelSuchenNachKategorie(Handwerkzeug)">Handwerkzeug</a></li>
-					<li class="kategorie2"><a onclick="artikelSuchenNachKategorie(Sonstiges)">Sonstiges</a></li>
+					<li class="kategorie2"><a href="suchen?method=suchKategorie2&kategorie1=<% out.print(ENUM_ARTIKELKATEGORIE.WERKZEUG.toString()); %>&kategorie2=<% out.print(ENUM_ARTIKELKATEGORIE.MASCHINEN.toString()); %>">Maschinen</a></li>
+					<li class="kategorie2"><a href="suchen?method=suchKategorie2&kategorie1=<% out.print(ENUM_ARTIKELKATEGORIE.WERKZEUG.toString()); %>&kategorie2=<% out.print(ENUM_ARTIKELKATEGORIE.HANDWERKZEUG.toString()); %>">Handwerkzeug</a></li>
+					<li class="kategorie2"><a href="suchen?method=suchKategorie2&kategorie1=<% out.print(ENUM_ARTIKELKATEGORIE.WERKZEUG.toString()); %>&kategorie2=<% out.print(ENUM_ARTIKELKATEGORIE.SONSTIGES.toString()); %>">Sonstiges</a></li>
 				</ul>
 			</li>
-			<li class="kategorie1"><a onclick="artikelSuchenNachKategorie(Sicherheit)">Sicherheit</a>
+			<li class="kategorie1"><a href="suchen?method=suchKategorie1&kategorie=<% out.print(ENUM_ARTIKELKATEGORIE.SICHERHEIT.toString()); %>">Sicherheit</a>
 				<ul>
-					<li class="kategorie2"><a onclick="artikelSuchenNachKategorie(Absperrung)">Absperrung</a></li>
-					<li class="kategorie2"><a onclick="artikelSuchenNachKategorie(Sonstiges)">Sonstiges</a></li>
+					<li class="kategorie2"><a href="suchen?method=suchKategorie2&kategorie1=<% out.print(ENUM_ARTIKELKATEGORIE.SICHERHEIT.toString()); %>&kategorie2=<% out.print(ENUM_ARTIKELKATEGORIE.ABSPERRUNG.toString()); %>">Absperrung</a></li>
+					<li class="kategorie2"><a href="suchen?method=suchKategorie2&kategorie1=<% out.print(ENUM_ARTIKELKATEGORIE.SICHERHEIT.toString()); %>&kategorie2=<% out.print(ENUM_ARTIKELKATEGORIE.SONSTIGES.toString()); %>">Sonstiges</a></li>
 				</ul>
 			</li>
 		</ul>						

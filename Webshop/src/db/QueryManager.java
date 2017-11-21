@@ -670,18 +670,53 @@ public class QueryManager {
 	 * @param kategorie ENUM_ARTIKELKATEGORIE
 	 * @return artikelliste
 	 */
-	public List<Artikel> searchArtikelByKategorie(ENUM_ARTIKELKATEGORIE kategorie){
+	public List<Artikel> searchArtikelByKategorie1(ENUM_ARTIKELKATEGORIE kategorie){
 		List<Artikel> artikelliste = new ArrayList<Artikel>();
 		
 		ResultSet result = null;	
 		
 		try {			
-			String sql = "SELECT * FROM " + ENUM_DB_TABELLE.ARTIKEL.toString() + " WHERE (kategorie_1 like ? OR "
-					+ "kategorie_2 like ?) AND aktiv = 1";
+			String sql = "SELECT * FROM " + ENUM_DB_TABELLE.ARTIKEL.toString() + " WHERE kategorie_1 like ? AND aktiv = 1";
 			
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setString(1, kategorie.toString());
-			stmt.setString(2, kategorie.toString());
+
+			result = stmt.executeQuery();
+			
+			while(result.next()){
+				Artikel artikel = new Artikel().init(result.getString("bezeichnung"), result.getInt("nummer"), 
+						result.getString("beschreibung"), result.getDouble("preis"), result.getInt("lagermenge"), 
+						result.getString("kategorie_1"), result.getString("kategorie_2"), result.getInt("aktiv"));
+				artikelliste.add(artikel);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}	
+		
+		return artikelliste;
+	}
+	
+	/**
+	 * <h3>Beschreibung:</h3>
+	 * <pre>
+	 * Die Methode liefert alle Artikel einer Kategorie.
+	 * </pre>
+	 * 
+	 * @param kategorie ENUM_ARTIKELKATEGORIE
+	 * @return artikelliste
+	 */
+	public List<Artikel> searchArtikelByKategorie2(ENUM_ARTIKELKATEGORIE kategorie1, ENUM_ARTIKELKATEGORIE kategorie2){
+		List<Artikel> artikelliste = new ArrayList<Artikel>();
+		
+		ResultSet result = null;	
+		
+		try {			
+			String sql = "SELECT * FROM " + ENUM_DB_TABELLE.ARTIKEL.toString() + " WHERE kategorie_1 like ? AND kategorie_2 like ? AND aktiv = 1";
+			
+			PreparedStatement stmt = getConnection().prepareStatement(sql);
+			stmt.setString(1, kategorie1.toString());
+			stmt.setString(2, kategorie2.toString());
 
 			result = stmt.executeQuery();
 			
