@@ -62,97 +62,97 @@ public class ArtikelController extends HttpServlet {
     		
 		String method = req.getParameter("method");
 		
-		if(method != null){
-			switch(method){
-			case "artikelstammdatenAnzeigen":
-				List<Artikel> artikelliste = null;
-				
-				artikelliste = queryManager.selectAllArtikel(false);
+		if(method == null){
+			method = "";
+		}
+		
+		switch(method){
+		case "artikelstammdatenAnzeigen":
+			List<Artikel> artikelliste = null;
+			
+			artikelliste = queryManager.selectAllArtikel(false);
 
-				req.setAttribute("artikelListeMitarbeiter", artikelliste);
-						
-				resp.addHeader("contentSite", "artikelstammdatenPanel");	
-				break;
-			case "artikelAnlegenAnzeigen":
-				resp.addHeader("contentSite", "artikelAnlegenPanel");	
-				break;
-			case "artikelAnlegen":		
-				boolean result = false;
-				String fehlertext = null;
-				Artikel anlegenArtikel = null;
-				
-				int nummer = NumberUtils.toInt(req.getParameter("nummer"), 0);
-				String bezeichnung = req.getParameter("bezeichnung");
-				String beschreibung = req.getParameter("beschreibung");
-				double preis = NumberUtils.toDouble(req.getParameter("preis"), 0.00);
-				int lagermenge = NumberUtils.toInt(req.getParameter("lagermenge"), 0);
-				String kategorie_1 = req.getParameter("kategorie_1");
-				String kategorie_2 = req.getParameter("kategorie_2");
-				
-				anlegenArtikel = new Artikel().init(bezeichnung, nummer, beschreibung, preis, lagermenge, kategorie_1,
-						kategorie_2, 1);
-				
-				if((fehlertext = validateAttributes(req, true)) == null){	
-					result = QueryManager.getInstance().createArtikel(anlegenArtikel);
-				}
-						
-				if(result){
-					String hinweistext = "Der Artikel wurde erfolgreich angelegt.";
-					resp.addHeader("Status", ENUM_RESPONSE_STATUS.HINWEIS.toString());
-					resp.addHeader(ENUM_MELDUNG_ART.HINWEISMELDUNG.toString(), hinweistext);
-				}else{
-					String fehlermeldung = fehlertext.toString();	
-					resp.addHeader("Status", ENUM_RESPONSE_STATUS.FEHLER.toString());
-					resp.addHeader(ENUM_MELDUNG_ART.FEHLERMELDUNG.toString(), fehlermeldung);
-					req.setAttribute("anlegenArtikel", anlegenArtikel);
-				}
-						
-				resp.addHeader("contentSite", "artikelAnlegenPanel");
-				
-				break;
-			case "artikelBearbeitenAnzeigen":		
-				if(req.getParameter("artikelnummer") != null){	
-
-					int artikelnummer = Integer.valueOf(req.getParameter("artikelnummer"));
+			req.setAttribute("artikelListeMitarbeiter", artikelliste);
 					
-					artikel = queryManager.searchArtikelByNummer(artikelnummer);								
-				}else{
-					artikel = new Artikel();
-					artikel.init("", -1, "", -1, -1, "", "", -1);
-				}
-				
-				req.setAttribute("bearbeitenArtikel", artikel);
-				resp.addHeader("contentSite", "artikelBearbeitenPanel");
-				break;				
-			case "artikelBearbeiten":			
-				if(artikelSpeichern(req)){
-					updateWarenkorbArtikel(req);
-					
-					String hinweistext = "Die &Auml;nderungen wurden erfolgreich gespeichert.";
-					resp.addHeader("Status", ENUM_RESPONSE_STATUS.HINWEIS.toString());
-					resp.addHeader(ENUM_MELDUNG_ART.HINWEISMELDUNG.toString(), hinweistext);		
-				}else{
-					String fehlermeldung = "ung&uuml;ltige &Auml;nderungen.";
-					resp.addHeader("Status", ENUM_RESPONSE_STATUS.FEHLER.toString());
-					resp.addHeader(ENUM_MELDUNG_ART.FEHLERMELDUNG.toString(), fehlermeldung);
-				}
-				
-				if(req.getParameter("nummer") == null){
-					artikel = new Artikel();
-					artikel.init("", -1, "", -1, -1, "", "", -1);
-				}else{
-					artikel = queryManager.searchArtikelByNummer(Integer.valueOf(req.getParameter("nummer")));
-				}
-
-				req.setAttribute("bearbeitenArtikel", artikel);
-				resp.addHeader("contentSite", "artikelBearbeitenPanel");
-				break;	
-			default:
-				
-				break;		
+			resp.addHeader("contentSite", "artikelstammdatenPanel");	
+			break;
+		case "artikelAnlegenAnzeigen":
+			resp.addHeader("contentSite", "artikelAnlegenPanel");	
+			break;
+		case "artikelAnlegen":		
+			boolean result = false;
+			String fehlertext = null;
+			Artikel anlegenArtikel = null;
+			
+			int nummer = NumberUtils.toInt(req.getParameter("nummer"), 0);
+			String bezeichnung = req.getParameter("bezeichnung");
+			String beschreibung = req.getParameter("beschreibung");
+			double preis = NumberUtils.toDouble(req.getParameter("preis"), 0.00);
+			int lagermenge = NumberUtils.toInt(req.getParameter("lagermenge"), 0);
+			String kategorie_1 = req.getParameter("kategorie_1");
+			String kategorie_2 = req.getParameter("kategorie_2");
+			
+			anlegenArtikel = new Artikel().init(bezeichnung, nummer, beschreibung, preis, lagermenge, kategorie_1,
+					kategorie_2, 1);
+			
+			if((fehlertext = validateAttributes(req, true)) == null){	
+				result = QueryManager.getInstance().createArtikel(anlegenArtikel);
 			}
-		}else{
+					
+			if(result){
+				String hinweistext = "Der Artikel wurde erfolgreich angelegt.";
+				resp.addHeader("Status", ENUM_RESPONSE_STATUS.HINWEIS.toString());
+				resp.addHeader(ENUM_MELDUNG_ART.HINWEISMELDUNG.toString(), hinweistext);
+			}else{
+				String fehlermeldung = fehlertext.toString();	
+				resp.addHeader("Status", ENUM_RESPONSE_STATUS.FEHLER.toString());
+				resp.addHeader(ENUM_MELDUNG_ART.FEHLERMELDUNG.toString(), fehlermeldung);
+				req.setAttribute("anlegenArtikel", anlegenArtikel);
+			}
+					
+			resp.addHeader("contentSite", "artikelAnlegenPanel");
+			
+			break;
+		case "artikelBearbeitenAnzeigen":		
+			if(req.getParameter("artikelnummer") != null){	
+
+				int artikelnummer = Integer.valueOf(req.getParameter("artikelnummer"));
+				
+				artikel = queryManager.searchArtikelByNummer(artikelnummer);								
+			}else{
+				artikel = new Artikel();
+				artikel.init("", -1, "", -1, -1, "", "", -1);
+			}
+			
+			req.setAttribute("bearbeitenArtikel", artikel);
 			resp.addHeader("contentSite", "artikelBearbeitenPanel");
+			break;				
+		case "artikelBearbeiten":			
+			if(artikelSpeichern(req)){
+				updateWarenkorbArtikel(req);
+				
+				String hinweistext = "Die &Auml;nderungen wurden erfolgreich gespeichert.";
+				resp.addHeader("Status", ENUM_RESPONSE_STATUS.HINWEIS.toString());
+				resp.addHeader(ENUM_MELDUNG_ART.HINWEISMELDUNG.toString(), hinweistext);		
+			}else{
+				String fehlermeldung = "ung&uuml;ltige &Auml;nderungen.";
+				resp.addHeader("Status", ENUM_RESPONSE_STATUS.FEHLER.toString());
+				resp.addHeader(ENUM_MELDUNG_ART.FEHLERMELDUNG.toString(), fehlermeldung);
+			}
+			
+			if(req.getParameter("nummer") == null){
+				artikel = new Artikel();
+				artikel.init("", -1, "", -1, -1, "", "", -1);
+			}else{
+				artikel = queryManager.searchArtikelByNummer(Integer.valueOf(req.getParameter("nummer")));
+			}
+
+			req.setAttribute("bearbeitenArtikel", artikel);
+			resp.addHeader("contentSite", "artikelBearbeitenPanel");
+			break;	
+		default:
+			resp.addHeader("contentSite", "artikelstammdatenAnzeigen");
+			break;		
 		}
 
 		rd.forward(req, resp);		

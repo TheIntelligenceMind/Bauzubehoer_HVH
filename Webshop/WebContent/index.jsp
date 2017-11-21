@@ -172,6 +172,21 @@ Die Index-Datei wird für die Zusammenfuehrung der Haupt-Files benötigt.
 								<%@ include file="artikelDetailansichtPanel.jspf" %>
 							<%
 							break;
+						case "benutzerstammdatenPanel":
+							%>
+								<%@ include file="benutzerstammdatenPanel.jspf" %>
+							<%
+							break;
+						case "benutzerAnlegenPanel":
+							%>
+								<%@ include file="benutzerAnlegenPanel.jspf" %>
+							<%
+							break;
+						case "benutzerBearbeitenPanel":
+							%>
+								<%@ include file="benutzerBearbeitenPanel.jspf" %>
+							<%
+							break;
 						default:
 							%>
 								<%@ include file="artikelAnzeigenPanel.jspf" %> 
