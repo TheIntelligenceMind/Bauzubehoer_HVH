@@ -8,6 +8,11 @@ Autor dieser Datei: Tim Hermbecker, Lukas Vechtel
 Diese Datei behandelt die Zusammenfassung der Bestellung.
  -->
 
+
+<%
+		
+%>
+
 <div class="showing"  id="bestellungZusammenfassungPanel">
 	<div class="bestellvorgangUebersichtPanel">
 		<ul>
@@ -41,7 +46,10 @@ Diese Datei behandelt die Zusammenfassung der Bestellung.
 	        <tbody>
 	        	<%
 		        	List<?> warenkorbartikelListeB = (List<?>)session.getAttribute("warenkorbartikelliste");
-	
+		        	double gesamtBestellung = 0;
+		    		int versandkostenBestellung = 20;
+		    		double mwstBestellung = 0;	
+	        	
 		        	if(warenkorbartikelListeB != null){
 			        	for(Object o : warenkorbartikelListeB){
 			        		WarenkorbArtikel warenkorbartikel = (WarenkorbArtikel)o;
@@ -51,12 +59,38 @@ Diese Datei behandelt die Zusammenfassung der Bestellung.
 			        		"<td class='tablecell'>" + String.format("%04d", warenkorbartikel.getArtikel().getNummer()) + "</td>" +
 			        		"<td class='tablecell'>" + warenkorbartikel.getArtikel().getBezeichnung() + "</td>" +
 			        		"<td class='tablecell'>" + formater.format(warenkorbartikel.getArtikel().getPreis()*warenkorbartikel.getMenge()) +" &euro;</td>" +
-			        		"</tr>");	
+			        		"</tr>");
+			        		gesamtBestellung = gesamtBestellung + (warenkorbartikel.getArtikel().getPreis() * warenkorbartikel.getMenge());
+			        		mwstBestellung = mwstBestellung + (warenkorbartikel.getArtikel().getPreis() * warenkorbartikel.getMenge())*0.19;
 		        		}	
 		        	}
 	        	%>
 	        </tbody>
       	</table>
+      	<table id="zusatzTabelleBestellung">
+	      	<colgroup>
+		       <col span="1" style="width: 24%;">
+		       <col span="1" style="width: 57%;">
+		       <col span="1" style="width: 19%;">
+		    </colgroup>
+	      	<tbody>
+	        	<tr>
+	          		<td class="textLeft" colspan="1">Versandkosten:</td>
+	          		<td colspan="1"></td>
+			        <td><% out.println(formater.format(versandkostenBestellung)); %> &euro;</td>
+		       	</tr>
+				<tr>
+				 	<td class="textLeft" colspan="1">MWST:</td>
+					<td colspan="1"></td>
+					<td><% out.println(formater.format(mwstBestellung)); %> &euro;</td>
+				</tr>
+				<tr>
+					<td class="textLeftBold" colspan="1">Gesamt (Brutto):</td>
+				 	<td colspan="1"></td>
+				 	<td style="font-weight:bold"><% out.println(formater.format(gesamtBestellung + mwstBestellung + versandkostenBestellung)); %> &euro;<td>
+				</tr>
+	        </tbody>  
+		</table>
  	</div>
  	<div class="buttonPanel">
 	 	<form action="meineBestellungen">

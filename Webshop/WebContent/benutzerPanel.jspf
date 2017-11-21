@@ -104,9 +104,10 @@ function warenkorbAnzeigen(){
 				
 				}
 			}			
-		
 		}		
 	%>	
+	<li><i class="fa fa-address-card-o" aria-hidden="true"><a onclick="benutzerstammdatenAnzeigen()"> Benutzerstammdaten</a></i></li>
+	
 	</ul>	
 	<a href="abmelden" id="abmelden"><i class="fa fa-sign-out"></i> abmelden</a>
 </div>
