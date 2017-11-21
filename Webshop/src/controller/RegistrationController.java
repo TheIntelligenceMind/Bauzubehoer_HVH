@@ -117,13 +117,11 @@ public class RegistrationController extends HttpServlet{
 		
 		if(benutzer != null){
 			if(benutzer.getBestaetigt() == 0){
-				if(!benutzer.getRegistriertDatum().after(new Date(System.currentTimeMillis()-24*60*60*1000))){
-					fehlertext = "Der Aktivierungslink ist bereits abgelaufen.";
+				benutzer.setBestaetigt(1);
+				if(queryManager.modifyBenutzer(benutzer)){
+					return null;
 				}else{
-					benutzer.setBestaetigt(1);
-					if(!queryManager.modifyBenutzer(benutzer)){
-						fehlertext = "Es ist ein unerwarteter Fehler bei der Aktivierung aufgetreten.";
-					}
+					fehlertext = "Es ist ein unerwarteter Fehler bei der Aktivierung aufgetreten.";
 				}
 			}else{
 				fehlertext = "Das Benutzerkonto ist bereits aktiviert.";

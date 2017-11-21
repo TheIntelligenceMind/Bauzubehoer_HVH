@@ -1,6 +1,5 @@
 package helper;
 
-import entity.Artikel;
 import entity.Benutzer;
 import entity.Bestellung;
 import entity.WarenkorbArtikel;
@@ -67,7 +66,7 @@ public class MailHelper {
 	                                 InternetAddress.parse(benutzer.getEmailadresse()));
 
 	        // Betreffzeile setzen
-	        message.setSubject("Bauzubehoer HVH - Bestellbestätigung");
+	        message.setSubject("Bauzubehör HVH - Bestellbestätigung");
 	        
 	        // Mail Inhalt setzen
 	        message.setContent(getRechnungsmailContent(benutzer, bestellung, artikelliste), "text/html");
@@ -85,7 +84,7 @@ public class MailHelper {
 	    Session session = getSession();
 
 	    try {
-	        SMTPMessage message = new SMTPMessage(session);
+	    	MimeMessage message = new SMTPMessage(session);
 	        // Absender setzen
 	        message.setFrom(new InternetAddress("bauzubehoer.hvh@gmail.com"));
 	       
@@ -94,13 +93,10 @@ public class MailHelper {
 	                                 InternetAddress.parse(benutzer.getEmailadresse()));
 
 	        // Betreffzeile setzen
-	        message.setSubject("Bauzubehoer HVH - Registrierung abschliessen!");
+	        message.setSubject("Bauzubehör HVH - Registrierung abschliessen!");
 	        
 	        // Mail Inhalt setzen
-	        message.setText(getBestaetigungsmailContent(benutzer));
-	        
-	        // Benachrichtigungsoptionen setzen
-	        message.setNotifyOptions(SMTPMessage.NOTIFY_SUCCESS);
+	        message.setContent(getBestaetigungsmailContent(benutzer), "text/html");
 	        
 	        // Mail verschicken
 	        Transport.send(message);
@@ -165,24 +161,24 @@ public class MailHelper {
 	}
 
 	private String getBestaetigungsmailContent(Benutzer benutzer) {
-		String content = "Guten Tag, " + benutzer.getVorname() + " " + benutzer.getNachname() 
-				        + "\n"
-				        + "\n"
-				        + "Um die Registrierung Ihres Benutzerkontos abzuschliessen, klicken Sie bitte innerhalb der nächsten 24 Stunden auf den nachfolgenden Link: http://localhost:8080/Webshop/registrieren?method=confirm&ea="+benutzer.getEmailadresse()
-				        + "\n"
-				        + "\n"
-				        + "Wichtig: Mit Ablauf der Zeit wird der Link ungültig und Sie müssen sich erneut registrieren."
-				        + "\n"
-				        + "\n"
-				        + "Haben Sie noch Fragen? Schreiben Sie eine Mail an bauzubehoer.hvh@gmail.com oder rufen Sie unsere kostenlose Service-Hotline 0800 8228 100 an."
-				        + "\n"
-				        + "\n"
-				        + "Wir wünschen Ihnen viel Vergnügen beim Stöbern in unserem Sortiment!"
-				        + "\n"
-				        + "\n"
-				        + "Mit den besten Grüßen"
-				        + "\n"
-				        + "Bauzubehör-HVH, Kundenbetreuung";
+		String content = "<html><body>"
+						+ "<style>"
+						+ "p{margin:0; padding:0;}"
+						+ "</style>"
+						+ "<p>Guten Tag " + benutzer.getVorname() + " " + benutzer.getNachname() + ",</p>"
+						+ "</br>"
+				        + "<p>um die Registrierung Ihres Benutzerkontos abzuschliessen klicken Sie bitte auf den nachfolgenden Link: http://localhost:8080/Webshop/registrieren?method=confirm&ea=" + benutzer.getEmailadresse() + "</p>"
+				        + "</br>"
+				        + "</br>"
+				        + "<p>Haben Sie noch Fragen? Schreiben Sie eine Mail an bauzubehoer.hvh@gmail.com oder rufen Sie unsere kostenlose Service-Hotline 0800 8228 100 an.</p>"
+				        + "</br>"
+				        + "<p>Wir w&uuml;nschen Ihnen viel Vergn&uuml;gen beim St&ouml;bern in unserem Sortiment!</p>"
+				        + "</br>"
+				        + "</br>"
+				        + "<p>Mit den besten Gr&uuml;ßen</p>"
+				        + "</br>"
+				        + "<p>Bauzubeh&ouml;r-HVH, Kundenbetreuung</p>"
+						+ "</body></html>";
 		
 		return content;				
 	}

@@ -7,7 +7,7 @@ Diese Datei behandelt den Abschluss eines Bestellvorgangs.
 <div class="showing"  id="bestellungAbschlussPanel">
 	<h1>Bestellung abgeschlossen</h1>
 	<h3>Vielen Dank f&uuml;r Ihre Bestellung!</h3>
-	</br>
+	<br>
 	<p>Sie werden eine Email erhalten in der Sie noch einmal alle Bestelldetails einsehen k&ouml;nnen.</p>	
 	<p>Bei Fragen k&ouml;nnen Sie sich auch gerne an uns wenden: bauzubehoer.hvh@gmail.com.</p>
 </div> 
