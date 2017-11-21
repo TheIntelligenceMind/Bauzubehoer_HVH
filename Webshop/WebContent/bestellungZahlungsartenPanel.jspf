@@ -20,21 +20,26 @@ Diese Datei behandelt das Panel zur Zahlungsartauswahl. Hier können verschieden 
 	 
 	 <form id="zahlungsartBestimmenForm" method="POST">
 		<div class="zahlungsartPanel"> 
-				<input type="radio" id="creditcard" name="Zahlungsmethode" value="Kreditkarte" disabled>
-		 		<label for="creditcard">Kreditkarte</label>
-		 		<div id="mastercardBild"></div>
-
-		 		<input type="radio" id="lastschrift" name="Zahlungsmethode" value="Lastschrift" disabled>
-		 		<label for="lastschrift">Lastschrift</label>
-				<div id="lastschriftBild"></div>
-		 	 	
-		 		<input type="radio" id="rechnung" name="Zahlungsmethode" value="Rechnung"  checked="checked">
-		 		<label for="rechnung">Rechnung</label>
-		 		<div id="rechnungBild"></div>
-		 	
-		 		<input type="radio" id="paypal" name="Zahlungsmethode" value="PayPal" disabled>
-		 		<label for="paypal">PayPal</label>
-		 		<div id="PayPalBild"></div>
+				<div id="einzelneZahlungsarten">
+					<input type="radio" id="creditcard" name="Zahlungsmethode" value="Kreditkarte" disabled>
+		 			<label for="creditcard">Kreditkarte</label>
+		 			<div id="mastercardBild"></div>
+				</div>
+				<div>
+		 			<input type="radio" id="lastschrift" name="Zahlungsmethode" value="Lastschrift" disabled>
+		 			<label for="lastschrift">Lastschrift</label>
+					<div id="lastschriftBild"></div>
+		 	 	</div>
+		 	 	<div>
+		 			<input type="radio" id="rechnung" name="Zahlungsmethode" value="Rechnung"  checked="checked">
+		 			<label for="rechnung">Rechnung</label>
+		 			<div id="rechnungBild"></div>
+		 		</div>
+		 		<div>
+		 			<input type="radio" id="paypal" name="Zahlungsmethode" value="PayPal" disabled>
+		 			<label for="paypal">PayPal</label>
+		 			<div id="PayPalBild"></div>
+		 		</div>
 		 </div>	
 	 </form>
 	 <div class="buttonPanel">

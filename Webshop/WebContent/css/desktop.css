@@ -1777,37 +1777,37 @@ table#zusatzTabelle tbody td{
 }
 #PayPalBild
 {
-	height: 20px;
-	width: 30px;
-	background: url("../images/articles/paypal-alternative.png");
+	height: 36px;
+	width: 50px;
+	background: url("../images/PayPal.jpg");
 }
 #rechnungBild
 {
-	height: 20px;
-	width: 30px;
-	background: url("../images/articles/text-rechnung.png");
+	height: 36px;
+	width: 50px;
+	background: url("../images/Rechnung.jpg");
 }
 #lastschriftBild
 {
-	height: 20px;
-	width: 30px;
-	background: url("../images/articles/text-lastschrift.png");
+	height: 36px;
+	width: 50px;
+	background: url("../images/Lastschrift.jpg");
 }
 #mastercardBild
 {
-	height: 20px;
-	width: 30px;
-	background: url("../images/articles/mastercard.png");
+	height: 36px;
+	width: 50px;
+	background: url("../images/Mastercard.jpg");
 }
 #bestellungZahlungsartPanel .zahlungsartPanel input{
-	width: 10%;
+	width: 25px;
 }
 #bestellungZahlungsartPanel .zahlungsartPanel label{
-	width: 30%;
+	width: 40px;
 }
 #bestellungZahlungsartPanel .zahlungsartPanel{
 	height: 230px;
-	width: 100%;
+	width: 800px;
 >>>>>>> branch 'Development' of https://github.com/TheIntelligenceMind/Bauzubehoer_HVH.git
 }
 #bestellungZahlungsartPanel .buttonPanel{
