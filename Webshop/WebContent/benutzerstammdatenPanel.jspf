@@ -16,10 +16,10 @@ function benutzerBearbeitenAnzeigen(){
 }
 </script>
 
-<%
+<%-- <%
 	Benutzer benutzer = (Benutzer)session.getAttribute("benutzer");
 	Adresse address = (Adresse).getAttribute("adresse");			
-%>
+%> --%>
 
 <div class="showing" id="benutzerListe">
 <h1>Benutzerloste</h1>
@@ -37,7 +37,7 @@ function benutzerBearbeitenAnzeigen(){
           </tr>
         </thead>
         <tbody>
-        	<%
+        	<%-- <%
 	        	List<?> benutzerListe  = (List<?>)request.getAttribute("benutzerListe");
 				String benutzerAktivSymbol;
 				String benutzerStrasse;
@@ -65,7 +65,7 @@ function benutzerBearbeitenAnzeigen(){
 	        		"</tr>");
 		        }
         	
-        	%>
+        	%> --%>
         </tbody>
     </table>
 	<div>

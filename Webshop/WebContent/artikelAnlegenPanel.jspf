@@ -26,7 +26,7 @@ Diese Datei behandelt das Anlegen von Artikeln.
 			<textarea title="Beschreibung" class="inputArea" wrap="soft" name="beschreibung" placeholder="Beschreibung"><% out.print(anlegenArtikel.getBeschreibung()); %></textarea>
 		</div>
 		<div id="artikelAnlegenPanelKategorie_1">
-			<select id="ddKategorie1" title="Artikelkategorie" name="kategorie_1" onchange="updateDDKategorie2(this, <% ENUM_ARTIKELKATEGORIE.getArtikelkategorien1Array(); %>)">
+			<select id="ddKategorie1" title="Artikelkategorie" name="kategorie_1">
 			<option value="artikelkategorie_1" selected>Artikelkategorie 1</option>
 			<%
 				List<ENUM_ARTIKELKATEGORIE> kategorien_a_1 = ENUM_ARTIKELKATEGORIE.getArtikelkategorien1List();

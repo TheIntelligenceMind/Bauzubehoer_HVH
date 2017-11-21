@@ -31,7 +31,14 @@ import java.text.SimpleDateFormat;
  */
 public class QueryManager {
 	
+	//für Timestamp bei UPDATE-Statements
 	private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	
+	//für reine Datum-Angabe (Bestelldatum)
+	private static final SimpleDateFormat sdf_date = new SimpleDateFormat("yyyy-MM-dd");
+	
+	//für Jahres-Angabe (Erzeugung der Bestellnummer)
+	private static final SimpleDateFormat sdf_year = new SimpleDateFormat("yyyy");
 	
     private final static String DBUSER = "db_user";
 	private final static QueryManager instance = new QueryManager();	
@@ -433,19 +440,195 @@ public class QueryManager {
 	/**
 	 * <h3>Beschreibung:</h3>
 	 * <pre>
-	 * Die Methode erstellt den Datensatz für eine Bestellung 
-	 * in den entsprechenden Tabellen.
+	 * Die Methode erstellt die Datensätze für eine Bestellung 
+	 * in den entsprechenden Tabellen. Überdies werden die nicht
+	 * benötigten Datensätze aus der Tabelle "Warenkorb gelöscht.
 	 * </pre>
 	 * 
 	 * @param piBestellung Bestellung
-	 * @return true, wenn die Anlage des Datensatzes erfolgreich 
-	 * war; andernfalls: false
+	 * @param piBenutzer Benutzer
+	 * @return bestellung
 	 */
-	public Bestellung createBestellung(Bestellung piBestellung){
-		Bestellung bestellung = new Bestellung();
+
+	public Bestellung createBestellung(Bestellung piBestellung, Benutzer piBenutzer){
+		Bestellung bestellung = piBestellung;
+		Benutzer benutzer = piBenutzer;
+		int benutzer_ID;
+		double bestellwert;
+		int bestellung_ID;
+		ResultSet bestellwert_result = null;
+		int result;
+		ResultSet bestellung_id_result = null;
+		int bestellnummer_result = 0;
+		ResultSet bestellartikel_result = null;
+		int delete_bestellung_result = 0;
+		int warenkorb_result = 0;
+		int delete_bestellartikel_result = 0;
+		ResultSet return_result = null;
 		
-		// Bitte nach erstellung der BEstellung die Bestellung nocheinmal in der Tabelle selecten und mir zurückgeben. 
-		// Da ich die generierten Timestamps und Bestellnummer benötige
+		try {
+			//Benutzer_ID holen und sichern
+			benutzer_ID = getBenutzerIDbyEmailadresse(bestellung.getBenutzer().getEmailadresse());
+			
+			//Abbruch, wenn keine Benutzer_ID zu der E-Mail-Adresse gefunden wurde
+			if(benutzer_ID == -1){
+				return null;
+			}
+			
+			//Bestellwert berechnen und sichern
+			String bestellwert_sql = "SELECT sum(w.menge * a.preis) as 'bestellwert' FROM " + 
+					ENUM_DB_TABELLE.WARENKORB.toString() + " w LEFT JOIN"+ ENUM_DB_TABELLE.ARTIKEL.toString() + " a on "
+					+ "w.Artikel_ID = a.ID WHERE w.Benutzer_ID = ?";
+			
+			PreparedStatement bestellwert_stmt = getConnection().prepareStatement(bestellwert_sql);
+			
+			bestellwert_stmt.setInt(1, benutzer_ID);
+			
+			bestellwert_result = bestellwert_stmt.executeQuery();
+			
+			// sicherstellen, dass ein Ergebnis geliefert wird
+			if(!bestellwert_result.next()){
+				return null;
+			}
+			
+			bestellwert = bestellwert_result.getDouble("bestellwert");
+			
+			//Pflege der Tabelle "Bestellung"
+			String sql = "INSERT INTO "+ ENUM_DB_TABELLE.BESTELLUNG.toString() +" (status, bestelldatum"
+					+ "zahlungsart, bestellwert, versandkosten, benutzer_id, erstellt_benutzer) VALUES(?, ?, ?, ?, ?, ?, ?)";
+			
+			PreparedStatement stmt = getConnection().prepareStatement(sql);
+			
+			stmt.setString(1, bestellung.getStatus());
+			stmt.setString(2, sdf_date.format(getCurrentTimestamp()));
+			stmt.setString(3, bestellung.getZahlungsart());
+			stmt.setDouble(4, bestellwert);
+			stmt.setDouble(5, bestellung.getVersandkosten());
+			stmt.setInt(6, benutzer_ID);
+			stmt.setString(7, DBUSER);
+			
+			result = stmt.executeUpdate();
+			
+			// sicherstellen, dass ein Ergebnis geliefert wird
+			if(result == 0){
+				return null;
+			}
+			
+			//Bestellung_ID zur soeben generierten Bestellung holen und sichern
+			String bestellung_id_sql = "SELECT ID FROM " + ENUM_DB_TABELLE.BESTELLUNG.toString() + " WHERE Benutzer_ID = ? AND "
+					+ "bestellwert = ?";
+			
+			PreparedStatement bestellung_id_stmt = getConnection().prepareStatement(bestellung_id_sql);
+			
+			bestellung_id_stmt.setInt(1, benutzer_ID);
+			bestellung_id_stmt.setDouble(2, bestellwert);
+			
+			bestellung_id_result = bestellung_id_stmt.executeQuery();
+			
+			// sicherstellen, dass ein Ergebnis geliefert wird
+			if(!bestellung_id_result.next()){
+				return null;
+			}
+			
+			bestellung_ID = bestellung_id_result.getInt("id");
+			
+			//Eintragung der Bestellnummer in Abhängigkeit von der ID der Bestellung
+			String bestellnummer_sql = "UPDATE " + ENUM_DB_TABELLE.BESTELLUNG.toString() + " SET bestellnummer = ?, "
+					+ " WHERE ID = ? AND Bestellnummer = 'keine_Bestellnummer_definiert'";
+					
+			PreparedStatement bestellnummer_stmt = getConnection().prepareStatement(bestellnummer_sql);
+			bestellnummer_stmt.setString(1, String.valueOf(bestellung_ID) + '-' + sdf_year.format(getCurrentTimestamp()));
+			bestellnummer_stmt.setInt(2, bestellung_ID);
+			
+			bestellnummer_result = bestellnummer_stmt.executeUpdate();
+			 
+			// sicherstellen, dass ein Ergebnis geliefert wird
+			if(bestellnummer_result == 0){
+				return null;
+			}
+			
+			
+			//Einfügen der relevanten Informationen in die Tabelle "Bestellartikel"
+			String bestellartikel_sql = "INSERT INTO " + ENUM_DB_TABELLE.BESTELLARTIKEL.toString() + "(artikel_id, menge, position,"
+					+ " bestellung_id, erstellt_benutzer) SELECT artikel_id, menge, position, ?, ? FROM " + 
+					ENUM_DB_TABELLE.WARENKORB.toString() + " WHERE Benutzer_ID = ?";
+			
+			PreparedStatement bestellartikel_stmt = getConnection().prepareStatement(bestellartikel_sql);
+			
+			bestellartikel_stmt.setInt(1, bestellung_ID);
+			bestellartikel_stmt.setString(2, DBUSER);
+			bestellartikel_stmt.setInt(3, benutzer_ID);
+			
+			bestellartikel_result = bestellartikel_stmt.executeQuery();
+			
+			// sicherstellen, dass ein Ergebnis geliefert wird
+			if(!bestellartikel_result.next()){
+				
+				//Löschen des zuvor angelegten Datensatzes in der Tabelle "Bestellung", falls es zu einem Problem gekommen ist
+				String delete_bestellung_sql = "DELETE FROM " + ENUM_DB_TABELLE.BESTELLUNG.toString() + " WHERE ID = ?";
+				
+				PreparedStatement delete_bestellung_stmt = getConnection().prepareStatement(delete_bestellung_sql);
+				delete_bestellung_stmt.setInt(1, bestellung_ID);
+				
+				delete_bestellung_result = delete_bestellung_stmt.executeUpdate();
+				
+				return null;
+			}
+
+			
+			//Löschen des/der Datensatzes/Datensätze in der Tabelle "Warenkorb"
+			String warenkorb_sql = "DELETE FROM " + ENUM_DB_TABELLE.WARENKORB.toString() + " WHERE Benutzer_ID = ?";
+			
+			PreparedStatement warenkorb_stmt = getConnection().prepareStatement(warenkorb_sql);
+			
+			warenkorb_stmt.setInt(1, benutzer_ID);
+			
+			warenkorb_result = warenkorb_stmt.executeUpdate();
+		
+			// sicherstellen, dass ein Ergebnis geliefert wird
+			if(warenkorb_result == 0){
+				
+				//Löschen des zuvor angelegten Datensatzes in der Tabelle "Bestellung", falls es zu einem Problem gekommen ist
+				String delete_bestellung_sql = "DELETE FROM " + ENUM_DB_TABELLE.BESTELLUNG.toString() + " WHERE ID = ?";
+				
+				PreparedStatement delete_bestellung_stmt = getConnection().prepareStatement(delete_bestellung_sql);
+				
+				delete_bestellung_stmt.setInt(1, bestellung_ID);
+				
+				delete_bestellung_result = delete_bestellung_stmt.executeUpdate();
+				
+				
+				//Löschen des/der zuvor angelegten Datensatzes/Datensätze in der Tabelle "Bestellartikel", falls es zu einem Problem gekommen ist
+				String delete_bestellartikel_sql = "DELETE FROM " + ENUM_DB_TABELLE.BESTELLARTIKEL.toString() + " WHERE Bestellung_ID = ?";
+				
+				PreparedStatement delete_bestellartikel_stmt = getConnection().prepareStatement(delete_bestellartikel_sql);
+				delete_bestellartikel_stmt.setInt(1, bestellung_ID);
+				
+				delete_bestellartikel_result = delete_bestellartikel_stmt.executeUpdate();
+				
+				return null;
+			}
+			
+			
+			//SQL-Statement für Rückgabe der erstellten Bestellung
+			String return_sql = "SELECT * FROM " + ENUM_DB_TABELLE.BESTELLUNG.toString() + " WHERE ID = ?";
+			
+			PreparedStatement return_stmt = getConnection().prepareStatement(return_sql);
+			
+			return_stmt.setInt(1, bestellung_ID);
+
+			return_result = return_stmt.executeQuery();
+			
+			while(return_result.next()){
+				
+				bestellung = new Bestellung().init(return_result.getString("bestellnummer"), return_result.getDate("bestelldatum")
+					, return_result.getString("status"), return_result.getString("zahlungsart"), return_result.getDate("voraussichtliches_Lieferdatum"), 
+					return_result.getDouble("bestellwert"), return_result.getDouble("versandkosten"), benutzer);
+			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
 		
 		return bestellung;
 	}
@@ -670,18 +853,53 @@ public class QueryManager {
 	 * @param kategorie ENUM_ARTIKELKATEGORIE
 	 * @return artikelliste
 	 */
-	public List<Artikel> searchArtikelByKategorie(ENUM_ARTIKELKATEGORIE kategorie){
+	public List<Artikel> searchArtikelByKategorie1(ENUM_ARTIKELKATEGORIE kategorie){
 		List<Artikel> artikelliste = new ArrayList<Artikel>();
 		
 		ResultSet result = null;	
 		
 		try {			
-			String sql = "SELECT * FROM " + ENUM_DB_TABELLE.ARTIKEL.toString() + " WHERE (kategorie_1 like ? OR "
-					+ "kategorie_2 like ?) AND aktiv = 1";
+			String sql = "SELECT * FROM " + ENUM_DB_TABELLE.ARTIKEL.toString() + " WHERE kategorie_1 like ? AND aktiv = 1";
 			
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setString(1, kategorie.toString());
-			stmt.setString(2, kategorie.toString());
+
+			result = stmt.executeQuery();
+			
+			while(result.next()){
+				Artikel artikel = new Artikel().init(result.getString("bezeichnung"), result.getInt("nummer"), 
+						result.getString("beschreibung"), result.getDouble("preis"), result.getInt("lagermenge"), 
+						result.getString("kategorie_1"), result.getString("kategorie_2"), result.getInt("aktiv"));
+				artikelliste.add(artikel);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}	
+		
+		return artikelliste;
+	}
+	
+	/**
+	 * <h3>Beschreibung:</h3>
+	 * <pre>
+	 * Die Methode liefert alle Artikel einer Kategorie.
+	 * </pre>
+	 * 
+	 * @param kategorie ENUM_ARTIKELKATEGORIE
+	 * @return artikelliste
+	 */
+	public List<Artikel> searchArtikelByKategorie2(ENUM_ARTIKELKATEGORIE kategorie1, ENUM_ARTIKELKATEGORIE kategorie2){
+		List<Artikel> artikelliste = new ArrayList<Artikel>();
+		
+		ResultSet result = null;	
+		
+		try {			
+			String sql = "SELECT * FROM " + ENUM_DB_TABELLE.ARTIKEL.toString() + " WHERE kategorie_1 like ? AND kategorie_2 like ? AND aktiv = 1";
+			
+			PreparedStatement stmt = getConnection().prepareStatement(sql);
+			stmt.setString(1, kategorie1.toString());
+			stmt.setString(2, kategorie2.toString());
 
 			result = stmt.executeQuery();
 			
@@ -1150,9 +1368,9 @@ public class QueryManager {
 			
 			while(result.next()){
 				
-				Bestellung bestellung = new Bestellung().init(result.getInt("bestellnummer"), result.getDate("bestelldatum")
+				Bestellung bestellung = new Bestellung().init(result.getString("bestellnummer"), result.getDate("bestelldatum")
 					, result.getString("status"), result.getString("zahlungsart"), result.getDate("voraussichtliches_Lieferdatum"), 
-					result.getDouble("bestellwert"), benutzer);
+					result.getDouble("bestellwert"), result.getDouble("versandkosten"), benutzer);
 				
 				bestellungListe.add(bestellung);
 			}

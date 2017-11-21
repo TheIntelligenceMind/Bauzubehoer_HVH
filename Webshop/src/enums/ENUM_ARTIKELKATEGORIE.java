@@ -14,10 +14,10 @@ public enum ENUM_ARTIKELKATEGORIE {
 
 	NULL(""),
 	BEKLEIDUNG("Bekleidung"),
-		KOPF("Helme, M&uuml;tzen, Kappen"),
-		OBERKOERPER("Jacken"),
-		BEINE("Hosen"),
-		FUESSE("Schuhe"),
+		KOPF("Kopf"),
+		OBERKOERPER("Oberkoerper"),
+		BEINE("Beine"),
+		FUESSE("Fuesse"),
 		// SONSTIGES
 	SICHERHEIT("Sicherheit"),
 		ABSPERRUNG("Absperrung"),
@@ -41,6 +41,20 @@ public enum ENUM_ARTIKELKATEGORIE {
 		return name;
 	}
 
+	public static ENUM_ARTIKELKATEGORIE getByName(String name){
+		for(ENUM_ARTIKELKATEGORIE e : getArtikelkategorien1List()){
+			if(e.toString().equals(name)){ 
+				return e; 
+			}
+		}
+		for(ENUM_ARTIKELKATEGORIE e : getArtikelkategorien2List()){
+			if(e.toString().equals(name)){ 
+				return e; 
+			}
+		}
+		return null;
+	}
+	
 	public static List<ENUM_ARTIKELKATEGORIE> getArtikelkategorien1List(){
 		List<ENUM_ARTIKELKATEGORIE> list = new ArrayList<ENUM_ARTIKELKATEGORIE>();
 		
@@ -49,12 +63,6 @@ public enum ENUM_ARTIKELKATEGORIE {
 		list.add(WERKZEUG);
 		
 		return list;
-	}
-	
-	public static String[] getArtikelkategorien1Array(){
-		String[] array = {BEKLEIDUNG.toString(), WERKZEUG.toString()};
-
-		return array;
 	}
 	
 	public static List<ENUM_ARTIKELKATEGORIE> getArtikelkategorien2List(){

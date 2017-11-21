@@ -18,7 +18,7 @@ public class Rolle {
 	private int sichtBestellungen;
 	private int sichtKonto;
 	private int sichtArtikelstammdaten;
-	
+
 	public Rolle(){		
 		
 	}
@@ -83,4 +83,5 @@ public class Rolle {
 	public void setSichtArtikelstammdaten(int sichtArtikelstammdaten) {
 		this.sichtArtikelstammdaten = sichtArtikelstammdaten;
 	}
+	
 }

@@ -141,20 +141,26 @@ html,body{
 }
 #artikelKategoriePanel ul{
 	margin: 0;
-	margin-left: 20px;
+	padding: 0;
+	list-style-type: none;	
+}
+#artikelKategoriePanel ul li ul{
+	margin: 0;
 	list-style-type: none;
-	
 }
 #artikelKategoriePanel ul li{
+	padding-left: 20px;
 	list-style-type: none;
 	text-align: left;
 }
 #artikelKategoriePanel ul li a{
-	-o-transition:color .2s ease-out, background 1s ease-in;
-	-ms-transition:color .2s ease-out, background 1s ease-in;
-	-moz-transition:color .2s ease-out, background 1s ease-in;
-	-webkit-transition:color .2s ease-out, background 1s ease-in;
-	transition:color .2s ease-out, background 1s ease-in;
+	text-decoration: none;
+	color: white;
+	-o-transition: color .2s ease-out, background 1s ease-in;
+	-ms-transition: color .2s ease-out, background 1s ease-in;
+	-moz-transition: color .2s ease-out, background 1s ease-in;
+	-webkit-transition: color .2s ease-out, background 1s ease-in;
+	transition: color .2s ease-out, background 1s ease-in;
 }
 #artikelKategoriePanel ul li a:hover{
 	cursor: pointer;
@@ -1139,9 +1145,9 @@ table#artikelTabelle .rightcell{
 table#artikelTabelle th{
 	border-bottom: 1px solid #BF4D17;
 }
-
 table#artikelTabelle tbody tr:hover{
 	background-color: #e0e0e0;
+	cursor: pointer;
 }
 .trashSymbol:hover{
 	cursor: pointer;

@@ -65,8 +65,11 @@ public class SuchController extends HttpServlet {
 		}
 		
 		switch(method){
-			case "suchKategorie":
-				nachKategorieSuchen(req, resp);
+			case "suchKategorie1":
+				nachKategorie1Suchen(req, resp);
+				break;
+			case "suchKategorie2":
+				nachKategorie2Suchen(req, resp);
 				break;
 			case "artikelDetailansichtAnzeigen":
 				if(req.getParameter("artikelnummer") != null){
@@ -122,15 +125,53 @@ public class SuchController extends HttpServlet {
      * @param req
      * @param resp
      */
-    private void nachKategorieSuchen(HttpServletRequest req, HttpServletResponse resp){
+    private void nachKategorie1Suchen(HttpServletRequest req, HttpServletResponse resp){
     	List<Artikel> artikelliste = new ArrayList<Artikel>();
     	String strKategorie = req.getParameter("kategorie");
     	
     	if(strKategorie != null){
-    		ENUM_ARTIKELKATEGORIE kategorie = ENUM_ARTIKELKATEGORIE.valueOf(strKategorie);
-    		artikelliste = queryManager.searchArtikelByKategorie(kategorie);
+    		ENUM_ARTIKELKATEGORIE kategorie = ENUM_ARTIKELKATEGORIE.getByName(strKategorie);
     		
-    		req.setAttribute("artikelliste", artikelliste);
+    		if(kategorie != null){
+    			artikelliste = queryManager.searchArtikelByKategorie1(kategorie);
+        		
+        		req.setAttribute("artikelliste", artikelliste);
+    		}	
+    	}
+		
+		if(artikelliste.size() == 0){
+			resp.addHeader("status", "hinweis");
+			resp.addHeader("hinweismeldung", "Es wurden keine Artikel zu der ausgew&auml;hlten Kategorie gefunden.");
+		} 	
+    }
+    
+    /**
+     * <pre>
+     * <h3>Beschreibung:</h3>
+     * Die Methode holt sich die Artikelkategorie aus dem Request-Objekt und 
+     * sucht über den QM alle dazugehörigen Artikel und gibt diese als List 
+     * innerhalb des Request-Objekts an die View weiter
+     * </pre>
+     * 
+     * @param req
+     * @param resp
+     */
+    private void nachKategorie2Suchen(HttpServletRequest req, HttpServletResponse resp){
+    	List<Artikel> artikelliste = new ArrayList<Artikel>();
+    	String strKategorie1 = req.getParameter("kategorie1");
+    	String strKategorie2 = req.getParameter("kategorie2");
+    	
+    	
+    	if(strKategorie1 != null && strKategorie2 != null){
+    		ENUM_ARTIKELKATEGORIE kategorie1 = ENUM_ARTIKELKATEGORIE.getByName(strKategorie1);
+    		ENUM_ARTIKELKATEGORIE kategorie2 = ENUM_ARTIKELKATEGORIE.getByName(strKategorie2);
+    		
+    		if(kategorie1 != null && kategorie1 != null){
+    			artikelliste = queryManager.searchArtikelByKategorie2(kategorie1, kategorie2);
+        		
+        		req.setAttribute("artikelliste", artikelliste);
+    		}
+    		
     	}
 		
 		if(artikelliste.size() == 0){
