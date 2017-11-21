@@ -4,6 +4,7 @@ import entity.Benutzer;
 import entity.Bestellung;
 import entity.WarenkorbArtikel;
 
+import java.text.DecimalFormat;
 import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
@@ -107,6 +108,8 @@ public class MailHelper {
 
 	
 	private String getRechnungsmailContent(Benutzer benutzer, Bestellung bestellung, List<WarenkorbArtikel> artikelliste){	
+		DecimalFormat formater = new DecimalFormat("#0.00");
+		
 		String content =  "<html>"
 						+ "<body>"
 						+ "<style> p{margin:0; padding:0;}"
@@ -131,14 +134,16 @@ public class MailHelper {
 			content = content.concat("<td>" + artikelliste.get(i).getMenge() + "</td>");
 			content = content.concat("<td>" + artikelliste.get(i).getArtikel().getNummer() + "</td>");
 			content = content.concat("<td>" + artikelliste.get(i).getArtikel().getBezeichnung() + "</td>");
-			content = content.concat("<td>" + String.valueOf(artikelliste.get(i).getArtikel().getPreis()).replace(".", ",") + "</td>");
-			content = content.concat("<td>" + String.valueOf((artikelliste.get(i).getArtikel().getPreis() * artikelliste.get(i).getMenge())).replace(".", ",") + "</td>");
+			content = content.concat("<td>" + formater.format(artikelliste.get(i).getArtikel().getPreis()).replace(".", ",") + "&euro;</td>");
+			content = content.concat("<td>" + formater.format(artikelliste.get(i).getArtikel().getPreis() * artikelliste.get(i).getMenge()).replace(".", ",") + "&euro;</td>");
 			content = content.concat("</tr>");
 		}
-						
+		
+		double gesamtBestellwert = bestellung.getBestellwert() + 20.00; // 20€Versandkosten pauschal
+							
 		content = content.concat( "</tbody></table>"
 						+ "</br>"
-						+ "<p>Rechnungssumme ( inkl. 20&euro; Standard-Versandkosten): <i style='font-size: 16px; font-weight:bold;'>" + String.valueOf(bestellung.getBestellwert()).replace(".", ",") + "&euro;</i></p>"
+						+ "<p>Rechnungssumme (inkl. 20&euro; Standard-Versandkosten): <i style='font-size: 16px; font-weight:bold;'>" + formater.format(gesamtBestellwert).replace(".", ",") + "&euro;</i></p>"
 						+ "</br>"
 						+ "<p>Bitte überweisen Sie die Rechnungssumme unter Angabe der Rechnungsnummer im Verwendungszweck innerhalb der n&auml;chsten 14 Tage auf folgendes Konto:</p>"
 						+ "<p style='margin-top: 5px;'>IBAN: DE82 1234 5678 9000 1005 28</p>"

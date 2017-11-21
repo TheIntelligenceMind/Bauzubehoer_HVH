@@ -1,5 +1,11 @@
 package enums;
 
+/**
+ * <pre>
+ * <h3>Beschreibung:</h3> Das ENUM enthält alle verfügbaren Datenbank Tabellen
+ * </pre>
+ *  @author Tim Hermbecker
+ */
 public enum ENUM_DB_TABELLE {
 
 	ARTIKEL("artikel"), BENUTZER("benutzer"), WARENKORB("warenkorb"), BESTELLUNG("bestellung"), BESTELLARTIKEL("bestellartikel"),

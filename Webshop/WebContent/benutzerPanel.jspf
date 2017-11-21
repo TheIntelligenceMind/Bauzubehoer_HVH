@@ -1,6 +1,6 @@
 <%@page import="entity.WarenkorbArtikel"%>
 <%@page import="entity.Benutzer"%>
-<%@page import="enums.ENUM_SICHTEN"%>
+<%@page import="enums.ENUM_SICHT"%>
 <%@page import="java.util.List"%>
 
 
@@ -49,10 +49,10 @@ function warenkorbAnzeigen(){
 	<h3>Hallo, <i id="name"><% out.print(benutzer.getVorname() + " " + benutzer.getNachname()); %></i></h3>
 	<ul>			
 	<%
-		List<ENUM_SICHTEN> sichten = benutzer.getRolle().getSichten();
+		List<ENUM_SICHT> sichten = benutzer.getRolle().getSichten();
 	
 		if(sichten != null){
-			for(ENUM_SICHTEN sicht : sichten){
+			for(ENUM_SICHT sicht : sichten){
 				switch(sicht){
 					case WARENKORB:
 						%>
@@ -82,12 +82,10 @@ function warenkorbAnzeigen(){
 						%>
 							<%
 							String Rolle;
-							if(benutzer.getRolle().getBezeichnung().equals("Kunde"))
-							{
+							if(benutzer.getRolle().getBezeichnung().equals("Kunde")){
 								Rolle = "";
 							}
-							else
-							{
+							else{
 								Rolle = "(" + benutzer.getRolle().getBezeichnung() + ")";
 							}
 							%>

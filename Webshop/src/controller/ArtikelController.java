@@ -64,17 +64,6 @@ public class ArtikelController extends HttpServlet {
 		
 		if(method != null){
 			switch(method){
-			case "artikelDetailansichtAnzeigen":
-				if(req.getParameter("artikelnummer") != null){
-					Artikel artikel = queryManager.searchArtikelByNummer(Integer.valueOf(req.getParameter("artikelnummer")));
-							
-					req.setAttribute("detailansichtArtikel", artikel);
-					resp.addHeader("contentSite", "artikelDetailansichtPanel");	
-				}else{
-					rd = req.getRequestDispatcher("/suchen");
-				}
-				
-				break;
 			case "artikellisteAnzeigen":
 				List<Artikel> artikelliste = null;
 				
@@ -84,7 +73,6 @@ public class ArtikelController extends HttpServlet {
 						
 				resp.addHeader("contentSite", "artikelAnzeigenMitarbeiterPanel");	
 				break;
-				
 			case "artikelAnlegenAnzeigen":
 				resp.addHeader("contentSite", "artikelAnlegenPanel");	
 				break;

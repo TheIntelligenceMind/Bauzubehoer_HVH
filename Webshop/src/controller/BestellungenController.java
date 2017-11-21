@@ -5,7 +5,6 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
-import javax.print.attribute.standard.DateTimeAtCompleted;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import db.QueryManager;
 import entity.Adresse;
-import entity.Artikel;
 import entity.Benutzer;
 import entity.Bestellung;
 import entity.WarenkorbArtikel;
@@ -168,7 +166,7 @@ public class BestellungenController extends HttpServlet {
 			req.setAttribute("benutzer", benutzer);
 			
 			dispatchSite = "index.jsp";
-			resp.addHeader("contentSite", "bestellungAbschlussPanel");
+			resp.addHeader("contentSite", "bestellungZusammenfassungPanel");
 			
 			resp.addHeader("Status", ENUM_RESPONSE_STATUS.FEHLER.toString());
 			resp.addHeader(ENUM_MELDUNG_ART.FEHLERMELDUNG.toString(), "Es ist ein unerwarteter Fehler beim Abschliessen der Bestellung aufgetreten.");

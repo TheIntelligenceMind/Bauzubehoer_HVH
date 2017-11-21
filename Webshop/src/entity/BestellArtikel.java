@@ -1,5 +1,11 @@
 package entity;
 
+/**
+ * <pre>
+ * <h3>Beschreibung:</h3> Die Klasse bildet die Tabelle Bestellartikel in der DB ab
+ * </pre>
+ *  @author Tim Hermbecker
+ */
 public class BestellArtikel {
 	
 	private int position;

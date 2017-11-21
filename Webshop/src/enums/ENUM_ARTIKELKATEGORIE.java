@@ -3,6 +3,13 @@ package enums;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * <pre>
+ * <h3>Beschreibung:</h3> Das ENUM enthält alle verfügbaren Artikelkategorien
+ * </pre>
+ *  @author Tim Hermbecker
+ */
 public enum ENUM_ARTIKELKATEGORIE {
 
 	NULL(""),

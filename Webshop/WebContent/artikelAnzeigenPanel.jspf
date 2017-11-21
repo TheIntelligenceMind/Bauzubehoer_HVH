@@ -11,7 +11,7 @@ Hier wird auch eine gefilterte Suche mit ausgegeben.
 <script type="text/javascript">
 	function artikelDetailansichtAnzeigen(artikelnummer){
 		$(document).ready(function() {
-	          window.location.href = "artikel?method=artikelDetailansichtAnzeigen&artikelnummer=" + artikelnummer;  
+	          window.location.href = "suchen?method=artikelDetailansichtAnzeigen&artikelnummer=" + artikelnummer;  
 		});
 	}
 </script>
