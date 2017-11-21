@@ -19,7 +19,7 @@ import db.QueryManager;
 import entity.Benutzer;
 import entity.Rolle;
 import enums.ENUM_RESPONSE_STATUS;
-import enums.ENUM_ROLLENBEZEICHNUNG;
+import enums.ENUM_ROLLE;
 import helper.MailHelper;
 
 /**
@@ -165,7 +165,7 @@ public class RegistrationController extends HttpServlet{
 								e.printStackTrace();
 							}
 							
-							Rolle kundenrolle = new Rolle().init(ENUM_ROLLENBEZEICHNUNG.KUNDE.toString(), 1, 1, 1, 0);
+							Rolle kundenrolle = new Rolle().init(ENUM_ROLLE.KUNDE.toString(), 1, 1, 1, 0);
 							newBenutzer.init(email, hashPasswort, vorname, nachname, null, kundenrolle, 0, new Date(System.currentTimeMillis()));
 							
 							// Benutzerobjekt in der Datenbank anlegen

@@ -16,7 +16,7 @@ import entity.Rolle;
 import entity.WarenkorbArtikel;
 import enums.ENUM_DB_TABELLE;
 import enums.ENUM_ARTIKELKATEGORIE;
-import enums.ENUM_ROLLENBEZEICHNUNG;
+import enums.ENUM_ROLLE;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -326,7 +326,7 @@ public class QueryManager {
 	 * @param bezeichnung ENUM_ROLLENBEZEICHNUNG
 	 * @return id
 	 */
-	private int getRolleIDbyBezeichnung(ENUM_ROLLENBEZEICHNUNG bezeichnung){
+	private int getRolleIDbyBezeichnung(ENUM_ROLLE bezeichnung){
 		int id = -1;
 		ResultSet result = null;
 		
@@ -376,7 +376,7 @@ public class QueryManager {
 			stmt.setString(2, benutzer.getPasswort());
 			stmt.setString(3, benutzer.getVorname());
 			stmt.setString(4, benutzer.getNachname());
-			stmt.setInt(5, getRolleIDbyBezeichnung(ENUM_ROLLENBEZEICHNUNG.KUNDE));
+			stmt.setInt(5, getRolleIDbyBezeichnung(ENUM_ROLLE.KUNDE));
 			stmt.setString(6, DBUSER);
 			
 			result = stmt.executeUpdate();

@@ -1,5 +1,11 @@
 package enums;
 
+/**
+ * <pre>
+ * <h3>Beschreibung:</h3> Das ENUM enthält alle möglichen Response Status
+ * </pre>
+ *  @author Tim Hermbecker
+ */
 public enum ENUM_RESPONSE_STATUS {
 
 	HINWEIS("hinweis"), FEHLER("fehler"), WARNUNG("warnung"), OK("ok");

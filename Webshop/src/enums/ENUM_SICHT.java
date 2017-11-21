@@ -1,12 +1,18 @@
 package enums;
 
-public enum ENUM_SICHTEN {
+/**
+ * <pre>
+ * <h3>Beschreibung:</h3> Das ENUM enthält alle verfügbaren Sichten im Benutzerpanel
+ * </pre>
+ *  @author Tim Hermbecker
+ */
+public enum ENUM_SICHT {
 
 	WARENKORB("Warenkorb"), BESTELLUNGEN("meine Bestellungen"), KONTO("mein Konto"), ARTIKELSTAMMDATEN("Artikelstammdaten");
 	
 	private final String name;
 	
-	ENUM_SICHTEN(String name){
+	ENUM_SICHT(String name){
 		this.name= name;
 	}
 	

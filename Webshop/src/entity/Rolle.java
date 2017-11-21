@@ -3,7 +3,7 @@ package entity;
 import java.util.ArrayList;
 import java.util.List;
 
-import enums.ENUM_SICHTEN;
+import enums.ENUM_SICHT;
 
 public class Rolle {
 
@@ -27,13 +27,13 @@ public class Rolle {
 		return this;
 	}
 
-	public List<ENUM_SICHTEN> getSichten(){
-		List<ENUM_SICHTEN> sichten = new ArrayList<ENUM_SICHTEN>();
+	public List<ENUM_SICHT> getSichten(){
+		List<ENUM_SICHT> sichten = new ArrayList<ENUM_SICHT>();
 		
-		if(sichtWarenkorb == 1){ sichten.add(ENUM_SICHTEN.WARENKORB);}
-		if(sichtBestellungen == 1){ sichten.add(ENUM_SICHTEN.BESTELLUNGEN);}
-		if(sichtKonto == 1){ sichten.add(ENUM_SICHTEN.KONTO);}
-		if(sichtArtikelstammdaten == 1){ sichten.add(ENUM_SICHTEN.ARTIKELSTAMMDATEN);}	
+		if(sichtWarenkorb == 1){ sichten.add(ENUM_SICHT.WARENKORB);}
+		if(sichtBestellungen == 1){ sichten.add(ENUM_SICHT.BESTELLUNGEN);}
+		if(sichtKonto == 1){ sichten.add(ENUM_SICHT.KONTO);}
+		if(sichtArtikelstammdaten == 1){ sichten.add(ENUM_SICHT.ARTIKELSTAMMDATEN);}	
 		
 		return sichten;
 	}
