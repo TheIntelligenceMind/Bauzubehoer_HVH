@@ -69,13 +69,13 @@ Diese Datei behandelt die Bestimmung der Lieferadresse.
 			<table id="bestellungLieferadresseOrt">
 				<thead>
 			 		<tr>
-			 			<th>Ort</th>
 			 			<th>Postleitzahl</th>
+			 			<th>Wohnort</th>
 			 		</tr>
 		 		</thead>
 			 		<tr>
+			 			<td><input title="Postleitzahl" class="inputField" type="text" name="postleitzahl" placeholder="Postleitzahl" value="<% out.print(adresseB.getPostleitzahl()); %>"></td>
 			 			<td><input title="Ort" class="inputField" type="text" name="ort" placeholder="Ort" value="<% out.print(adresseB.getOrt()); %>">	</td>
-						<td><input title="Postleitzahl" class="inputField" type="text" name="postleitzahl" placeholder="Postleitzahl" value="<% out.print(adresseB.getPostleitzahl()); %>"></td>
 					</tr>
 			</table>
 			</div>

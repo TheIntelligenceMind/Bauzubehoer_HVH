@@ -40,6 +40,7 @@ function artikelBearbeitenAnzeigen(piArtikelNummer){
         	<%
 	        	List<?> artikelListeMitarbeiter  = (List<?>)request.getAttribute("artikelListeMitarbeiter");
 				String artikelAktivSymbol;
+				String artikelLagermengeFarbe;
 				
 	        	for(Object o : artikelListeMitarbeiter){	
 	        		Artikel art = (Artikel)o;
@@ -52,8 +53,20 @@ function artikelBearbeitenAnzeigen(piArtikelNummer){
 	        		{
 	        			artikelAktivSymbol = "<i class='fa fa-times' aria-hidden='true'></i>";
 	        		}
+	        		if(art.getLagermenge() > 50)
+	        		{
+	        			artikelLagermengeFarbe = "<div class='green'>";
+	        		}
+	        		else if(art.getLagermenge() > 0)
+	        		{
+	        			artikelLagermengeFarbe = "<div class='yellow'>";
+	        		}
+	        		else
+	        		{
+	        			artikelLagermengeFarbe = "<div class='red'>";
+	        		}
 	        		out.println("<tr>" +
-	        		"<td class='tablecell'><div>" + art.getLagermenge() + "</div></td>" +
+	        		"<td class='tablecell'>" + artikelLagermengeFarbe + "<p>" +art.getLagermenge() + "</p>" + "</div></td>" +
 	        		"<td class='tablecell'><div>" + String.format("%04d", art.getNummer()) + "</div></td>" +
 	        		"<td class='tablecell'><div>" + art.getBezeichnung() + "</div></td>" +
 	        		"<td class='tablecell'><div>" + art.getBeschreibung() + "</div></td>" +

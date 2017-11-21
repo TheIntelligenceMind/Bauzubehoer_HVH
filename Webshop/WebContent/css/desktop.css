@@ -527,6 +527,18 @@ html,body{
 	margin-left: 4%;
 	table-layout: fixed;
 }
+.green p
+{
+	color: green;
+}
+.yellow p
+{
+	color: yellow;
+}
+.red p
+{
+	color: red;
+}
 #artikelListeMitarbeiterTabelle tbody{
 	height: 300px;
 	overflow: auto;
