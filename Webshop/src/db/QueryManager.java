@@ -633,8 +633,6 @@ public class QueryManager {
 		return bestellung;
 	}
 	
-
-	
 	/**
 	 * <h3>Beschreibung:</h3>
 	 * <pre>
