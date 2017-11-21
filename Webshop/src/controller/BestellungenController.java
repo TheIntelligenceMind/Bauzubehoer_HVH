@@ -156,7 +156,7 @@ public class BestellungenController extends HttpServlet {
 		Benutzer benutzer = (Benutzer)req.getSession().getAttribute("benutzer");
 		Bestellung bestellung = new Bestellung().init("", new Date(), ENUM_BESTELLSTATUS.NEU.toString(), ENUM_ZAHLUNGSART.RECHNUNG.toString(), new Date(), bestellwert, versandkosten, benutzer);
 		
-		bestellung = queryManager.createBestellung(bestellung);
+		bestellung = queryManager.createBestellung(bestellung, benutzer);
 		
 		if(bestellung != null){
 			mailHelper.sendRechnungsmail(benutzer, bestellung, bestellartikelliste);
