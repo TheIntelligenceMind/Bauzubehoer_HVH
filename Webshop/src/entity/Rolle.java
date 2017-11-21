@@ -5,6 +5,12 @@ import java.util.List;
 
 import enums.ENUM_SICHT;
 
+/**
+ * <pre>
+ * <h3>Beschreibung:</h3> Die Klasse bildet die Tabelle Rolle in der DB ab
+ * </pre>
+ *  @author Tim Hermbecker
+ */
 public class Rolle {
 
 	private String bezeichnung;

@@ -1,5 +1,12 @@
 package entity;
 
+
+/**
+ * <pre>
+ * <h3>Beschreibung:</h3> Die Klasse bildet die Tabelle Adresse in der DB ab
+ * </pre>
+ *  @author Tim Hermbecker
+ */
 public class Adresse {
 
 	private String strasse;
