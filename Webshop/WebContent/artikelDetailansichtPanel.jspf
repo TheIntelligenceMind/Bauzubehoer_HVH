@@ -45,8 +45,8 @@ Diese Datei behandelt das Anzeigen eines bestimmten Artikels.
 		
 		
 		<div id="artikelDetailansichtPanelBeschreibung">
-				<p>Beschreibung</p>
-				<textarea title="Beschreibung" class="inputArea" wrap="soft" name="artikelDetailbeschreibung" placeholder="Beschreibung" readonly><% out.print(detailansichtArtikel.getBeschreibung()); %></textarea>
+			<p>Beschreibung</p>
+			<textarea title="Beschreibung" class="inputArea" wrap="soft" name="artikelDetailbeschreibung" placeholder="Beschreibung" readonly><% out.print(detailansichtArtikel.getBeschreibung()); %></textarea>
 		</div>
 
 </div>

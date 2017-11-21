@@ -1622,11 +1622,15 @@ table#zusatzTabelle tbody td{
 	width: 150px;
 	font-size: 13px;
 	border-style: none;
-	margin-right: 10px;
+	margin-right: 20px;
 	margin-top: 20px;
 	background-color: #BF4D17;
 	color: white;
 	border-radius: 5px;
+}
+#artikelDetailansichtPanelBeschreibung textarea{
+	width: 760px;
+	height: 140px;
 }
 #artikelDetailansichtWarenkorbButton:hover{
 	cursor: pointer;

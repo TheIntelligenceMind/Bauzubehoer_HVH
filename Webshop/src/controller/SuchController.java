@@ -68,6 +68,16 @@ public class SuchController extends HttpServlet {
 			case "suchKategorie":
 				nachKategorieSuchen(req, resp);
 				break;
+			case "artikelDetailansichtAnzeigen":
+				if(req.getParameter("artikelnummer") != null){
+					Artikel artikel = queryManager.searchArtikelByNummer(Integer.valueOf(req.getParameter("artikelnummer")));
+							
+					req.setAttribute("detailansichtArtikel", artikel);
+					resp.addHeader("contentSite", "artikelDetailansichtPanel");	
+				}else{
+					rd = req.getRequestDispatcher("/suchen");
+				}	
+				break;
 			default:
 				nachBegriffSuchen(req, resp);
 				break;
