@@ -460,7 +460,7 @@ public class QueryManager {
 		int result;
 		ResultSet bestellung_id_result = null;
 		int bestellnummer_result = 0;
-		ResultSet bestellartikel_result = null;
+		int bestellartikel_result = 0;
 		int delete_bestellung_result = 0;
 		int warenkorb_result = 0;
 		int delete_bestellartikel_result = 0;
@@ -477,7 +477,7 @@ public class QueryManager {
 			
 			//Bestellwert berechnen und sichern
 			String bestellwert_sql = "SELECT sum(w.menge * a.preis) as 'bestellwert' FROM " + 
-					ENUM_DB_TABELLE.WARENKORB.toString() + " w LEFT JOIN"+ ENUM_DB_TABELLE.ARTIKEL.toString() + " a on "
+					ENUM_DB_TABELLE.WARENKORB.toString() + " w LEFT JOIN "+ ENUM_DB_TABELLE.ARTIKEL.toString() + " a on "
 					+ "w.Artikel_ID = a.ID WHERE w.Benutzer_ID = ?";
 			
 			PreparedStatement bestellwert_stmt = getConnection().prepareStatement(bestellwert_sql);
@@ -494,7 +494,7 @@ public class QueryManager {
 			bestellwert = bestellwert_result.getDouble("bestellwert");
 			
 			//Pflege der Tabelle "Bestellung"
-			String sql = "INSERT INTO "+ ENUM_DB_TABELLE.BESTELLUNG.toString() +" (status, bestelldatum"
+			String sql = "INSERT INTO "+ ENUM_DB_TABELLE.BESTELLUNG.toString() +" (status, bestelldatum,"
 					+ "zahlungsart, bestellwert, versandkosten, benutzer_id, erstellt_benutzer) VALUES(?, ?, ?, ?, ?, ?, ?)";
 			
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
@@ -533,7 +533,7 @@ public class QueryManager {
 			bestellung_ID = bestellung_id_result.getInt("id");
 			
 			//Eintragung der Bestellnummer in Abhängigkeit von der ID der Bestellung
-			String bestellnummer_sql = "UPDATE " + ENUM_DB_TABELLE.BESTELLUNG.toString() + " SET bestellnummer = ?, "
+			String bestellnummer_sql = "UPDATE " + ENUM_DB_TABELLE.BESTELLUNG.toString() + " SET bestellnummer = ?"
 					+ " WHERE ID = ? AND Bestellnummer = 'keine_Bestellnummer_definiert'";
 					
 			PreparedStatement bestellnummer_stmt = getConnection().prepareStatement(bestellnummer_sql);
@@ -559,10 +559,10 @@ public class QueryManager {
 			bestellartikel_stmt.setString(2, DBUSER);
 			bestellartikel_stmt.setInt(3, benutzer_ID);
 			
-			bestellartikel_result = bestellartikel_stmt.executeQuery();
+			bestellartikel_result = bestellartikel_stmt.executeUpdate();
 			
 			// sicherstellen, dass ein Ergebnis geliefert wird
-			if(!bestellartikel_result.next()){
+			if(bestellartikel_result == 0){
 				
 				//Löschen des zuvor angelegten Datensatzes in der Tabelle "Bestellung", falls es zu einem Problem gekommen ist
 				String delete_bestellung_sql = "DELETE FROM " + ENUM_DB_TABELLE.BESTELLUNG.toString() + " WHERE ID = ?";
@@ -1352,7 +1352,7 @@ public class QueryManager {
 	 */
 	public List<Bestellung> selectAllBestellungenByBenutzer(Benutzer piBenutzer){
 		Benutzer benutzer = piBenutzer;
-		List<Bestellung> bestellungListe = new ArrayList<Bestellung>();;
+		List<Bestellung> bestellungListe = new ArrayList<Bestellung>();
 		ResultSet result = null;
 		
 		int benutzerID = getBenutzerIDbyEmailadresse(benutzer.getEmailadresse());
