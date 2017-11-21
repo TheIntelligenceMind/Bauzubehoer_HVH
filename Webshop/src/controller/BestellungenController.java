@@ -144,8 +144,8 @@ public class BestellungenController extends HttpServlet {
 	}
 	
 	private void bestellungAbschliessen(HttpServletRequest req, HttpServletResponse resp){
-		
 		double bestellwert = 0.0;
+		double versandkosten = 20.00; // pauschal 20€
 		
 		List<WarenkorbArtikel> bestellartikelliste = (List<WarenkorbArtikel>)req.getSession().getAttribute("warenkorbartikelliste");
 		
@@ -154,7 +154,7 @@ public class BestellungenController extends HttpServlet {
 		}
 		
 		Benutzer benutzer = (Benutzer)req.getSession().getAttribute("benutzer");
-		Bestellung bestellung = new Bestellung().init(4124, new Date(), ENUM_BESTELLSTATUS.NEU.toString(), ENUM_ZAHLUNGSART.RECHNUNG.toString(), new Date(), bestellwert , benutzer);
+		Bestellung bestellung = new Bestellung().init("", new Date(), ENUM_BESTELLSTATUS.NEU.toString(), ENUM_ZAHLUNGSART.RECHNUNG.toString(), new Date(), bestellwert, versandkosten, benutzer);
 		
 		bestellung = queryManager.createBestellung(bestellung);
 		

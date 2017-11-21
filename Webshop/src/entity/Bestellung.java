@@ -9,20 +9,21 @@ import java.util.Date;
  *  @author Tim Hermbecker
  */
 public class Bestellung {
-	private int bestellnummer;
+	private String bestellnummer;
 	private Date bestelldatum;
 	private String status;
 	private String zahlungsart;
 	private Date voraussichtlichesLieferdatum;
 	private double bestellwert;
+	private double versandkosten;
 	private Benutzer benutzer; 
 	
 	public Bestellung(){
 		
 	}
 	
-	public Bestellung init(int piBestellnummer, Date piBestelldatum, String piStatus, 
-			String piZahlungsart, Date piVoraussichtlichesLieferdatum, double piBestellwert, Benutzer piBenutzer){
+	public Bestellung init(String piBestellnummer, Date piBestelldatum, String piStatus, 
+			String piZahlungsart, Date piVoraussichtlichesLieferdatum, double piBestellwert, double piVersandkosten, Benutzer piBenutzer){
 		
 		bestellnummer = piBestellnummer;
 		bestelldatum = piBestelldatum;
@@ -30,16 +31,17 @@ public class Bestellung {
 		zahlungsart = piZahlungsart;
 		voraussichtlichesLieferdatum = piVoraussichtlichesLieferdatum;
 		bestellwert = piBestellwert;
+		setVersandkosten(piVersandkosten);
 		benutzer = piBenutzer;
 		
 		return this;
 	}
 
-	public int getBestellnummer() {
+	public String getBestellnummer() {
 		return bestellnummer;
 	}
 
-	public void setBestellnummer(int bestellnummer) {
+	public void setBestellnummer(String bestellnummer) {
 		this.bestellnummer = bestellnummer;
 	}
 
@@ -89,6 +91,14 @@ public class Bestellung {
 
 	public void setBenutzer(Benutzer benutzer) {
 		this.benutzer = benutzer;
+	}
+
+	public double getVersandkosten() {
+		return versandkosten;
+	}
+
+	public void setVersandkosten(double versandkosten) {
+		this.versandkosten = versandkosten;
 	}
 	
 }

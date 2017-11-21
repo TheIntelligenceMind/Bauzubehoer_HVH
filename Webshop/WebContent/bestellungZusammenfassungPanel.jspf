@@ -61,7 +61,7 @@ Diese Datei behandelt die Zusammenfassung der Bestellung.
 			        		"<td class='tablecell'>" + formater.format(warenkorbartikel.getArtikel().getPreis()*warenkorbartikel.getMenge()) +" &euro;</td>" +
 			        		"</tr>");
 			        		gesamtBestellung = gesamtBestellung + (warenkorbartikel.getArtikel().getPreis() * warenkorbartikel.getMenge());
-			        		mwstBestellung = mwstBestellung + (warenkorbartikel.getArtikel().getPreis() * warenkorbartikel.getMenge())*0.19;
+			        		mwstBestellung = mwstBestellung + (warenkorbartikel.getArtikel().getPreis() * warenkorbartikel.getMenge() / 119 * 19); 
 		        		}	
 		        	}
 	        	%>
@@ -87,7 +87,7 @@ Diese Datei behandelt die Zusammenfassung der Bestellung.
 				<tr>
 					<td class="textLeftBold" colspan="1">Gesamt (Brutto):</td>
 				 	<td colspan="1"></td>
-				 	<td style="font-weight:bold"><% out.println(formater.format(gesamtBestellung + mwstBestellung + versandkostenBestellung)); %> &euro;<td>
+				 	<td style="font-weight:bold"><% out.println(formater.format(gesamtBestellung + versandkostenBestellung)); %> &euro;<td>
 				</tr>
 	        </tbody>  
 		</table>
