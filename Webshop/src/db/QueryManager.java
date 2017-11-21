@@ -442,7 +442,7 @@ public class QueryManager {
 	 * war; andernfalls: false
 	 */
 	public Bestellung createBestellung(Bestellung piBestellung){
-		Bestellung bestellung = null;
+		Bestellung bestellung = new Bestellung();
 		
 		// Bitte nach erstellung der BEstellung die Bestellung nocheinmal in der Tabelle selecten und mir zurückgeben. 
 		// Da ich die generierten Timestamps und Bestellnummer benötige
