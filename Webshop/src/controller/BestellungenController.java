@@ -161,6 +161,11 @@ public class BestellungenController extends HttpServlet {
 		if(bestellung != null){
 			mailHelper.sendRechnungsmail(benutzer, bestellung, bestellartikelliste);
 	 		
+			// Warenkorbartikel Anzeige im Benutzerpanel aktualisieren
+			updateWarenkorbArtikel(req);
+			// Bestellungen aktualisieren
+			req.getSession().setAttribute("bestellungenliste" , queryManager.selectAllBestellungenByBenutzer(benutzer));
+			
 			dispatchSite = "/meineBestellungen?method=bestellungErfassenS4Anzeigen";
 		}else{
 			req.setAttribute("benutzer", benutzer);
@@ -173,6 +178,14 @@ public class BestellungenController extends HttpServlet {
 		}
 			
 	}
+	
+	private void updateWarenkorbArtikel(HttpServletRequest req){
+    	String benutzerEmailadresse = ((Benutzer)req.getSession().getAttribute("benutzer")).getEmailadresse();
+    	
+    	List<WarenkorbArtikel> warenkorbartikelListe = queryManager.selectAllWarenkorbartikelByBenutzeremailadresse(benutzerEmailadresse);	
+
+    	req.getSession().setAttribute("warenkorbartikelliste", warenkorbartikelListe);   	
+    }
 	
 	/**
 	 * <h3>Beschreibung:</h3>

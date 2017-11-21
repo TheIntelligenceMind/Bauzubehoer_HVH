@@ -34,7 +34,7 @@ Diese Datei behandelt die Darstellung der gesamten Bestellungen des eingeloggten
 		    		Bestellung bestellung = (Bestellung)o;
 		            
 	        		out.println("<tr>" +
-	        		"<td class='tablecell'><div>" + String.format("%04d", bestellung.getBestellnummer()) + "</div></td>" +
+	        		"<td class='tablecell'><div>" + bestellung.getBestellnummer() + "</div></td>" +
 	        		"<td class='tablecell'><div>" + bestellung.getBestelldatum() + "</div></td>" +
 	        		"<td class='tablecell'><div>" + bestellung.getStatus() + "</div></td>" +
 	        		"<td class='tablecell'><div>" + bestellung.getZahlungsart() + "</div></td>" +
