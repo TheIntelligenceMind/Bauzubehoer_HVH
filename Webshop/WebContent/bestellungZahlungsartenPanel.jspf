@@ -22,24 +22,19 @@ Diese Datei behandelt das Panel zur Zahlungsartauswahl. Hier können verschieden 
 		<div class="zahlungsartPanel"> 
 				<input type="radio" id="creditcard" name="Zahlungsmethode" value="Kreditkarte" disabled>
 		 		<label for="creditcard">Kreditkarte</label>
-		 		<img alt="mastercard" src="../images/mastercard.png">
+		 		<div id="mastercardBild"></div>
 
 		 		<input type="radio" id="lastschrift" name="Zahlungsmethode" value="Lastschrift" disabled>
 		 		<label for="lastschrift">Lastschrift</label>
-				<img alt="Lastschrift" src="../images/text-lastschrift.png">
-		 	
-		 	
+				<div id="lastschriftBild"></div>
+		 	 	
 		 		<input type="radio" id="rechnung" name="Zahlungsmethode" value="Rechnung"  checked="checked">
 		 		<label for="rechnung">Rechnung</label>
-		 		<img alt="Rechnung" src="../images/text-rechnung.png">
-		 	
-		 		<input type="radio" id="ueberweisung" name="Zahlungsmethode" value="Ueberweisung" disabled>
-		 		<label for="ueberweisung">&Uuml;berweisung</label>
-		 		<img alt="&Uuml;berweisung" src="../images/payment-in-advance.png">
+		 		<div id="rechnungBild"></div>
 		 	
 		 		<input type="radio" id="paypal" name="Zahlungsmethode" value="PayPal" disabled>
 		 		<label for="paypal">PayPal</label>
-		 		<img alt="PayPal" src="../images/paypal-alternative.png">
+		 		<div id="PayPalBild"></div>
 		 </div>	
 	 </form>
 	 <div class="buttonPanel">

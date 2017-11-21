@@ -1769,18 +1769,39 @@ table#zusatzTabelle tbody td{
 <<<<<<< HEAD
 =======
 }
+#PayPalBild
+{
+	height: 20px;
+	width: 30px;
+	background: url("../images/articles/paypal-alternative.png");
+}
+#rechnungBild
+{
+	height: 20px;
+	width: 30px;
+	background: url("../images/articles/text-rechnung.png");
+}
+#lastschriftBild
+{
+	height: 20px;
+	width: 30px;
+	background: url("../images/articles/text-lastschrift.png");
+}
+#mastercardBild
+{
+	height: 20px;
+	width: 30px;
+	background: url("../images/articles/mastercard.png");
+}
 #bestellungZahlungsartPanel .zahlungsartPanel input{
 	width: 10%;
-	float: left;
 }
 #bestellungZahlungsartPanel .zahlungsartPanel label{
 	width: 30%;
-	float: left;
 }
 #bestellungZahlungsartPanel .zahlungsartPanel{
 	height: 230px;
 	width: 100%;
-	float: left;
 >>>>>>> branch 'Development' of https://github.com/TheIntelligenceMind/Bauzubehoer_HVH.git
 }
 #bestellungZahlungsartPanel .buttonPanel{
@@ -1830,6 +1851,36 @@ table#zusatzTabelle tbody td{
 }
 #bestellungZusammenfassungPanel .buttonPanel{
 	height: 50px;
+}
+#zusatzTabelleBestellung{
+	margin-top: 20px;
+	width: 92%;
+	height: 80px;
+	margin-left: 4%;
+}
+.textLeftBold{
+	text-align:left;
+	font-weight: bold;
+}
+.textLeft{
+	text-align:left;
+}
+
+#zusatzTabelleBestellung th{
+	border-bottom: 1px solid #BF4D17;
+}
+table#zusatzTabelleBestellung table tr{
+	border-collapse: collapse;
+	margin:auto;
+	margin-top: 10px;
+	padding: 5px;
+	empty-cells: hide;
+}
+table#zusatzTabelleBestellung tr{
+	text-align: left;	
+}
+table#zusatzTabelleBestellung tbody td{
+	margin: 0;
 }
 /* ------------- Panel für die Bestellung: Zusammenfassung ------------------- */
 
