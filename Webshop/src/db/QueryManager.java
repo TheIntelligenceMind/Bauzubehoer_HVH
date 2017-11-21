@@ -117,7 +117,7 @@ public class QueryManager {
 				}
 				
 
-				Rolle rolle = new Rolle().init(result.getString("bezeichnung"), result.getInt("Sicht_Warenkorb"), result.getInt("Sicht_Bestellungen"), result.getInt("Sicht_Konto"), result.getInt("Sicht_Artikelstammdaten"));
+				Rolle rolle = new Rolle().init(result.getString("bezeichnung"), result.getInt("Sicht_Warenkorb"), result.getInt("Sicht_Bestellungen"), result.getInt("Sicht_Konto"), result.getInt("Sicht_Artikelstammdaten"), result.getInt("Sicht_Benutzerstammdaten"));
 	
 				return benutzer.init(result.getString("emailadresse"), result.getString("passwort"), result.getString("vorname"), result.getString("nachname"), adresse, rolle, result.getInt("bestaetigt"), result.getDate("erstellt_Datum"));
 				

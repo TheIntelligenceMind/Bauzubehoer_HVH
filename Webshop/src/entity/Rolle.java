@@ -18,17 +18,19 @@ public class Rolle {
 	private int sichtBestellungen;
 	private int sichtKonto;
 	private int sichtArtikelstammdaten;
+	private int sichtBenutzerstammdaten;
 
 	public Rolle(){		
 		
 	}
-	
-	public Rolle init(String piBezeichnung, int piSichtWarenkorb, int piSichtBestellungen, int piSichtKonto, int piSichtArtikelstammdaten){		
+
+	public Rolle init(String piBezeichnung, int piSichtWarenkorb, int piSichtBestellungen, int piSichtKonto, int piSichtArtikelstammdaten, int piSichtBenutzerstammdaten){		
 		bezeichnung = piBezeichnung != null ? piBezeichnung : "";	
 		sichtWarenkorb = piSichtWarenkorb;	
 		sichtBestellungen = piSichtBestellungen;
 		sichtKonto = piSichtKonto;
 		sichtArtikelstammdaten = piSichtArtikelstammdaten;
+		sichtBenutzerstammdaten = piSichtBenutzerstammdaten;
 		
 		return this;
 	}
@@ -83,5 +85,12 @@ public class Rolle {
 	public void setSichtArtikelstammdaten(int sichtArtikelstammdaten) {
 		this.sichtArtikelstammdaten = sichtArtikelstammdaten;
 	}
-	
+		
+	public int getSichtBenutzerstammdaten() {
+		return sichtBenutzerstammdaten;
+	}
+
+	public void setSichtBenutzerstammdaten(int sichtBenutzerstammdaten) {
+		this.sichtBenutzerstammdaten = sichtBenutzerstammdaten;
+	}
 }
