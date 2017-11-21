@@ -1675,6 +1675,12 @@ table#zusatzTabelle tbody td{
 	margin-left: 5px;
 	margin-right: 5px;
 }
+.bestellvorgangUebersichtPanel ul:hover{
+	cursor: default;	
+}
+.bestellvorgangUebersichtPanel ul li:hover{
+	cursor: default;	
+}
 .bestellvorgangUebersichtPanel .arrowBestellschritt{
 	color: #939393;
 	width: 20px;
