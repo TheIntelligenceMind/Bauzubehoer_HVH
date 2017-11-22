@@ -99,12 +99,12 @@ Es werden je nach Zugriffsrichtlinien folgende Seiten angezeigt:
 						break;
 					case ARTIKELSTAMMDATEN:
 						%>
-							<li><i class="fa fa-database"></i><a onclick="artikelstammdatenAnzeigen()"> Artikelstammdaten</a>
+							<li><i class="fa fa-database"></i><a onclick="artikelstammdatenAnzeigen()"> Artikelstammdaten</a></li>
 						<%
 						break;
 					case BENUTZERSTAMMDATEN:
 						%>
-							<li><i class="fa fa-address-card-o" aria-hidden="true"><a onclick="benutzerstammdatenAnzeigen()"> Benutzerstammdaten</a></i></li>
+							<li><i class="fa fa-address-card-o"></i><a onclick="benutzerstammdatenAnzeigen()"> Benutzerstammdaten</a></li>
 						<%
 						break;
 					default:

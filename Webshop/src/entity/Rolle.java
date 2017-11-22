@@ -42,6 +42,7 @@ public class Rolle {
 		if(sichtBestellungen == 1){ sichten.add(ENUM_SICHT.BESTELLUNGEN);}
 		if(sichtKonto == 1){ sichten.add(ENUM_SICHT.KONTO);}
 		if(sichtArtikelstammdaten == 1){ sichten.add(ENUM_SICHT.ARTIKELSTAMMDATEN);}	
+		if(sichtBenutzerstammdaten == 1){ sichten.add(ENUM_SICHT.BENUTZERSTAMMDATEN);}	
 		
 		return sichten;
 	}

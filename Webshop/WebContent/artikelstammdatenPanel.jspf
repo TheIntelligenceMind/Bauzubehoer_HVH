@@ -45,28 +45,22 @@ function artikelBearbeitenAnzeigen(piArtikelNummer){
 	        	for(Object o : artikelListeMitarbeiter){	
 	        		Artikel art = (Artikel)o;
 
-	        		if(art.getAktiv() == 1)
-	        		{
-	        			artikelAktivSymbol = "<i class='fa fa-check' aria-hidden='true'></i>";
+	        		if(art.getAktiv() == 1){
+	        			artikelAktivSymbol = "<i class='fa fa-check'></i>";
+	        		}else{
+	        			artikelAktivSymbol = "<i class='fa fa-times'></i>";
 	        		}
-	        		else
-	        		{
-	        			artikelAktivSymbol = "<i class='fa fa-times' aria-hidden='true'></i>";
-	        		}
-	        		if(art.getLagermenge() > 50)
-	        		{
+	        		if(art.getLagermenge() > 50){
 	        			artikelLagermengeFarbe = "<div class='green'>";
 	        		}
-	        		else if(art.getLagermenge() > 0)
-	        		{
+	        		else if(art.getLagermenge() > 0){
 	        			artikelLagermengeFarbe = "<div class='yellow'>";
 	        		}
-	        		else
-	        		{
+	        		else{
 	        			artikelLagermengeFarbe = "<div class='red'>";
 	        		}
 	        		out.println("<tr>" +
-	        		"<td class='tablecell'>" + artikelLagermengeFarbe + "<p>" +art.getLagermenge() + "</p>" + "</div></td>" +
+	        		"<td class='tablecell'>" + artikelLagermengeFarbe + "" + art.getLagermenge() + "</div></td>" +
 	        		"<td class='tablecell'><div>" + String.format("%04d", art.getNummer()) + "</div></td>" +
 	        		"<td class='tablecell'><div>" + art.getBezeichnung() + "</div></td>" +
 	        		"<td class='tablecell'><div>" + art.getBeschreibung() + "</div></td>" +

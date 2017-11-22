@@ -22,7 +22,7 @@ function benutzerBearbeitenAnzeigen(){
 %> --%>
 
 <div class="showing" id="benutzerListe">
-<h1>Benutzerloste</h1>
+<h1>Benutzerstammdaten</h1>
 
       <table id="benutzerTabelle">
         <thead>

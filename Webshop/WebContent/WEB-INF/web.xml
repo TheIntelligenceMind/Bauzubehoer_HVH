@@ -72,6 +72,14 @@
     <servlet-name>ArtikelController</servlet-name>
     <url-pattern>/artikel</url-pattern>
    </servlet-mapping>
+    <servlet>
+    <servlet-name>BenutzerController</servlet-name>
+    <servlet-class>controller.BenutzerController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>BenutzerController</servlet-name>
+    <url-pattern>/benutzer</url-pattern>
+   </servlet-mapping>
    
    
    	<error-page>

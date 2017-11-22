@@ -50,11 +50,11 @@ public class BenutzerController extends HttpServlet {
 		}
 		
 		// Berechtigung für die Seite prüfen
-//    	if(((Benutzer)req.getSession().getAttribute("benutzer")).getRolle().getSichtBenutzerstammdaten() != 1){
-//    		rd = req.getRequestDispatcher("/suchen");	
-//    		rd.forward(req, resp);
-//    		return;
-//    	}
+    	if(((Benutzer)req.getSession().getAttribute("benutzer")).getRolle().getSichtBenutzerstammdaten() != 1){
+    		rd = req.getRequestDispatcher("/suchen");	
+    		rd.forward(req, resp);
+    		return;
+    	}
     		
 		String method = req.getParameter("method");
 		

@@ -28,11 +28,10 @@ Diese Datei behandelt die Zusammenfassung der Bestellung.
 	<div class="bestellArtikelTabellenPanel">
 		<table id="artikelTabelle">
 	        <colgroup>
-		       <col span="1" style="width: 8%;">
+		       <col span="1" style="width: 10%;">
 		       <col span="1" style="width: 16%;">
 		       <col span="1" style="width: 57%;">
-		       <col span="1" style="width: 14%;">
-		       <col span="1" style="width: 5%;">
+		       <col span="1" style="width: 17%;">
 		    </colgroup>
 	        
 	        <thead>
@@ -55,7 +54,7 @@ Diese Datei behandelt die Zusammenfassung der Bestellung.
 			        		WarenkorbArtikel warenkorbartikel = (WarenkorbArtikel)o;
 			        		
 			        		out.println("<tr>" +
-			        		"<td class='tablecell'><input style='font-size:14px; width:20px; border:none;' type='text' onchange='updateQuantity(this," + warenkorbartikel.getArtikel().getNummer() + ")' name='menge' value='" + String.valueOf(warenkorbartikel.getMenge()) + "'></td>" +
+			        		"<td class='tablecell'>" + String.valueOf(warenkorbartikel.getMenge()) + "</td>" +
 			        		"<td class='tablecell'>" + String.format("%04d", warenkorbartikel.getArtikel().getNummer()) + "</td>" +
 			        		"<td class='tablecell'>" + warenkorbartikel.getArtikel().getBezeichnung() + "</td>" +
 			        		"<td class='tablecell'>" + formater.format(warenkorbartikel.getArtikel().getPreis()*warenkorbartikel.getMenge()) +" &euro;</td>" +
@@ -69,9 +68,9 @@ Diese Datei behandelt die Zusammenfassung der Bestellung.
       	</table>
       	<table id="zusatzTabelleBestellung">
 	      	<colgroup>
-		       <col span="1" style="width: 24%;">
+		       <col span="1" style="width: 26%;">
 		       <col span="1" style="width: 57%;">
-		       <col span="1" style="width: 19%;">
+		       <col span="1" style="width: 17%;">
 		    </colgroup>
 	      	<tbody>
 	        	<tr>
@@ -80,7 +79,7 @@ Diese Datei behandelt die Zusammenfassung der Bestellung.
 			        <td><% out.println(formater.format(versandkostenBestellung)); %> &euro;</td>
 		       	</tr>
 				<tr>
-				 	<td class="textLeft" colspan="1">MWST:</td>
+				 	<td class="textLeft" colspan="1">MwSt:</td>
 					<td colspan="1"></td>
 					<td><% out.println(formater.format(mwstBestellung)); %> &euro;</td>
 				</tr>

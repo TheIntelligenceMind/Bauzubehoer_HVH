@@ -19,27 +19,27 @@ Diese Datei behandelt das Panel zur Zahlungsartauswahl. Hier können verschieden 
 	 <h2 class="ueberschriftBestellschritt">Zahlungsart ausw&auml;hlen</h2>
 	 
 	 <form id="zahlungsartBestimmenForm" method="POST">
-		<div class="zahlungsartPanel"> 
-				<div id="einzelneZahlungsarten">
-					<input type="radio" id="creditcard" name="Zahlungsmethode" value="Kreditkarte" disabled>
-		 			<label for="creditcard">Kreditkarte</label>
-		 			<div id="mastercardBild"></div>
-				</div>
-				<div>
-		 			<input type="radio" id="lastschrift" name="Zahlungsmethode" value="Lastschrift" disabled>
-		 			<label for="lastschrift">Lastschrift</label>
-					<div id="lastschriftBild"></div>
-		 	 	</div>
-		 	 	<div>
-		 			<input type="radio" id="rechnung" name="Zahlungsmethode" value="Rechnung"  checked="checked">
-		 			<label for="rechnung">Rechnung</label>
-		 			<div id="rechnungBild"></div>
-		 		</div>
-		 		<div>
-		 			<input type="radio" id="paypal" name="Zahlungsmethode" value="PayPal" disabled>
-		 			<label for="paypal">PayPal</label>
-		 			<div id="PayPalBild"></div>
-		 		</div>
+		<div id="zahlungsartenPanel"> 
+			<div class="zahlungsartPanel disabledZahlungsart">
+	 			<input type="radio" id="lastschrift" name="Zahlungsmethode" value="Lastschrift" disabled>
+	 			<label for="lastschrift">Barzahlung</label>
+				<img class="zahlungsartBildPanel" src="images/barzahlung.jpg"></img>
+	 	 	</div>
+	 	 	<div class="zahlungsartPanel">
+				<input type="radio" id="creditcard" name="Zahlungsmethode" value="Kreditkarte" disabled>
+	 			<label for="creditcard">Vorkasse</label>
+	 			<img class="zahlungsartBildPanel" src="images/vorkasse.jpg"></img>
+			</div>
+	 	 	<div class="zahlungsartPanel checkedZahlungsart">
+	 			<input type="radio" id="rechnung" name="Zahlungsmethode" value="Rechnung"  checked="checked">
+	 			<label for="rechnung">Rechnung</label>
+	 			<img class="zahlungsartBildPanel" src="images/rechnung.jpg"></img>
+	 		</div>
+	 		<div class="zahlungsartPanel disabledZahlungsart">
+	 			<input type="radio" id="paypal" name="Zahlungsmethode" value="PayPal" disabled>
+	 			<label for="paypal">PayPal</label>
+	 			<img class="zahlungsartBildPanel" src="images/paypal.jpg"></img>
+	 		</div>
 		 </div>	
 	 </form>
 	 <div class="buttonPanel">

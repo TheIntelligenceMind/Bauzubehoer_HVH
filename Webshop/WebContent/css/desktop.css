@@ -520,24 +520,20 @@ html,body{
 #artikelListeMitarbeiter h1{
 	margin: 0;
 	padding: 15px;
-	color: #BF4D17;	
 }
 #artikelListeMitarbeiterTabelle{
 	width: 92%;
 	margin-left: 4%;
 	table-layout: fixed;
 }
-.green p
-{
+.green{
 	color: green;
 }
-.yellow p
-{
-	color: yellow;
+.yellow{
+	color: #f47a00;
 }
-.red p
-{
-	color: red;
+.red{
+	color: #dd0000;
 }
 #artikelListeMitarbeiterTabelle tbody{
 	height: 300px;
@@ -1784,44 +1780,68 @@ table#zusatzTabelle tbody td{
 }
 #bestellungZahlungsartPanel form{
 	text-align: center;
-<<<<<<< HEAD
-=======
 }
-#PayPalBild
-{
-	height: 36px;
-	width: 50px;
-	background: url("../images/PayPal.jpg");
+#zahlungsartenPanel{
+	width: 760px;
+	padding-top: 20px;
+	margin-left:20px;
+	height: 210px;
 }
-#rechnungBild
-{
-	height: 36px;
-	width: 50px;
-	background: url("../images/Rechnung.jpg");
+.zahlungsartBildPanel{
+	margin-top: 15px;
+	height: 50px;
+	width: 84px;
 }
-#lastschriftBild
-{
-	height: 36px;
-	width: 50px;
-	background: url("../images/Lastschrift.jpg");
+.zahlungsartPanel{
+	padding-top: 10px;
+	height: 96px;
+	width: 106px;
+	border-radius: 5px;
+	margin-left: 64px;
+	background-color: #ed8c45;
+	border: 3px solid #ed8c45;
+	float: left;
+	text-align: center;
+	transition: border-color .2s ease-out, background-color .2s ease-out;
 }
-#mastercardBild
-{
-	height: 36px;
-	width: 50px;
-	background: url("../images/Mastercard.jpg");
+.zahlungsartPanel:hover{
+	border-color: #a54314;
+	background-color: #cc6213;
+	cursor: pointer;
 }
-#bestellungZahlungsartPanel .zahlungsartPanel input{
+.checkedZahlungsart{
+	background-color: #cc6213;
+	border-color: #a54314;
+}
+.disabledZahlungsart{
+	background-color: #c0c0c0;
+	border-color: #c0c0c0;
+}
+.disabledZahlungsart:hover{
+	cursor: default;
+	background-color: #c0c0c0;
+	border-color: #c0c0c0;
+}
+.zahlungsartPanel input[type=radio]{
+	margin: 0;
+	margin-top: 10px;
+	padding: 0;
 	width: 25px;
+	display: none;
 }
-#bestellungZahlungsartPanel .zahlungsartPanel label{
-	width: 40px;
+.zahlungsartPanel label{
+	width: 110px;
+	color: white;
+	font-size: 20px;
 }
-#bestellungZahlungsartPanel .zahlungsartPanel{
-	height: 230px;
-	width: 800px;
->>>>>>> branch 'Development' of https://github.com/TheIntelligenceMind/Bauzubehoer_HVH.git
+.zahlungsartPanel label:hover{
+	cursor: pointer;
 }
+
+.disabledZahlungsart label:hover{
+	cursor: default;
+}
+
 #bestellungZahlungsartPanel .buttonPanel{
 	height: 50px;
 }
@@ -1843,29 +1863,11 @@ table#zusatzTabelle tbody td{
 	-moz-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
 	box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
 }
-#bestellungZusammenfassungPanel form{
-	text-align: center;
-}
-.btnBestellungKaufen{
-	background-color: #BF4D17;
-	padding: 3px;
-	margin-left: 30px;
-	margin-right: 30px;
-	width: 160px;
-	color: white;
-	height: 25px;
-	position: relative;
-	height: 30px;
-	font-size: 18px;
-	border-style: none;
-	border-radius: 5px;
-}
-.btnBestellungKaufen:hover{
-	cursor:pointer;
-	background-color: #9b4013;
+#bestellungZusammenfassungPanel h2{
+	margin-bottom: 20px;
 }
 #bestellungZusammenfassungPanel .bestellArtikelTabellenPanel{
-	height: 230px;
+	height: 250px;
 }
 #bestellungZusammenfassungPanel .buttonPanel{
 	height: 50px;
@@ -1873,15 +1875,20 @@ table#zusatzTabelle tbody td{
 #zusatzTabelleBestellung{
 	margin-top: 20px;
 	width: 92%;
+	float: left;
 	height: 80px;
 	margin-left: 4%;
 }
-.textLeftBold{
-	text-align:left;
-	font-weight: bold;
+.bestellArtikelTabellenPanel{
+	height: 170px;
 }
-.textLeft{
-	text-align:left;
+.bestellArtikelTabellenPanel table#artikelTabelle{
+	max-height: 130px;
+	text-align: left;
+}
+.bestellArtikelTabellenPanel table#artikelTabelle tr:hover{
+	cursor: default;
+	background-color: white;
 }
 
 #zusatzTabelleBestellung th{
@@ -1899,6 +1906,25 @@ table#zusatzTabelleBestellung tr{
 }
 table#zusatzTabelleBestellung tbody td{
 	margin: 0;
+}
+
+.btnBestellungKaufen{
+	background-color: #BF4D17;
+	padding: 3px;
+	margin-left: 30px;
+	margin-right: 30px;
+	width: 160px;
+	color: white;
+	height: 25px;
+	position: relative;
+	height: 30px;
+	font-size: 18px;
+	border-style: none;
+	border-radius: 5px;
+}
+.btnBestellungKaufen:hover{
+	cursor:pointer;
+	background-color: #9b4013;
 }
 /* ------------- Panel für die Bestellung: Zusammenfassung ------------------- */
 

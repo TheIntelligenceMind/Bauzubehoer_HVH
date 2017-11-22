@@ -461,9 +461,7 @@ public class QueryManager {
 		ResultSet bestellung_id_result = null;
 		int bestellnummer_result = 0;
 		int bestellartikel_result = 0;
-		int delete_bestellung_result = 0;
 		int warenkorb_result = 0;
-		int delete_bestellartikel_result = 0;
 		ResultSet return_result = null;
 		
 		try {
@@ -570,7 +568,7 @@ public class QueryManager {
 				PreparedStatement delete_bestellung_stmt = getConnection().prepareStatement(delete_bestellung_sql);
 				delete_bestellung_stmt.setInt(1, bestellung_ID);
 				
-				delete_bestellung_result = delete_bestellung_stmt.executeUpdate();
+				delete_bestellung_stmt.executeUpdate();
 				
 				return null;
 			}
@@ -595,7 +593,7 @@ public class QueryManager {
 				
 				delete_bestellung_stmt.setInt(1, bestellung_ID);
 				
-				delete_bestellung_result = delete_bestellung_stmt.executeUpdate();
+				delete_bestellung_stmt.executeUpdate();
 				
 				
 				//Löschen des/der zuvor angelegten Datensatzes/Datensätze in der Tabelle "Bestellartikel", falls es zu einem Problem gekommen ist
@@ -604,7 +602,7 @@ public class QueryManager {
 				PreparedStatement delete_bestellartikel_stmt = getConnection().prepareStatement(delete_bestellartikel_sql);
 				delete_bestellartikel_stmt.setInt(1, bestellung_ID);
 				
-				delete_bestellartikel_result = delete_bestellartikel_stmt.executeUpdate();
+				delete_bestellartikel_stmt.executeUpdate();
 				
 				return null;
 			}
