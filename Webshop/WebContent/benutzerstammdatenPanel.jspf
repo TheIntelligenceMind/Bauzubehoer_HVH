@@ -16,10 +16,6 @@ function benutzerBearbeitenAnzeigen(){
 }
 </script>
 
-<%-- <%
-	Benutzer benutzer = (Benutzer)session.getAttribute("benutzer");
-	Adresse address = (Adresse).getAttribute("adresse");			
-%> --%>
 
 <div class="showing" id="benutzerListe">
 <h1>Benutzerstammdaten</h1>
@@ -27,21 +23,19 @@ function benutzerBearbeitenAnzeigen(){
       <table id="benutzerTabelle">
         <thead>
           <tr>
+          	<th>E-Mail</th>
             <th>Vorame</th>
             <th>Nachname</th>
             <th>Rolle</th>
             <th>Straﬂe</th>
-            <th>Hausnummer</th>
             <th>Aktiv</th>
             <th></th>
           </tr>
         </thead>
         <tbody>
         	<%-- <%
-	        	List<?> benutzerListe  = (List<?>)request.getAttribute("benutzerListe");
+	        	List<?> mitarbeiterListe = (List<?>)request.getAttribute("benutzerstammdatenListe")
 				String benutzerAktivSymbol;
-				String benutzerStrasse;
-				String benutzerHausnummer;
 				
 	        	for(Object o : benutzerListe){	
 	        		Benutzer user = (Benutzer)o;
@@ -61,7 +55,7 @@ function benutzerBearbeitenAnzeigen(){
 	        		"<td class='tablecell'><div>" + benutzerStrasse + "</div></td>" +
 	        		"<td class='tablecell'><div>" + benutzerHausnummer +  "</div></td>" +
 	        		"<td class='tablecell'><div>" + benutzerAktivSymbol + "</div></td>" +
-	        		"<td class='tablecellright'>" + "<a onclick='artikelBearbeitenAnzeigen(" + user.getEmailadresse() + ")' class='PickSymbol'><i class='fa fa-pencil-square-o'></i></a>" + "</div></td>" +
+	        		"<td class='tablecellright'>" + "<a onclick='benutzerBearbeitenAnzeigen(" + user.getEmailadresse() + ")' class='PickSymbol'><i class='fa fa-pencil-square-o'></i></a>" + "</div></td>" +
 	        		"</tr>");
 		        }
         	
@@ -69,9 +63,9 @@ function benutzerBearbeitenAnzeigen(){
         </tbody>
     </table>
 	<div>
-		<form action="artikel">
-			<input type="hidden" name="method" value="artikelAnlegenAnzeigen">
-			<button id="btnArtikelAnlegen" type="submit"><i class="fa fa-plus"></i> Neuen Artikel anlegen</button>
+		<form action="benutzer">
+			<input type="hidden" name="method" value="benutzerAnlegenAnzeigen">
+			<button id="btnBenutzerAnlegen" type="submit"><i class="fa fa-plus"></i> Neuen Benutzer anlegen</button>
 		</form>
 	</div>
 </div>
