@@ -67,7 +67,7 @@ public class MailHelper {
 	                                 InternetAddress.parse(benutzer.getEmailadresse()));
 
 	        // Betreffzeile setzen
-	        message.setSubject("Bauzubehör HVH - Bestellbestätigung");
+	        message.setSubject("Bauzubehoer HVH - Bestellbestätigung");
 	        
 	        // Mail Inhalt setzen
 	        message.setContent(getRechnungsmailContent(benutzer, bestellung, artikelliste), "text/html");
@@ -94,7 +94,7 @@ public class MailHelper {
 	                                 InternetAddress.parse(benutzer.getEmailadresse()));
 
 	        // Betreffzeile setzen
-	        message.setSubject("Bauzubehör HVH - Registrierung abschliessen!");
+	        message.setSubject("Bauzubehoer HVH - Registrierung abschliessen!");
 	        
 	        // Mail Inhalt setzen
 	        message.setContent(getBestaetigungsmailContent(benutzer), "text/html");
@@ -119,7 +119,7 @@ public class MailHelper {
 						+ "</style>"
 						+ "<p>Sehr geehrte(r) " + benutzer.getVorname() + " " + benutzer.getNachname() + ",</p>" 
 						+ "</br>"
-						+ "<p>Bauzubeh&ouml;r HVH dankt Ihnen für Ihre Bestellung, deren Eingang wir hiermit best&auml;tigen.</p>"
+						+ "<p>Bauzubeh&ouml;r HVH dankt Ihnen f&uuml;r Ihre Bestellung, deren Eingang wir hiermit best&auml;tigen.</p>"
 						+ "</br>"
 						+ "<p>Ihre Bestellung wird so schnell es geht von uns in die Bearbeitung genommen. Die gew&ouml;hnliche Lieferzeit betr&auml;gt zwei bis vier Werktage.</p>"
 						+ "</br>"
@@ -145,7 +145,7 @@ public class MailHelper {
 						+ "</br>"
 						+ "<p>Rechnungssumme (inkl. 20&euro; Standard-Versandkosten): <i style='font-size: 16px; font-weight:bold;'>" + formater.format(gesamtBestellwert).replace(".", ",") + "&euro;</i></p>"
 						+ "</br>"
-						+ "<p>Bitte überweisen Sie die Rechnungssumme unter Angabe der Rechnungsnummer im Verwendungszweck innerhalb der n&auml;chsten 14 Tage auf folgendes Konto:</p>"
+						+ "<p>Bitte &uuml;berweisen Sie die Rechnungssumme unter Angabe der Rechnungsnummer im Verwendungszweck innerhalb der n&auml;chsten 14 Tage auf folgendes Konto:</p>"
 						+ "<p style='margin-top: 5px;'>IBAN: DE82 1234 5678 9000 1005 28</p>"
 						+ "<p style='margin-top: 5px;'>BIC: HVHLABADE082280</p>"
 						+ "<p style='margin-top: 5px;'>HVH-Landesbank Deutschland AG</p>"
@@ -180,7 +180,7 @@ public class MailHelper {
 				        + "<p>Wir w&uuml;nschen Ihnen viel Vergn&uuml;gen beim St&ouml;bern in unserem Sortiment!</p>"
 				        + "</br>"
 				        + "</br>"
-				        + "<p>Mit den besten Gr&uuml;ßen</p>"
+				        + "<p>Mit den besten Gr&uuml;&szlig;en</p>"
 				        + "</br>"
 				        + "<p>Bauzubeh&ouml;r-HVH, Kundenbetreuung</p>"
 						+ "</body></html>";
