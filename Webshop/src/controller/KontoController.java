@@ -66,30 +66,24 @@ public class KontoController extends HttpServlet {
 		}
 			
 		switch(method){
-			case "anzeigen":
-				
+			case "anzeigen":		
 				meinKontoAnzeigen(req, resp);
 				
 				break;
-			case "benutzerSpeichern":
-				
+			case "benutzerSpeichern":			
 				speicherBenutzer(req, resp);
 				
 				break;
-			case "adresseSpeichern":
-				
+			case "adresseSpeichern":		
 				speicherAdresse(req, resp);
 				
 				break;
-			case "loeschen":
-				
+			case "loeschen":		
 				kontoLoeschen(req, resp);
 
 				break;
-			default:
-				
-				meinKontoAnzeigen(req, resp);
-				
+			default:	
+				meinKontoAnzeigen(req, resp);				
 				break;
 		}
 

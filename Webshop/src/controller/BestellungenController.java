@@ -73,10 +73,7 @@ public class BestellungenController extends HttpServlet {
 				resp.addHeader("contentSite", "meineBestellungenPanel");
 				break;
 			case "bestellungErfassenS1Anzeigen":
-				Benutzer benutzer = queryManager.getBenutzerByEMailAdresse(((Benutzer)req.getSession().getAttribute("benutzer")).getEmailadresse());			
-				req.setAttribute("benutzer", benutzer);
-				dispatchSite = "index.jsp";
-				resp.addHeader("contentSite", "bestellungLieferadressePanel");
+				bestellungErfassenS1Anzeigen(req, resp);
 				break;
 			case "bestellungErfassenS2Anzeigen":
 				dispatchSite = "index.jsp";
@@ -106,6 +103,14 @@ public class BestellungenController extends HttpServlet {
 		
 		rd = req.getRequestDispatcher(dispatchSite);
 		rd.forward(req, resp);	
+	}
+
+	private void bestellungErfassenS1Anzeigen(HttpServletRequest req, HttpServletResponse resp) {
+		String emailadresse = ((Benutzer)req.getSession().getAttribute("benutzer")).getEmailadresse();
+		Benutzer benutzer = queryManager.getBenutzerByEMailAdresse(emailadresse);			
+		req.setAttribute("benutzer", benutzer);
+		dispatchSite = "index.jsp";
+		resp.addHeader("contentSite", "bestellungLieferadressePanel");
 	}
     
     private void bestellungS1Validieren(HttpServletRequest req, HttpServletResponse resp){

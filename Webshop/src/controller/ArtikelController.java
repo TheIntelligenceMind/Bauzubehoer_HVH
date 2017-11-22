@@ -68,87 +68,21 @@ public class ArtikelController extends HttpServlet {
 		
 		switch(method){
 		case "artikelstammdatenAnzeigen":
-			List<Artikel> artikelliste = null;
+			artikelstammdatenAnzeigen(req, resp);
 			
-			artikelliste = queryManager.selectAllArtikel(false);
-
-			req.setAttribute("artikelListeMitarbeiter", artikelliste);
-					
-			resp.addHeader("contentSite", "artikelstammdatenPanel");	
 			break;
 		case "artikelAnlegenAnzeigen":
 			resp.addHeader("contentSite", "artikelAnlegenPanel");	
 			break;
 		case "artikelAnlegen":		
-			boolean result = false;
-			String fehlertext = null;
-			Artikel anlegenArtikel = null;
-			
-			int nummer = NumberUtils.toInt(req.getParameter("nummer"), 0);
-			String bezeichnung = req.getParameter("bezeichnung");
-			String beschreibung = req.getParameter("beschreibung");
-			double preis = NumberUtils.toDouble(req.getParameter("preis"), 0.00);
-			int lagermenge = NumberUtils.toInt(req.getParameter("lagermenge"), 0);
-			String kategorie_1 = req.getParameter("kategorie_1");
-			String kategorie_2 = req.getParameter("kategorie_2");
-			
-			anlegenArtikel = new Artikel().init(bezeichnung, nummer, beschreibung, preis, lagermenge, kategorie_1,
-					kategorie_2, 1);
-			
-			if((fehlertext = validateAttributes(req, true)) == null){	
-				result = QueryManager.getInstance().createArtikel(anlegenArtikel);
-			}
-					
-			if(result){
-				String hinweistext = "Der Artikel wurde erfolgreich angelegt.";
-				resp.addHeader("Status", ENUM_RESPONSE_STATUS.HINWEIS.toString());
-				resp.addHeader(ENUM_MELDUNG_ART.HINWEISMELDUNG.toString(), hinweistext);
-			}else{
-				String fehlermeldung = fehlertext.toString();	
-				resp.addHeader("Status", ENUM_RESPONSE_STATUS.FEHLER.toString());
-				resp.addHeader(ENUM_MELDUNG_ART.FEHLERMELDUNG.toString(), fehlermeldung);
-				req.setAttribute("anlegenArtikel", anlegenArtikel);
-			}
-					
-			resp.addHeader("contentSite", "artikelAnlegenPanel");
+			artikelAnlegen(req, resp);
 			
 			break;
 		case "artikelBearbeitenAnzeigen":		
-			if(req.getParameter("artikelnummer") != null){	
-
-				int artikelnummer = Integer.valueOf(req.getParameter("artikelnummer"));
-				
-				artikel = queryManager.searchArtikelByNummer(artikelnummer);								
-			}else{
-				artikel = new Artikel();
-				artikel.init("", -1, "", -1, -1, "", "", -1);
-			}
-			
-			req.setAttribute("bearbeitenArtikel", artikel);
-			resp.addHeader("contentSite", "artikelBearbeitenPanel");
+			artikelBearbeitenAnzeigen(req, resp);
 			break;				
 		case "artikelBearbeiten":			
-			if(artikelSpeichern(req)){
-				updateWarenkorbArtikel(req);
-				
-				String hinweistext = "Die &Auml;nderungen wurden erfolgreich gespeichert.";
-				resp.addHeader("Status", ENUM_RESPONSE_STATUS.HINWEIS.toString());
-				resp.addHeader(ENUM_MELDUNG_ART.HINWEISMELDUNG.toString(), hinweistext);		
-			}else{
-				String fehlermeldung = "ung&uuml;ltige &Auml;nderungen.";
-				resp.addHeader("Status", ENUM_RESPONSE_STATUS.FEHLER.toString());
-				resp.addHeader(ENUM_MELDUNG_ART.FEHLERMELDUNG.toString(), fehlermeldung);
-			}
-			
-			if(req.getParameter("nummer") == null){
-				artikel = new Artikel();
-				artikel.init("", -1, "", -1, -1, "", "", -1);
-			}else{
-				artikel = queryManager.searchArtikelByNummer(Integer.valueOf(req.getParameter("nummer")));
-			}
-
-			req.setAttribute("bearbeitenArtikel", artikel);
-			resp.addHeader("contentSite", "artikelBearbeitenPanel");
+			artikelBearbeiten(req, resp);
 			break;	
 		default:
 			resp.addHeader("contentSite", "artikelstammdatenAnzeigen");
@@ -156,6 +90,90 @@ public class ArtikelController extends HttpServlet {
 		}
 
 		rd.forward(req, resp);		
+	}
+
+	private void artikelBearbeiten(HttpServletRequest req, HttpServletResponse resp) {
+		if(artikelSpeichern(req)){
+			updateWarenkorbArtikel(req);
+			
+			String hinweistext = "Die &Auml;nderungen wurden erfolgreich gespeichert.";
+			resp.addHeader("Status", ENUM_RESPONSE_STATUS.HINWEIS.toString());
+			resp.addHeader(ENUM_MELDUNG_ART.HINWEISMELDUNG.toString(), hinweistext);		
+		}else{
+			String fehlermeldung = "ung&uuml;ltige &Auml;nderungen.";
+			resp.addHeader("Status", ENUM_RESPONSE_STATUS.FEHLER.toString());
+			resp.addHeader(ENUM_MELDUNG_ART.FEHLERMELDUNG.toString(), fehlermeldung);
+		}
+		
+		if(req.getParameter("nummer") == null){
+			artikel = new Artikel();
+			artikel.init("", -1, "", -1, -1, "", "", -1);
+		}else{
+			artikel = queryManager.searchArtikelByNummer(Integer.valueOf(req.getParameter("nummer")));
+		}
+
+		req.setAttribute("bearbeitenArtikel", artikel);
+		resp.addHeader("contentSite", "artikelBearbeitenPanel");
+	}
+
+	private void artikelBearbeitenAnzeigen(HttpServletRequest req, HttpServletResponse resp) {
+		if(req.getParameter("artikelnummer") != null){	
+
+			int artikelnummer = Integer.valueOf(req.getParameter("artikelnummer"));
+			
+			artikel = queryManager.searchArtikelByNummer(artikelnummer);								
+		}else{
+			artikel = new Artikel();
+			artikel.init("", -1, "", -1, -1, "", "", -1);
+		}
+		
+		req.setAttribute("bearbeitenArtikel", artikel);
+		resp.addHeader("contentSite", "artikelBearbeitenPanel");
+	}
+
+	private void artikelstammdatenAnzeigen(HttpServletRequest req, HttpServletResponse resp) {
+		List<Artikel> artikelliste = null;
+		
+		artikelliste = queryManager.selectAllArtikel(false);
+
+		req.setAttribute("artikelListeMitarbeiter", artikelliste);
+				
+		resp.addHeader("contentSite", "artikelstammdatenPanel");
+	}
+
+	private void artikelAnlegen(HttpServletRequest req, HttpServletResponse resp) {
+		boolean result = false;
+		String fehlertext = null;
+		Artikel anlegenArtikel = null;
+		
+		int nummer = NumberUtils.toInt(req.getParameter("nummer"), 0);
+		String bezeichnung = req.getParameter("bezeichnung");
+		String beschreibung = req.getParameter("beschreibung");
+		double preis = NumberUtils.toDouble(req.getParameter("preis"), 0.00);
+		int lagermenge = NumberUtils.toInt(req.getParameter("lagermenge"), 0);
+		//int meldebestand = NumberUtils.toInt(req.getParameter("meldebestand"), 0);
+		String kategorie_1 = req.getParameter("kategorie_1");
+		String kategorie_2 = req.getParameter("kategorie_2");
+		
+		anlegenArtikel = new Artikel().init(bezeichnung, nummer, beschreibung, preis, lagermenge, //meldebestand,
+				kategorie_1, kategorie_2, 1);
+		
+		if((fehlertext = validateAttributes(req, true)) == null){	
+			result = QueryManager.getInstance().createArtikel(anlegenArtikel);
+		}
+				
+		if(result){
+			String hinweistext = "Der Artikel wurde erfolgreich angelegt.";
+			resp.addHeader("Status", ENUM_RESPONSE_STATUS.HINWEIS.toString());
+			resp.addHeader(ENUM_MELDUNG_ART.HINWEISMELDUNG.toString(), hinweistext);
+		}else{
+			String fehlermeldung = fehlertext.toString();	
+			resp.addHeader("Status", ENUM_RESPONSE_STATUS.FEHLER.toString());
+			resp.addHeader(ENUM_MELDUNG_ART.FEHLERMELDUNG.toString(), fehlermeldung);
+			req.setAttribute("anlegenArtikel", anlegenArtikel);
+		}
+				
+		resp.addHeader("contentSite", "artikelAnlegenPanel");
 	}
     
     private void updateWarenkorbArtikel(HttpServletRequest req){
@@ -173,12 +191,13 @@ public class ArtikelController extends HttpServlet {
 	    	String beschreibung = req.getParameter("beschreibung");
 	    	double preis = NumberUtils.toDouble(req.getParameter("preis"));
 	    	int lagermenge = NumberUtils.toInt(req.getParameter("lagermenge"));
+	    	//int meldebestand = NumberUtils.toInt(req.getParameter("meldebestand"), 0);
 			String kategorie_1 = req.getParameter("kategorie_1");
 			String kategorie_2 = req.getParameter("kategorie_2");
 	    	int aktiv = NumberUtils.toInt(req.getParameter("aktiv"));
 	    	  	
-	    	Artikel artikel_save = new Artikel().init(bezeichnung, nummer, beschreibung, preis, lagermenge, kategorie_1, 
-	    			kategorie_2, aktiv);
+	    	Artikel artikel_save = new Artikel().init(bezeichnung, nummer, beschreibung, preis, lagermenge, //meldebestand,
+	    			kategorie_1, kategorie_2, aktiv);
 	    	
 	    	// prüfen ob es den Artikel gibt
 	    	if(queryManager.searchArtikelByNummer(nummer) != null){
@@ -196,6 +215,7 @@ public class ArtikelController extends HttpServlet {
 		String beschreibung = req.getParameter("beschreibung");
 		double preis = NumberUtils.toDouble(req.getParameter("preis"), 0.00);
 		int lagermenge = NumberUtils.toInt(req.getParameter("lagermenge"), 0);
+		//int meldebestand = NumberUtils.toInt(req.getParameter("meldebestand"), 0);
 		String kategorie_1 = req.getParameter("kategorie_1");
 		String kategorie_2 = req.getParameter("kategorie_2");
 		int aktiv = 1;
@@ -204,7 +224,7 @@ public class ArtikelController extends HttpServlet {
 			aktiv = NumberUtils.toInt(req.getParameter("aktiv"));
 		}
 		
-    	if(bezeichnung != null && nummer != 0 && beschreibung != null && preis != 0 && lagermenge >= 0 && (aktiv == 0 || aktiv == 1)){
+    	if(bezeichnung != null && nummer != 0 && beschreibung != null && preis != 0 && lagermenge >= 0 /* && meldebestand >= 0 */ && (aktiv == 0 || aktiv == 1)){
     		if(kategorie_1 != null && !kategorie_1.equals("artikelkategorie_1") && kategorie_2 != null && !kategorie_2.equals("artikelkategorie_2")){
     			if(nummer <= MAX_ARTIKELNUMMER){
     				if(initial){

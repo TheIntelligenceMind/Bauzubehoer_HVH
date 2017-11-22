@@ -27,7 +27,6 @@ public class WarenkorbController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private static final QueryManager queryManager = QueryManager.getInstance();
-	
 
     @Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -67,37 +66,12 @@ public class WarenkorbController extends HttpServlet {
 	    		resp.addHeader("contentSite", "warenkorbPanel");	
 	    		break;
 	    	case "artikelInDenWarenkorb": 		
-	    		if(artikelHinzufuegen(req)){
-	    			updateWarenkorb(req);
-	    			
-	    			resp.addHeader("status", ENUM_RESPONSE_STATUS.HINWEIS.toString());
-    				resp.addHeader("hinweismeldung", "Der Artikel wurde dem Warenkorb hinzugef&uuml;gt.");
-	    		}else{
-	    			resp.addHeader("status", ENUM_RESPONSE_STATUS.FEHLER.toString());
-    				resp.addHeader("fehlermeldung", "Der Artikel konnte nicht hinzugef&uuml;gt werden.");	
-	    		}
+	    		artikelInDenWarenkorb(req, resp);
 	    		
 	    		rd = req.getRequestDispatcher("/suchen");
 	    		break;
 	    	case "artikelAusWarenkorbLoeschen":
-	    		if(req.getParameter("row") != null){
-	    			int row = Integer.valueOf(req.getParameter("row") );
-	    			boolean hasDeleted = false;  
-	    			
-	    			hasDeleted = queryManager.deleteArtikelFromWarenkorb(row, ((Benutzer)req.getSession().getAttribute("benutzer")).getEmailadresse());
-	
-	    			if(hasDeleted){
-	    				updateWarenkorb(req);
-	    				
-	    				resp.addHeader("status", ENUM_RESPONSE_STATUS.HINWEIS.toString());
-	    				resp.addHeader("hinweismeldung", "Der Artikel wurde aus dem Warenkorb entfernt.");
-	    			}else{
-	    				resp.addHeader("status", ENUM_RESPONSE_STATUS.FEHLER.toString());
-	    				resp.addHeader("fehlermeldung", "Es ist ein Problem beim L&ouml;schen aufgetreten.");	
-	    			}
-	    		}
-	  	    		
-	    		resp.addHeader("contentSite", "warenkorbPanel");		
+	    		artikelAusWarenkorbLoeschen(req, resp);		
 	    		break;    		
 	    	case "artikelMengeVeraendern":
 	    		if(artikelMengeVeraendern(req)){
@@ -117,9 +91,40 @@ public class WarenkorbController extends HttpServlet {
 	    		break;   	
     	}		
 		
-		
-		
 		rd.forward(req, resp);
+	}
+
+	private void artikelAusWarenkorbLoeschen(HttpServletRequest req, HttpServletResponse resp) {
+		if(req.getParameter("row") != null){
+			int row = Integer.valueOf(req.getParameter("row") );
+			boolean hasDeleted = false;  
+			
+			hasDeleted = queryManager.deleteArtikelFromWarenkorb(row, ((Benutzer)req.getSession().getAttribute("benutzer")).getEmailadresse());
+
+			if(hasDeleted){
+				updateWarenkorb(req);
+				
+				resp.addHeader("status", ENUM_RESPONSE_STATUS.HINWEIS.toString());
+				resp.addHeader("hinweismeldung", "Der Artikel wurde aus dem Warenkorb entfernt.");
+			}else{
+				resp.addHeader("status", ENUM_RESPONSE_STATUS.FEHLER.toString());
+				resp.addHeader("fehlermeldung", "Es ist ein Problem beim L&ouml;schen aufgetreten.");	
+			}
+		}
+			
+		resp.addHeader("contentSite", "warenkorbPanel");
+	}
+
+	private void artikelInDenWarenkorb(HttpServletRequest req, HttpServletResponse resp) {
+		if(artikelHinzufuegen(req)){
+			updateWarenkorb(req);
+			
+			resp.addHeader("status", ENUM_RESPONSE_STATUS.HINWEIS.toString());
+			resp.addHeader("hinweismeldung", "Der Artikel wurde dem Warenkorb hinzugef&uuml;gt.");
+		}else{
+			resp.addHeader("status", ENUM_RESPONSE_STATUS.FEHLER.toString());
+			resp.addHeader("fehlermeldung", "Der Artikel konnte nicht hinzugef&uuml;gt werden.");	
+		}
 	}
     
     private void updateWarenkorb(HttpServletRequest req){

@@ -52,6 +52,12 @@ public class LoginController extends HttpServlet{
     		return;
     	}
 				
+		anmeldungValidieren(req, resp);
+		
+		rd.forward(req, resp);		
+	}
+
+	private void anmeldungValidieren(HttpServletRequest req, HttpServletResponse resp) {
 		String emailadresse = req.getParameter("emailadresse");
 		String passwort = req.getParameter("passwort");
 		boolean anmeldeStatus = false;
@@ -86,12 +92,11 @@ public class LoginController extends HttpServlet{
 				e.printStackTrace();
 			}
 		}
+		
 		if(!anmeldeStatus){
 			resp.addHeader("status", ENUM_RESPONSE_STATUS.FEHLER.toString());
 			resp.addHeader("fehlermeldung", "E-Mail-Adresse oder Passwort ist falsch.");
 		}
-		
-		rd.forward(req, resp);		
 	}
 	
 }

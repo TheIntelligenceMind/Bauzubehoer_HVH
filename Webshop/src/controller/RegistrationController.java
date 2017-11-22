@@ -100,8 +100,7 @@ public class RegistrationController extends HttpServlet{
 			default:
 				break;
 		}
-
-					
+				
 		resp.addHeader("contentSite", "registrierungPanel");
 		resp.addHeader("result", String.valueOf(fehlertext));
 		
