@@ -500,13 +500,9 @@ public class QueryManager {
 		int benutzer_ID;
 		double bestellwert;
 		int bestellung_ID;
-		ResultSet bestellwert_result = null;
 		int result;
-		ResultSet bestellung_id_result = null;
-		int bestellnummer_result = 0;
 		int bestellartikel_result = 0;
 		int warenkorb_result = 0;
-		ResultSet return_result = null;
 		
 		try {
 			//Benutzer_ID holen und sichern
@@ -518,22 +514,7 @@ public class QueryManager {
 			}
 			
 			//Bestellwert berechnen und sichern
-			String bestellwert_sql = "SELECT sum(w.menge * a.preis) as 'bestellwert' FROM " + 
-					ENUM_DB_TABELLE.WARENKORB.toString() + " w LEFT JOIN "+ ENUM_DB_TABELLE.ARTIKEL.toString() + " a on "
-					+ "w.Artikel_ID = a.ID WHERE w.Benutzer_ID = ?";
-			
-			PreparedStatement bestellwert_stmt = getConnection().prepareStatement(bestellwert_sql);
-			
-			bestellwert_stmt.setInt(1, benutzer_ID);
-			
-			bestellwert_result = bestellwert_stmt.executeQuery();
-			
-			// sicherstellen, dass ein Ergebnis geliefert wird
-			if(!bestellwert_result.next()){
-				return null;
-			}
-			
-			bestellwert = bestellwert_result.getDouble("bestellwert");
+			bestellwert = calculateBestellwertByBenutzerID(benutzer_ID);
 			
 			//Pflege der Tabelle "Bestellung"
 			String sql = "INSERT INTO "+ ENUM_DB_TABELLE.BESTELLUNG.toString() +" (status, bestelldatum,"
@@ -557,37 +538,10 @@ public class QueryManager {
 			}
 			
 			//Bestellung_ID zur soeben generierten Bestellung holen und sichern
-			String bestellung_id_sql = "SELECT ID FROM " + ENUM_DB_TABELLE.BESTELLUNG.toString() + " WHERE Benutzer_ID = ? AND "
-					+ "bestellwert = ?";
-			
-			PreparedStatement bestellung_id_stmt = getConnection().prepareStatement(bestellung_id_sql);
-			
-			bestellung_id_stmt.setInt(1, benutzer_ID);
-			bestellung_id_stmt.setDouble(2, bestellwert);
-			
-			bestellung_id_result = bestellung_id_stmt.executeQuery();
-			
-			// sicherstellen, dass ein Ergebnis geliefert wird
-			if(!bestellung_id_result.next()){
-				return null;
-			}
-			
-			bestellung_ID = bestellung_id_result.getInt("id");
+			bestellung_ID = getBestellungIDByBenutzerIDandBestellwert(benutzer_ID, bestellwert);
 			
 			//Eintragung der Bestellnummer in Abhängigkeit von der ID der Bestellung
-			String bestellnummer_sql = "UPDATE " + ENUM_DB_TABELLE.BESTELLUNG.toString() + " SET bestellnummer = ?"
-					+ " WHERE ID = ? AND Bestellnummer = 'keine_Bestellnummer_definiert'";
-					
-			PreparedStatement bestellnummer_stmt = getConnection().prepareStatement(bestellnummer_sql);
-			bestellnummer_stmt.setString(1, String.valueOf(bestellung_ID) + '-' + sdf_year.format(getCurrentTimestamp()));
-			bestellnummer_stmt.setInt(2, bestellung_ID);
-			
-			bestellnummer_result = bestellnummer_stmt.executeUpdate();
-			 
-			// sicherstellen, dass ein Ergebnis geliefert wird
-			if(bestellnummer_result == 0){
-				return null;
-			}
+			setBestellnummerByBestellungID(bestellung_ID);
 			
 			
 			//Einfügen der relevanten Informationen in die Tabelle "Bestellartikel"
@@ -650,28 +604,168 @@ public class QueryManager {
 				
 				return null;
 			}
+						
+			//Vorbereitung der Rückgabe der erstellten Bestellung
+			selectBestellungByBestellungID(bestellung_ID, benutzer);
 			
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return bestellung;
+	}
+	
+	/**
+	 * <h3>Beschreibung:</h3>
+	 * <pre>
+	 * Die Methode liefert den Bestellwert einer Bestellung
+	 * eines Benutzers.
+	 * </pre>
+	 * 
+	 * @param Benutzer_ID int
+	 * @return bestellwert double
+	 */
+	private double calculateBestellwertByBenutzerID(int piBenutzerID){
+		double bestellwert = -1;
+		int benutzer_ID = piBenutzerID;
+		ResultSet result = null;
+		
+		try{
+			String sql = "SELECT sum(w.menge * a.preis) as 'bestellwert' FROM " + 
+					ENUM_DB_TABELLE.WARENKORB.toString() + " w LEFT JOIN "+ ENUM_DB_TABELLE.ARTIKEL.toString() + " a on "
+					+ "w.Artikel_ID = a.ID WHERE w.Benutzer_ID = ?";
 			
-			//SQL-Statement für Rückgabe der erstellten Bestellung
-			String return_sql = "SELECT * FROM " + ENUM_DB_TABELLE.BESTELLUNG.toString() + " WHERE ID = ?";
+			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			
-			PreparedStatement return_stmt = getConnection().prepareStatement(return_sql);
+			stmt.setInt(1, benutzer_ID);
 			
-			return_stmt.setInt(1, bestellung_ID);
-
-			return_result = return_stmt.executeQuery();
+			result = stmt.executeQuery();
 			
-			while(return_result.next()){
-				
-				bestellung = new Bestellung().init(return_result.getString("bestellnummer"), return_result.getDate("bestelldatum")
-					, return_result.getString("status"), return_result.getString("zahlungsart"), return_result.getDate("voraussichtliches_Lieferdatum"), 
-					return_result.getDouble("bestellwert"), return_result.getDouble("versandkosten"), benutzer);
+			if(result.next()){
+				bestellwert = result.getDouble("bestellwert");
+			}
+			
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return bestellwert;
+	}
+	
+	/**
+	 * <h3>Beschreibung:</h3>
+	 * <pre>
+	 * Die Methode liefert die ID einer Bestellung der Benutzer-ID
+	 * und dem Bestellwert nach.
+	 * </pre>
+	 * 
+	 * @param Benutzer_ID int
+	 * @param bestellwert double
+	 * @return bestellung_ID int
+	 */
+	private int getBestellungIDByBenutzerIDandBestellwert(int piBenutzerID, double piBestellwert){
+		int benutzer_ID = piBenutzerID;
+		double bestellwert = piBestellwert;
+		int bestellung_ID = -1;
+		ResultSet result = null;
+		
+		try{
+			String sql = "SELECT ID FROM " + ENUM_DB_TABELLE.BESTELLUNG.toString() + " WHERE Benutzer_ID = ? AND "
+					+ "bestellwert = ?";
+			
+			PreparedStatement stmt = getConnection().prepareStatement(sql);
+			
+			stmt.setInt(1, benutzer_ID);
+			stmt.setDouble(2, bestellwert);
+			
+			result = stmt.executeQuery();
+			
+			// sicherstellen, dass ein Ergebnis geliefert wird und Zuweisung
+			if(result.next()){
+				bestellung_ID = result.getInt("id");
+			}
+			
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return bestellung_ID;
+	}
+	
+	/**
+	 * <h3>Beschreibung:</h3>
+	 * <pre>
+	 * Die Methode setzt die Bestellnummer anhand der
+	 * ID einer Bestellung. Das aktuelle Jahr wird angefügt.
+	 * </pre>
+	 * 
+	 * @param piBestellungID int
+	 * @return bestellnummer String
+	 */	
+	private Boolean setBestellnummerByBestellungID(int piBestellungID){
+		int bestellung_ID = piBestellungID;
+		int result = 0;
+		
+		try{
+			String sql = "UPDATE " + ENUM_DB_TABELLE.BESTELLUNG.toString() + " SET bestellnummer = ?"
+					+ " WHERE ID = ? AND Bestellnummer = 'keine_Bestellnummer_definiert'";
+					
+			PreparedStatement stmt = getConnection().prepareStatement(sql);
+			stmt.setString(1, String.valueOf(bestellung_ID) + '-' + sdf_year.format(getCurrentTimestamp()));
+			stmt.setInt(2, bestellung_ID);
+			
+			result = stmt.executeUpdate();
+			 
+			// sicherstellen, dass ein Ergebnis geliefert wird
+			if(result == 0){
+				return false;
 			}
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
+		return true;
+	}
+	
+	/**
+	 * <h3>Beschreibung:</h3>
+	 * <pre>
+	 * Die liefert alle Informationen einer Bestellung anhand
+	 * ihrer ID
+	 * </pre>
+	 * 
+	 * @param piBestellungID int
+	 * @param piBenutzer Benutzer
+	 * @return bestellung Bestellung
+	 */	
+	private Bestellung selectBestellungByBestellungID(int piBestellungID, Benutzer piBenutzer){
+		int bestellung_ID = piBestellungID;
+		Benutzer benutzer = piBenutzer;
+		Bestellung bestellung = null;
+		ResultSet result = null;
+		
+		try{
+			String sql = "SELECT * FROM " + ENUM_DB_TABELLE.BESTELLUNG.toString() + " WHERE ID = ?";
+			
+			PreparedStatement stmt = getConnection().prepareStatement(sql);
+			
+			stmt.setInt(1, bestellung_ID);
+
+			result = stmt.executeQuery();
+			
+			while(result.next()){
+				
+				bestellung = new Bestellung().init(result.getString("bestellnummer"), result.getDate("bestelldatum"),
+					result.getString("status"), result.getString("zahlungsart"), result.getDate("voraussichtliches_Lieferdatum"), 
+					result.getDouble("bestellwert"), result.getDouble("versandkosten"), benutzer);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return bestellung;
 	}
 	
