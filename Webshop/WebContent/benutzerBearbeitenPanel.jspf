@@ -66,5 +66,7 @@ function benutzerLoeschen(emailadresse){
     </ul> 
 </div>
 	<button class="btnLoeschen" onclick="benutzerLoeschen(<% out.print(bbenutzer.getEmailadresse()); %>)">Konto L&ouml;schen</button>
-
+	<form action="benutzerBearbeiten">
+		<button class="btnLeft btnStandardKlein" type="submit" name="method" value="artikelstammdatenAnzeigen"><i class="fa fa-arrow-left"></i> Zur&uuml;ck</button>
+	</form>
 </div>

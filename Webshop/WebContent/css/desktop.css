@@ -1738,6 +1738,10 @@ table#zusatzTabelle tbody td{
 	margin: auto;
 	text-align: center;
 }
+#bestellungLieferadressePanel .inputField
+{
+	border-color: #BF4D17;
+}
 #bestellungLieferadresseStrasse
 {
 	margin: auto;
@@ -2066,6 +2070,7 @@ table#zusatzTabelleBestellung tbody td{
 
 /* ------------- Panel für das Bearbeiten von Konten ------------------- */
 #benutzerKontoPanel{
+{
 	margin: 50px auto;
 	width: 700px;
 	height: 450px;
@@ -2338,13 +2343,11 @@ table#zusatzTabelleBestellung tbody td{
 	position: relative;
 }
 
-#benutzerListe > table td:nth-child(1), #benutzerListe > table th:nth-child(1) { width: 90px; }
-#benutzerListe > table td:nth-child(2), #benutzerListe > table th:nth-child(2) { width: 120px; }
-#benutzerListe > table td:nth-child(3), #benutzerListe > table th:nth-child(3) { width: 140px; }
-#benutzerListe > table td:nth-child(4), #benutzerListe > table th:nth-child(4) { width: 270px; }
-#benutzerListe > table td:nth-child(5), #benutzerListe > table th:nth-child(5) { width: 80px; }
-#benutzerListe > table td:nth-child(6), #benutzerListe > table th:nth-child(6) { width: 45px; }
-#benutzerListe > table td:nth-child(7), #benutzerListe > table th:nth-child(7) { width: 30px; }
+#benutzerListe > table td:nth-child(1), #benutzerListe > table th:nth-child(1) { width: 120px; }
+#benutzerListe > table td:nth-child(2), #benutzerListe > table th:nth-child(2) { width: 80px; }
+#benutzerListe > table td:nth-child(3), #benutzerListe > table th:nth-child(3) { width: 80px; }
+#benutzerListe > table td:nth-child(4), #benutzerListe > table th:nth-child(4) { width: 250px; }
+#benutzerListe > table td:nth-child(5), #benutzerListe > table th:nth-child(5) { width: 50px; }
 
 #benutzerTabelle td.tablecell{
 	height: 22px;
@@ -2356,12 +2359,6 @@ table#zusatzTabelleBestellung tbody td{
 	padding-top: 3px;
 	padding-bottom: 3px;
 }
-#benutzerTabelle td.tablecell > div {
-    width: 100%;
-    height: 20px;
-    overflow: hidden;
-}
-
 .PickSymbol{
 	color: #4a4a4a;
 }
@@ -2373,7 +2370,7 @@ table#zusatzTabelleBestellung tbody td{
 #benutzerListe #btnBenutzerAnlegen{
 	float: right;
 	margin-right: 4%;
-	margin-top: 30px;
+	margin-top: 15px;
 	width: 20%;
 	position: relative;
 	height: 30px;
@@ -2388,9 +2385,9 @@ table#zusatzTabelleBestellung tbody td{
 	cursor:pointer;
 	background-color: #9b4013;
 }
-
-
 /* ---------- Panel für die Benutzerstammdaten ----------------- */
+
+
 
 /* ---------- Panel für Fehlermeldungen ----------------- */
 #fehlermeldungPanel{
