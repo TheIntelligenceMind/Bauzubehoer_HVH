@@ -606,7 +606,7 @@ public class QueryManager {
 			}
 						
 			//Vorbereitung der Rückgabe der erstellten Bestellung
-			selectBestellungByBestellungID(bestellung_ID, benutzer);
+			bestellung = selectBestellungByBestellungID(bestellung_ID, benutzer);
 			
 		}
 		catch (SQLException e) {
