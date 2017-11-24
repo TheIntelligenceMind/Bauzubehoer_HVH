@@ -94,7 +94,7 @@ public class BenutzerController extends HttpServlet {
     private void benutzerstammdatenAnzeigen(HttpServletRequest req, HttpServletResponse resp){
     	List<Benutzer> benutzerliste = null;
 		
-    	//benutzerliste = queryManager.selectAllMaBenutzer();
+    	benutzerliste = queryManager.selectAllMitarbeiter();
 
 		req.setAttribute("benutzerstammdatenListe", benutzerliste);		
 		resp.addHeader("contentSite", "benutzerstammdatenPanel");   	
@@ -136,7 +136,11 @@ public class BenutzerController extends HttpServlet {
     }
     
     private void benutzerBearbeitenAnzeigen(HttpServletRequest req, HttpServletResponse resp){
-    	resp.addHeader("contentSite", "benutzerstammdatenPanel");   	
+    	String emailadresse = req.getParameter("emailadresse");
+    	Benutzer benutzer = queryManager.getBenutzerByEMailAdresse(emailadresse);
+    	
+    	req.setAttribute("benutzer", benutzer);
+    	resp.addHeader("contentSite", "benutzerBearbeitenPanel");   	
     }
     
     private void benutzerBearbeiten(HttpServletRequest req, HttpServletResponse resp){

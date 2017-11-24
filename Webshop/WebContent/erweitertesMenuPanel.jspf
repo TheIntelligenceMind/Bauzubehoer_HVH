@@ -11,7 +11,7 @@ Hier wurde das Suchfeld und das Logo implementiert.
 <%
 	Artikel suchenArtikel = (Artikel)request.getAttribute("anlegenArtikel");
 	if(suchenArtikel == null){
-		suchenArtikel = new Artikel().init("", -1, "", -1, -1, "", "", 0);
+		suchenArtikel = new Artikel().init("", -1, "", -1, -1, -1, "", "", 0);
 	}
 %>
 

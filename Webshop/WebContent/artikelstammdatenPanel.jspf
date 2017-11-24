@@ -50,10 +50,10 @@ function artikelBearbeitenAnzeigen(piArtikelNummer){
 	        		}else{
 	        			artikelAktivSymbol = "<i class='fa fa-times'></i>";
 	        		}
-	        		if(art.getLagermenge() > 50){
+	        		if(art.getLagermenge() >= art.getMeldebestand()){
 	        			artikelLagermengeFarbe = "<div class='green'>";
 	        		}
-	        		else if(art.getLagermenge() > 0){
+	        		else if(art.getLagermenge() < art.getMeldebestand() && art.getLagermenge() > 0){
 	        			artikelLagermengeFarbe = "<div class='yellow'>";
 	        		}
 	        		else{

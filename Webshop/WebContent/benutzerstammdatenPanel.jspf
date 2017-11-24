@@ -11,8 +11,10 @@ Aus dieser Ansicht kann das "benutzerBearbeitenPanel" aufgerufen werden.
 
 
 <script type="text/javascript">
-function benutzerBearbeitenAnzeigen(){
-
+function benutzerBearbeitenAnzeigen(emailadresse){
+	$(document).ready(function() {	      	               
+        window.location.href = "benutzer?method=benutzerBearbeitenAnzeigen&emailadresse="+emailadresse;  
+	}); 
 }
 </script>
 
@@ -27,39 +29,28 @@ function benutzerBearbeitenAnzeigen(){
             <th>Vorame</th>
             <th>Nachname</th>
             <th>Rolle</th>
-            <th>Straﬂe</th>
-            <th>Aktiv</th>
             <th></th>
           </tr>
         </thead>
         <tbody>
-        	<%-- <%
-	        	List<?> mitarbeiterListe = (List<?>)request.getAttribute("benutzerstammdatenListe")
-				String benutzerAktivSymbol;
-				
-	        	for(Object o : benutzerListe){	
-	        		Benutzer user = (Benutzer)o;
-
-	        		if(user.getAktiv() == 1)
-	        		{
-	        			benutzerAktivSymbol = "<i class='fa fa-check' aria-hidden='true'></i>";
-	        		}
-	        		else
-	        		{
-	        			benutzerAktivSymbol = "<i class='fa fa-times' aria-hidden='true'></i>";
-	        		}
-	        		out.println("<tr>" +
-	        		"<td class='tablecell'><div>" + user.getVorname() + "</div></td>" +
-	        		"<td class='tablecell'><div>" + user.getNachname() + "</div></td>" +
-	        		"<td class='tablecell'><div>" + user.getRolle().getBezeichnung() + "</div></td>" +
-	        		"<td class='tablecell'><div>" + benutzerStrasse + "</div></td>" +
-	        		"<td class='tablecell'><div>" + benutzerHausnummer +  "</div></td>" +
-	        		"<td class='tablecell'><div>" + benutzerAktivSymbol + "</div></td>" +
-	        		"<td class='tablecellright'>" + "<a onclick='benutzerBearbeitenAnzeigen(" + user.getEmailadresse() + ")' class='PickSymbol'><i class='fa fa-pencil-square-o'></i></a>" + "</div></td>" +
-	        		"</tr>");
-		        }
+        	 <%
+	        	List<?> mitarbeiterListe = (List<?>)request.getAttribute("benutzerstammdatenListe");
+	
+        	 	if(mitarbeiterListe != null){
+		        	for(Object o : mitarbeiterListe){	
+		        		Benutzer user = (Benutzer)o;
+	
+		        		out.println("<tr>" +
+		        				"<td class='tablecell'><div>" + user.getEmailadresse() + "</div></td>" +
+				        		"<td class='tablecell'><div>" + user.getVorname() + "</div></td>" +
+				        		"<td class='tablecell'><div>" + user.getNachname() + "</div></td>" +
+				        		"<td class='tablecell'><div>" + user.getRolle().getBezeichnung() + "</div></td>" +
+				        		"<td class='tablecellright'>" + "<a href='benutzer?method=benutzerBearbeitenAnzeigen&emailadresse=" + user.getEmailadresse() + "' class='PickSymbol'><i class='fa fa-pencil-square-o'></i></a>" + "</div></td>" +
+				        		"</tr>");
+			        }
+        	 	}
         	
-        	%> --%>
+        	%>
         </tbody>
     </table>
 	<div>

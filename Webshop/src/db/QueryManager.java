@@ -458,20 +458,25 @@ public class QueryManager {
 	public List<Benutzer> selectAllMitarbeiter(){
 		List<Benutzer> mitarbeiterliste = new ArrayList<Benutzer>();
 		ResultSet result = null;
-		int Rolle_ID = getRolleIDbyBezeichnung(ENUM_ROLLE.MITARBEITER);
+		int Rolle_Mitarbeiter = getRolleIDbyBezeichnung(ENUM_ROLLE.MITARBEITER);
+		int Rolle_Admin = getRolleIDbyBezeichnung(ENUM_ROLLE.ADMINISTRATOR);
 		
 		try {
-			String sql = "SELECT * FROM " + ENUM_DB_TABELLE.BENUTZER.toString() + " WHERE Rolle_ID = ?";
+			String sql = "SELECT * FROM " + ENUM_DB_TABELLE.BENUTZER.toString() + " b Left Join " + ENUM_DB_TABELLE.ROLLE.toString() + " r on(r.ID = b.Rolle_ID) Left Join " + ENUM_DB_TABELLE.ADRESSE.toString() + " a on(b.ID = a.Benutzer_ID) WHERE Rolle_ID IN (?, ?)";
 
 			
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
-			stmt.setInt(1, Rolle_ID);
+			stmt.setInt(1, Rolle_Mitarbeiter);
+			stmt.setInt(2, Rolle_Admin);
 			
 			result = stmt.executeQuery();
 			
 			while(result.next()){
+				Rolle rolle = new Rolle().init(result.getString("bezeichnung"), result.getInt("Sicht_Warenkorb"), result.getInt("Sicht_Bestellungen"), result.getInt("Sicht_Konto"), result.getInt("Sicht_Artikelstammdaten"), result.getInt("Sicht_Benutzerstammdaten"));
+				Adresse adresse = new Adresse().init(result.getString("strasse"), result.getString("hausnummer"), result.getString("postleitzahl"), result.getString("ort"), result.getString("zusatz"));
+				
 				Benutzer mitarbeiter = new Benutzer().init(result.getString("emailadresse"), "", result.getString("vorname"), 
-						result.getString("nachname"), null, null, result.getInt("bestaetigt"), null);
+						result.getString("nachname"), adresse, rolle, result.getInt("bestaetigt"), null);
 				mitarbeiterliste.add(mitarbeiter);
 			}
 			
