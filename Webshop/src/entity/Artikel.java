@@ -13,6 +13,7 @@ public class Artikel {
 	private double preis;
 	private String beschreibung;
 	private int lagermenge;
+	private int meldebestand;
 	private String kategorie_1;
 	private String kategorie_2;
 	private int aktiv;
@@ -22,12 +23,13 @@ public class Artikel {
 	}
 	
 	public Artikel init(String piBezeichnung, int piNummer, String piBeschreibung, double piPreis, int piLagermenge, 
-			String piKategorie_1, String piKategorie_2, int piAktiv){		
+			int piMeldebestand, String piKategorie_1, String piKategorie_2, int piAktiv){		
 		bezeichnung = piBezeichnung;
 		nummer = piNummer;
 		beschreibung = piBeschreibung;
 		preis = piPreis;
 		lagermenge = piLagermenge;
+		meldebestand = piMeldebestand;
 		kategorie_1 = piKategorie_1;
 		kategorie_2 = piKategorie_2;
 		setAktiv(piAktiv);
@@ -75,6 +77,13 @@ public class Artikel {
 		this.lagermenge = lagermenge;
 	}
 	
+	public int getMeldebestand() {
+		return meldebestand;
+	}
+
+	public void setMeldebestand(int meldebestand) {
+		this.meldebestand = meldebestand;
+	}
 
 	public String getKategorie_1() {
 		return kategorie_1;

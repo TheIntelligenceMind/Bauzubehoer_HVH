@@ -722,8 +722,8 @@ public class QueryManager {
 		int result;
 		
 		try {	
-			String sql = "INSERT INTO " + ENUM_DB_TABELLE.ARTIKEL.toString() + " (nummer, bezeichnung, beschreibung, preis, lagermenge, kategorie_1, kategorie_2, erstellt_Benutzer) " 
-			+ " VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO " + ENUM_DB_TABELLE.ARTIKEL.toString() + " (nummer, bezeichnung, beschreibung, preis, lagermenge, meldebestand, kategorie_1, kategorie_2, erstellt_Benutzer) " 
+			+ " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setLong(1, artikel.getNummer());
@@ -731,9 +731,10 @@ public class QueryManager {
 			stmt.setString(3, artikel.getBeschreibung());
 			stmt.setDouble(4, artikel.getPreis());
 			stmt.setLong(5, artikel.getLagermenge());
-			stmt.setString(6, artikel.getKategorie_1());
-			stmt.setString(7, artikel.getKategorie_2());
-			stmt.setString(8, DBUSER);
+			stmt.setLong(6, artikel.getMeldebestand());
+			stmt.setString(7, artikel.getKategorie_1());
+			stmt.setString(8, artikel.getKategorie_2());
+			stmt.setString(9, DBUSER);
 			
 			result = stmt.executeUpdate();
 			
@@ -770,7 +771,7 @@ public class QueryManager {
 			}
 			
 			String sql = "UPDATE "+ ENUM_DB_TABELLE.ARTIKEL.toString() +" SET nummer = ?, bezeichnung = ? , beschreibung = ?"
-					+ ", preis = ?, lagermenge = ?, kategorie_1 = ?, kategorie_2 = ?, aktiv = ?, geaendert_Benutzer = ?, "
+					+ ", preis = ?, lagermenge = ?, meldebestand = ?, kategorie_1 = ?, kategorie_2 = ?, aktiv = ?, geaendert_Benutzer = ?, "
 					+ "geaendert_Datum = ? WHERE ID = ?";
 		
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
@@ -779,12 +780,13 @@ public class QueryManager {
 			stmt.setString(3, artikel.getBeschreibung());
 			stmt.setDouble(4, artikel.getPreis());
 			stmt.setInt(5, artikel.getLagermenge());
-			stmt.setString(6, artikel.getKategorie_1());
-			stmt.setString(7, artikel.getKategorie_2());
-			stmt.setInt(8, artikel.getAktiv());
-			stmt.setString(9, DBUSER);
-			stmt.setString(10, sdf.format(getCurrentTimestamp()));
-			stmt.setInt(11, artikelID);
+			stmt.setInt(6, artikel.getMeldebestand());
+			stmt.setString(7, artikel.getKategorie_1());
+			stmt.setString(8, artikel.getKategorie_2());
+			stmt.setInt(9, artikel.getAktiv());
+			stmt.setString(10, DBUSER);
+			stmt.setString(11, sdf.format(getCurrentTimestamp()));
+			stmt.setInt(12, artikelID);
 			
 			result = stmt.executeUpdate();
 			
@@ -875,7 +877,10 @@ public class QueryManager {
 				result = stmt.executeQuery();
 			
 			while(result.next()){
-				Artikel artikel = new Artikel().init(result.getString("bezeichnung"), result.getInt("nummer"), result.getString("beschreibung"), result.getDouble("preis"), result.getInt("lagermenge"), result.getString("kategorie_1"), result.getString("kategorie_2"), result.getInt("aktiv"));
+				Artikel artikel = new Artikel().init(result.getString("bezeichnung"), result.getInt("nummer"), 
+						result.getString("beschreibung"), result.getDouble("preis"), result.getInt("lagermenge"), 
+						result.getInt("meldebestand"), result.getString("kategorie_1"), result.getString("kategorie_2"), 
+						result.getInt("aktiv"));
 				artikelliste.add(artikel);
 			}
 			
@@ -911,7 +916,8 @@ public class QueryManager {
 			while(result.next()){
 				Artikel artikel = new Artikel().init(result.getString("bezeichnung"), result.getInt("nummer"), 
 						result.getString("beschreibung"), result.getDouble("preis"), result.getInt("lagermenge"), 
-						result.getString("kategorie_1"), result.getString("kategorie_2"), result.getInt("aktiv"));
+						result.getInt("meldebestand"), result.getString("kategorie_1"), result.getString("kategorie_2"),
+						result.getInt("aktiv"));
 				artikelliste.add(artikel);
 			}
 			
@@ -948,7 +954,8 @@ public class QueryManager {
 			while(result.next()){
 				Artikel artikel = new Artikel().init(result.getString("bezeichnung"), result.getInt("nummer"), 
 						result.getString("beschreibung"), result.getDouble("preis"), result.getInt("lagermenge"), 
-						result.getString("kategorie_1"), result.getString("kategorie_2"), result.getInt("aktiv"));
+						result.getInt("meldebestand"), result.getString("kategorie_1"), result.getString("kategorie_2"), 
+						result.getInt("aktiv"));
 				artikelliste.add(artikel);
 			}
 			
@@ -987,7 +994,10 @@ public class QueryManager {
 			result = stmt.executeQuery();
 			
 			while(result.next()){
-				Artikel artikel = new Artikel().init(result.getString("bezeichnung"), result.getInt("nummer"), result.getString("beschreibung"), result.getDouble("preis"), result.getInt("lagermenge"), result.getString("kategorie_1"), result.getString("kategorie_2"), result.getInt("aktiv"));
+				Artikel artikel = new Artikel().init(result.getString("bezeichnung"), result.getInt("nummer"),
+						result.getString("beschreibung"), result.getDouble("preis"), result.getInt("lagermenge"),
+						result.getInt("meldebestand"), result.getString("kategorie_1"), result.getString("kategorie_2"),
+						result.getInt("aktiv"));
 				artikelliste.add(artikel);
 			}
 			
@@ -1022,7 +1032,10 @@ public class QueryManager {
 			result = stmt.executeQuery();
 			
 			if(result.next()){
-				artikel = new Artikel().init(result.getString("bezeichnung"), result.getInt("nummer"), result.getString("beschreibung"), result.getDouble("preis"), result.getInt("lagermenge"), result.getString("kategorie_1"), result.getString("kategorie_2"), result.getInt("aktiv"));
+				artikel = new Artikel().init(result.getString("bezeichnung"), result.getInt("nummer"), 
+						result.getString("beschreibung"), result.getDouble("preis"), result.getInt("lagermenge"), 
+						result.getInt("meldebestand"), result.getString("kategorie_1"), result.getString("kategorie_2"), 
+						result.getInt("aktiv"));
 			}
 			
 		} catch (SQLException e) {
@@ -1052,9 +1065,10 @@ public class QueryManager {
 		}
 		
 		try {					
-			String sql = "SELECT w.position, w.menge, a.nummer, a.bezeichnung, a.beschreibung, a.preis, a.lagermenge, a.kategorie_1, a.kategorie_2, a.aktiv FROM " + 
-			ENUM_DB_TABELLE.WARENKORB.toString() + " w INNER JOIN "+ ENUM_DB_TABELLE.BENUTZER.toString() + " b ON w.Benutzer_ID = b.ID LEFT JOIN " + 
-			ENUM_DB_TABELLE.ARTIKEL.toString() + " a ON a.ID = w.Artikel_ID WHERE b.emailadresse = ? AND w.aktiv = 1";
+			String sql = "SELECT w.position, w.menge, a.nummer, a.bezeichnung, a.beschreibung, a.preis, a.lagermenge, "
+					+ "a.meldebestand, a.kategorie_1, a.kategorie_2, a.aktiv FROM " + ENUM_DB_TABELLE.WARENKORB.toString() + 
+					" w INNER JOIN "+ ENUM_DB_TABELLE.BENUTZER.toString() + " b ON w.Benutzer_ID = b.ID LEFT JOIN " + 
+					ENUM_DB_TABELLE.ARTIKEL.toString() + " a ON a.ID = w.Artikel_ID WHERE b.emailadresse = ? AND w.aktiv = 1";
 			
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setString(1, piEmailadresse);
@@ -1062,8 +1076,12 @@ public class QueryManager {
 			result = stmt.executeQuery();
 			
 			while(result.next()){
-				Artikel artikel = new Artikel().init(result.getString("bezeichnung"), result.getInt("nummer"), result.getString("beschreibung"), result.getDouble("preis"), result.getInt("lagermenge"), result.getString("kategorie_1"), result.getString("kategorie_2"), result.getInt("aktiv"));
-				WarenkorbArtikel warenkorbartikel = new WarenkorbArtikel().init(artikel, result.getInt("position"), result.getInt("menge"));
+				Artikel artikel = new Artikel().init(result.getString("bezeichnung"), result.getInt("nummer"), 
+						result.getString("beschreibung"), result.getDouble("preis"), result.getInt("lagermenge"), 
+						result.getInt("meldebestand"), result.getString("kategorie_1"), result.getString("kategorie_2"), 
+						result.getInt("aktiv"));
+				WarenkorbArtikel warenkorbartikel = new WarenkorbArtikel().init(artikel, result.getInt("position"), 
+						result.getInt("menge"));
 				artikelliste.add(warenkorbartikel);
 			}
 			
