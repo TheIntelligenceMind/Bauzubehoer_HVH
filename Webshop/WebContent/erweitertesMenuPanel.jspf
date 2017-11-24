@@ -79,7 +79,8 @@ Hier wurde das Suchfeld und das Logo implementiert.
 					<li class="kategorie2"><a href="suchen?method=suchKategorie2&kategorie1=<% out.print(ENUM_ARTIKELKATEGORIE.SICHERHEIT.toString()); %>&kategorie2=<% out.print(ENUM_ARTIKELKATEGORIE.SONSTIGES.toString()); %>">Sonstiges</a></li>
 				</ul>
 			</li>
-		</ul>						
+		</ul>		
+		<a href="kontakt?method=kontaktAnzeigen">Kontakt</a>				
 	</div>
 
 </div>

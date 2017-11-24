@@ -41,7 +41,7 @@ public class KontoController extends HttpServlet {
     @Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {		
 		resp.setContentType("text/html"); 
-		RequestDispatcher rd = null;
+		RequestDispatcher rd = req.getRequestDispatcher("index.jsp");
 		
 		// prüfen ob es eine Session gibt, wenn nicht an die Startseite weiterleiten
 		if(req.getSession().getAttribute("benutzer") == null){
@@ -52,8 +52,7 @@ public class KontoController extends HttpServlet {
 		
 		// Berechtigung für die Seite prüfen
     	if(((Benutzer)req.getSession().getAttribute("benutzer")).getRolle().getSichtKonto() != 1){
-    		dispatchSite = "/suchen";	
-    		rd = req.getRequestDispatcher(dispatchSite);
+    		rd = req.getRequestDispatcher("/suchen");
     		rd.forward(req, resp);
     		return;
     	}
@@ -112,7 +111,7 @@ public class KontoController extends HttpServlet {
     	result = queryManager.deleteBenutzer(emailadresse);
     	
     	if(result){
-    		dispatchSite = "/abmelden";
+    		setDispatchSite("/abmelden");
 			
 			String hinweistext = "Das Benutzerkonto wurde erfolgreich gel&ouml;scht.";
 			resp.addHeader("Status", ENUM_RESPONSE_STATUS.HINWEIS.toString());
@@ -228,6 +227,11 @@ public class KontoController extends HttpServlet {
     private void updateSessionDetails(HttpSession session, Benutzer benutzer){
     	session.setAttribute("vorname", benutzer.getVorname());
     	session.setAttribute("nachname", benutzer.getNachname());
+    }
+    
+    
+    private void setDispatchSite(String site){
+    	this.dispatchSite = site;
     }
 
 }

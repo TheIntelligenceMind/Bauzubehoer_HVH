@@ -2,6 +2,7 @@ package helper;
 
 import entity.Benutzer;
 import entity.Bestellung;
+import entity.Nachricht;
 import entity.WarenkorbArtikel;
 
 import java.text.DecimalFormat;
@@ -19,13 +20,11 @@ import com.sun.mail.smtp.SMTPMessage;
  *  @author Tim Hermbecker
  */
 public class MailHelper {
-
 	private static final MailHelper instance = new MailHelper();
 	
 	private MailHelper(){
 		
 	}
-	
 	
 	public static MailHelper getInstance(){
 		return instance;
@@ -52,6 +51,32 @@ public class MailHelper {
 	    });
 		
 		return session;
+	}
+	
+	public void sendKontaktMail(Nachricht nachricht, boolean registrierterBenutzer){
+		Session session = getSession();
+
+	    try {
+	        MimeMessage message = new SMTPMessage(session);
+	        // Absender setzen
+	        message.setFrom(new InternetAddress("bauzubehoer.hvh@gmail.com"));
+	       
+	        // Empfänger setzen
+	        message.setRecipients(Message.RecipientType.TO,
+	                                 InternetAddress.parse("bauzubehoer.hvh@gmail.com"));
+
+	        // Betreffzeile setzen
+	        message.setSubject("Kontakt E-Mail");
+	        
+	        // Mail Inhalt setzen
+	        message.setContent(getKontaktMailContent(nachricht, registrierterBenutzer), "text/html");
+	        
+	        // Mail verschicken
+	        Transport.send(message);
+	    }catch (MessagingException e) {
+	        throw new RuntimeException(e);         
+	    }
+		
 	}
 	
 	public void sendRechnungsmail(Benutzer benutzer, Bestellung bestellung, List<WarenkorbArtikel> artikelliste){
@@ -106,6 +131,29 @@ public class MailHelper {
 	    }
 	}
 
+	private String getKontaktMailContent(Nachricht nachricht, boolean registrierterBenutzer){
+		
+		String content =  "<html>"
+						+ "<body>"
+						+ "<style>"
+						+ "p{margin:0; padding:0;}"
+						+ "</style>"
+						+ "<p>Absender: " + nachricht.getAbsenderAdresse() + "</p>"
+						+ "<p>registriert: " + (registrierterBenutzer ? "Ja" : "Nein") + "</p>"
+						+ "<br>"
+						+ "<br>"
+						+ "<p>====================== Start =========================</p>"
+						+ "<br>"
+						+ "<p>Betreff: " + nachricht.getBetreff() + "</p>"
+						+ "<br>"
+						+ "<p>Nachricht: " + nachricht.getInhalt() + "</p>"			
+						+ "<br>"
+						+ "<p>====================== Ende =========================</p>"
+						+ "</body>"
+						+ "</html>";
+		
+		return content;
+	}
 	
 	private String getRechnungsmailContent(Benutzer benutzer, Bestellung bestellung, List<WarenkorbArtikel> artikelliste){	
 		DecimalFormat formater = new DecimalFormat("#0.00");
@@ -187,5 +235,7 @@ public class MailHelper {
 		
 		return content;				
 	}
+	
+	
 	
 }

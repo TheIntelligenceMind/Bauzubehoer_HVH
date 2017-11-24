@@ -6,7 +6,7 @@ Diese Datei behandelt das Anlegen von neuen Benutzern.
 
 <div class="showing" id="benutzerAnlegenPanel">
 	<h1>Benutzer anlegen</h1>
-	<form action="benutzerAnlegen" method="POST">
+	<form action="benutzer" method="POST">
 		<input title="E-Mail-Adresse" class="inputField" type="text" name="benutzerAnlegenEmailadresse" placeholder="E-Mail-Adresse">
 		<input title="Vorname" class="inputField" type="text" name="benutzerAnlegenName" placeholder="Vorname">
 		<input title="Nachname" class="inputField" type="text" name="benutzerAnlegenNachname" placeholder="Nachname">

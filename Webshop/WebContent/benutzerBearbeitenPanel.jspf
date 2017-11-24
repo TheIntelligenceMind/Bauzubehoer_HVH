@@ -21,12 +21,12 @@ Hier kann der Admin die persönlichen Daten verändern.
 %>
 
 <script type="text/javascript">
-function kontoLoeschen(){
+function benutzerLoeschen(emailadresse){
 	var result = confirm("Sind Sie sicher, dass das Benutzerkonto gelöscht werden soll?");
 	
 	if(result){
 		$(document).ready(function() {
-           window.location.href = "benutzerkonto?method=loeschen";  
+           window.location.href = "benutzer?method=benutzerLoeschen&emailadresse="+emailadresse;  
 		});
 	}
 }
@@ -65,6 +65,6 @@ function kontoLoeschen(){
         </li>
     </ul> 
 </div>
-	<button class="btnLoeschen" onclick="kontoLoeschen()">Konto L&ouml;schen</button>
+	<button class="btnLoeschen" onclick="benutzerLoeschen(<% out.print(bbenutzer.getEmailadresse()); %>)">Konto L&ouml;schen</button>
 
 </div>

@@ -1,0 +1,10 @@
+<!-- 
+Autor dieser Datei: Tim Hermbecker
+
+Diese Datei enthält das Impressum des Webshops.
+ -->
+
+<div class="showing" id="impressumPanel">
+	<h1>Impressum</h1>
+	<p></p>
+</div>

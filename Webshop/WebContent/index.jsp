@@ -101,20 +101,34 @@ Die Index-Datei wird für die Zusammenfuehrung der Haupt-Files benötigt.
 				// Hier wird der Content dynamisch über das Attribut "ContentSite" geladen
 				if(siteContent != null ){ 	
 					if(session.getAttribute("benutzer") == null){
-						if(siteContent.equals("registrierungPanel")){
+						switch(siteContent){
+						case "registrierungPanel":
 							%>
 								<%@ include file="registrierungPanel.jspf" %>
-							<%		
-						}else if(siteContent.equals("artikelDetailansichtPanel")){
+							<%	
+							break;
+						case "artikelDetailansichtPanel":
 							%>
 								<%@ include file="artikelDetailansichtPanel.jspf" %>
 							<%
-						}else{
+							break;
+						case "kontaktPanel":
+							%>
+								<%@ include file="kontaktPanel.jspf" %>
+							<%
+							break;
+
+						case "impressumPanel":
+							%>
+								<%@ include file="impressumPanel.jspf" %>
+							<%
+							break;
+						 default:
 							%>
 								<%@ include file="artikelAnzeigenPanel.jspf" %>
 							<%	
-						}
-							
+							break;
+						}			
 					}else{
 						switch(siteContent){
 						case "warenkorbPanel":
@@ -185,6 +199,16 @@ Die Index-Datei wird für die Zusammenfuehrung der Haupt-Files benötigt.
 						case "benutzerBearbeitenPanel":
 							%>
 								<%@ include file="benutzerBearbeitenPanel.jspf" %>
+							<%
+							break;
+						case "kontaktPanel":
+							%>
+								<%@ include file="kontaktPanel.jspf" %>
+							<%
+							break;
+						case "impressumPanel":
+							%>
+								<%@ include file="impressumPanel.jspf" %>
 							<%
 							break;
 						default:

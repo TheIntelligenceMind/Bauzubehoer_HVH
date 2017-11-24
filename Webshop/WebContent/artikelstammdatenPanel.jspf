@@ -31,7 +31,7 @@ function artikelBearbeitenAnzeigen(piArtikelNummer){
             <th>Artikelnummer</th>
             <th>Produkt</th>
             <th>Produktbeschreibung</th>
-            <th>Preis</th>
+            <th>Preis (&euro;)</th>
             <th>Aktiv</th>
             <th></th>
           </tr>
