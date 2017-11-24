@@ -413,16 +413,26 @@ public class QueryManager {
 		int result = 0;
 		
 		try {	
-			String sql = "UPDATE "+ ENUM_DB_TABELLE.BENUTZER.toString() +" SET vorname = ?, nachname = ?, "
+			String sql = "UPDATE "+ ENUM_DB_TABELLE.BENUTZER.toString() +" SET passwort = ?, vorname = ?, nachname = ?, Rolle_ID = ?, "
 					+ "bestaetigt = ?, geaendert_Benutzer = ?, geaendert_Datum = ? WHERE emailadresse = ?";
 		
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
-			stmt.setString(1, benutzer.getVorname());
-			stmt.setString(2, benutzer.getNachname());
-			stmt.setInt(3, benutzer.getBestaetigt());
-			stmt.setString(4, DBUSER);
-			stmt.setString(5, sdf.format(getCurrentTimestamp()));
-			stmt.setString(6, benutzer.getEmailadresse());
+			stmt.setString(1, benutzer.getPasswort());
+			stmt.setString(2, benutzer.getVorname());
+			stmt.setString(3, benutzer.getNachname());
+			if (benutzer.getRolle().getBezeichnung() == "Mitarbeiter"){
+				stmt.setInt(4, getRolleIDbyBezeichnung(ENUM_ROLLE.MITARBEITER));
+			}
+			else if (benutzer.getRolle().getBezeichnung() == "Kunde"){
+				stmt.setInt(4, getRolleIDbyBezeichnung(ENUM_ROLLE.KUNDE));
+			}
+			else if (benutzer.getRolle().getBezeichnung() == "Administrator"){
+				stmt.setInt(4, getRolleIDbyBezeichnung(ENUM_ROLLE.ADMINISTRATOR));
+			}
+			stmt.setInt(5, benutzer.getBestaetigt());
+			stmt.setString(6, DBUSER);
+			stmt.setString(7, sdf.format(getCurrentTimestamp()));
+			stmt.setString(8, benutzer.getEmailadresse());
 			
 			result = stmt.executeUpdate();
 			
@@ -440,6 +450,41 @@ public class QueryManager {
 	/**
 	 * <h3>Beschreibung:</h3>
 	 * <pre>
+	 * Die Methode gibt alle Mitarbeiter-Datensätze zurück
+	 * </pre>
+	 * 
+	 * @return mitarbeiterliste
+	 */
+	public List<Benutzer> selectAllMitarbeiter(){
+		List<Benutzer> mitarbeiterliste = new ArrayList<Benutzer>();
+		ResultSet result = null;
+		int Rolle_ID = getRolleIDbyBezeichnung(ENUM_ROLLE.MITARBEITER);
+		
+		try {
+			String sql = "SELECT * FROM " + ENUM_DB_TABELLE.BENUTZER.toString() + " WHERE Rolle_ID = ?";
+
+			
+			PreparedStatement stmt = getConnection().prepareStatement(sql);
+			stmt.setInt(1, Rolle_ID);
+			
+			result = stmt.executeQuery();
+			
+			while(result.next()){
+				Benutzer mitarbeiter = new Benutzer().init(result.getString("emailadresse"), "", result.getString("vorname"), 
+						result.getString("nachname"), null, null, result.getInt("bestaetigt"), null);
+				mitarbeiterliste.add(mitarbeiter);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}		
+		
+		return mitarbeiterliste;
+	}
+	
+	/**
+	 * <h3>Beschreibung:</h3>
+	 * <pre>
 	 * Die Methode erstellt die Datensätze für eine Bestellung 
 	 * in den entsprechenden Tabellen. Überdies werden die nicht
 	 * benötigten Datensätze aus der Tabelle "Warenkorb gelöscht.
@@ -449,7 +494,6 @@ public class QueryManager {
 	 * @param piBenutzer Benutzer
 	 * @return bestellung
 	 */
-
 	public Bestellung createBestellung(Bestellung piBestellung, Benutzer piBenutzer){
 		Bestellung bestellung = piBestellung;
 		Benutzer benutzer = piBenutzer;
@@ -809,7 +853,7 @@ public class QueryManager {
 	/**
 	 * <h3>Beschreibung: </h3>
 	 * <pre>
-	 * Die Methode liefert alle in der DB vorhandenen Artikel zurï¿½ck
+	 * Die Methode liefert alle in der DB vorhandenen Artikel zurück
 	 * </pre>
 	 * 
 	 * @return artikelliste
