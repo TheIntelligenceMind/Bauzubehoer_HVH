@@ -2285,10 +2285,11 @@ table#zusatzTabelleBestellung tbody td{
 
 
 /* ---------- Panel für die Benutzerstammdaten ----------------- */
-#benutzerListe{
+#benutzerListe
+{
 	margin: 50px auto;
-	width: 900px;
-	height: 490px;
+	width: 700px;
+	height: 450px;
 	text-align: center;
 	opacity: 0.9;
 	background-color: white;
