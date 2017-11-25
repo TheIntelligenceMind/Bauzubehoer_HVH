@@ -2418,10 +2418,10 @@ table#zusatzTabelleBestellung tbody td{
 	position: relative;
 }
 
-#benutzerListe > table td:nth-child(1), #benutzerListe > table th:nth-child(1) { width: 120px; }
-#benutzerListe > table td:nth-child(2), #benutzerListe > table th:nth-child(2) { width: 80px; }
-#benutzerListe > table td:nth-child(3), #benutzerListe > table th:nth-child(3) { width: 80px; }
-#benutzerListe > table td:nth-child(4), #benutzerListe > table th:nth-child(4) { width: 250px; }
+#benutzerListe > table td:nth-child(1), #benutzerListe > table th:nth-child(1) { width: 200px; }
+#benutzerListe > table td:nth-child(2), #benutzerListe > table th:nth-child(2) { width: 100px; }
+#benutzerListe > table td:nth-child(3), #benutzerListe > table th:nth-child(3) { width: 100px; }
+#benutzerListe > table td:nth-child(4), #benutzerListe > table th:nth-child(4) { width: 130px; }
 #benutzerListe > table td:nth-child(5), #benutzerListe > table th:nth-child(5) { width: 50px; }
 
 #benutzerTabelle td.tablecell{
