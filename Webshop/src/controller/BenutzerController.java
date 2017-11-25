@@ -152,7 +152,7 @@ public class BenutzerController extends HttpServlet {
     
     private void benutzerLoeschen(HttpServletRequest req, HttpServletResponse resp){
     	boolean result = false;
-    	String emailadresse = String.valueOf(req.getAttribute("emailadresse")); 	
+    	String emailadresse = req.getParameter("emailadresse"); 	
     	
     	result = queryManager.deleteBenutzer(emailadresse);
     	
