@@ -16,6 +16,19 @@ public enum ENUM_ROLLE {
 		this.name= name;
 	}
 	
+	public static ENUM_ROLLE getRolleByName(String name){
+		switch(name){
+		case "Kunde":
+			return ENUM_ROLLE.KUNDE;
+		case "Mitarbeiter":
+			return ENUM_ROLLE.MITARBEITER;
+		case "Administrator":
+			return ENUM_ROLLE.ADMINISTRATOR;
+		default:
+			return null;
+		}
+	}
+	
 	@Override
 	public String toString(){
 		return name;

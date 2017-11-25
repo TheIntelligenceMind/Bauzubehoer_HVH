@@ -420,15 +420,7 @@ public class QueryManager {
 			stmt.setString(1, benutzer.getPasswort());
 			stmt.setString(2, benutzer.getVorname());
 			stmt.setString(3, benutzer.getNachname());
-			if (benutzer.getRolle().getBezeichnung() == "Mitarbeiter"){
-				stmt.setInt(4, getRolleIDbyBezeichnung(ENUM_ROLLE.MITARBEITER));
-			}
-			else if (benutzer.getRolle().getBezeichnung() == "Kunde"){
-				stmt.setInt(4, getRolleIDbyBezeichnung(ENUM_ROLLE.KUNDE));
-			}
-			else if (benutzer.getRolle().getBezeichnung() == "Administrator"){
-				stmt.setInt(4, getRolleIDbyBezeichnung(ENUM_ROLLE.ADMINISTRATOR));
-			}
+			stmt.setInt(4, getRolleIDbyBezeichnung(ENUM_ROLLE.getRolleByName(benutzer.getRolle().getBezeichnung())));
 			stmt.setInt(5, benutzer.getBestaetigt());
 			stmt.setString(6, DBUSER);
 			stmt.setString(7, sdf.format(getCurrentTimestamp()));

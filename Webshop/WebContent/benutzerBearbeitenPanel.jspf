@@ -42,10 +42,10 @@ function benutzerLoeschen(emailadresse){
             <input type="radio" name="tabreiter-0" checked="checked" id="tabreiter-0-0" /><label for="tabreiter-0-0">Benutzer</label>
             <div>
 		        <form action="benutzer" method="post">
-					<input title="Vorname" class="inputField" type="text" name="benutzerkontoVorname" placeholder="Vorname"  value="<% out.print(bbenutzer.getVorname()); %>">
-					<input title="Nachname" class="inputField" type="text" name="benutzerkontoNachname" placeholder="Nachname" value="<% out.print(bbenutzer.getNachname()); %>">
-					<input title="E-Mail-Adresse" class="inputField" type="text" name="benutzerkontoEmailadresse" placeholder="eMail" value="<% out.print(bbenutzer.getEmailadresse()); %>" disabled>
-					<select id="rollenauswahl">
+					<input title="Vorname" class="inputField" type="text" name="vorname" placeholder="Vorname"  value="<% out.print(bbenutzer.getVorname()); %>">
+					<input title="Nachname" class="inputField" type="text" name="nachname" placeholder="Nachname" value="<% out.print(bbenutzer.getNachname()); %>">
+					<input title="E-Mail-Adresse" class="inputField" type="text" name="emailadresse" placeholder="E-Mail-Adresse" value="<% out.print(bbenutzer.getEmailadresse()); %>" readonly>
+					<select name="rolle" id="rollenauswahl">
 						<option value='Mitarbeiter' <% if(ENUM_ROLLE.MITARBEITER.toString().equals(bbenutzer.getRolle().getBezeichnung())){ out.print("selected"); } %>>Mitarbeiter</option>
 						<option value='Administrator' <% if(ENUM_ROLLE.ADMINISTRATOR.toString().equals(bbenutzer.getRolle().getBezeichnung())){ out.print("selected"); } %>>Administrator</option>
 					</select>
@@ -61,6 +61,7 @@ function benutzerLoeschen(emailadresse){
 	            <input title="Hausnummer" class="inputField" type="text" name="hausnummer" placeholder="Hausnummer" id="benutzerkontoHausnummer" value="<% out.print(badresse.getHausnummer()); %>">
 				<input title="Postleitzahl" class="inputField" type="text" name="postleitzahl" placeholder="PLZ" id="benutzerkontoPostleitzahl" value="<% out.print(badresse.getPostleitzahl()); %>">
 				<input title="Ort" class="inputField" type="text" name="ort" placeholder="Ort" id="benutzerkontoOrt" value="<% out.print(badresse.getOrt()); %>">
+				<input type="hidden" name="emailadresse" value="<% out.print(bbenutzer.getEmailadresse()); %>">
 				<button class="btnAdresseSpeichern" type="submit" name="method" value="adresseSpeichern">Speichern</button>
 			</form>	
             </div>
