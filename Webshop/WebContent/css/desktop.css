@@ -2109,7 +2109,7 @@ table#zusatzTabelleBestellung tbody td{
 {
 	margin: 50px auto;
 	width: 500px;
-	height: 730px;
+	height: 690px;
 	text-align: center;
 	opacity: 0.9;
 	background-color: white;
@@ -2185,10 +2185,10 @@ table#zusatzTabelleBestellung tbody td{
 	font-size: 14px;
 }
 #btnBenutzerAnlegen{
-	margin-top: 40px;
-	width: 50%;
-	height: 50px;
-	font-size: 20px;
+	margin-top: 20px;
+	width: 30%;
+	height: 35px;
+	font-size: 15px;
 	border-style: none;
 	color: white;
 	background-color: #BF4D17;
@@ -2201,10 +2201,10 @@ table#zusatzTabelleBestellung tbody td{
 @media (max-width: 1200px)
 {
 	#btnBenutzerAnlegen{
-	margin-top: 40px;
-	width: 40%;
-	height: 45px;
-	font-size: 25px;
+	margin-top: 20px;
+	width: 30%;
+	height: 35px;
+	font-size: 15px;
 	}
 }
 /* ------------- Panel für das Anlegen eines Mitarbeiterkontos ------------------- */

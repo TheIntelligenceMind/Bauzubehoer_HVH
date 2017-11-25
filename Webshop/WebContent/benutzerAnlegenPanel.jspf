@@ -25,6 +25,9 @@ Diese Datei behandelt das Anlegen von neuen Benutzern.
 			<option value="Administrator">Administrator</option>
 		</select>
 		
-		<button id="btnBenutzerAnlegen" type="submit" name="method" value="benutzerAnlegen">Benutzer anlegen</button>
+		<button id="btnBenutzerAnlegen" class="btnRight btnStandardKlein" type="submit" name="method" value="benutzerAnlegen"><i class="fa fa-plus"></i> Benutzer anlegen</button>
+	</form>
+	<form action="benutzer">
+		<button class="btnLeft btnStandardKlein btnBenutzerZurueck" type="submit" name="method" value="benutzerstammdatenAnzeigen"><i class="fa fa-arrow-left"></i> Zur&uuml;ck</button>
 	</form>
 </div>
