@@ -507,9 +507,26 @@ html,body{
 /* ------------ Panel für Anmeldung, Benutzeransicht (rechts) ----------------- */
 
 
-
-
-
+/* ------------ Eigenschaften des Footers ----------------- */
+.footer
+{
+	margin-left: 20%;
+	width: 60%;
+	bottom: 0;
+	height: 40px;
+	text-align: center;	
+	background-color: #BF4D17;
+	border-radius: 20px 20px 0 0;
+	position: fixed;
+}
+.footer a
+{
+	margin-top: 10px;
+	font-size: 20px;
+	color: white;
+	padding: 100px;
+}
+/* ------------ Eigenschaften des Footers ----------------- */
 
 
 /* -------------- Wrapper für den Seitencontent ------------------- */
