@@ -569,8 +569,8 @@ html,body{
 #kontaktPanel
 {
 	margin: 50px auto;
-	width: 900px;
-	height: auto;
+	width: 600px;
+	height: 675px;
 	text-align: center;
 	opacity: 0.9;
 	background-color: white;
@@ -589,12 +589,14 @@ html,body{
 	border: 1px solid #BF4D17;
 	border-radius: 3px;
 	height: 35px;
-	width: 40%;
+	width: 60%;
 	margin-top: 5px;
 }
 #kontaktPanel .textarea
 {
-	max-width: 90%;
+	resize: none;
+	height: 200px;
+	width: 90%;
 }
 #kontaktPanel h3
 {
