@@ -1,7 +1,9 @@
 package controller;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
 
 import db.QueryManager;
 import entity.Adresse;
@@ -101,6 +104,10 @@ public class BenutzerController extends HttpServlet {
 		
     	benutzerliste = queryManager.selectAllMitarbeiter();
 
+    	// eigenes Benutzerobjekt nicht in den Stammdaten anzeigen
+    	String eigeneEmailadresse = ((Benutzer)req.getSession().getAttribute("benutzer")).getEmailadresse();	
+    	benutzerliste = benutzerliste.stream().filter(b -> !b.getEmailadresse().equals(eigeneEmailadresse)).collect(Collectors.toList());
+    	
 		req.setAttribute("benutzerstammdatenListe", benutzerliste);		
 		resp.addHeader("contentSite", "benutzerstammdatenPanel");   	
     }
@@ -150,6 +157,7 @@ public class BenutzerController extends HttpServlet {
     
     private void adresseSpeichern(HttpServletRequest req, HttpServletResponse resp){ 	
     	boolean result = false;
+    	String emailadresse = req.getParameter("emailadresse");
     	Adresse new_adresse = new Adresse().init(
     			req.getParameter("strasse")
     			, req.getParameter("hausnummer")
@@ -157,7 +165,7 @@ public class BenutzerController extends HttpServlet {
     			, req.getParameter("ort")
     			, "");
 
-    	Benutzer benutzer = queryManager.getBenutzerByEMailAdresse(((Benutzer)req.getSession().getAttribute("benutzer")).getEmailadresse());
+    	Benutzer benutzer = queryManager.getBenutzerByEMailAdresse(emailadresse);
     			
 		if(benutzer.getLieferAdresse() == null){
     		// Adresse auf Gültigkeit prüfen
@@ -207,7 +215,7 @@ public class BenutzerController extends HttpServlet {
 		}
     	
 		req.setAttribute("benutzer", benutzer);
-		resp.addHeader("contentSite", "meinKontoPanel");
+		resp.addHeader("contentSite", "benutzerBearbeitenPanel");
     }
     
     
@@ -225,7 +233,7 @@ public class BenutzerController extends HttpServlet {
     		if(update_benutzer != null){
     			update_benutzer.setVorname(vorname);
     			update_benutzer.setNachname(nachname);
-    			update_benutzer.setRolle(Rolle.initRolle(ENUM_ROLLE.valueOf(rolle)));
+    			update_benutzer.setRolle(Rolle.initRolle(ENUM_ROLLE.getRolleByName(rolle)));
 
         		result = queryManager.modifyBenutzer(update_benutzer);
     		}
@@ -245,7 +253,7 @@ public class BenutzerController extends HttpServlet {
 		}	
     	
 		req.setAttribute("benutzer", benutzer);
-		resp.addHeader("contentSite", "benutzerBearbeitenAnzeigen");
+		resp.addHeader("contentSite", "benutzerBearbeitenPanel");
     }
     
     private void benutzerLoeschen(HttpServletRequest req, HttpServletResponse resp){
