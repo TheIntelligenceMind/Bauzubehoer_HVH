@@ -1,3 +1,4 @@
+<%@page import="enums.ENUM_ROLLE"%>
 <%@page import="entity.Benutzer"%>
 <%@page import="entity.Adresse"%>
 
@@ -40,33 +41,13 @@ function benutzerLoeschen(emailadresse){
         <li>
             <input type="radio" name="tabreiter-0" checked="checked" id="tabreiter-0-0" /><label for="tabreiter-0-0">Benutzer</label>
             <div>
-		        <form action="meinKonto" method="post">
+		        <form action="benutzer" method="post">
 					<input title="Vorname" class="inputField" type="text" name="benutzerkontoVorname" placeholder="Vorname"  value="<% out.print(bbenutzer.getVorname()); %>">
 					<input title="Nachname" class="inputField" type="text" name="benutzerkontoNachname" placeholder="Nachname" value="<% out.print(bbenutzer.getNachname()); %>">
 					<input title="E-Mail-Adresse" class="inputField" type="text" name="benutzerkontoEmailadresse" placeholder="eMail" value="<% out.print(bbenutzer.getEmailadresse()); %>" disabled>
 					<select id="rollenauswahl">
-					<% 					
-						String temp = bbenutzer.getRolle().getBezeichnung();
-						
-						if(temp.equals("Kunde"))
-						{
-							out.print("<option value='Kunde' selected>Kunde</option>");
-							out.print("<option value='Mitarbeiter'>Mitarbeiter</option>");
-							out.print("<option value='Administrator'>Administrator</option>");
-						}
-						else if(temp.equals("Mitarbeiter"))
-						{
-							out.print("<option value='Kunde'>Kunde</option>");
-							out.print("<option value='Mitarbeiter' selected>Mitarbeiter</option>");
-							out.print("<option value='Administrator'>Administrator</option>");
-						}
-						else
-						{
-							out.print("<option value='Kunde'>Kunde</option>");
-							out.print("<option value='Mitarbeiter'>Mitarbeiter</option>");
-							out.print("<option value='Administrator' selected>Administrator</option>");
-						}
-					%>		
+						<option value='Mitarbeiter' <% if(ENUM_ROLLE.MITARBEITER.toString().equals(bbenutzer.getRolle().getBezeichnung())){ out.print("selected"); } %>>Mitarbeiter</option>
+						<option value='Administrator' <% if(ENUM_ROLLE.ADMINISTRATOR.toString().equals(bbenutzer.getRolle().getBezeichnung())){ out.print("selected"); } %>>Administrator</option>
 					</select>
 					<button class="btnBenutzerSpeichern" type="submit" name="method" value="benutzerSpeichern">Speichern</button>
 				</form>
@@ -75,7 +56,7 @@ function benutzerLoeschen(emailadresse){
         <li>
             <input type="radio" name="tabreiter-0" id="tabreiter-0-1" /><label for="tabreiter-0-1">Adresse</label>
             <div>
-            <form action="meinKonto" method="post">
+            <form action="benutzer" method="post">
 	            <input title="Strasse" class="inputField" type="text" name="strasse" placeholder="Straße" id="benutzerkontoStrasse" value="<% out.print(badresse.getStrasse()); %>">
 	            <input title="Hausnummer" class="inputField" type="text" name="hausnummer" placeholder="Hausnummer" id="benutzerkontoHausnummer" value="<% out.print(badresse.getHausnummer()); %>">
 				<input title="Postleitzahl" class="inputField" type="text" name="postleitzahl" placeholder="PLZ" id="benutzerkontoPostleitzahl" value="<% out.print(badresse.getPostleitzahl()); %>">
