@@ -3,6 +3,7 @@ package entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import enums.ENUM_ROLLE;
 import enums.ENUM_SICHT;
 
 /**
@@ -33,6 +34,18 @@ public class Rolle {
 		sichtBenutzerstammdaten = piSichtBenutzerstammdaten;
 		
 		return this;
+	}
+	
+	public static Rolle initRolle(ENUM_ROLLE rolle){
+		switch(rolle){
+		case MITARBEITER:
+			return new Rolle().init(ENUM_ROLLE.MITARBEITER.toString(), 0, 0, 1, 1, 0);
+		case ADMINISTRATOR:
+			return new Rolle().init(ENUM_ROLLE.ADMINISTRATOR.toString(), 1, 1, 1, 1, 1);
+		case KUNDE:
+			return new Rolle().init(ENUM_ROLLE.KUNDE.toString(), 1, 1, 1, 0, 0);
+		}
+		return null;
 	}
 
 	public List<ENUM_SICHT> getSichten(){

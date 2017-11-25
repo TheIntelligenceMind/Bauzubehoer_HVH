@@ -14,8 +14,10 @@ import javax.servlet.http.HttpServletResponse;
 import db.QueryManager;
 import entity.Adresse;
 import entity.Benutzer;
+import entity.Rolle;
 import enums.ENUM_MELDUNG_ART;
 import enums.ENUM_RESPONSE_STATUS;
+import enums.ENUM_ROLLE;
 import helper.AdressenHelper;
 import helper.BenutzerHelper;
 
@@ -77,8 +79,11 @@ public class BenutzerController extends HttpServlet {
 		case "benutzerBearbeitenAnzeigen":
 			benutzerBearbeitenAnzeigen(req, resp);
 			break;
-		case "benutzerBearbeiten":
-			benutzerBearbeiten(req, resp);
+		case "benutzerSpeichern":
+			benutzerSpeichern(req, resp);
+			break;
+		case "adresseSpeichern":
+			adresseSpeichern(req, resp);
 			break;
 		case "benutzerLoeschen":
 			benutzerLoeschen(req, resp);
@@ -143,11 +148,104 @@ public class BenutzerController extends HttpServlet {
     	resp.addHeader("contentSite", "benutzerBearbeitenPanel");   	
     }
     
-    private void benutzerBearbeiten(HttpServletRequest req, HttpServletResponse resp){
-		
+    private void adresseSpeichern(HttpServletRequest req, HttpServletResponse resp){ 	
+    	boolean result = false;
+    	Adresse new_adresse = new Adresse().init(
+    			req.getParameter("strasse")
+    			, req.getParameter("hausnummer")
+    			, req.getParameter("postleitzahl")
+    			, req.getParameter("ort")
+    			, "");
+
+    	Benutzer benutzer = queryManager.getBenutzerByEMailAdresse(((Benutzer)req.getSession().getAttribute("benutzer")).getEmailadresse());
+    			
+		if(benutzer.getLieferAdresse() == null){
+    		// Adresse auf Gültigkeit prüfen
+    		if(adressenHelper.validateAdresse(new_adresse)){
+
+        		result = queryManager.createAdresse(benutzer.getEmailadresse(), new_adresse);
+        		
+        		// nur wenn die Adreses erfolgreich angelegt wurde soll das Benutzerobjekt mit dem neuen Adressobjekt verknüpft werden
+        		if(result){
+        			benutzer.setLieferAdresse(new_adresse);
+        			result = queryManager.modifyBenutzer(benutzer);
+        		}
+    		}
+    	}else{
+    		if(adressenHelper.validateAdresse(new_adresse)){
+        		Adresse update_adresse = new_adresse;
+        		
+        		if(update_adresse.getStrasse() == null){
+        			update_adresse.setStrasse("");
+        		}
+        		if(update_adresse.getHausnummer() == null){
+        			update_adresse.setHausnummer("");
+        		}  		
+        		if(update_adresse.getPostleitzahl() == null){
+        			update_adresse.setPostleitzahl("");
+        		}   		
+        		if(update_adresse.getOrt() == null){
+        			update_adresse.setOrt("");
+        		}
+        		
+        		result = queryManager.modifyAdresse(benutzer.getEmailadresse(), update_adresse);
+        		
+        		if(result){
+        			benutzer.setLieferAdresse(update_adresse);
+        		}
+        	}
+    	}
+    	 	
+    	if(result){
+			String hinweistext = "Die Benutzeradresse wurde erfolgreich gespeichert.";
+			resp.addHeader("Status", ENUM_RESPONSE_STATUS.HINWEIS.toString());
+			resp.addHeader(ENUM_MELDUNG_ART.HINWEISMELDUNG.toString(), hinweistext);			
+		}else{
+			String fehlermeldung = "ung&uuml;ltige &Auml;nderungen";	
+			resp.addHeader("Status", ENUM_RESPONSE_STATUS.FEHLER.toString());
+			resp.addHeader(ENUM_MELDUNG_ART.FEHLERMELDUNG.toString(), fehlermeldung);
+		}
     	
+		req.setAttribute("benutzer", benutzer);
+		resp.addHeader("contentSite", "meinKontoPanel");
+    }
+    
+    
+    private void benutzerSpeichern(HttpServletRequest req, HttpServletResponse resp){
+    	boolean result = false;
+    	Benutzer benutzer = null;
+    	String emailadresse = req.getParameter("emailadresse");
+    	String vorname = req.getParameter("vorname");
+    	String nachname = req.getParameter("nachname");
+    	String rolle = req.getParameter("rolle");
     	
-    	resp.addHeader("contentSite", "benutzerBearbeitenAnzeigen");   	
+    	if(vorname != null && !vorname.isEmpty() && nachname != null && !nachname.isEmpty()){
+    		Benutzer update_benutzer = queryManager.getBenutzerByEMailAdresse(emailadresse);
+    		
+    		if(update_benutzer != null){
+    			update_benutzer.setVorname(vorname);
+    			update_benutzer.setNachname(nachname);
+    			update_benutzer.setRolle(Rolle.initRolle(ENUM_ROLLE.valueOf(rolle)));
+
+        		result = queryManager.modifyBenutzer(update_benutzer);
+    		}
+    	}
+    	
+    	if(result){
+			benutzer = queryManager.getBenutzerByEMailAdresse(emailadresse);
+
+			String hinweistext = "Die Benutzerdaten wurden erfolgreich gespeichert.";
+			resp.addHeader("Status", ENUM_RESPONSE_STATUS.HINWEIS.toString());
+			resp.addHeader(ENUM_MELDUNG_ART.HINWEISMELDUNG.toString(), hinweistext);
+				
+		}else{
+			String fehlermeldung = "ung&uuml;ltige &Auml;nderungen";	
+			resp.addHeader("Status", ENUM_RESPONSE_STATUS.FEHLER.toString());
+			resp.addHeader(ENUM_MELDUNG_ART.FEHLERMELDUNG.toString(), fehlermeldung);
+		}	
+    	
+		req.setAttribute("benutzer", benutzer);
+		resp.addHeader("contentSite", "benutzerBearbeitenAnzeigen");
     }
     
     private void benutzerLoeschen(HttpServletRequest req, HttpServletResponse resp){
