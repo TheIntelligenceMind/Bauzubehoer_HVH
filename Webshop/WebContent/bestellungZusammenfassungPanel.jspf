@@ -26,46 +26,48 @@ Diese Datei behandelt die Zusammenfassung der Bestellung.
 	
 	<h2 class="ueberschriftBestellschritt">Zusammenfassung und Best&auml;tigung</h2>
 	<div class="bestellArtikelTabellenPanel">
-		<table id="artikelTabelle">
-	        <colgroup>
-		       <col span="1" style="width: 10%;">
-		       <col span="1" style="width: 16%;">
-		       <col span="1" style="width: 57%;">
-		       <col span="1" style="width: 17%;">
-		    </colgroup>
-	        
-	        <thead>
-	          <tr>
-	            <th>Menge</th>
-	            <th>Artikelnummer</th>
-	            <th>Produkt</th>
-	            <th>Summe</th>
-	          </tr>
-	        </thead>
-	        <tbody>
-	        	<%
-		        	List<?> warenkorbartikelListeB = (List<?>)session.getAttribute("warenkorbartikelliste");
-		        	double gesamtBestellung = 0;
-		    		int versandkostenBestellung = 20;
-		    		double mwstBestellung = 0;	
-	        	
-		        	if(warenkorbartikelListeB != null){
-			        	for(Object o : warenkorbartikelListeB){
-			        		WarenkorbArtikel warenkorbartikel = (WarenkorbArtikel)o;
-			        		
-			        		out.println("<tr>" +
-			        		"<td class='tablecell'>" + String.valueOf(warenkorbartikel.getMenge()) + "</td>" +
-			        		"<td class='tablecell'>" + String.format("%04d", warenkorbartikel.getArtikel().getNummer()) + "</td>" +
-			        		"<td class='tablecell'>" + warenkorbartikel.getArtikel().getBezeichnung() + "</td>" +
-			        		"<td class='tablecell'>" + formater.format(warenkorbartikel.getArtikel().getPreis()*warenkorbartikel.getMenge()) +" &euro;</td>" +
-			        		"</tr>");
-			        		gesamtBestellung = gesamtBestellung + (warenkorbartikel.getArtikel().getPreis() * warenkorbartikel.getMenge());
-			        		mwstBestellung = mwstBestellung + (warenkorbartikel.getArtikel().getPreis() * warenkorbartikel.getMenge() / 119 * 19); 
-		        		}	
-		        	}
-	        	%>
-	        </tbody>
-      	</table>
+		<div class="bestellOverflow">
+			<table id="artikelTabelle">
+		        <colgroup>
+			       <col span="1" style="width: 10%;">
+			       <col span="1" style="width: 16%;">
+			       <col span="1" style="width: 57%;">
+			       <col span="1" style="width: 17%;">
+			    </colgroup>
+		        
+		        <thead>
+		          <tr>
+		            <th>Menge</th>
+		            <th>Artikelnummer</th>
+		            <th>Produkt</th>
+		            <th>Summe</th>
+		          </tr>
+		        </thead>
+		        <tbody>
+		        	<%
+			        	List<?> warenkorbartikelListeB = (List<?>)session.getAttribute("warenkorbartikelliste");
+			        	double gesamtBestellung = 0;
+			    		int versandkostenBestellung = 20;
+			    		double mwstBestellung = 0;	
+		        	
+			        	if(warenkorbartikelListeB != null){
+				        	for(Object o : warenkorbartikelListeB){
+				        		WarenkorbArtikel warenkorbartikel = (WarenkorbArtikel)o;
+				        		
+				        		out.println("<tr>" +
+				        		"<td class='tablecell'>" + String.valueOf(warenkorbartikel.getMenge()) + "</td>" +
+				        		"<td class='tablecell'>" + String.format("%04d", warenkorbartikel.getArtikel().getNummer()) + "</td>" +
+				        		"<td class='tablecell'>" + warenkorbartikel.getArtikel().getBezeichnung() + "</td>" +
+				        		"<td class='tablecell'>" + formater.format(warenkorbartikel.getArtikel().getPreis()*warenkorbartikel.getMenge()) +" &euro;</td>" +
+				        		"</tr>");
+				        		gesamtBestellung = gesamtBestellung + (warenkorbartikel.getArtikel().getPreis() * warenkorbartikel.getMenge());
+				        		mwstBestellung = mwstBestellung + (warenkorbartikel.getArtikel().getPreis() * warenkorbartikel.getMenge() / 119 * 19); 
+			        		}	
+			        	}
+		        	%>
+		        </tbody>
+	      	</table>
+      	</div>
       	<table id="zusatzTabelleBestellung">
 	      	<colgroup>
 		       <col span="1" style="width: 26%;">

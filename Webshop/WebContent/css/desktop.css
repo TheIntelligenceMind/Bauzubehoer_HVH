@@ -1865,10 +1865,15 @@ table#zusatzTabelle tbody td{
 #bestellungZusammenfassungPanel h2{
 	margin-bottom: 20px;
 }
+#bestellungZusammenfassungPanel .bestellOverflow
+{
+	overflow: auto;
+}
 #bestellungZusammenfassungPanel .bestellArtikelTabellenPanel{
 	height: 250px;
 }
 #bestellungZusammenfassungPanel .buttonPanel{
+	margin-top: 20px;
 	height: 50px;
 }
 #zusatzTabelleBestellung{
@@ -1878,9 +1883,6 @@ table#zusatzTabelle tbody td{
 	height: 80px;
 	margin-left: 4%;
 }
-.bestellArtikelTabellenPanel{
-	height: 170px;
-}
 .bestellArtikelTabellenPanel table#artikelTabelle{
 	max-height: 130px;
 	text-align: left;
@@ -1888,13 +1890,6 @@ table#zusatzTabelle tbody td{
 .bestellArtikelTabellenPanel table#artikelTabelle tr:hover{
 	cursor: default;
 	background-color: white;
-}
-.bestellArtikelTabellenPanel table#artikelTabelle tbody
-{
-	height: 300px;
-	overflow: auto;
-	display: block;
-	width: 100%
 }
 #bestellArtikelTabellenPanel td.tablecell > div {
     width: 100%;
