@@ -375,16 +375,17 @@ public class QueryManager {
 		int result;
 		
 		try {				
-			String sql = "INSERT INTO " + ENUM_DB_TABELLE.BENUTZER.toString() + " (emailadresse, passwort, vorname, nachname, Rolle_ID, erstellt_Benutzer) "
-						+ "VALUES( ?, ?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO " + ENUM_DB_TABELLE.BENUTZER.toString() + " (emailadresse, passwort, vorname, nachname, Rolle_ID, bestaetigt, erstellt_Benutzer) "
+						+ "VALUES( ?, ?, ?, ?, ?, ?, ?)";
 			
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setString(1, benutzer.getEmailadresse());
 			stmt.setString(2, benutzer.getPasswort());
 			stmt.setString(3, benutzer.getVorname());
 			stmt.setString(4, benutzer.getNachname());
-			stmt.setInt(5, getRolleIDbyBezeichnung(ENUM_ROLLE.KUNDE));
-			stmt.setString(6, DBUSER);
+			stmt.setInt(5, getRolleIDbyBezeichnung(ENUM_ROLLE.getRolleByName(benutzer.getRolle().getBezeichnung())));
+			stmt.setInt(6, benutzer.getBestaetigt());
+			stmt.setString(7, DBUSER);
 			
 			result = stmt.executeUpdate();
 			
@@ -454,9 +455,8 @@ public class QueryManager {
 		int Rolle_Admin = getRolleIDbyBezeichnung(ENUM_ROLLE.ADMINISTRATOR);
 		
 		try {
-			String sql = "SELECT * FROM " + ENUM_DB_TABELLE.BENUTZER.toString() + " b Left Join " + ENUM_DB_TABELLE.ROLLE.toString() + " r on(r.ID = b.Rolle_ID) Left Join " + ENUM_DB_TABELLE.ADRESSE.toString() + " a on(b.ID = a.Benutzer_ID) WHERE Rolle_ID IN (?, ?)";
+			String sql = "SELECT * FROM " + ENUM_DB_TABELLE.BENUTZER.toString() + " b Left Join " + ENUM_DB_TABELLE.ROLLE.toString() + " r on(r.ID = b.Rolle_ID) Left Join " + ENUM_DB_TABELLE.ADRESSE.toString() + " a on(b.ID = a.Benutzer_ID) WHERE b.Rolle_ID IN (?, ?)";
 
-			
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setInt(1, Rolle_Mitarbeiter);
 			stmt.setInt(2, Rolle_Admin);

@@ -117,34 +117,32 @@ public class BenutzerController extends HttpServlet {
     }
     
     private void benutzerAnlegen(HttpServletRequest req, HttpServletResponse resp){
-    	String strasse = String.valueOf(req.getAttribute("strasse"));
-    	String hausnummer = String.valueOf(req.getAttribute("hausnummer"));
-    	String postleitzahl = String.valueOf(req.getAttribute("postleitzahl"));
-    	String ort = String.valueOf(req.getAttribute("ort"));
-    	String zusatz = String.valueOf(req.getAttribute("zusatz"));
+    	String strasse = req.getParameter("strasse");
+    	String hausnummer = req.getParameter("hausnummer");
+    	String postleitzahl =req.getParameter("postleitzahl");
+    	String ort = req.getParameter("ort");
+    	String zusatz = req.getParameter("zusatz");
     	
     	Adresse new_Adresse = new Adresse().init(strasse, hausnummer, postleitzahl, ort, zusatz);
     	
     	if(adressenHelper.validateAdresse(new_Adresse)){
-    		String fehlermeldung = benutzerHelper.benutzerAnlegen(req, new_Adresse);
+    		String fehlermeldung = benutzerHelper.benutzerAnlegen(req, new_Adresse);	
     		
     		if(fehlermeldung == null){
     			String hinweismeldung = "Das Benutzerkonto wurde erfolgreich angelegt.";
     			resp.addHeader("Status", ENUM_RESPONSE_STATUS.HINWEIS.toString());
     			resp.addHeader(ENUM_MELDUNG_ART.HINWEISMELDUNG.toString(), hinweismeldung);	
-    			resp.addHeader("contentSite", "benutzerstammdatenPanel"); 
     		}else{
     			resp.addHeader("Status", ENUM_RESPONSE_STATUS.FEHLER.toString());
         		resp.addHeader(ENUM_MELDUNG_ART.FEHLERMELDUNG.toString(), fehlermeldung);
-        		resp.addHeader("contentSite", "benutzerAnlegenPanel"); 
     		}
     		
     	}else{
     		String fehlermeldung = "Die Adresse ist nicht g&uuml;ltig.";
     		resp.addHeader("Status", ENUM_RESPONSE_STATUS.FEHLER.toString());
     		resp.addHeader(ENUM_MELDUNG_ART.FEHLERMELDUNG.toString(), fehlermeldung);	
-    		resp.addHeader("contentSite", "benutzerAnlegenPanel"); 
     	}	
+    	resp.addHeader("contentSite", "benutzerAnlegenPanel"); 
     }
     
     private void benutzerBearbeitenAnzeigen(HttpServletRequest req, HttpServletResponse resp){

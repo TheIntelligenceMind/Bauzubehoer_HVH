@@ -29,16 +29,16 @@ public class BenutzerHelper {
 	
 	public String benutzerAnlegen(HttpServletRequest req, Adresse adresse){
 		String fehlertext = null;		
-		String email = req.getParameter("emailadresse");
+		String emailadresse = req.getParameter("emailadresse");
 		String vorname = req.getParameter("vorname");
 		String nachname = req.getParameter("nachname");
 		String passwort = req.getParameter("passwort");
 		String passwortBestaetigt = req.getParameter("passwortBestaetigt");
-		ENUM_ROLLE rolle = req.getParameter("rolle") == null ? ENUM_ROLLE.KUNDE : (ENUM_ROLLE) req.getAttribute("rolle");
+		ENUM_ROLLE rolle = req.getParameter("rolle") == null ? ENUM_ROLLE.KUNDE : ENUM_ROLLE.getRolleByName(req.getParameter("rolle"));
 	
-		if(alleFelderGefuellt(email, vorname, nachname, passwort, passwortBestaetigt)){
-			if(isEmailValid(email)){
-				if(!isEmailUsed(email)){
+		if(alleFelderGefuellt(emailadresse, vorname, nachname, passwort, passwortBestaetigt)){
+			if(isEmailValid(emailadresse)){
+				if(!isEmailUsed(emailadresse)){
 					if(passwortIstGueltig(passwort)){
 						if(passwoerterSindIdentisch(passwort, passwortBestaetigt)){
 
@@ -57,17 +57,20 @@ public class BenutzerHelper {
 								e.printStackTrace();
 							}
 							
-							Rolle benutzerRolle = rolleAnlegen(rolle);
-							int aktivFlag = rolle == ENUM_ROLLE.KUNDE ? 0 : 1;
-							newBenutzer.init(email, hashPasswort, vorname, nachname, adresse, benutzerRolle, aktivFlag, new Date(System.currentTimeMillis()));
+							Rolle benutzerRolle = Rolle.initRolle(rolle);
+							int bestaetigtFlag = rolle == ENUM_ROLLE.KUNDE ? 0 : 1;
+							newBenutzer.init(emailadresse, hashPasswort, vorname, nachname, adresse, benutzerRolle, bestaetigtFlag, new Date(System.currentTimeMillis()));
 							
 							// Benutzerobjekt in der Datenbank anlegen
 							if(queryManager.createBenutzer(newBenutzer)){
-								return null;
+								if(queryManager.createAdresse(emailadresse, adresse)){
+									return null;
+								}else{
+									fehlertext = "Es ist ein unerwarteter Fehler aufgetreten.";
+								}
 							}else{
 								fehlertext = "Es ist ein unerwarteter Fehler aufgetreten.";
 							}
-
 						}else{
 							fehlertext = "Die Passw&ouml;rter sind nicht identisch.";
 						}
@@ -85,19 +88,6 @@ public class BenutzerHelper {
 		}
 		
 		return fehlertext;	
-	}
-
-	private Rolle rolleAnlegen(ENUM_ROLLE rolle) {
-		switch(rolle){
-		case KUNDE:
-			return new Rolle().init(rolle.toString(), 1, 1, 1, 0, 0);
-		case MITARBEITER:
-			return new Rolle().init(rolle.toString(), 0, 0, 1, 1, 0);
-		case ADMINISTRATOR:
-			return new Rolle().init(rolle.toString(), 1, 1, 1, 1, 1);
-		default:
-			return null;
-		}	
 	}
 	
 	/**

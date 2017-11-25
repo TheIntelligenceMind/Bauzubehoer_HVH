@@ -7,24 +7,24 @@ Diese Datei behandelt das Anlegen von neuen Benutzern.
 <div class="showing" id="benutzerAnlegenPanel">
 	<h1>Benutzer anlegen</h1>
 	<form action="benutzer" method="POST">
-		<input title="E-Mail-Adresse" class="inputField" type="text" name="benutzerAnlegenEmailadresse" placeholder="E-Mail-Adresse">
-		<input title="Vorname" class="inputField" type="text" name="benutzerAnlegenName" placeholder="Vorname">
-		<input title="Nachname" class="inputField" type="text" name="benutzerAnlegenNachname" placeholder="Nachname">
+		<input title="E-Mail-Adresse" class="inputField" type="text" name="emailadresse" placeholder="E-Mail-Adresse">
+		<input title="Vorname" class="inputField" type="text" name="vorname" placeholder="Vorname">
+		<input title="Nachname" class="inputField" type="text" name="nachname" placeholder="Nachname">
 		
-		<input title="Strasse" class="inputField" type="text" name="benutzerAnlegenStrasse" placeholder="Strasse">
-		<input title="Hausnummer" class="inputField" type="text" name="benutzerAnlegenHausnummer" placeholder="Hausnmmer">
+		<input title="Strasse" class="inputField" type="text" name="strasse" placeholder="Strasse">
+		<input title="Hausnummer" class="inputField" type="text" name="hausnummer" placeholder="Hausnummer">
 		
-		<input title="Ort" class="inputField" type="text" name="benutzerAnlegenOrt" placeholder="Ort">
-		<input title="PLZ" class="inputField" type="text" name="benutzerAnlegenPLZ" placeholder="PLZ">
+		<input title="Ort" class="inputField" type="text" name="ort" placeholder="Ort">
+		<input title="PLZ" class="inputField" type="text" name="postleitzahl" placeholder="PLZ">
 		
-		<input title="Hinweis: Das Passwort muss mindestens 6 Zeichen lang sein." class="inputField" type="password" name="benutzerAnlegenPasswort" placeholder="Passwort">
-		<input title="Passwort bestätigen" class="inputField" type="password" name="benutzerAnlegenPasswortBestaetigt" placeholder="Passwort bestätigen">
+		<input title="Hinweis: Das Passwort muss mindestens 6 Zeichen lang sein." class="inputField" type="password" name="passwort" placeholder="Passwort">
+		<input title="Passwort bestätigen" class="inputField" type="password" name="passwortBestaetigt" placeholder="Passwort bestätigen">
 		
-		<select id="rollenauswahlBenutzerAnlegen">
+		<select name="rolle" id="rollenauswahlBenutzerAnlegen">
 			<option value="Mitarbeiter" selected>Mitarbeiter</option>
 			<option value="Administrator">Administrator</option>
 		</select>
 		
-		<button id="btnBenutzerAnlegen" type="submit" name="method" value="benutzerAnlegen">anlegen</button>
+		<button id="btnBenutzerAnlegen" type="submit" name="method" value="benutzerAnlegen">Benutzer anlegen</button>
 	</form>
 </div>
