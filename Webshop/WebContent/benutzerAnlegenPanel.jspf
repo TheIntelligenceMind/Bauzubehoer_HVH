@@ -19,6 +19,12 @@ Diese Datei behandelt das Anlegen von neuen Benutzern.
 		
 		<input title="Hinweis: Das Passwort muss mindestens 6 Zeichen lang sein." class="inputField" type="password" name="benutzerAnlegenPasswort" placeholder="Passwort">
 		<input title="Passwort bestätigen" class="inputField" type="password" name="benutzerAnlegenPasswortBestaetigt" placeholder="Passwort bestätigen">
+		
+		<select id="rollenauswahlBenutzerAnlegen">
+			<option value="Mitarbeiter" selected>Mitarbeiter</option>
+			<option value="Administrator">Administrator</option>
+		</select>
+		
 		<button id="btnBenutzerAnlegen" type="submit" name="method" value="benutzerAnlegen">anlegen</button>
 	</form>
 </div>

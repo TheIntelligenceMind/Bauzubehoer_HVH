@@ -1807,11 +1807,6 @@ table#zusatzTabelle tbody td{
 	margin: auto;
 	text-align: center;
 }
-#adressfelderPanel .inputField
-{
-	border-color: 1px solid #BF4D17;
-	border-radius: 2px;
-}
 #bestellungLieferadresseStrasse
 {
 	margin: auto;
@@ -2053,7 +2048,7 @@ table#zusatzTabelleBestellung tbody td{
 {
 	margin: 50px auto;
 	width: 500px;
-	height: 650px;
+	height: 730px;
 	text-align: center;
 	opacity: 0.9;
 	background-color: white;
@@ -2115,6 +2110,17 @@ table#zusatzTabelleBestellung tbody td{
 	width: 24%;
 	border: 1px solid #BF4D17;
 	height: 25px;
+	font-size: 14px;
+}
+#rollenauswahlBenutzerAnlegen
+{
+	padding: 3px;
+	background-color: white;
+	margin-top: 20px;
+	width: 62%;
+	border: 1px solid #BF4D17;
+	border-radius: 1px;
+	height: 35px;
 	font-size: 14px;
 }
 #btnBenutzerAnlegen{
