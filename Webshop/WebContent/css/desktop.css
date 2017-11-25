@@ -2144,12 +2144,8 @@ table#zusatzTabelleBestellung tbody td{
 
 
 /* ------------- Panel für das Bearbeiten von Konten ------------------- */
-<<<<<<< HEAD
-#benutzerKontoPanel{
-=======
 #benutzerKontoPanel
 {
->>>>>>> branch 'Development' of https://github.com/TheIntelligenceMind/Bauzubehoer_HVH.git
 	margin: 50px auto;
 	width: 700px;
 	height: 450px;
