@@ -2144,11 +2144,11 @@ table#zusatzTabelleBestellung tbody td{
 
 
 /* ------------- Panel für das Bearbeiten von Konten ------------------- */
-#benutzerKontoPanel
+#benutzerkontoPanel
 {
 	margin: 50px auto;
 	width: 700px;
-	height: 450px;
+	height: 550px;
 	text-align: center;
 	opacity: 0.9;
 	background-color: white;
@@ -2165,7 +2165,7 @@ table#zusatzTabelleBestellung tbody td{
 .tabreiterB
 {
     width: 100%;
-    height: 300px;
+    height: 375px;
     margin-top: 20px;
 }   
  
@@ -2265,11 +2265,23 @@ table#zusatzTabelleBestellung tbody td{
 	height: 25px;
 	font-size: 14px;
 }
+.btnBenutzerZurueck
+{
+	margin-top: 20px;
+}
+#rollenauswahl
+{
+	border: 1px solid #BF4D17;
+	margin-top: 20px;
+	padding: 3px;
+	width: 62%;
+	height: 30px;
+}
 #benutzerkontoStrasse{
 	margin-top: 20px;
 	padding: 3px;
 	background-color: white;
-	width: 34%;
+	width: 50%;
 	border: 1px solid #BF4D17;
 	height: 25px;
 	font-size: 14px;
@@ -2277,7 +2289,7 @@ table#zusatzTabelleBestellung tbody td{
 #benutzerkontoHausnummer{
 	padding: 3px;
 	background-color: white;
-	width: 24%;
+	width: 25%;
 	border: 1px solid #BF4D17;
 	height: 25px;
 	font-size: 14px;
@@ -2286,7 +2298,7 @@ table#zusatzTabelleBestellung tbody td{
 	margin-top: 20px;
 	padding: 3px;
 	background-color: white;
-	width: 34%;
+	width: 77%;
 	border: 1px solid #BF4D17;
 	height: 25px;
 	font-size: 14px;
@@ -2294,7 +2306,7 @@ table#zusatzTabelleBestellung tbody td{
 #benutzerkontoPostleitzahl{
 	padding: 3px;
 	background-color: white;
-	width: 24%;
+	width: 77%;
 	border: 1px solid #BF4D17;
 	height: 25px;
 	font-size: 14px;
@@ -2356,7 +2368,7 @@ table#zusatzTabelleBestellung tbody td{
 	#meinKontoPanel{
 		margin: 50px auto;
 		width: 600px;
-		height: 450px;
+		height: 550px;
 		text-align: center;
 	}
 }
