@@ -88,6 +88,14 @@
     <servlet-name>KontaktformularController</servlet-name>
     <url-pattern>/kontakt</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>ImpressumController</servlet-name>
+    <servlet-class>controller.ImpressumController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ImpressumController</servlet-name>
+    <url-pattern>/impressum</url-pattern>
+  </servlet-mapping>
    
    
    	<error-page>
