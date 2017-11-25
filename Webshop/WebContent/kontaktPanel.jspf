@@ -5,7 +5,15 @@ Autor dieser Datei: Tim Hermbecker
 
 Diese Datei enthält ein Kontaktinformationen und ein Kontaktformular zum verschicken von Nachrichten.
  -->
- 
+
+<script type="text/javascript">
+	function artikelSuchenNachBegriff(){
+		$(document).ready(function() {	      	               
+	          window.location.href = "suchen";  
+		}); 	
+	}
+</script>
+
  <%
   Nachricht nachricht = (Nachricht)request.getAttribute("nachricht");
  	
@@ -22,10 +30,16 @@ Diese Datei enthält ein Kontaktinformationen und ein Kontaktformular zum verschi
 <div class="showing" id="kontaktPanel">
 	<h1>Kontakt</h1>
 	<form action="kontakt" method="POST">
+		<h3>Absender</h3>
 		<input title="Absender E-Mail-Adresse" class="inputField" type="text" name="absenderAdresse" placeholder="Absender E-Mail-Adresse" value="<% out.print(nachricht.getAbsenderAdresse()); %>" <% if(session.getAttribute("benutzer") != null){out.print("readonly");} %> >
+		<h3>Empf&auml;nger</h3>
 		<input title="Empfänger E-Mail-Adresse" class="inputField" type="text" value="bauzubehoer.hvh@gmail.com" readonly>
+		<h3>Betreff</h3>
 		<input title="Betreff" class="inputField" type="text" name="betreff" placeholder="Betreff" value="<% out.print(nachricht.getBetreff()); %>">
-		<textarea title="Inhalt" class="inputField" name="inhalt" placeholder="Nachricht"><% out.print(nachricht.getInhalt()); %></textarea>
-		<button id="btnNachrichtSenden" type="submit" name="method" value="nachrichtAbschicken">Nachricht senden</button>
+		<h3></h3>
+		<textarea title="Inhalt" class="inputField textarea" name="inhalt" placeholder="Nachricht"><% out.print(nachricht.getInhalt()); %></textarea>
+		<h3></h3>
+		<button class="btnRight btnStandardKlein" id="btnNachrichtSenden" type="submit" name="method" value="nachrichtAbschicken">Nachricht senden</button>
 	</form>
+	<button class="btnLeft btnStandardKlein" type="submit" name="method" onclick="artikelSuchenNachBegriff()">abbrechen</button>
 </div>

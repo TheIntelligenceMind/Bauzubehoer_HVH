@@ -565,6 +565,49 @@ html,body{
 /* -------------- Wrapper für den Seitencontent ------------------- */
 
 
+/* -------------- Panel für den Kontakt ------------------- */
+#kontaktPanel
+{
+	margin: 50px auto;
+	width: 900px;
+	height: auto;
+	text-align: center;
+	opacity: 0.9;
+	background-color: white;
+	border-radius: 20px;
+  	-webkit-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
+	box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
+}
+#kontaktPanel h1
+{
+	margin: 0;
+	padding: 15px;
+}
+#kontaktPanel .inputField
+{
+	border: 1px solid #BF4D17;
+	border-radius: 3px;
+	height: 35px;
+	width: 40%;
+	margin-top: 10px;
+}
+#kontaktPanel .textarea
+{
+	max-width: 90%;
+}
+#kontaktPanel h3
+{
+	margin-top: 10px;
+	padding: 3px;
+}
+#btnNachrichtSenden
+{
+	height: 35px;
+	width: 25%;
+}
+/* -------------- Panel für den Kontakt ------------------- */
+
 
 /* --------------- Panel mit Artikelstammdaten ------------------- */
 #artikelListeMitarbeiter
