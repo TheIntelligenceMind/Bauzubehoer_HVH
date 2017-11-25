@@ -507,9 +507,26 @@ html,body{
 /* ------------ Panel für Anmeldung, Benutzeransicht (rechts) ----------------- */
 
 
-
-
-
+/* ------------ Eigenschaften des Footers ----------------- */
+.footer
+{
+	margin-left: 20%;
+	width: 60%;
+	bottom: 0;
+	height: 40px;
+	text-align: center;	
+	background-color: #BF4D17;
+	border-radius: 20px 20px 0 0;
+	position: fixed;
+}
+.footer a
+{
+	margin-top: 10px;
+	font-size: 20px;
+	color: white;
+	padding: 100px;
+}
+/* ------------ Eigenschaften des Footers ----------------- */
 
 
 /* -------------- Wrapper für den Seitencontent ------------------- */
@@ -1807,11 +1824,6 @@ table#zusatzTabelle tbody td{
 	margin: auto;
 	text-align: center;
 }
-#adressfelderPanel .inputField
-{
-	border-color: 1px solid #BF4D17;
-	border-radius: 2px;
-}
 #bestellungLieferadresseStrasse
 {
 	margin: auto;
@@ -2053,7 +2065,7 @@ table#zusatzTabelleBestellung tbody td{
 {
 	margin: 50px auto;
 	width: 500px;
-	height: 650px;
+	height: 730px;
 	text-align: center;
 	opacity: 0.9;
 	background-color: white;
@@ -2115,6 +2127,17 @@ table#zusatzTabelleBestellung tbody td{
 	width: 24%;
 	border: 1px solid #BF4D17;
 	height: 25px;
+	font-size: 14px;
+}
+#rollenauswahlBenutzerAnlegen
+{
+	padding: 3px;
+	background-color: white;
+	margin-top: 20px;
+	width: 62%;
+	border: 1px solid #BF4D17;
+	border-radius: 1px;
+	height: 35px;
 	font-size: 14px;
 }
 #btnBenutzerAnlegen{
@@ -2458,7 +2481,7 @@ table#zusatzTabelleBestellung tbody td{
 	float: right;
 	margin-right: 4%;
 	margin-top: 15px;
-	width: 20%;
+	width: 35%;
 	position: relative;
 	height: 30px;
 	font-size: 15px;
