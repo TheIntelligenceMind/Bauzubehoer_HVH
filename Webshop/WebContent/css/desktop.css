@@ -20,7 +20,8 @@ html,body{
 
 
 /*---------------------------- Button Classes ------------------------*/
-.btnStandardKlein{
+.btnStandardKlein
+{
 	background-color: #BF4D17;
 	padding: 3px;
 	margin-left: 30px;
@@ -34,14 +35,17 @@ html,body{
 	border-style: none;
 	border-radius: 5px;
 }
-.btnStandardKlein:hover{
+.btnStandardKlein:hover
+{
 	cursor:pointer;
 	background-color: #9b4013;
 }
-.btnLeft{
+.btnLeft
+{
 	float: left;
 }
-.btnRight{
+.btnRight
+{
 	float: right;
 }
 
@@ -56,7 +60,8 @@ html,body{
 
 
 /* ------------- Panel für Seitenheader, Suchfunktion (links), Kategorien --------------- */
-#sitebar{
+#sitebar
+{
 	min-width: 160px;
 	width: 16%;
 	padding: 1%;
@@ -76,30 +81,36 @@ html,body{
 }
 
 /* Header der Webseite */
-#header{
+#header
+{
 	height: 120px;
 	width: 100%;
 	text-align:center;
 	border-bottom: 1px solid white;
 }
-#header:hover{
+#header:hover
+{
 	cursor: pointer;
 }
-#header h1{
+#header h1
+{
 	margin: 0;
 	padding-top: 20px;
 }
-#header h3{
+#header h3
+{
 	margin: 0px;;
 	padding-top: 5px;
 }
 
 /* Suchfunktion */
-#searchPanel{
+#searchPanel
+{
 	width: 100%;
 	height: 140px;
 }
-#searchPanel ul{
+#searchPanel ul
+{
 	margin: 0;
 	padding:0;
 	padding-top: 30px;
@@ -107,10 +118,12 @@ html,body{
 	text-align: center;
 	border-bottom: 1px solid white;
 }
-#searchPanel ul li{
+#searchPanel ul li
+{
 	list-style-type: none;
 }
-#searchPanel ul li a{
+#searchPanel ul li a
+{
 	font-size: 25px;
 	text-decoration: none;
 	color: white;	
@@ -120,13 +133,16 @@ html,body{
 	-webkit-transition:color .2s ease-out, background 1s ease-in;
 	transition:color .2s ease-out, background 1s ease-in;
 }
-#searchPanel ul li a:hover{
+#searchPanel ul li a:hover
+{
 	color: #332714;	
 }
-#suchenHeader{
+#suchenHeader
+{
 	font-size:25px;
 }
-#sucheEingabe{
+#sucheEingabe
+{
 	padding: 3px;
 	margin-top: 15px;
 	width: 80%;
@@ -134,26 +150,31 @@ html,body{
 	border: none;
 	border-radius: 5px;	
 }
-#artikelKategoriePanel{
+#artikelKategoriePanel
+{
 	width: 100%;
 	height: 250px;
 
 }
-#artikelKategoriePanel ul{
+#artikelKategoriePanel ul
+{
 	margin: 0;
 	padding: 0;
 	list-style-type: none;	
 }
-#artikelKategoriePanel ul li ul{
+#artikelKategoriePanel ul li ul
+{
 	margin: 0;
 	list-style-type: none;
 }
-#artikelKategoriePanel ul li{
+#artikelKategoriePanel ul li
+{
 	padding-left: 20px;
 	list-style-type: none;
 	text-align: left;
 }
-#artikelKategoriePanel ul li a{
+#artikelKategoriePanel ul li a
+{
 	text-decoration: none;
 	color: white;
 	-o-transition: color .2s ease-out, background 1s ease-in;
@@ -162,23 +183,26 @@ html,body{
 	-webkit-transition: color .2s ease-out, background 1s ease-in;
 	transition: color .2s ease-out, background 1s ease-in;
 }
-#artikelKategoriePanel ul li a:hover{
+#artikelKategoriePanel ul li a:hover
+{
 	cursor: pointer;
 	color: #332714;
 }
-.kategorie1{
+.kategorie1
+{
 	margin-top: 10px;
 	font-size: 22px;
 	font-weight: bold;
 }
-.kategorie2{
+.kategorie2
+{
 	margin-top: 2px;
 	font-size: 17px;
 }
-
 @media (max-width: 1200px)
 {
-	#sitebar{
+	#sitebar
+	{
 		min-width: 150px;
 		top: 0px;
 		float: left;
@@ -191,17 +215,20 @@ html,body{
 	}
 	
 	/* Header der Webseite */
-	#header{
+	#header
+	{
 		height: 120px;
 		width: 45%;
 		float: left;
 		border-bottom: none;
 	}
-	#header h1{
+	#header h1
+	{
 		padding-top:5px;
 		float: left;
 	}
-	#header h3{
+	#header h3
+	{
 		margin: 0px;
 		padding: 10px;
 		float: left;
@@ -209,34 +236,40 @@ html,body{
 	}
 	
 	/* Suchfunktion */
-	#searchPanel{
+	#searchPanel
+	{
 		width: 45%;
 		height: 180px;
 		float: right;
 	}
-	#searchPanel ul{
+	#searchPanel ul
+	{
 		margin: 0;
 		padding:0;
 		float: right;
 		padding-left: 3px;
 		border-bottom: none;
 	}
-	#searchPanel ul li{
+	#searchPanel ul li
+	{
 		list-style-type: none;
 		float: left;
 	}
-	#searchPanel ul li a{
+	#searchPanel ul li a
+	{
 		font-size: 25px;
 		padding-left: 3px;
 		float: right;	
 	}
-	#suchenHeader{
+	#suchenHeader
+	{
 		font-size:25px;
 		float: right;
 		padding-top: 5px;
 		padding-left: 3px;
 	}
-	#sucheEingabe{
+	#sucheEingabe
+	{
 		padding-left: 3px;
 		margin-top: 5px;
 		float: right;
@@ -257,7 +290,8 @@ html,body{
 
 
 /* ------------ Panel für Anmeldung, Benutzeransicht (rechts) ----------------- */
-.controllPanel{
+.controllPanel
+{
 	margin: 0;
 	padding:1%;
 	min-width: 240px;
@@ -276,28 +310,31 @@ html,body{
 	-moz-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
 	box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
 }
-
-.controllPanel i{
+.controllPanel i
+{
 	width: 15px;
 }
-.controllPanel h3{
+.controllPanel h3
+{
 	margin: 0;
 	padding: 0;	
 	font-size: 25px;
 	font-weight: normal;
 }
-.controllPanel ul{
+.controllPanel ul
+{
 	margin-top: 25px;
 	margin-bottom: 10px;
 	text-align: left;	
 }
-
-.controllPanel ul li {
+.controllPanel ul li 
+{
 	line-height: 27px;
 	width: 90%;
 	list-style-type: none;
 }
-.controllPanel a{
+.controllPanel a
+{
 	color: white;
 	text-decoration:none;
 	margin: 5px;
@@ -307,17 +344,19 @@ html,body{
 	-webkit-transition:color .2s ease-out, background 1s ease-in;
 	transition:color .2s ease-out, background 1s ease-in;
 }
-.controllPanel li a:hover{
+.controllPanel li a:hover
+{
 	color: #332714;
 	cursor: pointer;
 }
-#registrierungLink{
+#registrierungLink
+{
 	color: white;
 	margin-top: 10px;
 }
-
 /* Eingabefelder für die Anmeldung*/
-#inputBenutzername{
+#inputBenutzername
+{
 	margin-top: 5%;
 	padding: 3px;
 	height: 20px;
@@ -325,7 +364,8 @@ html,body{
 	border-radius: 5px;
 	border-style: none;
 }
-#inputPasswort{
+#inputPasswort
+{
 	margin-top: 5%;
 	padding: 3px;
 	height: 20px;
@@ -333,7 +373,8 @@ html,body{
 	border-radius: 5px;
 	border-style: none;
 }
-#btnAnmelden{
+#btnAnmelden
+{
 	margin-top: 8%;
 	height: 26px;
 	width: 60%;
@@ -342,26 +383,29 @@ html,body{
 	border-radius: 5px;
 	border-style:none;
 }
-#btnAnmelden:hover{
+#btnAnmelden:hover
+{
 	background-color: #e1e1e1;
 	cursor: pointer;
 }
-
 /* Link zum Abmelden */
-#abmelden{
+#abmelden
+{
 	top: 220px;
 	right: 20px;
 	position: absolute;
 	text-decoration: none;
 	font-style: italic;
 }
-#abmelden:hover{
+#abmelden:hover
+{
 	color: #332714;
 	cursor: pointer;
 }
 @media (max-width: 1200px)
 {
-	.controllPanel{
+	.controllPanel
+	{
 		margin-top: 1px;
 		padding:1%;
 		min-width: 220px;
@@ -380,28 +424,31 @@ html,body{
 		-moz-box-shadow: 0px 0px 0px -7px rgba(0,0,0,0.75);
 		box-shadow: 0px 0px 0px -7px rgba(0,0,0,0.75);
 	}
-	
-	.controllPanel i{
+	.controllPanel i
+	{
 		width: 15px;
 	}
-	.controllPanel h3{
+	.controllPanel h3
+	{
 		margin: 0;
 		padding: 0;	
 		font-size: 25px;
 		font-weight: normal;
 	}
-	.controllPanel ul{
+	.controllPanel ul
+	{
 		margin-top: 25px;
 		margin-bottom: 10px;
 		text-align: left;	
 	}
-	
-	.controllPanel ul li {
+	.controllPanel ul li 
+	{
 		line-height: 27px;
 		width: 90%;
 		list-style-type: none;
 	}
-	.controllPanel a{
+	.controllPanel a
+	{
 		color: white;
 		text-decoration:none;
 		margin: 5px;
@@ -411,13 +458,15 @@ html,body{
 		-webkit-transition:color .2s ease-out, background 1s ease-in;
 		transition:color .2s ease-out, background 1s ease-in;
 	}
-	#registrierungLink{
+	#registrierungLink
+	{
 		color: white;
 		margin-top: 10px;
 	}
 	
 	/* Eingabefelder für die Anmeldung*/
-	#inputBenutzername{
+	#inputBenutzername
+	{
 		margin-top: 5%;
 		padding: 3px;
 		height: 20px;
@@ -425,7 +474,8 @@ html,body{
 		border-radius: 5px;
 		border-style: none;
 	}
-	#inputPasswort{
+	#inputPasswort
+	{
 		margin-top: 5%;
 		padding: 3px;
 		height: 20px;
@@ -433,7 +483,8 @@ html,body{
 		border-radius: 5px;
 		border-style: none;
 	}
-	#btnAnmelden{
+	#btnAnmelden
+	{
 		margin-top: 8%;
 		height: 26px;
 		width: 60%;
@@ -444,7 +495,8 @@ html,body{
 	}
 		
 	/* Link zum Abmelden */
-	#abmelden{
+	#abmelden
+	{
 		top: 220px;
 		right: 20px;
 		position: absolute;
@@ -461,7 +513,8 @@ html,body{
 
 
 /* -------------- Wrapper für den Seitencontent ------------------- */
-.contentWrapper{
+.contentWrapper
+{
 	margin: 0 auto;
 	width: 60%;
 	min-width: 300px;
@@ -472,17 +525,19 @@ html,body{
 	text-align: center;
 	color: black;	
 }
-
 /* Animationen für alle Contentsites */
-.showing{
+.showing
+{
 	-webkit-animation: showing 1.5s 1; /* Safari 4.0 - 8.0 */
     animation: showing 1.5s 1;
 }
-@-webkit-keyframes showing {
+@-webkit-keyframes showing 
+{
     from {opacity: 0;}
     to {opacity: 0.9;}
 }
-@keyframes showing {
+@keyframes showing 
+{
     from {opacity: 0;}
     to {opacity: 0.9;}
 }
@@ -495,7 +550,8 @@ html,body{
 
 
 /* --------------- Panel mit Artikelstammdaten ------------------- */
-#artikelListeMitarbeiter{
+#artikelListeMitarbeiter
+{
 	margin: 50px auto;
 	width: 900px;
 	height: 490px;
@@ -507,16 +563,19 @@ html,body{
 	-moz-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
 	box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
 }
-#artikelListeMitarbeiter p{
+#artikelListeMitarbeiter p
+{
 	margin: 0;
 	padding: 2%;
 	font-family: sans-serif;
 }
-#artikelListeMitarbeiter h1{
+#artikelListeMitarbeiter h1
+{
 	margin: 0;
 	padding: 15px;
 }
-#artikelListeMitarbeiterTabelle{
+#artikelListeMitarbeiterTabelle
+{
 	width: 92%;
 	margin-left: 4%;
 	table-layout: fixed;
@@ -1662,19 +1721,22 @@ table#zusatzTabelle tbody td{
 
 /* -----------------  Bestellvorgangpanel allgemein ----------------------*/
 
-.bestellvorgangUebersichtPanel{
+.bestellvorgangUebersichtPanel
+{
 	height: 70px;
 	width: 100%;
 	line-height: 70px;
 	text-align:center;
 	border-bottom: 1px solid gray;
 }
-.bestellvorgangUebersichtPanel ul{
+.bestellvorgangUebersichtPanel ul
+{
 	display: inline;
 	margin: 0;
 	padding: 0;
 }
-.bestellvorgangUebersichtPanel ul li{
+.bestellvorgangUebersichtPanel ul li
+{
 	list-style-type: none;
 	display: inline;
 	padding: 5px;
@@ -1684,42 +1746,47 @@ table#zusatzTabelle tbody td{
 	margin-left: 5px;
 	margin-right: 5px;
 }
-.bestellvorgangUebersichtPanel ul:hover{
+.bestellvorgangUebersichtPanel ul:hover
+{
 	cursor: default;	
 }
-.bestellvorgangUebersichtPanel ul li:hover{
+.bestellvorgangUebersichtPanel ul li:hover
+{
 	cursor: default;	
 }
-.bestellvorgangUebersichtPanel .arrowBestellschritt{
+.bestellvorgangUebersichtPanel .arrowBestellschritt
+{
 	color: #939393;
 	width: 20px;
 	border: none;
 }
-.bestellvorgangUebersichtPanel .activeArrowBestellschritt{
+.bestellvorgangUebersichtPanel .activeArrowBestellschritt
+{
 	color: #BF4D17;
 	width: 20px;
 	border: none;
 }
-.bestellvorgangUebersichtPanel .activeBestellschritt{
+.bestellvorgangUebersichtPanel .activeBestellschritt
+{
 	color: #BF4D17;
 	border-color: #BF4D17;
 }
-
-.ueberschriftBestellschritt{
+.ueberschriftBestellschritt
+{
 	margin:0;
 	padding: 0;
 	height: 60px;
 	line-height: 60px;
 	margin-bottom: 40px;
 }
-
 /* -----------------  Bestellvorgangpanel allgemein ----------------------*/
 
 
 
 
 /* ------------- Panel für die Bestellung: Lieferadresse eingeben ------------------- */
-#bestellungLieferadressePanel{
+#bestellungLieferadressePanel
+{
 	margin: 50px auto;
 	width: 800px;
 	height: 450px;
@@ -1731,16 +1798,19 @@ table#zusatzTabelle tbody td{
 	-moz-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
 	box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
 }
-#bestellungLieferadressePanel form{
+#bestellungLieferadressePanel form
+{
 	text-align: center;
 }
-#bestellungBenutzer{
+#bestellungBenutzer
+{
 	margin: auto;
 	text-align: center;
 }
-#bestellungLieferadressePanel .inputField
+#adressfelderPanel .inputField
 {
-	border-color: #BF4D17;
+	border-color: 1px solid #BF4D17;
+	border-radius: 2px;
 }
 #bestellungLieferadresseStrasse
 {
@@ -1748,15 +1818,18 @@ table#zusatzTabelle tbody td{
 	margin-top: 5px;
 	text-align: center;
 }
-#bestellungLieferadresseOrt{
+#bestellungLieferadresseOrt
+{
 	margin: auto;
 	margin-top: 5px;
 	text-align: center;
 }
-#bestellungLieferadressePanel .adressfelderPanel{
+#bestellungLieferadressePanel .adressfelderPanel
+{
 	height: 230px;
 }
-#bestellungLieferadressePanel .buttonPanel{
+#bestellungLieferadressePanel .buttonPanel
+{
 	height: 50px;
 }
 /* ------------- Panel für die Bestellung: Lieferadresse eingeben ------------------- */
@@ -1765,7 +1838,8 @@ table#zusatzTabelle tbody td{
 
 
 /* ------------- Panel für die Bestellung: Auswählen von Zahlungsarten ------------------- */
-#bestellungZahlungsartPanel{
+#bestellungZahlungsartPanel
+{
 	margin: 50px auto;
 	width: 800px;
 	height: 450px;
@@ -1777,10 +1851,12 @@ table#zusatzTabelle tbody td{
 	-moz-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
 	box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
 }
-#bestellungZahlungsartPanel form{
+#bestellungZahlungsartPanel form
+{
 	text-align: center;
 }
-#zahlungsartenPanel{
+#zahlungsartenPanel
+{
 	width: 760px;
 	padding-top: 20px;
 	margin-left:20px;
@@ -1850,7 +1926,8 @@ table#zusatzTabelle tbody td{
 
 
 /* ------------- Panel für die Bestellung: Zusammenfassung ------------------- */
-#bestellungZusammenfassungPanel{
+#bestellungZusammenfassungPanel
+{
 	margin: 50px auto;
 	width: 800px;
 	height: 500px;
@@ -1972,7 +2049,8 @@ table#zusatzTabelleBestellung tbody td{
 
 
 /* ------------- Panel für das Anlegen eines Mitarbeiterkontos ------------------- */
-#benutzerAnlegenPanel{
+#benutzerAnlegenPanel
+{
 	margin: 50px auto;
 	width: 500px;
 	height: 650px;
@@ -1984,10 +2062,12 @@ table#zusatzTabelleBestellung tbody td{
 	-moz-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
 	box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
 }
-#benutzerAnlegenPanel h1{
+#benutzerAnlegenPanel h1
+{
 	padding-top: 30px;
 }
-#benutzerAnlegenPanel form{
+#benutzerAnlegenPanel form
+{
 	text-align: center;
 }
 #benutzerAnlegenPanel .inputField{
@@ -2064,7 +2144,7 @@ table#zusatzTabelleBestellung tbody td{
 
 
 /* ------------- Panel für das Bearbeiten von Konten ------------------- */
-#benutzerKontoPanel{
+#benutzerKontoPanel
 {
 	margin: 50px auto;
 	width: 700px;
