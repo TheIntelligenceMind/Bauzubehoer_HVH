@@ -1868,17 +1868,41 @@ table#zusatzTabelle tbody td{
 	margin: auto;
 	text-align: center;
 }
+#bestellungBenutzer .inputField
+{
+	background-color: white;
+	text-align: center;
+	border: 1px solid #BF4D17;
+	height: 25px;
+	font-size: 14px;
+}
 #bestellungLieferadresseStrasse
 {
 	margin: auto;
 	margin-top: 5px;
 	text-align: center;
 }
+#bestellungLieferadresseStrasse .inputField
+{
+	background-color: white;
+	text-align: center;
+	border: 1px solid #BF4D17;
+	height: 25px;
+	font-size: 14px;
+}
 #bestellungLieferadresseOrt
 {
 	margin: auto;
 	margin-top: 5px;
 	text-align: center;
+}
+#bestellungLieferadresseOrt .inputField
+{
+	background-color: white;
+	text-align: center;
+	border: 1px solid #BF4D17;
+	height: 25px;
+	font-size: 14px;
 }
 #bestellungLieferadressePanel .adressfelderPanel
 {
