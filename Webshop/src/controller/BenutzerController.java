@@ -100,6 +100,11 @@ public class BenutzerController extends HttpServlet {
 	}
  
     private void benutzerstammdatenAnzeigen(HttpServletRequest req, HttpServletResponse resp){
+		req.setAttribute("benutzerstammdatenListe", getBenutzerstammdatenListe(req, resp));		
+		resp.addHeader("contentSite", "benutzerstammdatenPanel");   	
+    }
+    
+    private List<Benutzer> getBenutzerstammdatenListe(HttpServletRequest req, HttpServletResponse resp){
     	List<Benutzer> benutzerliste = null;
 		
     	benutzerliste = queryManager.selectAllMitarbeiter();
@@ -107,9 +112,8 @@ public class BenutzerController extends HttpServlet {
     	// eigenes Benutzerobjekt nicht in den Stammdaten anzeigen
     	String eigeneEmailadresse = ((Benutzer)req.getSession().getAttribute("benutzer")).getEmailadresse();	
     	benutzerliste = benutzerliste.stream().filter(b -> !b.getEmailadresse().equals(eigeneEmailadresse)).collect(Collectors.toList());
-    	
-		req.setAttribute("benutzerstammdatenListe", benutzerliste);		
-		resp.addHeader("contentSite", "benutzerstammdatenPanel");   	
+ 
+    	return benutzerliste;
     }
 
     private void benutzerAnlegenAnzeigen(HttpServletRequest req, HttpServletResponse resp){
@@ -264,6 +268,7 @@ public class BenutzerController extends HttpServlet {
 			String hinweismeldung = "Das Benutzerkonto wurde erfolgreich gel&ouml;scht.";
 			resp.addHeader("Status", ENUM_RESPONSE_STATUS.HINWEIS.toString());
 			resp.addHeader(ENUM_MELDUNG_ART.HINWEISMELDUNG.toString(), hinweismeldung);	
+			req.setAttribute("benutzerstammdatenListe", getBenutzerstammdatenListe(req, resp));
 		}else{		
 			String fehlermeldung = "Das Benutzerkonto konnte nicht gel&ouml;scht werden.";	
 			resp.addHeader("Status", ENUM_RESPONSE_STATUS.FEHLER.toString());
