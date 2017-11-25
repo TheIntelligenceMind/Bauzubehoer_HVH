@@ -45,7 +45,28 @@ function benutzerLoeschen(emailadresse){
 					<input title="Nachname" class="inputField" type="text" name="benutzerkontoNachname" placeholder="Nachname" value="<% out.print(bbenutzer.getNachname()); %>">
 					<input title="E-Mail-Adresse" class="inputField" type="text" name="benutzerkontoEmailadresse" placeholder="eMail" value="<% out.print(bbenutzer.getEmailadresse()); %>" disabled>
 					<select id="rollenauswahl">
-					<option value="ggg"></option>			
+					<% 					
+						String temp = bbenutzer.getRolle().getBezeichnung();
+						
+						if(temp.equals("Kunde"))
+						{
+							out.print("<option value='Kunde' selected>Kunde</option>");
+							out.print("<option value='Mitarbeiter'>Mitarbeiter</option>");
+							out.print("<option value='Administrator'>Administrator</option>");
+						}
+						else if(temp.equals("Mitarbeiter"))
+						{
+							out.print("<option value='Kunde'>Kunde</option>");
+							out.print("<option value='Mitarbeiter' selected>Mitarbeiter</option>");
+							out.print("<option value='Administrator'>Administrator</option>");
+						}
+						else
+						{
+							out.print("<option value='Kunde'>Kunde</option>");
+							out.print("<option value='Mitarbeiter'>Mitarbeiter</option>");
+							out.print("<option value='Administrator' selected>Administrator</option>");
+						}
+					%>		
 					</select>
 					<button class="btnBenutzerSpeichern" type="submit" name="method" value="benutzerSpeichern">Speichern</button>
 				</form>
