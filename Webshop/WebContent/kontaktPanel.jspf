@@ -15,7 +15,7 @@ Diese Datei enthält ein Kontaktinformationen und ein Kontaktformular zum verschi
 </script>
 
  <%
-  Nachricht nachricht = (Nachricht)request.getAttribute("nachricht");
+ 	Nachricht nachricht = (Nachricht)request.getAttribute("nachricht");
  	
  	if(nachricht == null){
  		nachricht = new Nachricht().init("", "", "");
@@ -24,7 +24,6 @@ Diese Datei enthält ein Kontaktinformationen und ein Kontaktformular zum verschi
  			nachricht.setAbsenderAdresse(((Benutzer)session.getAttribute("benutzer")).getEmailadresse());
  		}
  	}
- 
  %>
 
 <div class="showing" id="kontaktPanel">
@@ -39,7 +38,7 @@ Diese Datei enthält ein Kontaktinformationen und ein Kontaktformular zum verschi
 		<h3></h3>
 		<textarea title="Inhalt" class="inputField textarea" name="inhalt" placeholder="Nachricht"><% out.print(nachricht.getInhalt()); %></textarea>
 		<h3></h3>
-		<button class="btnRight btnStandardKlein" id="btnNachrichtSenden" type="submit" name="method" value="nachrichtAbschicken">Nachricht senden</button>
+		<button class="btnRight btnStandardKlein" id="btnNachrichtSenden" type="submit" name="method" value="nachrichtAbschicken"><i class="fa fa-paper-plane-o"></i> Nachricht senden</button>
 	</form>
-	<button class="btnLeft btnStandardKlein" type="submit" name="method" onclick="artikelSuchenNachBegriff()">abbrechen</button>
+	<button class="btnLeft btnStandardKlein" id="btnAbbrechen" type="submit" name="method" onclick="artikelSuchenNachBegriff()"><i class="fa fa-times"></i> abbrechen</button>
 </div>
