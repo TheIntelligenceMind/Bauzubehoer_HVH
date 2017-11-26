@@ -2089,12 +2089,10 @@ table#zusatzTabelle tbody td{
 	cursor: default;
 	background-color: white;
 }
-#bestellArtikelTabellenPanel td.tablecell > div {
-    width: 100%;
-    height: 20px;
-    overflow: hidden;
+#artikelTabelle tbody
+{
+	overflow: scroll;
 }
-
 #zusatzTabelleBestellung th{
 	border-bottom: 1px solid #BF4D17;
 }
