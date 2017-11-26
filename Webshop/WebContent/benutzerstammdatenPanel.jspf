@@ -25,7 +25,7 @@ function benutzerBearbeitenAnzeigen(emailadresse){
       <table id="benutzerTabelle">
         <thead>
           <tr>
-          	<th>E-Mail</th>
+          	<th>E-Mail-Adresse</th>
             <th>Vorame</th>
             <th>Nachname</th>
             <th>Rolle</th>
