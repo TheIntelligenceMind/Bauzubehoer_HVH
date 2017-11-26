@@ -377,7 +377,7 @@ public class QueryManager {
 		
 		try {				
 			String sql = "INSERT INTO " + ENUM_DB_TABELLE.BENUTZER.toString() + " (emailadresse, passwort, vorname, nachname, Rolle_ID, bestaetigt, registriert_Datum, erstellt_Benutzer) "
-						+ "VALUES( ?, ?, ?, ?, ?, ?, ?)";
+						+ "VALUES( ?, ?, ?, ?, ?, ?, ?, ?)";
 			
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setString(1, benutzer.getEmailadresse());

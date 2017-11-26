@@ -62,11 +62,13 @@ public class BenutzerHelper {
 							newBenutzer.init(emailadresse, hashPasswort, vorname, nachname, adresse, benutzerRolle, bestaetigtFlag, new Date(System.currentTimeMillis()));
 							
 							// Benutzerobjekt in der Datenbank anlegen
-							if(queryManager.createBenutzer(newBenutzer)){
-								if(queryManager.createAdresse(emailadresse, adresse)){
-									return null;
-								}else{
-									fehlertext = "Es ist ein unerwarteter Fehler aufgetreten.";
+							if(queryManager.createBenutzer(newBenutzer)){							
+								if(rolle != ENUM_ROLLE.KUNDE){
+									if(queryManager.createAdresse(emailadresse, adresse)){
+										return null;
+									}else{
+										fehlertext = "Es ist ein unerwarteter Fehler aufgetreten.";
+									}
 								}
 							}else{
 								fehlertext = "Es ist ein unerwarteter Fehler aufgetreten.";
