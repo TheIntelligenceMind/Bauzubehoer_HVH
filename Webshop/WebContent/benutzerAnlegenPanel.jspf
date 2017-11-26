@@ -1,28 +1,35 @@
+<%@page import="entity.Benutzer"%>
+<%@page import="entity.Adresse"%>
+<%@page import="enums.ENUM_ROLLE"%>
 <!-- 
 Autor dieser Datei: Tim Hermbecker, Lukas Vechtel
 
 Diese Datei behandelt das Anlegen von neuen Benutzern.
  -->
 
+<%
+	Benutzer neuerBenutzer = (Benutzer)request.getAttribute("neuerBenutzer");
+%>
+
 <div class="showing" id="benutzerAnlegenPanel">
 	<h1>Benutzer anlegen</h1>
 	<form action="benutzer" method="POST">
-		<input title="E-Mail-Adresse" class="inputField" type="text" name="emailadresse" placeholder="E-Mail-Adresse">
-		<input title="Vorname" class="inputField" type="text" name="vorname" placeholder="Vorname">
-		<input title="Nachname" class="inputField" type="text" name="nachname" placeholder="Nachname">
+		<input title="E-Mail-Adresse" class="inputField" type="text" name="emailadresse" value="<% if(neuerBenutzer != null){ out.print(neuerBenutzer.getEmailadresse()); } %>" placeholder="E-Mail-Adresse">
+		<input title="Vorname" class="inputField" type="text" name="vorname" value="<% if(neuerBenutzer != null){ out.print(neuerBenutzer.getVorname()); } %>" placeholder="Vorname">
+		<input title="Nachname" class="inputField" type="text" name="nachname" value="<% if(neuerBenutzer != null){ out.print(neuerBenutzer.getNachname()); } %>" placeholder="Nachname">
 		
-		<input title="Strasse" class="inputField" type="text" name="strasse" placeholder="Strasse">
-		<input title="Hausnummer" class="inputField" type="text" name="hausnummer" placeholder="Hausnummer">
+		<input title="Strasse" class="inputField" type="text" name="strasse" value="<% if(neuerBenutzer != null){ out.print(neuerBenutzer.getLieferAdresse().getStrasse()); } %>" placeholder="Strasse">
+		<input title="Hausnummer" class="inputField" type="text" name="hausnummer" value="<% if(neuerBenutzer != null){ out.print(neuerBenutzer.getLieferAdresse().getHausnummer()); } %>" placeholder="Hausnummer">
 		
-		<input title="Ort" class="inputField" type="text" name="ort" placeholder="Ort">
-		<input title="PLZ" class="inputField" type="text" name="postleitzahl" placeholder="PLZ">
+		<input title="Ort" class="inputField" type="text" name="ort" value="<% if(neuerBenutzer != null){ out.print(neuerBenutzer.getLieferAdresse().getOrt()); } %>" placeholder="Ort">
+		<input title="PLZ" class="inputField" type="text" name="postleitzahl" value="<% if(neuerBenutzer != null){ out.print(neuerBenutzer.getLieferAdresse().getPostleitzahl()); } %>" placeholder="PLZ">
 		
 		<input title="Hinweis: Das Passwort muss mindestens 6 Zeichen lang sein." class="inputField" type="password" name="passwort" placeholder="Passwort">
 		<input title="Passwort bestätigen" class="inputField" type="password" name="passwortBestaetigt" placeholder="Passwort bestätigen">
 		
 		<select name="rolle" id="rollenauswahlBenutzerAnlegen">
-			<option value="Mitarbeiter" selected>Mitarbeiter</option>
-			<option value="Administrator">Administrator</option>
+			<option value="Mitarbeiter" <% if(neuerBenutzer != null && neuerBenutzer.getRolle() != null && neuerBenutzer.getRolle().getBezeichnung().equals(ENUM_ROLLE.MITARBEITER.toString())){ out.print("selected"); } %>>Mitarbeiter</option>
+			<option value="Administrator" <% if(neuerBenutzer != null && neuerBenutzer.getRolle() != null && neuerBenutzer.getRolle().getBezeichnung().equals(ENUM_ROLLE.ADMINISTRATOR.toString())){ out.print("selected"); } %>>Administrator</option>
 		</select>
 		
 		<button id="btnBenutzerAnlegen" class="btnRight btnStandardKlein" type="submit" name="method" value="benutzerAnlegen"><i class="fa fa-plus"></i> Benutzer anlegen</button>

@@ -117,6 +117,8 @@ public class BenutzerController extends HttpServlet {
     }
 
     private void benutzerAnlegenAnzeigen(HttpServletRequest req, HttpServletResponse resp){
+    	
+    	
 		resp.addHeader("contentSite", "benutzerAnlegenPanel");   	
     }
     
@@ -146,6 +148,7 @@ public class BenutzerController extends HttpServlet {
     		resp.addHeader("Status", ENUM_RESPONSE_STATUS.FEHLER.toString());
     		resp.addHeader(ENUM_MELDUNG_ART.FEHLERMELDUNG.toString(), fehlermeldung);	
     	}	
+    	
     	resp.addHeader("contentSite", "benutzerAnlegenPanel"); 
     }
     
