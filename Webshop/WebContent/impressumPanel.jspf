@@ -6,56 +6,69 @@ Diese Datei enthält das Impressum des Webshops.
 
 <div class="showing" id="impressumPanel">
 	<h1>Impressum</h1>
-	<p>Impressum
-		Angaben gemäß § 5 TMG
-		
-		Bauzubehör HVH
-		Fürstenallee 1-8
-		33102 Paderborn
-		Telefon +49 (0) 800 8228 100
-		E-Mail: bauzubehoer.hvh@gmail.com	
-		Internet: www.bauzubehoer-hvh.de 
-		
-		Umsatzsteuer-Identifikationsnummer: DE 800 220 800 1 
-		Sitz Paderborn - Landgericht Paderborn HRB 8228 
-		
-		Bankverbindung:
-		IBAN: DE82 1234 5678 9000 1005 28
-		BIC: HVHLABADE082280
-		HVH-Landesbank Deutschland AG
-		
-		Vorsitzende des Aufsichtsrats:
-		Tim Hermbecker
-		Lukas Vechtel
-		Julian Hanfgarn
-		
-		Persönlich haftende Gesellschafterin:
-		HVH Management AG
-		Sitz Paderborn - Landgericht Paderborn HRB 8228-1
-		
-		Vorstand der HVH Management AG:
-		Tim Hermbecker
-		Lukas Vechtel
-		Julian Hanfgarn
-		
-		Inhaltlich verantwortlich:
-		Tim Hermbecker, Beauftragter für Logik-Programmierung, HVH Java Development
-		Lukas Vechtel, Beauftragter für Oberflächen-Programmierung, HVH Web Design
-		Julian Hanfgarn, Beauftragter für Datenbank-Programmierung, HVH Database Administration
-		
-		
-		Haftungshinweis
-		Alle Angaben dieses Internetangebotes wurden sorgfältig geprüft. Wir bemühen uns, dieses Informationsangebot stetig zu erweitern und zu aktualisieren. Eine Garantie für die Vollständigkeit, Richtigkeit und letzte Aktualität kann jedoch nicht übernommen werden. Bauzubehör HVH stellt diese Informationen ohne jegliche Zusicherung oder Gewährleistung jedweder Art, sei sie ausdrücklich oder stillschweigend, zur Verfügung. Bauzubehör HVH schließt jegliche Haftung für Schäden, die direkt oder indirekt aus der Benutzung dieser Website entstehen, aus, soweit diese nicht auf Vorsatz oder grober Fahrlässigkeit von Bauzubehör HVH beruhen. 
-		
-		Urheberrecht
-		Copyright 2017 Bauzubehör HVH. Alle Rechte vorbehalten. Alle Inhalte (Texte, Bilder, Grafiken, Ton-, Video- und Animationsdateien sowie deren Anordnung u. a.) auf der Website von Bauzubehör HVH unterliegen dem Schutz des Urheberrechts und anderer Schutzgesetze. Der Rechtsschutz gilt auch gegenüber Datenbanken und ähnlichen Einrichtungen. Die Inhalte sind nur für den bestimmungsgemäßen Abruf im Internet frei nutzbar. Die Inhalte dieser Website dürfen außerhalb der Grenzen des Urheberrechts ohne schriftliche Genehmigung von Bauzubehör HVH nicht in irgendeiner Form vervielfältigt, verbreitet, verändert oder Dritten zugänglich gemacht werden. Einige Bereiche der Website von Bauzubehör HVH enthalten außerdem Bilder, die dem Copyright Dritter unterliegen. Soweit nicht anders angegeben, sind alle Markenzeichen auf der Website von Bauzubehör HVH markenrechtlich geschützt.
-		
-		Realisierung, Konzeption, technische Umsetzung, Support und Hosting:
-		HVH Homepage Development Germany
-		
-		Lizenznachweise für Fotos
-		Angabe zur Verwendung des Fotos auf der HVH Webseite; Bsp.: Produktfoto Warnweste gelb Standard: © Copyright-Angabe und Verweis auf die entsprechende Seite
-		
+	<p>
+		Angaben gemäß § 5 TMG<br>
+	</p>	
+		<h4>Bauzubehör HVH</h4>
+	<p>	
+		Fürstenallee 1-8<br>
+		33102 Paderborn<br>
+		Telefon +49 (0) 800 8228 100<br>
+		E-Mail: bauzubehoer.hvh@gmail.com<br>
+		Internet: www.bauzubehoer-hvh.de <br>
+	</p>
+		<h4></h4>
+	<p>	
+		Umsatzsteuer-Identifikationsnummer: DE 800 220 800 1 <br>
+		Sitz Paderborn - Landgericht Paderborn HRB 8228 <br>
+	</p>
+		<h4>Bankverbindung:</h4>
+	<p>	
+		IBAN: DE82 1234 5678 9000 1005 28<br>
+		BIC: HVHLABADE082280<br>
+		HVH-Landesbank Deutschland AG<br>
+	</p>
+		<h4>Vorsitzende des Aufsichtsrats:</h4>
+	<p>	
+		Tim Hermbecker<br>
+		Lukas Vechtel<br>
+		Julian Hanfgarn<br>
+	</p>
+		<h4>Persönlich haftende Gesellschafterin:</h4>
+	<p>	
+		HVH Management AG<br>
+		Sitz Paderborn - Landgericht Paderborn HRB 8228-1<br>
+	</p>
+		<h4>Vorstand der HVH Management AG:</h4>
+	<p>	
+		Tim Hermbecker<br>
+		Lukas Vechtel<br>
+		Julian Hanfgarn<br>
+	</p>
+		<h4>Inhaltlich verantwortlich:</h4>
+	<p>
+		Tim Hermbecker, Beauftragter für Logik-Programmierung, HVH Java Development<br>
+		Lukas Vechtel, Beauftragter für Oberflächen-Programmierung, HVH Web Design<br>
+		Julian Hanfgarn, Beauftragter für Datenbank-Programmierung, HVH Database Administration<br>
+	</p>
+		<h4>Haftungshinweis</h4>
+	<p>
+		Alle Angaben dieses Internetangebotes wurden sorgfältig geprüft. Wir bemühen uns, dieses Informationsangebot stetig zu erweitern und zu aktualisieren. Eine Garantie für die Vollständigkeit, Richtigkeit und letzte Aktualität kann jedoch nicht übernommen werden. Bauzubehör HVH stellt diese Informationen ohne jegliche Zusicherung oder Gewährleistung jedweder Art, sei sie ausdrücklich oder stillschweigend, zur Verfügung. Bauzubehör HVH schließt jegliche Haftung für Schäden, die direkt oder indirekt aus der Benutzung dieser Website entstehen, aus, soweit diese nicht auf Vorsatz oder grober Fahrlässigkeit von Bauzubehör HVH beruhen. <br><br>
+	</p>
+		<h4>Urheberrecht</h4>
+	<p>
+		Copyright 2017 Bauzubehör HVH. Alle Rechte vorbehalten. Alle Inhalte (Texte, Bilder, Grafiken, Ton-, Video- und Animationsdateien sowie deren Anordnung u. a.) auf der Website von Bauzubehör HVH unterliegen dem Schutz des Urheberrechts und anderer Schutzgesetze. Der Rechtsschutz gilt auch gegenüber Datenbanken und ähnlichen Einrichtungen. Die Inhalte sind nur für den bestimmungsgemäßen Abruf im Internet frei nutzbar. Die Inhalte dieser Website dürfen außerhalb der Grenzen des Urheberrechts ohne schriftliche Genehmigung von Bauzubehör HVH nicht in irgendeiner Form vervielfältigt, verbreitet, verändert oder Dritten zugänglich gemacht werden. Einige Bereiche der Website von Bauzubehör HVH enthalten außerdem Bilder, die dem Copyright Dritter unterliegen. Soweit nicht anders angegeben, sind alle Markenzeichen auf der Website von Bauzubehör HVH markenrechtlich geschützt. <br><br>
+	</p>
+	<p>
+		<h4>Realisierung, Konzeption, technische Umsetzung, Support und Hosting: </h4>
+	<p>
+		HVH Homepage Development Germany<br>
+	</p>
+		<h4>Lizenznachweise für Fotos</h4>
+	<p>
+		Angabe zur Verwendung des Fotos auf der HVH Webseite; Bsp.: Produktfoto Warnweste gelb Standard: © Copyright-Angabe und Verweis auf die entsprechende Seite<br>
+	</p>
+	<p>
 		Die Angaben in diesem Impressum sind rein fiktiv.
 	</p>
 </div>
