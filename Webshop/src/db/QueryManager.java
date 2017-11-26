@@ -119,7 +119,8 @@ public class QueryManager {
 
 				Rolle rolle = new Rolle().init(result.getString("bezeichnung"), result.getInt("Sicht_Warenkorb"), result.getInt("Sicht_Bestellungen"), result.getInt("Sicht_Konto"), result.getInt("Sicht_Artikelstammdaten"), result.getInt("Sicht_Benutzerstammdaten"));
 	
-				return benutzer.init(result.getString("emailadresse"), result.getString("passwort"), result.getString("vorname"), result.getString("nachname"), adresse, rolle, result.getInt("bestaetigt"), result.getDate("erstellt_Datum"));
+				return benutzer.init(result.getString("emailadresse"), result.getString("passwort"), result.getString("vorname"), 
+						result.getString("nachname"), adresse, rolle, result.getInt("bestaetigt"), result.getDate("registriert_Datum"));
 				
 			}
 			
@@ -375,7 +376,7 @@ public class QueryManager {
 		int result;
 		
 		try {				
-			String sql = "INSERT INTO " + ENUM_DB_TABELLE.BENUTZER.toString() + " (emailadresse, passwort, vorname, nachname, Rolle_ID, bestaetigt, erstellt_Benutzer) "
+			String sql = "INSERT INTO " + ENUM_DB_TABELLE.BENUTZER.toString() + " (emailadresse, passwort, vorname, nachname, Rolle_ID, bestaetigt, registriert_Datum, erstellt_Benutzer) "
 						+ "VALUES( ?, ?, ?, ?, ?, ?, ?)";
 			
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
@@ -385,7 +386,8 @@ public class QueryManager {
 			stmt.setString(4, benutzer.getNachname());
 			stmt.setInt(5, getRolleIDbyBezeichnung(ENUM_ROLLE.getRolleByName(benutzer.getRolle().getBezeichnung())));
 			stmt.setInt(6, benutzer.getBestaetigt());
-			stmt.setString(7, DBUSER);
+			stmt.setDate(7, benutzer.getRegistriertDatum());
+			stmt.setString(8, DBUSER);
 			
 			result = stmt.executeUpdate();
 			
@@ -468,7 +470,7 @@ public class QueryManager {
 				Adresse adresse = new Adresse().init(result.getString("strasse"), result.getString("hausnummer"), result.getString("postleitzahl"), result.getString("ort"), result.getString("zusatz"));
 				
 				Benutzer mitarbeiter = new Benutzer().init(result.getString("emailadresse"), "", result.getString("vorname"), 
-						result.getString("nachname"), adresse, rolle, result.getInt("bestaetigt"), null);
+						result.getString("nachname"), adresse, rolle, result.getInt("bestaetigt"), result.getDate("registriert_Datum"));
 				mitarbeiterliste.add(mitarbeiter);
 			}
 			
