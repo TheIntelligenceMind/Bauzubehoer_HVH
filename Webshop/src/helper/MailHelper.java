@@ -4,6 +4,7 @@ import entity.Benutzer;
 import entity.Bestellung;
 import entity.Nachricht;
 import entity.WarenkorbArtikel;
+import enums.ENUM_ZAHLUNGSART;
 
 import java.text.DecimalFormat;
 import java.util.*;
@@ -94,8 +95,20 @@ public class MailHelper {
 	        // Betreffzeile setzen
 	        message.setSubject("Bauzubehoer HVH - Bestellbestätigung");
 	        
-	        // Mail Inhalt setzen
-	        message.setContent(getRechnungsmailContent(benutzer, bestellung, artikelliste), "text/html");
+	        // Mail Inhalt je nach Zahlungsart setzen
+	        String mailContent = null;
+	        if(bestellung.getZahlungsart().equals(ENUM_ZAHLUNGSART.RECHNUNG.toString())){
+	        	mailContent = getRechnungsmailContentRechnung(benutzer, bestellung, artikelliste);
+	        }else if(bestellung.getZahlungsart().equals(ENUM_ZAHLUNGSART.VORKASSE.toString())){
+	        	mailContent = getRechnungsmailContentVorkasse(benutzer, bestellung, artikelliste);
+	        }
+
+	        // Wenn keine Zahlungsart gefunden werden kann wird ein Fehler geworfen
+	        if(mailContent == null){
+	        	throw new RuntimeException(); 
+	        }
+
+	        message.setContent(mailContent, "text/html");
 	        
 	        // Mail verschicken
 	        Transport.send(message);
@@ -155,7 +168,67 @@ public class MailHelper {
 		return content;
 	}
 	
-	private String getRechnungsmailContent(Benutzer benutzer, Bestellung bestellung, List<WarenkorbArtikel> artikelliste){	
+	private String getRechnungsmailContentVorkasse(Benutzer benutzer, Bestellung bestellung, List<WarenkorbArtikel> artikelliste){	
+		DecimalFormat formater = new DecimalFormat("#0.00");
+		
+		String content =  "<html>"
+						+ "<body>"
+						+ "<style> p{margin:0; padding:0;}"
+						+ "table thead th, table tbody td{margin-right: 10px;}"
+						+ "table{border-collapse: collapse;}"
+						+ "table, td, th{border: 1px solid black;}"
+						+ "</style>"
+						+ "<p>Sehr geehrte(r) " + benutzer.getVorname() + " " + benutzer.getNachname() + ",</p>" 
+						+ "</br>"
+						+ "<p>Bauzubeh&ouml;r HVH dankt Ihnen f&uuml;r Ihre Bestellung, deren Eingang wir hiermit best&auml;tigen.</p>"
+						+ "</br>"
+						+ "<p>Sie haben die Zahlungsart \"Vorkasse\" gew&auml;hlt. Der Versand erfolgt, sobald die Rechnungssumme (s.u.) auf unserem Konto eingegangen ist.</p>"
+						+ "</br>"
+						+ "<p>Die gew&ouml;hnliche Lieferzeit betr&auml;gt zwei bis vier Werktage.</p>"
+						+ "</br>"
+						+ "<p>Nachstehend finden Sie die einzelnen Positionen Ihrer Bestellung:</p>"
+						+ "<p style='text-decoration:underline; margin-bottom: 5px;'>Rechnungsnummer: " + bestellung.getBestellnummer() + "</p>"
+						+ "<table><thead><tr><th>Position</th><th>Menge</th><th>Artikelnummer</th><th>Artikelbezeichnung</th><th>Einzelpreis</th><th>Gesamtpreis</th></tr></thead>"
+						+ "<tbody>";
+						
+		for(int i = 0; i < artikelliste.size(); i++){
+			content = content.concat("<tr>");
+			content = content.concat("<td>" + String.valueOf(i+1) + "</td>");
+			content = content.concat("<td>" + artikelliste.get(i).getMenge() + "</td>");
+			content = content.concat("<td>" + artikelliste.get(i).getArtikel().getNummer() + "</td>");
+			content = content.concat("<td>" + artikelliste.get(i).getArtikel().getBezeichnung() + "</td>");
+			content = content.concat("<td>" + formater.format(artikelliste.get(i).getArtikel().getPreis()).replace(".", ",") + "&euro;</td>");
+			content = content.concat("<td>" + formater.format(artikelliste.get(i).getArtikel().getPreis() * artikelliste.get(i).getMenge()).replace(".", ",") + "&euro;</td>");
+			content = content.concat("</tr>");
+		}
+		
+		double gesamtBestellwert = bestellung.getBestellwert() + 20.00; // 20€Versandkosten pauschal
+							
+		content = content.concat( "</tbody></table>"
+						+ "</br>"
+						+ "<p>Rechnungssumme (inkl. 20&euro; Standard-Versandkosten): <i style='font-size: 16px; font-weight:bold;'>" + formater.format(gesamtBestellwert).replace(".", ",") + "&euro;</i></p>"
+						+ "</br>"
+						+ "<p>Bitte &uuml;berweisen Sie die Rechnungssumme unter Angabe der Rechnungsnummer im Verwendungszweck auf folgendes Konto:</p>"
+						+ "<p style='margin-top: 5px;'>IBAN: DE82 1234 5678 9000 1005 28</p>"
+						+ "<p style='margin-top: 5px;'>BIC: HVHLABADE082280</p>"
+						+ "<p style='margin-top: 5px;'>HVH-Landesbank Deutschland AG</p>"
+						+ "</br>"
+						+ "</br>"
+						+ "<p>Die Widerrufsbelehrung und ein entsprechendes Formular befinden sich im Anhang.</p>"
+						+ "</br>"
+						+ "<p>Haben Sie noch Fragen? Schreiben Sie eine Mail bauzubehoer.hvh@gmail.com oder rufen Sie unsere kostenlose Service-Hotline 0800 8228 100 an.</p>"
+						+ "</br>"
+						+ "<p>Wir w&uuml;nschen Ihnen viel Vergn&uuml;gen mit Ihrer Bestellung!</p>"
+						+ "</br>"
+						+ "<p>Mit den besten Gr&uuml;ßen</p>"
+						+ "<p>Bauzubeh&ouml;r-HVH, Kundenbetreuung</p>"
+						+ "</body>"
+						+ "</html>");
+					
+		return content;		
+	}
+	
+	private String getRechnungsmailContentRechnung(Benutzer benutzer, Bestellung bestellung, List<WarenkorbArtikel> artikelliste){	
 		DecimalFormat formater = new DecimalFormat("#0.00");
 		
 		String content =  "<html>"
