@@ -8,7 +8,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import db.QueryManager;
 import entity.Adresse;
@@ -133,7 +132,7 @@ public class KontoController extends HttpServlet {
     			, req.getParameter("hausnummer")
     			, req.getParameter("postleitzahl")
     			, req.getParameter("ort")
-    			, "");
+    			, req.getParameter("zusatz"));
 
     	Benutzer benutzer = queryManager.getBenutzerByEMailAdresse(((Benutzer)req.getSession().getAttribute("benutzer")).getEmailadresse());
     			
@@ -165,6 +164,9 @@ public class KontoController extends HttpServlet {
         		if(update_adresse.getOrt() == null){
         			update_adresse.setOrt("");
         		}
+        		if(update_adresse.getZusatz() == null){
+        			update_adresse.setZusatz("");
+        		}
         		
         		result = queryManager.modifyAdresse(benutzer.getEmailadresse(), update_adresse);
         		
@@ -193,10 +195,11 @@ public class KontoController extends HttpServlet {
     	boolean result = false;
     	String vorname = req.getParameter("vorname");
     	String nachname = req.getParameter("nachname");
+    	String emailadresse = ((Benutzer)req.getSession().getAttribute("benutzer")).getEmailadresse();
+    	Benutzer update_benutzer = queryManager.getBenutzerByEMailAdresse(emailadresse);
     	
     	if(vorname != null && !vorname.isEmpty() && nachname != null && !nachname.isEmpty()){
-    		Benutzer update_benutzer = queryManager.getBenutzerByEMailAdresse(((Benutzer)req.getSession().getAttribute("benutzer")).getEmailadresse());
-    		
+    			
     		if(update_benutzer != null){
     			update_benutzer.setVorname(vorname);
     			update_benutzer.setNachname(nachname);
@@ -206,9 +209,7 @@ public class KontoController extends HttpServlet {
     	}
     	
     	if(result){
-			benutzer = queryManager.getBenutzerByEMailAdresse(((Benutzer)req.getSession().getAttribute("benutzer")).getEmailadresse());
-
-			updateSessionDetails(req.getSession(), benutzer);
+			req.getSession().setAttribute("benutzer", update_benutzer);
 
 			String hinweistext = "Die Benutzerdaten wurden erfolgreich gespeichert.";
 			resp.addHeader("Status", ENUM_RESPONSE_STATUS.HINWEIS.toString());
@@ -220,15 +221,9 @@ public class KontoController extends HttpServlet {
 			resp.addHeader(ENUM_MELDUNG_ART.FEHLERMELDUNG.toString(), fehlermeldung);
 		}	
     	
-		req.setAttribute("benutzer", benutzer);
+		req.setAttribute("benutzer", update_benutzer);
 		resp.addHeader("contentSite", "meinKontoPanel");
-    }
-    
-    private void updateSessionDetails(HttpSession session, Benutzer benutzer){
-    	session.setAttribute("vorname", benutzer.getVorname());
-    	session.setAttribute("nachname", benutzer.getNachname());
-    }
-    
+    } 
     
     private void setDispatchSite(String site){
     	this.dispatchSite = site;
