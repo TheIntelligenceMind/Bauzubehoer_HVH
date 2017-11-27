@@ -66,31 +66,31 @@ html,body{
 /* ------------- Panel für Seitenheader, Suchfunktion (links), Kategorien --------------- */
 #sitebar
 {
-	min-width: 160px;
-	width: 16%;
+	top: 0px;
+	float: left;
+	margin: 0;
+	width: 98%;
 	padding: 1%;
-	height: 590px;
+	height: 50px;
+	opacity: 0.85;
+	border-radius: 0px 0px 0px 0px;	
 	background-color: #BF4D17;
 	color: white;
-	opacity: 0.85;
-	float: left;
 	text-align: center;
 	position: -webkit-sticky;
 	position: sticky;
-	top: 0;
 	-webkit-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
 	-moz-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
-	box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
-	border-radius: 0px 0px 45px 0px;	
+	box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);	
 }
 
 /* Header der Webseite */
 #header
 {
-	height: 120px;
-	width: 100%;
-	text-align:center;
-	border-bottom: 1px solid white;
+	height: 50px;
+	width: 45%;
+	float: left;
+	border-bottom: none;
 }
 #header:hover
 {
@@ -98,13 +98,15 @@ html,body{
 }
 #header h1
 {
-	margin: 0;
-	padding-top: 20px;
+	margin-top:5px;
+	float: left;
 }
 #header h3
 {
-	margin: 0px;;
-	padding-top: 5px;
+	margin: 0px;
+	padding: 10px;
+	float: left;
+	padding-left: 5px;
 }
 
 /* Suchfunktion */
@@ -117,17 +119,20 @@ html,body{
 {
 	margin: 0;
 	padding:0;
-	padding-top: 30px;
-	padding-bottom: 30px;
-	text-align: center;
-	border-bottom: 1px solid white;
+	float: right;
+	padding-left: 3px;
+	border-bottom: none;
 }
 #searchPanel ul li
 {
 	list-style-type: none;
+	float: left;
 }
 #searchPanel ul li a
 {
+	font-size: 25px;
+	padding-left: 3px;
+	float: right;
 	font-size: 25px;
 	text-decoration: none;
 	color: white;	
@@ -143,6 +148,9 @@ html,body{
 }
 #suchenHeader
 {
+	width: 45%;
+	height: 180px;
+	float: right;
 	font-size:25px;
 }
 #sucheEingabe
@@ -207,63 +215,39 @@ html,body{
 {
 	#sitebar
 	{
-		min-width: 150px;
-		top: 0px;
-		float: left;
-		margin: 0;
-		width: 98%;
-		padding: 1%;
-		height: 50px;
-		opacity: 0.85;
-		border-radius: 0px 0px 0px 0px;	
+		
 	}
 	
 	/* Header der Webseite */
 	#header
 	{
-		height: 120px;
-		width: 45%;
-		float: left;
-		border-bottom: none;
+
 	}
 	#header h1
 	{
-		padding-top:5px;
-		float: left;
+
 	}
 	#header h3
 	{
-		margin: 0px;
-		padding: 10px;
-		float: left;
-		padding-left: 5px;
+		
 	}
 	
 	/* Suchfunktion */
 	#searchPanel
 	{
-		width: 45%;
-		height: 180px;
-		float: right;
+		
 	}
 	#searchPanel ul
 	{
-		margin: 0;
-		padding:0;
-		float: right;
-		padding-left: 3px;
-		border-bottom: none;
+		
 	}
 	#searchPanel ul li
 	{
-		list-style-type: none;
-		float: left;
+		
 	}
 	#searchPanel ul li a
 	{
-		font-size: 25px;
-		padding-left: 3px;
-		float: right;	
+			
 	}
 	#suchenHeader
 	{
