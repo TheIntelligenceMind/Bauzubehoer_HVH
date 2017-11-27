@@ -245,6 +245,7 @@ Die Index-Datei wird für die Zusammenfuehrung der Haupt-Files benötigt.
 		<div class="footer">
 			<a href="kontakt?method=kontaktAnzeigen">Kontakt</a>	
 			<a href="impressum?method=impressumAnzeigen">Impressum</a>
+			<a href="impressum?method=impressumAnzeigen">AGB</a>
 		</div>
 	</body>
 </html>

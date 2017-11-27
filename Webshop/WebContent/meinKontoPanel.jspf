@@ -30,9 +30,15 @@ function kontoLoeschen(){
 		});
 	}
 }
+function artikelSuchenNachBegriff(){
+	$(document).ready(function() {	      	               
+          window.location.href = "suchen";  
+	}); 	
+}
 </script>
 
 <div class="showing" id="meinKontoPanel">
+	<a class="panelClose"onclick="artikelSuchenNachBegriff()"><i class="fa fa-times"></i></a>
 	<h1>Konto</h1>
 
 <div class="tabreiter">

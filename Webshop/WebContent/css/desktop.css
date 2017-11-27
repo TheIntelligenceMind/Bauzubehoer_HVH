@@ -48,7 +48,11 @@ html,body{
 {
 	float: right;
 }
-
+.panelClose{
+	padding: 2%;
+	height: 10px;
+	float: right;
+}
 @media (max-width: 1200px)
 {
 
@@ -2782,7 +2786,3 @@ table#zusatzTabelleBestellung tbody td{
 	}
 }
 /* ------------- Animationen für das Meldungs Panel ------------ */
-
-
-
-

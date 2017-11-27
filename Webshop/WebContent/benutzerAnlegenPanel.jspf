@@ -11,7 +11,19 @@ Diese Datei behandelt das Anlegen von neuen Benutzern.
 	Benutzer neuerBenutzer = (Benutzer)request.getAttribute("neuerBenutzer");
 %>
 
+<script type="text/javascript">
+	function artikelSuchenNachBegriff(){
+		$(document).ready(function() {	      	               
+	          window.location.href = "suchen";  
+		}); 	
+	}
+</script>
+
 <div class="showing" id="benutzerAnlegenPanel">
+	
+	
+	<a class="panelClose"onclick="artikelSuchenNachBegriff()"><i class="fa fa-times"></i></a>
+
 	<h1>Benutzer anlegen</h1>
 	<form action="benutzer" method="POST">
 		<input title="E-Mail-Adresse" class="inputField" type="text" name="emailadresse" value="<% if(neuerBenutzer != null){ out.print(neuerBenutzer.getEmailadresse()); } %>" placeholder="E-Mail-Adresse">

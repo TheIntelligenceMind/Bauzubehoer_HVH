@@ -16,10 +16,16 @@ function benutzerBearbeitenAnzeigen(emailadresse){
         window.location.href = "benutzer?method=benutzerBearbeitenAnzeigen&emailadresse="+emailadresse;  
 	}); 
 }
+function artikelSuchenNachBegriff(){
+	$(document).ready(function() {	      	               
+          window.location.href = "suchen";  
+	}); 	
+}
 </script>
 
 
 <div class="showing" id="benutzerListe">
+<a class="panelClose"onclick="artikelSuchenNachBegriff()"><i class="fa fa-times"></i></a>
 <h1>Benutzerstammdaten</h1>
 
       <table id="benutzerTabelle">

@@ -7,8 +7,16 @@ Autor dieser Datei: Tim Hermbecker, Lukas Vechtel
 Diese Datei behandelt die Darstellung der gesamten Bestellungen des eingeloggten Accounts.
  -->
 
+<script type="text/javascript">
+	function artikelSuchenNachBegriff(){
+		$(document).ready(function() {	      	               
+	          window.location.href = "suchen";  
+		}); 	
+	}
+</script>
 
 <div class="showing" id="meineBestellungenPanel">
+	<a class="panelClose"onclick="artikelSuchenNachBegriff()"><i class="fa fa-times"></i></a>
 	<h1>Meine Bestellungen</h1>
 	
 	<!-- Bestellungen Tabelle hier start-->

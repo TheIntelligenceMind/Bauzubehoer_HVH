@@ -4,7 +4,16 @@ Autor dieser Datei: Tim Hermbecker
 Diese Datei enth‰lt das Impressum des Webshops.
  -->
 
+<script type="text/javascript">
+	function artikelSuchenNachBegriff(){
+		$(document).ready(function() {	      	               
+	          window.location.href = "suchen";  
+		}); 	
+	}
+</script>
+
 <div class="showing" id="impressumPanel">
+	<a class="panelClose"onclick="artikelSuchenNachBegriff()"><i class="fa fa-times"></i></a>
 	<h1>Impressum</h1>
 	<p>
 		Angaben gem‰ﬂ ß 5 TMG<br>

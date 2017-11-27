@@ -15,8 +15,18 @@ Diese Datei behandelt das Anlegen von Artikeln.
 		anlegenArtikel = new Artikel().init("", -1, "", -1, -1, -1, "", "", 0);
 	}
 %>
-<div class="showing" id="artikelAnlegenPanel">
 
+<script type="text/javascript">
+	function artikelSuchenNachBegriff(){
+		$(document).ready(function() {	      	               
+	          window.location.href = "suchen";  
+		}); 	
+	}
+</script>
+
+
+<div class="showing" id="artikelAnlegenPanel">
+	<a class="panelClose"onclick="artikelSuchenNachBegriff()"><i class="fa fa-times"></i></a>
 	<h1>Artikel anlegen</h1>
 	
 	<form action="artikel" method="POST">

@@ -12,8 +12,16 @@ Diese Datei behandelt das Anzeigen eines bestimmten Artikels.
 	Artikel detailansichtArtikel = (Artikel)request.getAttribute("detailansichtArtikel");
 %>
 
+<script type="text/javascript">
+	function artikelSuchenNachBegriff(){
+		$(document).ready(function() {	      	               
+	          window.location.href = "suchen";  
+		}); 	
+	}
+</script>
+
 <div class="showing" id="artikelDetailansichtPanel">
-				
+		<a class="panelClose"onclick="artikelSuchenNachBegriff()"><i class="fa fa-times"></i></a>		
 		<div id="artikelDetailansichtPanelZahlen">
 			
 			<div id='artikelDetailansichtBild'>

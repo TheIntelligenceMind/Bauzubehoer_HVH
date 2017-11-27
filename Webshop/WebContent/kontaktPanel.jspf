@@ -27,6 +27,7 @@ Diese Datei enthält ein Kontaktinformationen und ein Kontaktformular zum verschi
  %>
 
 <div class="showing" id="kontaktPanel">
+	<a class="panelClose"onclick="artikelSuchenNachBegriff()"><i class="fa fa-times"></i></a>
 	<h1>Kontakt</h1>
 	<form action="kontakt" method="POST">
 		<h3>Absender</h3>

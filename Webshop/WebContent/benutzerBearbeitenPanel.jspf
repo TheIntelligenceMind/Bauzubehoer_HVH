@@ -9,9 +9,6 @@ Diese Datei behandelt die Darstellung des Kontos des ausgewählten Benutzers aus 
 Hier kann der Admin die persönlichen Daten verändern.
  -->
 
-
-
-
 <%
 	Benutzer bbenutzer = (Benutzer)request.getAttribute("benutzer");
 	Adresse badresse = bbenutzer.getLieferAdresse() ;
@@ -31,9 +28,15 @@ function benutzerLoeschen(emailadresse){
 		});
 	}
 }
+function artikelSuchenNachBegriff(){
+	$(document).ready(function() {	      	               
+          window.location.href = "suchen";  
+	}); 	
+}
 </script>
 
 <div class="showing" id="benutzerkontoPanel">
+	<a class="panelClose"onclick="artikelSuchenNachBegriff()"><i class="fa fa-times"></i></a>
 	<h1>Konto bearbeiten</h1>
 
 <div class="tabreiterB">

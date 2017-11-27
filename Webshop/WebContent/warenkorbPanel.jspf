@@ -37,9 +37,15 @@ Diese Datei behandelt den Warenkorb, indem Artikel entfernt, Mengen angepasst od
 	          window.location.href = "suchen?method=artikelDetailansichtAnzeigen&artikelnummer="+artikelnummer;  
 		});
 	}
+	function artikelSuchenNachBegriff(){
+		$(document).ready(function() {	      	               
+	          window.location.href = "suchen";  
+		}); 	
+	}
 </script>
 
 <div class="showing" id="warenkorbPanel">
+	<a class="panelClose"onclick="artikelSuchenNachBegriff()"><i class="fa fa-times"></i></a>
 	<h1>Warenkorb</h1>
 	<div id="warenkorbTabellen">
 	      <table id="artikelTabelle">

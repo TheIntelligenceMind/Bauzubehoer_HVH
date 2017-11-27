@@ -19,10 +19,16 @@ function artikelBearbeitenAnzeigen(piArtikelNummer){
 		}); 
 	}	
 }
+function artikelSuchenNachBegriff(){
+	$(document).ready(function() {	      	               
+          window.location.href = "suchen";  
+	}); 	
+}
 </script>
 
 <div class="showing" id="artikelListeMitarbeiter">
-<h1>Artikelliste</h1>
+	<a class="panelClose"onclick="artikelSuchenNachBegriff()"><i class="fa fa-times"></i></a>
+	<h1>Artikelliste</h1>
 
       <table id="artikelListeMitarbeiterTabelle">
         <thead>

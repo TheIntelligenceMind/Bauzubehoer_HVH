@@ -21,9 +21,15 @@ Diese Datei behandelt das Bearbeiten von vorhandenen Artikeln.
 			$('#tButton').val("0");
 		}
 	}
+	function artikelSuchenNachBegriff(){
+		$(document).ready(function() {	      	               
+	          window.location.href = "suchen";  
+		}); 	
+	}
 </script>
 
 <div class="showing" id="artikelBearbeitenPanel">
+	<a class="panelClose"onclick="artikelSuchenNachBegriff()"><i class="fa fa-times"></i></a>
 	<h1>Artikel bearbeiten</h1>	
 	<form action="artikel" method="POST">
 	
