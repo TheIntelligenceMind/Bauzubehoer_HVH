@@ -2063,10 +2063,11 @@ table#zusatzTabelle tbody td{
 #bestellungZusammenfassungPanel h2{
 	margin-bottom: 20px;
 }
-#bestellungZusammenfassungPanel .bestellOverflow
+/*#bestellungZusammenfassungPanel .bestellOverflow
 {
 	overflow: auto;
 }
+*/
 #bestellungZusammenfassungPanel .bestellArtikelTabellenPanel{
 	height: 250px;
 }
