@@ -57,13 +57,15 @@ Diese Datei behandelt die Bestimmung der Lieferadresse.
 		 	 <table id="bestellungLieferadresseStrasse">
 		 	 	<thead>
 		 		<tr>
-		 			<th>Straße</th>
-		 			<th>Hausnummer</th>
+		 			<th id="Strasse">Straße</th>
+		 			<th id="Hausnummer">Hausnummer</th>
+		 			<th id="Zusatz">Zusatz</th>
 		 		</tr>
 		 		</thead>
 		 		<tr>
 		 			<td><input title="Strasse" class="inputField" type="text" name="strasse" placeholder="Straße" id="Strasse" value="<% out.print(adresseB.getStrasse()); %>"></td>
 					<td><input title="Hausnummer" class="inputField" type="text" name="hausnummer" placeholder="Hausnummer" id="Hausnummer" value="<% out.print(adresseB.getHausnummer()); %>"></td>
+					<td><input title="Zusatz" class="inputField" type="text" name="zusatz" placeholder="Zusatz" id="Zusatz" value="<% out.print(adresseB.getZusatz()); %>"></td>
 				<tr>
 			</table>
 			<table id="bestellungLieferadresseOrt">

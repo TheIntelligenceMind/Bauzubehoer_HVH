@@ -20,10 +20,11 @@ Diese Datei behandelt das Anlegen von neuen Benutzern.
 		
 		<input title="Strasse" class="inputField" type="text" name="strasse" value="<% if(neuerBenutzer != null){ out.print(neuerBenutzer.getLieferAdresse().getStrasse()); } %>" placeholder="Strasse">
 		<input title="Hausnummer" class="inputField" type="text" name="hausnummer" value="<% if(neuerBenutzer != null){ out.print(neuerBenutzer.getLieferAdresse().getHausnummer()); } %>" placeholder="Hausnummer">
+		<input title="Zusatz" class="inputField" type="text" name="zusatz" value="<% if(neuerBenutzer != null){ out.print(neuerBenutzer.getLieferAdresse().getZusatz()); } %>" placeholder="Zusatz">
 		
-		<input title="Ort" class="inputField" type="text" name="ort" value="<% if(neuerBenutzer != null){ out.print(neuerBenutzer.getLieferAdresse().getOrt()); } %>" placeholder="Ort">
 		<input title="PLZ" class="inputField" type="text" name="postleitzahl" value="<% if(neuerBenutzer != null){ out.print(neuerBenutzer.getLieferAdresse().getPostleitzahl()); } %>" placeholder="PLZ">
-		
+		<input title="Ort" class="inputField" type="text" name="ort" value="<% if(neuerBenutzer != null){ out.print(neuerBenutzer.getLieferAdresse().getOrt()); } %>" placeholder="Ort">
+
 		<input title="Hinweis: Das Passwort muss mindestens 6 Zeichen lang sein." class="inputField" type="password" name="passwort" placeholder="Passwort">
 		<input title="Passwort bestätigen" class="inputField" type="password" name="passwortBestaetigt" placeholder="Passwort bestätigen">
 		

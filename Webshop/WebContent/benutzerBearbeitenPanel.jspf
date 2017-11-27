@@ -59,6 +59,7 @@ function benutzerLoeschen(emailadresse){
             <form action="benutzer" method="post">
 	            <input title="Strasse" class="inputField" type="text" name="strasse" placeholder="Straße" id="benutzerkontoStrasse" value="<% out.print(badresse.getStrasse()); %>">
 	            <input title="Hausnummer" class="inputField" type="text" name="hausnummer" placeholder="Hausnummer" id="benutzerkontoHausnummer" value="<% out.print(badresse.getHausnummer()); %>">
+				<input title="Zusatz" class="inputField" type="text" name="Zusatz" placeholder="Zusatz" id="benutzerkontoZusatz" value="<% out.print(badresse.getZusatz()); %>">
 				<input title="Postleitzahl" class="inputField" type="text" name="postleitzahl" placeholder="PLZ" id="benutzerkontoPostleitzahl" value="<% out.print(badresse.getPostleitzahl()); %>">
 				<input title="Ort" class="inputField" type="text" name="ort" placeholder="Ort" id="benutzerkontoOrt" value="<% out.print(badresse.getOrt()); %>">
 				<input type="hidden" name="emailadresse" value="<% out.print(bbenutzer.getEmailadresse()); %>">
