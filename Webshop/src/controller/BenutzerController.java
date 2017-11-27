@@ -123,13 +123,22 @@ public class BenutzerController extends HttpServlet {
     }
     
     private void benutzerAnlegen(HttpServletRequest req, HttpServletResponse resp){
+    	String emailadresse = req.getParameter("emailadresse");
+    	String vorname = req.getParameter("vorname");
+    	String nachname = req.getParameter("nachname");
     	String strasse = req.getParameter("strasse");
     	String hausnummer = req.getParameter("hausnummer");
     	String postleitzahl =req.getParameter("postleitzahl");
     	String ort = req.getParameter("ort");
     	String zusatz = req.getParameter("zusatz");
+    	Benutzer neuerBenutzer = new Benutzer();
     	
     	Adresse new_Adresse = new Adresse().init(strasse, hausnummer, postleitzahl, ort, zusatz);
+    	
+    	neuerBenutzer.setLieferAdresse(new_Adresse);
+    	neuerBenutzer.setEmailadresse(emailadresse);
+    	neuerBenutzer.setVorname(vorname);
+    	neuerBenutzer.setNachname(nachname);
     	
     	if(adressenHelper.validateAdresse(new_Adresse)){
     		String fehlermeldung = benutzerHelper.benutzerAnlegen(req, new_Adresse);	
@@ -141,12 +150,14 @@ public class BenutzerController extends HttpServlet {
     		}else{
     			resp.addHeader("Status", ENUM_RESPONSE_STATUS.FEHLER.toString());
         		resp.addHeader(ENUM_MELDUNG_ART.FEHLERMELDUNG.toString(), fehlermeldung);
+        		req.setAttribute("neuerBenutzer", neuerBenutzer);
     		}
     		
     	}else{
     		String fehlermeldung = "Die Adresse ist nicht g&uuml;ltig.";
     		resp.addHeader("Status", ENUM_RESPONSE_STATUS.FEHLER.toString());
-    		resp.addHeader(ENUM_MELDUNG_ART.FEHLERMELDUNG.toString(), fehlermeldung);	
+    		resp.addHeader(ENUM_MELDUNG_ART.FEHLERMELDUNG.toString(), fehlermeldung);
+    		req.setAttribute("neuerBenutzer", neuerBenutzer);
     	}	
     	
     	resp.addHeader("contentSite", "benutzerAnlegenPanel"); 
