@@ -882,12 +882,15 @@ html,body{
 	cursor:pointer;
 }
 #artikelListeKundenBild{
-	background: url("../images/articles/warnweste.jpg");
 	float: left;
 	margin-left: 3%;
 	margin-top: 15px;
 	border: solid 1px black;
 	border-radius: 2px;
+	height: 90px;
+	width: 80px;
+}
+#artikelListeKundenBild img{
 	height: 90px;
 	width: 80px;
 }
@@ -1494,7 +1497,7 @@ table#zusatzTabelle tbody td{
 #artikelAnlegenPanel{
 	margin: 50px auto;
 	width: 700px;
-	height: 550px;
+	height: 690px;
 	text-align: center;
 	opacity: 0.9;
 	background-color: white;
@@ -1502,6 +1505,33 @@ table#zusatzTabelle tbody td{
   	-webkit-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
 	-moz-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
 	box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
+}
+#artikelAnlegenBildPanel{
+	margin: 0 auto;
+	margin-top: 20px;
+	height: 120px;
+	width: 50%;
+}
+#artikelAnlegenBildPanel img{
+	height: 90px;
+	width: 80px;
+	border: 1px solid gray;
+}
+#artikelAnlegenBildPanel form{
+	height: 30px;
+	line-height: 30px;
+}
+
+#artikelAnlegenBildPanel form button{
+	background-color: #BF4D17;
+	color: white;
+	height: 25px;
+	border: none;
+	border-radius: 3px;
+}
+#artikelAnlegenBildPanel form button:hover{
+	background-color: #9b4013;
+	cursor: pointer;
 }
 #artikelAnlegenPanel h1{
 	margin:0;
@@ -1786,9 +1816,7 @@ table#zusatzTabelle tbody td{
 	-moz-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
 	box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
 }
-#artikelDetailansichtBild
-{
-	background: url("../images/articles/warnweste.jpg");
+#artikelDetailansichtBild{
 	float: left;
 	margin-left: 3%;
 	margin-top: 3%;
@@ -1797,7 +1825,10 @@ table#zusatzTabelle tbody td{
 	height: 90px;
 	width: 80px;
 }
-
+#artikelDetailansichtBild img{
+	height: 90px;
+	width: 80px;
+}
 #artikelDetailansichtWarenkorbButton{
 	float: right;
 	padding: 7px;	

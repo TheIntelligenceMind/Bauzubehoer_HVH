@@ -12,8 +12,10 @@ Diese Datei behandelt das Anlegen von Artikeln.
 <%
 	Artikel anlegenArtikel = (Artikel)request.getAttribute("anlegenArtikel");
 	if(anlegenArtikel == null){
-		anlegenArtikel = new Artikel().init("", -1, "", -1, -1, -1, "", "", 0);
+		anlegenArtikel = new Artikel().init("", -1, "", -1, -1, -1, null, "", "", 0);
 	}
+	
+	String bild = String.valueOf(request.getAttribute("bild"));
 %>
 
 <script type="text/javascript">
@@ -29,7 +31,16 @@ Diese Datei behandelt das Anlegen von Artikeln.
 	<a class="panelClose"onclick="artikelSuchenNachBegriff()"><i class="fa fa-times"></i></a>
 	<h1>Artikel anlegen</h1>
 	
+	
+	<div id="artikelAnlegenBildPanel">
+		<img alt="" src="data:image/png;base64, <% if(bild != null){ out.print(bild); } %>"/>
+		<form action="upload" enctype="multipart/form-data" method="POST">
+			<input type="file" name="bild" value="Bild ausw&auml;hlen">
+			<input type="submit" value="Hochladen">
+		</form>	
+	</div>
 	<form action="artikel" method="POST">
+		<input type="hidden" name="bild">	
 		<div id=artikelAnlegenPanelBeschreibung>
 			<input title="Hinweis: Die Artikelnummer muss vierstellig sein." class="inputField" type="text" name="nummer" value="<% if(anlegenArtikel.getNummer() != -1){out.print(String.format("%04d", anlegenArtikel.getNummer())); }%>" placeholder="Artikelnummer">
 			<input title="Bezeichnung" class="inputField" type="text" name="bezeichnung" value="<% out.print(anlegenArtikel.getBezeichnung()); %>" placeholder="Bezeichnung">

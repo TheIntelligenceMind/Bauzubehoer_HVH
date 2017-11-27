@@ -1,5 +1,6 @@
 package controller;
 
+
 import java.io.IOException;
 import java.util.List;
 
@@ -11,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.math.NumberUtils;
-
 
 import db.QueryManager;
 import entity.Artikel;
@@ -91,6 +91,8 @@ public class ArtikelController extends HttpServlet {
 
 		rd.forward(req, resp);		
 	}
+    
+    
 
 	private void artikelBearbeiten(HttpServletRequest req, HttpServletResponse resp) {
 		if(artikelSpeichern(req)){
@@ -107,7 +109,7 @@ public class ArtikelController extends HttpServlet {
 		
 		if(req.getParameter("nummer") == null){
 			artikel = new Artikel();
-			artikel.init("", -1, "", -1, -1, -1, "", "", -1);
+			artikel.init("", -1, "", -1, -1, -1, null, "", "", -1);
 		}else{
 			artikel = queryManager.searchArtikelByNummer(Integer.valueOf(req.getParameter("nummer")));
 		}
@@ -124,7 +126,7 @@ public class ArtikelController extends HttpServlet {
 			artikel = queryManager.searchArtikelByNummer(artikelnummer);								
 		}else{
 			artikel = new Artikel();
-			artikel.init("", -1, "", -1, -1, -1, "", "", -1);
+			artikel.init("", -1, "", -1, -1, -1, null, "", "", -1);
 		}
 		
 		req.setAttribute("bearbeitenArtikel", artikel);
@@ -155,7 +157,7 @@ public class ArtikelController extends HttpServlet {
 		String kategorie_1 = req.getParameter("kategorie_1");
 		String kategorie_2 = req.getParameter("kategorie_2");
 		
-		anlegenArtikel = new Artikel().init(bezeichnung, nummer, beschreibung, preis, lagermenge, meldebestand,
+		anlegenArtikel = new Artikel().init(bezeichnung, nummer, beschreibung, preis, lagermenge, meldebestand, null,
 				kategorie_1, kategorie_2, 1);
 		
 		if((fehlertext = validateAttributes(req, true)) == null){	
@@ -196,7 +198,7 @@ public class ArtikelController extends HttpServlet {
 			String kategorie_2 = req.getParameter("kategorie_2");
 	    	int aktiv = NumberUtils.toInt(req.getParameter("aktiv"));
 	    	  	
-	    	Artikel artikel_save = new Artikel().init(bezeichnung, nummer, beschreibung, preis, lagermenge, meldebestand,
+	    	Artikel artikel_save = new Artikel().init(bezeichnung, nummer, beschreibung, preis, lagermenge, meldebestand, null,
 	    			kategorie_1, kategorie_2, aktiv);
 	    	
 	    	// prüfen ob es den Artikel gibt

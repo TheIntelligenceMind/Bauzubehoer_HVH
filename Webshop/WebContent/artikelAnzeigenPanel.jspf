@@ -25,9 +25,13 @@ Hier wird auch eine gefilterte Suche mit ausgegeben.
 		     	if(artikelListe != null){
 		     		for(Object o : artikelListe){
 			     		Artikel a = (Artikel)o;
+			     		String anzeigenBild = a.getBildasString();
+			     		if(anzeigenBild == null){
+			     			anzeigenBild = "";
+			     		}
 			     		
 			     		out.println("<div onclick='artikelDetailansichtAnzeigen(" + a.getNummer() + ")' id='artikelListeKundenDesign'>" + 
-			    		"<div id='artikelListeKundenBild'></div>" +
+			    		"<div id='artikelListeKundenBild'><img alt='Bild' src='data:image/png;base64," + anzeigenBild + "'/></div>" +
 			     		"<div id='artikelListeKundenBezeichnung'>" + a.getBezeichnung() + "</div>" +
 			       		"<div id='artikelListeKundenPreis'>" + "&euro; " +  formater.format(a.getPreis()) + "</div>" +
 			     	    "<div id='artikelListeKundenBeschreibung'>" + a.getBeschreibung() + "</div>" +

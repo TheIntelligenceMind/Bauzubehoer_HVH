@@ -10,6 +10,12 @@ Diese Datei behandelt das Anzeigen eines bestimmten Artikels.
 
 <%
 	Artikel detailansichtArtikel = (Artikel)request.getAttribute("detailansichtArtikel");
+	String detailansichtBild = null;	
+	
+	if(detailansichtArtikel != null){
+		detailansichtBild = String.valueOf(detailansichtArtikel.getBildasString());
+	}
+
 %>
 
 <script type="text/javascript">
@@ -25,6 +31,7 @@ Diese Datei behandelt das Anzeigen eines bestimmten Artikels.
 		<div id="artikelDetailansichtPanelZahlen">
 			
 			<div id='artikelDetailansichtBild'>
+				<img alt="Bild" src="data:image/png;base64, <% if(detailansichtBild != null){ out.print(detailansichtBild); } %>"/>
 			</div>
 			<div id="btnArtikelDetailansichtWarenkorb">
 				<form action="warenkorb">

@@ -864,7 +864,7 @@ public class QueryManager {
 			}
 			
 			String sql = "UPDATE "+ ENUM_DB_TABELLE.ARTIKEL.toString() +" SET nummer = ?, bezeichnung = ? , beschreibung = ?"
-					+ ", preis = ?, lagermenge = ?, meldebestand = ?, kategorie_1 = ?, kategorie_2 = ?, aktiv = ?, geaendert_Benutzer = ?, "
+					+ ", preis = ?, lagermenge = ?, meldebestand = ?, bild = ?, kategorie_1 = ?, kategorie_2 = ?, aktiv = ?, geaendert_Benutzer = ?, "
 					+ "geaendert_Datum = ? WHERE ID = ?";
 		
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
@@ -874,12 +874,13 @@ public class QueryManager {
 			stmt.setDouble(4, artikel.getPreis());
 			stmt.setInt(5, artikel.getLagermenge());
 			stmt.setInt(6, artikel.getMeldebestand());
-			stmt.setString(7, artikel.getKategorie_1());
-			stmt.setString(8, artikel.getKategorie_2());
-			stmt.setInt(9, artikel.getAktiv());
-			stmt.setString(10, DBUSER);
-			stmt.setString(11, sdf.format(getCurrentTimestamp()));
-			stmt.setInt(12, artikelID);
+			stmt.setBytes(7, artikel.getBild());
+			stmt.setString(8, artikel.getKategorie_1());
+			stmt.setString(9, artikel.getKategorie_2());
+			stmt.setInt(10, artikel.getAktiv());
+			stmt.setString(11, DBUSER);
+			stmt.setString(12, sdf.format(getCurrentTimestamp()));
+			stmt.setInt(13, artikelID);
 			
 			result = stmt.executeUpdate();
 			
@@ -972,7 +973,7 @@ public class QueryManager {
 			while(result.next()){
 				Artikel artikel = new Artikel().init(result.getString("bezeichnung"), result.getInt("nummer"), 
 						result.getString("beschreibung"), result.getDouble("preis"), result.getInt("lagermenge"), 
-						result.getInt("meldebestand"), result.getString("kategorie_1"), result.getString("kategorie_2"), 
+						result.getInt("meldebestand"), result.getBytes("bild"), result.getString("kategorie_1"), result.getString("kategorie_2"), 
 						result.getInt("aktiv"));
 				artikelliste.add(artikel);
 			}
@@ -1009,7 +1010,7 @@ public class QueryManager {
 			while(result.next()){
 				Artikel artikel = new Artikel().init(result.getString("bezeichnung"), result.getInt("nummer"), 
 						result.getString("beschreibung"), result.getDouble("preis"), result.getInt("lagermenge"), 
-						result.getInt("meldebestand"), result.getString("kategorie_1"), result.getString("kategorie_2"),
+						result.getInt("meldebestand"), result.getBytes("bild"), result.getString("kategorie_1"), result.getString("kategorie_2"),
 						result.getInt("aktiv"));
 				artikelliste.add(artikel);
 			}
@@ -1047,7 +1048,7 @@ public class QueryManager {
 			while(result.next()){
 				Artikel artikel = new Artikel().init(result.getString("bezeichnung"), result.getInt("nummer"), 
 						result.getString("beschreibung"), result.getDouble("preis"), result.getInt("lagermenge"), 
-						result.getInt("meldebestand"), result.getString("kategorie_1"), result.getString("kategorie_2"), 
+						result.getInt("meldebestand"), result.getBytes("bild"), result.getString("kategorie_1"), result.getString("kategorie_2"), 
 						result.getInt("aktiv"));
 				artikelliste.add(artikel);
 			}
@@ -1089,7 +1090,7 @@ public class QueryManager {
 			while(result.next()){
 				Artikel artikel = new Artikel().init(result.getString("bezeichnung"), result.getInt("nummer"),
 						result.getString("beschreibung"), result.getDouble("preis"), result.getInt("lagermenge"),
-						result.getInt("meldebestand"), result.getString("kategorie_1"), result.getString("kategorie_2"),
+						result.getInt("meldebestand"), result.getBytes("bild"), result.getString("kategorie_1"), result.getString("kategorie_2"),
 						result.getInt("aktiv"));
 				artikelliste.add(artikel);
 			}
@@ -1127,7 +1128,7 @@ public class QueryManager {
 			if(result.next()){
 				artikel = new Artikel().init(result.getString("bezeichnung"), result.getInt("nummer"), 
 						result.getString("beschreibung"), result.getDouble("preis"), result.getInt("lagermenge"), 
-						result.getInt("meldebestand"), result.getString("kategorie_1"), result.getString("kategorie_2"), 
+						result.getInt("meldebestand"), result.getBytes("bild"), result.getString("kategorie_1"), result.getString("kategorie_2"), 
 						result.getInt("aktiv"));
 			}
 			
@@ -1159,7 +1160,7 @@ public class QueryManager {
 		
 		try {					
 			String sql = "SELECT w.position, w.menge, a.nummer, a.bezeichnung, a.beschreibung, a.preis, a.lagermenge, "
-					+ "a.meldebestand, a.kategorie_1, a.kategorie_2, a.aktiv FROM " + ENUM_DB_TABELLE.WARENKORB.toString() + 
+					+ "a.meldebestand, a.bild, a.kategorie_1, a.kategorie_2, a.aktiv FROM " + ENUM_DB_TABELLE.WARENKORB.toString() + 
 					" w INNER JOIN "+ ENUM_DB_TABELLE.BENUTZER.toString() + " b ON w.Benutzer_ID = b.ID LEFT JOIN " + 
 					ENUM_DB_TABELLE.ARTIKEL.toString() + " a ON a.ID = w.Artikel_ID WHERE b.emailadresse = ? AND w.aktiv = 1";
 			
@@ -1171,7 +1172,7 @@ public class QueryManager {
 			while(result.next()){
 				Artikel artikel = new Artikel().init(result.getString("bezeichnung"), result.getInt("nummer"), 
 						result.getString("beschreibung"), result.getDouble("preis"), result.getInt("lagermenge"), 
-						result.getInt("meldebestand"), result.getString("kategorie_1"), result.getString("kategorie_2"), 
+						result.getInt("meldebestand"), result.getBytes("bild"), result.getString("kategorie_1"), result.getString("kategorie_2"), 
 						result.getInt("aktiv"));
 				WarenkorbArtikel warenkorbartikel = new WarenkorbArtikel().init(artikel, result.getInt("position"), 
 						result.getInt("menge"));

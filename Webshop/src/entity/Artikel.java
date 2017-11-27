@@ -1,5 +1,6 @@
 package entity;
 
+
 /**
  * <pre>
  * <h3>Beschreibung:</h3> Die Klasse bildet die Tabelle Artikel in der DB ab
@@ -16,6 +17,7 @@ public class Artikel {
 	private int meldebestand;
 	private String kategorie_1;
 	private String kategorie_2;
+	private byte[] bild;
 	private int aktiv;
 	
 	public Artikel(){
@@ -23,13 +25,14 @@ public class Artikel {
 	}
 	
 	public Artikel init(String piBezeichnung, int piNummer, String piBeschreibung, double piPreis, int piLagermenge, 
-			int piMeldebestand, String piKategorie_1, String piKategorie_2, int piAktiv){		
+			int piMeldebestand, byte[] piBild, String piKategorie_1, String piKategorie_2, int piAktiv){		
 		bezeichnung = piBezeichnung;
 		nummer = piNummer;
 		beschreibung = piBeschreibung;
 		preis = piPreis;
 		lagermenge = piLagermenge;
 		meldebestand = piMeldebestand;
+		bild = piBild;
 		kategorie_1 = piKategorie_1;
 		kategorie_2 = piKategorie_2;
 		setAktiv(piAktiv);
@@ -107,6 +110,18 @@ public class Artikel {
 
 	public void setAktiv(int aktiv) {
 		this.aktiv = aktiv;
+	}
+
+	public String getBildasString(){
+		return org.apache.commons.codec.binary.Base64.encodeBase64String(bild);
+	}
+	
+	public byte[] getBild() {
+		return bild;
+	}
+
+	public void setBild(byte[] bild) {
+		this.bild = bild;
 	}
 	
 }

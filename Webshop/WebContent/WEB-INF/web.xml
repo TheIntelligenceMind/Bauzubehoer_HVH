@@ -96,6 +96,15 @@
     <servlet-name>ImpressumController</servlet-name>
     <url-pattern>/impressum</url-pattern>
   </servlet-mapping>
+    <servlet>
+    <servlet-name>UploadController</servlet-name>
+    <servlet-class>controller.UploadController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UploadController</servlet-name>
+    <url-pattern>/upload</url-pattern>
+  </servlet-mapping>
+   
    
    
    	<error-page>
