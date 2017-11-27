@@ -179,7 +179,7 @@ public class BenutzerController extends HttpServlet {
     			, req.getParameter("hausnummer")
     			, req.getParameter("postleitzahl")
     			, req.getParameter("ort")
-    			, "");
+    			, req.getParameter("zusatz"));
 
     	Benutzer benutzer = queryManager.getBenutzerByEMailAdresse(emailadresse);
     			
@@ -210,6 +210,9 @@ public class BenutzerController extends HttpServlet {
         		}   		
         		if(update_adresse.getOrt() == null){
         			update_adresse.setOrt("");
+        		}
+        		if(update_adresse.getZusatz() == null){
+        			update_adresse.setZusatz("");
         		}
         		
         		result = queryManager.modifyAdresse(benutzer.getEmailadresse(), update_adresse);
