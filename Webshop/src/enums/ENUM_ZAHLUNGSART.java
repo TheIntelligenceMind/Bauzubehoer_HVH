@@ -8,7 +8,7 @@ package enums;
  */
 public enum ENUM_ZAHLUNGSART {
 
-	RECHNUNG("Rechnung");
+	RECHNUNG("Rechnung"), VORKASSE("Vorkasse");
 	
 	private final String name;
 	

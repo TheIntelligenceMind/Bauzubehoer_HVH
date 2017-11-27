@@ -145,12 +145,24 @@ public class BestellungenController extends HttpServlet {
     }
     
 	private void bestellungS2Validieren(HttpServletRequest req, HttpServletResponse resp){
+		String zahlungsart = req.getParameter("zahlungsart");
 		
+		if(zahlungsart != null && !zahlungsart.isEmpty()){
+			req.getSession().setAttribute("bestellvorgang_zahlungsart", zahlungsart);
+			dispatchSite = "/meineBestellungen?method=bestellungErfassenS3Anzeigen";
+		}else{
+			dispatchSite = "index.jsp";
+			resp.addHeader("contentSite", "bestellungZahlungsartenPanel");
+			
+			resp.addHeader("Status", ENUM_RESPONSE_STATUS.FEHLER.toString());
+			resp.addHeader(ENUM_MELDUNG_ART.FEHLERMELDUNG.toString(), "Es wurde keine Zahlungsart ausgew&auml;hlt");
+		}
 	}
 	
 	private void bestellungAbschliessen(HttpServletRequest req, HttpServletResponse resp){
 		double bestellwert = 0.0;
 		double versandkosten = 20.00; // pauschal 20€
+		String zahlungsart = (String) req.getSession().getAttribute("bestellvorgang_zahlungsart");
 		
 		List<WarenkorbArtikel> bestellartikelliste = (List<WarenkorbArtikel>)req.getSession().getAttribute("warenkorbartikelliste");
 		
@@ -159,7 +171,7 @@ public class BestellungenController extends HttpServlet {
 		}
 		
 		Benutzer benutzer = (Benutzer)req.getSession().getAttribute("benutzer");
-		Bestellung bestellung = new Bestellung().init("", new Date(), ENUM_BESTELLSTATUS.NEU.toString(), ENUM_ZAHLUNGSART.RECHNUNG.toString(), new Date(), bestellwert, versandkosten, benutzer);
+		Bestellung bestellung = new Bestellung().init("", new Date(), ENUM_BESTELLSTATUS.NEU.toString(), zahlungsart, new Date(), bestellwert, versandkosten, benutzer);
 		
 		bestellung = queryManager.createBestellung(bestellung, benutzer);
 		
