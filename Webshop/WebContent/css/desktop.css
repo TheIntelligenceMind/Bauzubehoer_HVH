@@ -71,22 +71,21 @@ html,body{
 
 
 
-/* ------------- Panel für Seitenheader, Suchfunktion (links), Kategorien --------------- */
+/* ------------- Panel für Seitenheader, Suchfunktion, Kategorien --------------- */
 #sitebar
 {
-	top: 0px;
-	float: left;
-	margin: 0;
+	min-width: 160px;
 	width: 98%;
 	padding: 1%;
 	height: 50px;
-	opacity: 0.85;
-	border-radius: 0px 0px 0px 0px;	
 	background-color: #BF4D17;
 	color: white;
+	opacity: 0.85;
+	float: left;
 	text-align: center;
 	position: -webkit-sticky;
-	position: sticky;
+  	position: sticky;
+	top: 0;
 	-webkit-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
 	-moz-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
 	box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);	
@@ -95,10 +94,10 @@ html,body{
 /* Header der Webseite */
 #header
 {
-	height: 50px;
-	width: 45%;
 	float: left;
-	border-bottom: none;
+	height: 50px;
+	width: 30%;
+	text-align:center;
 }
 #header:hover
 {
@@ -106,41 +105,41 @@ html,body{
 }
 #header h1
 {
-	margin-top:5px;
+	margin: 0;
 	float: left;
+	padding-top: 2px;
 }
 #header h3
 {
 	margin: 0px;
-	padding: 10px;
-	float: left;
-	padding-left: 5px;
+	float:left;
+	margin-left: 4px;
+	padding-top: 10px;
 }
 
 /* Suchfunktion */
 #searchPanel
 {
-	width: 100%;
-	height: 140px;
+	float: left;
+	width: 20%;
+	height: 50px;
 }
 #searchPanel ul
 {
+	float: left;
 	margin: 0;
 	padding:0;
-	float: right;
-	padding-left: 3px;
-	border-bottom: none;
+	padding-top: 10px;
+	text-align: center;
 }
 #searchPanel ul li
 {
-	list-style-type: none;
 	float: left;
+	padding-left: 3px;
+	list-style-type: none;
 }
 #searchPanel ul li a
 {
-	font-size: 25px;
-	padding-left: 3px;
-	float: right;
 	font-size: 25px;
 	text-decoration: none;
 	color: white;	
@@ -156,15 +155,12 @@ html,body{
 }
 #suchenHeader
 {
-	width: 45%;
-	height: 180px;
-	float: right;
 	font-size:25px;
 }
 #sucheEingabe
 {
 	padding: 3px;
-	margin-top: 15px;
+	margin-top: 2px;
 	width: 80%;
 	height: 20px;
 	border: none;
@@ -172,112 +168,78 @@ html,body{
 }
 #artikelKategoriePanel
 {
-	width: 100%;
-	height: 250px;
+	margin-top: 5px;
+	width: 48%;
+	float:left;
+	height: 50px;
 
 }
-#artikelKategoriePanel ul
-{
-	margin: 0;
-	padding: 0;
-	list-style-type: none;	
+#artikelKategoriePanel ul {
+  list-style: none;
+  position: relative;
+  float: left;
+  margin: 0;
+  padding: 0;
 }
-#artikelKategoriePanel ul li ul
-{
-	margin: 0;
-	list-style-type: none;
+
+#artikelKategoriePanel ul a {
+  display: block;
+  color: #333;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 25px;
+  color: white;
+  line-height: 32px;
+  padding: 0 15px;
+  font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
-#artikelKategoriePanel ul li
-{
-	padding-left: 20px;
-	list-style-type: none;
-	text-align: left;
+
+#artikelKategoriePanel ul li {
+  position: relative;
+  float: left;
+  margin: 0;
+  padding: 0;
 }
-#artikelKategoriePanel ul li a
-{
-	text-decoration: none;
-	color: white;
-	-o-transition: color .2s ease-out, background 1s ease-in;
-	-ms-transition: color .2s ease-out, background 1s ease-in;
-	-moz-transition: color .2s ease-out, background 1s ease-in;
-	-webkit-transition: color .2s ease-out, background 1s ease-in;
-	transition: color .2s ease-out, background 1s ease-in;
+
+#artikelKategoriePanel ul li:hover {
+  background: #742f0e;
 }
-#artikelKategoriePanel ul li a:hover
-{
-	cursor: pointer;
-	color: #332714;
+
+#artikelKategoriePanel ul ul {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #BF4D17;
+  padding: 0;
 }
-.kategorie1
-{
-	margin-top: 10px;
-	font-size: 22px;
-	font-weight: bold;
+
+#artikelKategoriePanel ul ul li {
+  float: none;
+  width: 200px;
 }
-.kategorie2
-{
-	margin-top: 2px;
-	font-size: 17px;
+
+#artikelKategoriePanel ul ul a {
+  line-height: 120%;
+  font-size: 15px;
+  padding: 10px 15px;
 }
+
+#artikelKategoriePanel ul ul ul {
+  top: 0;
+  left: 100%;
+}
+
+#artikelKategoriePanel ul li:hover > ul {
+  display: block;
+}
+
+
 @media (max-width: 1200px)
 {
-	#sitebar
-	{
-		
-	}
-	
-	/* Header der Webseite */
-	#header
-	{
 
-	}
-	#header h1
-	{
-
-	}
-	#header h3
-	{
-		
-	}
-	
-	/* Suchfunktion */
-	#searchPanel
-	{
-		
-	}
-	#searchPanel ul
-	{
-		
-	}
-	#searchPanel ul li
-	{
-		
-	}
-	#searchPanel ul li a
-	{
-			
-	}
-	#suchenHeader
-	{
-		font-size:25px;
-		float: right;
-		padding-top: 5px;
-		padding-left: 3px;
-	}
-	#sucheEingabe
-	{
-		padding-left: 3px;
-		margin-top: 5px;
-		float: right;
-		padding-right: 10px;
-		padding-top: 5px;
-		width: 80%;
-		height: 20px;
-		border: none;
-		border-radius: 5px;	
-	}
 }
-/* ------------- Panel für Seitenheader, Suchfunktion (links), Kategorien --------------- */
+/* ------------- Panel für Seitenheader, Suchfunktion, Kategorien --------------- */
 
 
 
@@ -285,7 +247,7 @@ html,body{
 
 
 
-/* ------------ Panel für Anmeldung, Benutzeransicht (rechts) ----------------- */
+/* ------------ Panel für Anmeldung, Benutzeransicht (links) ----------------- */
 .controllPanel
 {
 	margin: 0;
@@ -299,12 +261,12 @@ html,body{
 	text-align:center;
 	position: -webkit-sticky;
   	position: sticky;
-  	float: right;
-  	top: 0px;
-  	border-radius: 0px 0px 0px 45px;
+  	float: left;
+  	top: 50px;
+  	border-radius: 0px 0px 45px 0px;
   	-webkit-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
-	-moz-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
-	box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 0px 0px -7px rgba(0,0,0,0.75);
+	box-shadow: 0px 0px 0px -7px rgba(0,0,0,0.75);
 }
 .controllPanel i
 {
@@ -400,107 +362,8 @@ html,body{
 }
 @media (max-width: 1200px)
 {
-	.controllPanel
-	{
-		margin-top: 1px;
-		padding:1%;
-		min-width: 220px;
-		width: 16%;
-		height: 230px;
-		background-color: #BF4D17;
-		color:white;
-		opacity: 0.85;
-		text-align:center;
-		position: -webkit-sticky;
-	  	position: sticky;
-	  	float: left;
-	  	top: 0px;
-	  	border-radius: 0px 0px 45px 0px;
-	  	-webkit-box-shadow: 0px 0px 0px -7px rgba(0,0,0,0.75);
-		-moz-box-shadow: 0px 0px 0px -7px rgba(0,0,0,0.75);
-		box-shadow: 0px 0px 0px -7px rgba(0,0,0,0.75);
-	}
-	.controllPanel i
-	{
-		width: 15px;
-	}
-	.controllPanel h3
-	{
-		margin: 0;
-		padding: 0;	
-		font-size: 25px;
-		font-weight: normal;
-	}
-	.controllPanel ul
-	{
-		margin-top: 25px;
-		margin-bottom: 10px;
-		text-align: left;	
-	}
-	.controllPanel ul li 
-	{
-		line-height: 27px;
-		width: 90%;
-		list-style-type: none;
-	}
-	.controllPanel a
-	{
-		color: white;
-		text-decoration:none;
-		margin: 5px;
-		-o-transition:color .2s ease-out, background 1s ease-in;
-		-ms-transition:color .2s ease-out, background 1s ease-in;
-		-moz-transition:color .2s ease-out, background 1s ease-in;
-		-webkit-transition:color .2s ease-out, background 1s ease-in;
-		transition:color .2s ease-out, background 1s ease-in;
-	}
-	#registrierungLink
-	{
-		color: white;
-		margin-top: 10px;
-	}
-	
-	/* Eingabefelder für die Anmeldung*/
-	#inputBenutzername
-	{
-		margin-top: 5%;
-		padding: 3px;
-		height: 20px;
-		width: 80%;
-		border-radius: 5px;
-		border-style: none;
-	}
-	#inputPasswort
-	{
-		margin-top: 5%;
-		padding: 3px;
-		height: 20px;
-		width: 80%;
-		border-radius: 5px;
-		border-style: none;
-	}
-	#btnAnmelden
-	{
-		margin-top: 8%;
-		height: 26px;
-		width: 60%;
-		background-color: white;
-		color: black;
-		border-radius: 5px;
-		border-style:none;
-	}
-		
-	/* Link zum Abmelden */
-	#abmelden
-	{
-		top: 220px;
-		right: 20px;
-		position: absolute;
-		text-decoration: none;
-		font-style: italic;
-	}
 }
-/* ------------ Panel für Anmeldung, Benutzeransicht (rechts) ----------------- */
+/* ------------ Panel für Anmeldung, Benutzeransicht (links) ----------------- */
 
 
 /* ------------ Eigenschaften des Footers ----------------- */
