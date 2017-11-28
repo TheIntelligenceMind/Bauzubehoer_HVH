@@ -2,14 +2,17 @@ package controller;
 
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import org.apache.commons.lang3.math.NumberUtils;
 
@@ -28,12 +31,14 @@ import enums.ENUM_RESPONSE_STATUS;
  *  @author Tim Hermbecker
  */
 @WebServlet("/artikel")
+@MultipartConfig
 public class ArtikelController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private static final int MAX_ARTIKELNUMMER = 9999;
 	private static final QueryManager queryManager = QueryManager.getInstance();
 
+	private String dispatchSite = "index.jsp";
 	private Artikel artikel = null;
 	
 	@Override
@@ -43,7 +48,7 @@ public class ArtikelController extends HttpServlet {
 
     @Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {		
-		RequestDispatcher rd = req.getRequestDispatcher("index.jsp");
+		RequestDispatcher rd = req.getRequestDispatcher(dispatchSite);
 		resp.setContentType("text/html"); 	
 		
 		// prüfen ob es eine Session gibt, wenn nicht an die Startseite weiterleiten
@@ -63,7 +68,7 @@ public class ArtikelController extends HttpServlet {
 		String method = req.getParameter("method");
 		
 		if(method == null){
-			method = "";
+			method = "";	
 		}
 		
 		switch(method){
@@ -78,17 +83,24 @@ public class ArtikelController extends HttpServlet {
 			artikelAnlegen(req, resp);
 			
 			break;
-		case "artikelBearbeitenAnzeigen":		
+		case "artikelBearbeitenAnzeigen":	
 			artikelBearbeitenAnzeigen(req, resp);
-			break;				
+			break;
 		case "artikelBearbeiten":			
 			artikelBearbeiten(req, resp);
-			break;	
+			break;
+		case "artikelBildHochladenAnlegen":
+			bildHochladenAnlegen(req, resp);
+			break;
+		case "artikelBildHochladenBearbeiten":
+			bildHochladenBearbeiten(req, resp);
+			break;
 		default:
 			resp.addHeader("contentSite", "artikelstammdatenAnzeigen");
 			break;		
 		}
 
+		rd = req.getRequestDispatcher(dispatchSite);
 		rd.forward(req, resp);		
 	}
     
@@ -156,8 +168,14 @@ public class ArtikelController extends HttpServlet {
 		int meldebestand = NumberUtils.toInt(req.getParameter("meldebestand"), 0);
 		String kategorie_1 = req.getParameter("kategorie_1");
 		String kategorie_2 = req.getParameter("kategorie_2");
+		String bildString = req.getParameter("bildString");
+		byte[] bildBytes = null;
 		
-		anlegenArtikel = new Artikel().init(bezeichnung, nummer, beschreibung, preis, lagermenge, meldebestand, null,
+		if(bildString != null && !bildString.isEmpty()){
+			bildBytes = org.apache.commons.codec.binary.Base64.decodeBase64(bildString);
+		}
+
+		anlegenArtikel = new Artikel().init(bezeichnung, nummer, beschreibung, preis, lagermenge, meldebestand, bildBytes,
 				kategorie_1, kategorie_2, 1);
 		
 		if((fehlertext = validateAttributes(req, true)) == null){	
@@ -174,7 +192,8 @@ public class ArtikelController extends HttpServlet {
 			resp.addHeader(ENUM_MELDUNG_ART.FEHLERMELDUNG.toString(), fehlermeldung);
 			req.setAttribute("anlegenArtikel", anlegenArtikel);
 		}
-				
+		
+			
 		resp.addHeader("contentSite", "artikelAnlegenPanel");
 	}
     
@@ -186,8 +205,55 @@ public class ArtikelController extends HttpServlet {
     	req.getSession().setAttribute("warenkorbartikelliste", warenkorbartikelListe);   	
     }
     
+    private void bildHochladenAnlegen(HttpServletRequest req, HttpServletResponse resp){ 
+	    try {
+	    	Part filePart = req.getPart("bild");
+	    	
+			InputStream fileContent = filePart.getInputStream();			    
+			byte[] bytes = new byte[fileContent.available()];
+			fileContent.read(bytes);
+
+    		Artikel anlegenArtikel = new Artikel();
+    		
+    		anlegenArtikel.setBild(bytes);
+    		
+    		req.setAttribute("anlegenArtikel", anlegenArtikel);
+    		resp.addHeader("contentSite", "artikelAnlegenPanel");	    
+		} catch (IOException | ServletException e) {
+			e.printStackTrace();
+		}
+    }
+    
+    private void bildHochladenBearbeiten(HttpServletRequest req, HttpServletResponse resp){ 
+	    try {
+	    	int artikelnummer = NumberUtils.toInt(req.getParameter("nummer"));
+	    
+	    	Part filePart = req.getPart("bild");
+
+	    	
+			InputStream fileContent = filePart.getInputStream();			    
+			byte[] bytes = new byte[fileContent.available()];
+			fileContent.read(bytes);
+	    
+		    
+			Artikel artikel = queryManager.searchArtikelByNummer(artikelnummer);
+			artikel.setBild(bytes);
+		    
+		    queryManager.modifyArtikel(artikel);
+		    
+			req.setAttribute("bearbeitenArtikel", artikel);
+			resp.addHeader("contentSite", "artikelBearbeitenPanel");
+		    
+		} catch (IOException | ServletException e) {
+			e.printStackTrace();
+		}
+    }
+   
+    
     private boolean artikelSpeichern(HttpServletRequest req){
     	if(validateAttributes(req, false) == null){
+    		Artikel artikel_save = null;
+    		
 	    	String bezeichnung = req.getParameter("bezeichnung");
 	    	int nummer = NumberUtils.toInt(req.getParameter("nummer"));
 	    	String beschreibung = req.getParameter("beschreibung");
@@ -197,14 +263,21 @@ public class ArtikelController extends HttpServlet {
 			String kategorie_1 = req.getParameter("kategorie_1");
 			String kategorie_2 = req.getParameter("kategorie_2");
 	    	int aktiv = NumberUtils.toInt(req.getParameter("aktiv"));
-	    	  	
-	    	Artikel artikel_save = new Artikel().init(bezeichnung, nummer, beschreibung, preis, lagermenge, meldebestand, null,
-	    			kategorie_1, kategorie_2, aktiv);
+	    	String bildString = req.getParameter("bildString");
+	    	byte[] bildBytes = null;
 	    	
-	    	// prüfen ob es den Artikel gibt
+	    	if(bildString != null && !bildString.isEmpty()){
+	    		bildBytes = org.apache.commons.codec.binary.Base64.decodeBase64(bildString);
+	    	}
+	    	
+    		artikel_save = new Artikel().init(bezeichnung, nummer, beschreibung, preis, lagermenge, meldebestand, bildBytes,
+	    			kategorie_1, kategorie_2, aktiv);
+    		
+    		// prüfen ob es den Artikel gibt
 	    	if(queryManager.searchArtikelByNummer(nummer) != null){
 	    		return queryManager.modifyArtikel(artikel_save);
-	    	}
+	    	} 	
+	    	    	
     	}
     	
     	return false;

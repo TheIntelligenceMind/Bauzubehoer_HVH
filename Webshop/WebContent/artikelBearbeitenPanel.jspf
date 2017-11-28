@@ -11,6 +11,11 @@ Diese Datei behandelt das Bearbeiten von vorhandenen Artikeln.
 
 <%
 	Artikel bearbeitenArtikel = (Artikel)request.getAttribute("bearbeitenArtikel");
+	String bearbeitenBild = bearbeitenArtikel.getBildasString();
+	
+	if(bearbeitenBild == null){
+		bearbeitenBild = "";
+	}
 %>
 
 <script type="text/javascript">
@@ -31,9 +36,15 @@ Diese Datei behandelt das Bearbeiten von vorhandenen Artikeln.
 <div class="showing" id="artikelBearbeitenPanel">
 	<a class="panelClose"onclick="artikelSuchenNachBegriff()"><i class="fa fa-times"></i></a>
 	<h1>Artikel bearbeiten</h1>	
-	<form action="artikel" method="POST">
-	
-	
+
+	<form action="artikel" method="POST" enctype="multipart/form-data">	
+		<div id="artikelAnlegenBildPanel">	
+			<div class="artikelBildKlein"><img alt="Bild" src="data:image/png;base64, <% out.print(bearbeitenBild); %>"/></div>
+			<input type="file" name="bild" value="Bild ausw&auml;hlen">
+			<input type="hidden" name="bildString" value="<% out.print(bearbeitenBild); %>">
+			<button type="submit" name="method" value="artikelBildHochladenBearbeiten">Hochladen</button>	
+		</div>
+		
 		<div id="artikelBearbeitenPanelBeschreibung">
 			<h3>Artikelnummer</h3>
 			<input title="Artikelnummer" class="inputField" type="text" name="nummer" value="<% out.print(bearbeitenArtikel.getNummer()); %>" placeholder="Artikelnummer" readonly>

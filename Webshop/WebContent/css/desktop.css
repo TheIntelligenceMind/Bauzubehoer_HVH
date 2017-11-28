@@ -20,6 +20,14 @@ html,body{
 
 
 /*---------------------------- Button Classes ------------------------*/
+.artikelBildKlein{
+	height: 90px;
+	width: 80px;
+	line-height: 90px;
+	font-weight: bold;
+	border: 1px solid gray;
+}
+
 .btnStandardKlein
 {
 	background-color: #BF4D17;
@@ -869,7 +877,7 @@ html,body{
 	float: left;
 	margin-left: 3%;
 	margin-top: 15px;
-	border: solid 1px black;
+	border: solid 1px gray;
 	border-radius: 2px;
 	height: 90px;
 	width: 80px;
@@ -1496,11 +1504,14 @@ table#zusatzTabelle tbody td{
 	height: 120px;
 	width: 50%;
 }
+#artikelAnlegenBildPanel .artikelBildKlein{
+	margin: 0 auto;
+}
 #artikelAnlegenBildPanel img{
 	height: 90px;
 	width: 80px;
-	border: 1px solid gray;
 }
+
 #artikelAnlegenBildPanel form{
 	height: 30px;
 	line-height: 30px;
@@ -1623,7 +1634,7 @@ table#zusatzTabelle tbody td{
 #artikelBearbeitenPanel{
 	margin: 50px auto;
 	width: 700px;
-	height: 715px;
+	height: 835px;
 	text-align: center;
 	opacity: 0.9;
 	background-color: white;
@@ -1632,11 +1643,42 @@ table#zusatzTabelle tbody td{
 	-moz-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
 	box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
 }
+
+#artikelBearbeitenBildPanel{
+	margin: 0 auto;
+	margin-top: 20px;
+	height: 120px;
+	width: 50%;
+}
+#artikelBearbeitenBildPanel .artikelBildKlein{
+	margin: 0 auto;
+}
+#artikelBearbeitenBildPanel img{
+	height: 90px;
+	width: 80px;
+}
+
+#artikelBearbeitenBildPanel form{
+	height: 30px;
+	line-height: 30px;
+}
+
+#artikelBearbeitenBildPanel form button{
+	background-color: #BF4D17;
+	color: white;
+	height: 25px;
+	border: none;
+	border-radius: 3px;
+}
+#artikelBearbeitenBildPanel form button:hover{
+	background-color: #9b4013;
+	cursor: pointer;
+}
+
 #artikelBearbeitenPanel h1{
 	margin:0;
 	padding: 0;
 	padding-top: 20px;
-	padding-bottom: 20px;
 }
 #artikelBearbeitenPanel form{
 	text-align: center;

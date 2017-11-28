@@ -799,6 +799,7 @@ public class QueryManager {
 		}	
 		return Artikel_ID;	
 	}
+
 	
 	/**
 	 * <h3>Beschreibung:</h3>
@@ -815,8 +816,8 @@ public class QueryManager {
 		int result;
 		
 		try {	
-			String sql = "INSERT INTO " + ENUM_DB_TABELLE.ARTIKEL.toString() + " (nummer, bezeichnung, beschreibung, preis, lagermenge, meldebestand, kategorie_1, kategorie_2, erstellt_Benutzer) " 
-			+ " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO " + ENUM_DB_TABELLE.ARTIKEL.toString() + " (nummer, bezeichnung, beschreibung, preis, lagermenge, meldebestand, bild, kategorie_1, kategorie_2, erstellt_Benutzer) " 
+			+ " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setLong(1, artikel.getNummer());
@@ -825,9 +826,10 @@ public class QueryManager {
 			stmt.setDouble(4, artikel.getPreis());
 			stmt.setLong(5, artikel.getLagermenge());
 			stmt.setLong(6, artikel.getMeldebestand());
-			stmt.setString(7, artikel.getKategorie_1());
-			stmt.setString(8, artikel.getKategorie_2());
-			stmt.setString(9, DBUSER);
+			stmt.setBytes(7, artikel.getBild());
+			stmt.setString(8, artikel.getKategorie_1());
+			stmt.setString(9, artikel.getKategorie_2());
+			stmt.setString(10, DBUSER);
 			
 			result = stmt.executeUpdate();
 			
@@ -1100,6 +1102,42 @@ public class QueryManager {
 		}	
 		
 		return artikelliste;
+	}
+	
+	/**
+	 * <h3>Beschreibung:</h3>
+	 * <pre>
+	 * Die Methode liefert alle Artikel, die der 
+	 * gesuchten Bezeichnung entsprechen.
+	 * </pre>
+	 * 
+	 * @param piBezeichung String
+	 * @return artikelliste
+	 */
+	public Artikel selectArtikelByBezeichnung(String piBezeichnung){	
+		String bezeichnung = piBezeichnung;
+		ResultSet result = null;
+		
+		try {			
+			String sql = "SELECT * FROM " + ENUM_DB_TABELLE.ARTIKEL.toString() + " WHERE bezeichnung = ?";
+			
+			PreparedStatement stmt = getConnection().prepareStatement(sql);
+			stmt.setString(1, bezeichnung);
+
+			result = stmt.executeQuery();
+			
+			if(result.next()){
+				return new Artikel().init(result.getString("bezeichnung"), result.getInt("nummer"),
+						result.getString("beschreibung"), result.getDouble("preis"), result.getInt("lagermenge"),
+						result.getInt("meldebestand"), result.getBytes("bild"), result.getString("kategorie_1"), result.getString("kategorie_2"),
+						result.getInt("aktiv"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}	
+		
+		return null;
 	}
 	
 	/**

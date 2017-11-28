@@ -20,7 +20,6 @@ import entity.WarenkorbArtikel;
 import enums.ENUM_BESTELLSTATUS;
 import enums.ENUM_MELDUNG_ART;
 import enums.ENUM_RESPONSE_STATUS;
-import enums.ENUM_ZAHLUNGSART;
 import helper.AdressenHelper;
 import helper.MailHelper;
 /**

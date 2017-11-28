@@ -9,14 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-
-import entity.Benutzer;
-import entity.Nachricht;
-import enums.ENUM_MELDUNG_ART;
-import enums.ENUM_RESPONSE_STATUS;
-import helper.MailHelper;
-
 /**
  * <pre>
  * <h3>Beschreibung:</h3> Die Klasse ist für den Themenbereich Kontaktformular zuständig.
