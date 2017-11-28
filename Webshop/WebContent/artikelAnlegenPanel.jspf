@@ -11,13 +11,13 @@ Diese Datei behandelt das Anlegen von Artikeln.
  
 <%
 	Artikel anlegenArtikel = (Artikel)request.getAttribute("anlegenArtikel");
-	String bild = "";
+	String anlegenBild = "";
 	
 	if(anlegenArtikel != null){
-		bild = anlegenArtikel.getBildasString();
+		anlegenBild = anlegenArtikel.getBildasString();
 		
-		if(bild == null){
-			bild = "";
+		if(anlegenBild == null){
+			anlegenBild = "";
 		}
 	}
 	
@@ -32,6 +32,20 @@ Diese Datei behandelt das Anlegen von Artikeln.
 	          window.location.href = "suchen";  
 		}); 	
 	}
+	
+	function pruefeBildPfad(){
+		var s = $("#bildPfad").val();
+		if(s == ""){
+			return false;
+		}
+		
+	}
+	
+	function bildEntfernen(){
+		$("#bildString").val("");
+		$("#bildPfad").val("");
+		$("#bildSrc").attr("src", "data:image/png;base64,");
+	}
 </script>
 
 
@@ -39,17 +53,18 @@ Diese Datei behandelt das Anlegen von Artikeln.
 	<a class="panelClose"onclick="artikelSuchenNachBegriff()"><i class="fa fa-times"></i></a>
 	<h1>Artikel anlegen</h1>
 	
-	<form action="artikel" method="POST" enctype="multipart/form-data" >
+	<form action="artikel" method="POST" enctype="multipart/form-data">
 		<div id="artikelAnlegenBildPanel">	
-			<div class="artikelBildKlein"><img alt="Bild" src="data:image/png;base64, <% if(bild != null){ out.print(bild); } %>"/></div>
-			<input type="file" name="bild" value="Bild ausw&auml;hlen">
-			<input type="hidden" name="bildString" value="<% if(bild != null){ out.print(bild); } %>">
-			<button type="submit" name="method" value="artikelBildHochladenAnlegen">Hochladen</button>	
+			<div class="artikelBildKlein"><img alt="Bild" id="bildSrc" src="data:image/png;base64, <% out.print(anlegenBild); %>"/></div>
+			<input type="file" class="bildPfad" id="bildPfad" name="bild" value="<% if(!anlegenBild.isEmpty()){ out.print("pfad"); }%>">
+			<input type="hidden" id="bildString" name="bildString" value="<% out.print(anlegenBild); %>">
+			<button type="submit" class="bildHochladenButton" name="method" onclick="return pruefeBildPfad()" value="artikelBildHochladenAnlegen">Hochladen</button>	
+			<button type="button" class="bildEntfernenButton" onclick="bildEntfernen()">Bild entfernen</button>	
 		</div>
 		
 		<input type="hidden" name="bild" value="<% if(anlegenArtikel != null){ out.print(anlegenArtikel.getBildasString()); } %>">	
 		<div id=artikelAnlegenPanelBeschreibung>
-			<input title="Hinweis: Die Artikelnummer muss vierstellig sein." class="inputField" type="text" name="nummer" value="<% if(anlegenArtikel.getNummer() != -1){out.print(String.format("%04d", anlegenArtikel.getNummer())); }%>" placeholder="Artikelnummer">
+			<input title="Hinweis: Die Artikelnummer muss vierstellig sein." class="inputField" type="text" name="nummer" value="<% if(anlegenArtikel.getNummer() != -1){ out.print(String.format("%04d", anlegenArtikel.getNummer())); }%>" placeholder="Artikelnummer">
 			<input title="Bezeichnung" class="inputField" type="text" name="bezeichnung" value="<% out.print(anlegenArtikel.getBezeichnung()); %>" placeholder="Bezeichnung">
 			<textarea title="Beschreibung" class="inputArea" wrap="soft" name="beschreibung" placeholder="Beschreibung"><% out.print(anlegenArtikel.getBeschreibung()); %></textarea>
 		</div>

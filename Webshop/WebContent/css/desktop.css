@@ -1348,11 +1348,32 @@ table#zusatzTabelle tbody td{
 
 
 
+
+/* -------- Allgemeines für Artikel anlegen und Artikel bearbeiten -------- */
+.bildPfad{
+	margin-top: 5px;
+	width: 250px;
+}
+.bildEntfernenButton{
+	margin-top: 5px;
+	float: right;
+	width: 100px;
+}
+.bildHochladenButton{
+	margin-top: 5px;
+	float: right;
+	width: 100px;
+}
+/* -------- Allgemeines für Artikel anlegen und Artikel bearbeiten -------- */
+
+
+
+
 /* ------------- Panel für das Artikel anlegen ------------------- */
 #artikelAnlegenPanel{
 	margin: 50px auto;
 	width: 700px;
-	height: 690px;
+	height: 720px;
 	text-align: center;
 	opacity: 0.9;
 	background-color: white;
@@ -1364,7 +1385,7 @@ table#zusatzTabelle tbody td{
 #artikelAnlegenBildPanel{
 	margin: 0 auto;
 	margin-top: 20px;
-	height: 120px;
+	height: 150px;
 	width: 50%;
 }
 #artikelAnlegenBildPanel .artikelBildKlein{
@@ -1497,7 +1518,7 @@ table#zusatzTabelle tbody td{
 #artikelBearbeitenPanel{
 	margin: 50px auto;
 	width: 700px;
-	height: 835px;
+	height: 865px;
 	text-align: center;
 	opacity: 0.9;
 	background-color: white;
@@ -1510,7 +1531,7 @@ table#zusatzTabelle tbody td{
 #artikelBearbeitenBildPanel{
 	margin: 0 auto;
 	margin-top: 20px;
-	height: 120px;
+	height: 150px;
 	width: 50%;
 }
 #artikelBearbeitenBildPanel .artikelBildKlein{
@@ -1520,23 +1541,11 @@ table#zusatzTabelle tbody td{
 	height: 90px;
 	width: 80px;
 }
-
 #artikelBearbeitenBildPanel form{
 	height: 30px;
 	line-height: 30px;
 }
 
-#artikelBearbeitenBildPanel form button{
-	background-color: #BF4D17;
-	color: white;
-	height: 25px;
-	border: none;
-	border-radius: 3px;
-}
-#artikelBearbeitenBildPanel form button:hover{
-	background-color: #9b4013;
-	cursor: pointer;
-}
 
 #artikelBearbeitenPanel h1{
 	margin:0;

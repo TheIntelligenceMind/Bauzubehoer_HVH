@@ -213,7 +213,7 @@ public class ArtikelController extends HttpServlet {
 			byte[] bytes = new byte[fileContent.available()];
 			fileContent.read(bytes);
 
-    		Artikel anlegenArtikel = new Artikel();
+    		Artikel anlegenArtikel = new Artikel().init("", -1, "", -1, -1, -1, null, "", "", 0);
     		
     		anlegenArtikel.setBild(bytes);
     		

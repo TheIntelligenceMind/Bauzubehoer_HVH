@@ -31,6 +31,19 @@ Diese Datei behandelt das Bearbeiten von vorhandenen Artikeln.
 	          window.location.href = "suchen";  
 		}); 	
 	}
+	
+	function pruefeBildPfad(){	
+		var s = $("#bildPfad").val();
+		if(s == ""){
+			return false;
+		}	
+	}
+	
+	function bildEntfernen(){
+		$("#bildString").val("");
+		$("#bildPfad").val("");
+		$("#bildSrc").attr("src", "data:image/png;base64,");
+	}
 </script>
 
 <div class="showing" id="artikelBearbeitenPanel">
@@ -38,11 +51,12 @@ Diese Datei behandelt das Bearbeiten von vorhandenen Artikeln.
 	<h1>Artikel bearbeiten</h1>	
 
 	<form action="artikel" method="POST" enctype="multipart/form-data">	
-		<div id="artikelAnlegenBildPanel">	
-			<div class="artikelBildKlein"><img alt="Bild" src="data:image/png;base64, <% out.print(bearbeitenBild); %>"/></div>
-			<input type="file" name="bild" value="Bild ausw&auml;hlen">
-			<input type="hidden" name="bildString" value="<% out.print(bearbeitenBild); %>">
-			<button type="submit" name="method" value="artikelBildHochladenBearbeiten">Hochladen</button>	
+		<div id="artikelBearbeitenBildPanel">	
+			<div class="artikelBildKlein"><img alt="Bild" id="bildSrc" src="data:image/png;base64, <% out.print(bearbeitenBild); %>"/></div>
+			<input type="file" class="bildPfad" id="bildPfad" name="bild" id="bildPfad" value="<% if(bearbeitenBild != null){ out.print("pfad"); }%>">
+			<input type="hidden" id="bildString" name="bildString" value="<% out.print(bearbeitenBild); %>">
+			<button type="submit" class="bildHochladenButton" name="method" onclick="return pruefeBildPfad()" value="artikelBildHochladenBearbeiten">Hochladen</button>	
+			<button type="button" class="bildEntfernenButton" onclick="bildEntfernen()">Bild entfernen</button>	
 		</div>
 		
 		<div id="artikelBearbeitenPanelBeschreibung">
