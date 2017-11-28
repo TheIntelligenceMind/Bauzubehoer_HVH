@@ -5,6 +5,7 @@ Diese Datei behandelt das Registrieren von neuen Benutzern.
  -->
 
 <div class="showing" id="registrierungPanel">
+	<a class="panelClose"onclick="artikelSuchenNachBegriff()"><i class="fa fa-times"></i></a>
 	<h1>Registrierung</h1>
 	<form action="registrieren" method="POST">
 		<input title="E-Mail-Adresse" class="inputField" type="text" name="emailadresse" placeholder="E-Mail-Adresse">
