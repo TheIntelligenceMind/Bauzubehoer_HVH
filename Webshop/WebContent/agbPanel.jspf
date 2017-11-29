@@ -12,9 +12,9 @@ Diese Datei enthält die AGB des Webshops.
 	}
 </script>
 
-<div class="showing" id="impressumPanel">
+<div class="showing" id="agbPanel">
 	<a class="panelClose"onclick="artikelSuchenNachBegriff()"><i class="fa fa-times"></i></a>
-	<h1>Allgemeine Geschäftsbedingungen – Bauzubehör HVH</h1>
+	<h1>Allgemeine Gesch&auml;ftsbedingungen – Bauzubeh&ouml;r HVH</h1>
 	
 	<h3>§ 1 Geltungsbereich und Anbieter</h3>
 	<p>(1) Diese Allgemeinen Geschäftsbedingungen gelten für alle Bestellungen, die Sie bei dem Online-Shop Bauzubehör HVH, Geschäftsführer: Tim Hermbecker, Lukas Vechtel, und Julian Hanfgarn tätigen.<br>
@@ -100,15 +100,16 @@ Diese Datei enthält die AGB des Webshops.
 	- Schlägt die Nacherfüllung zweimal fehl, können Sie nach Ihrer Wahl Minderung verlangen oder vom Vertrag zurücktreten.<br>
 	- Die Gewährleistungsfrist beträgt ein Jahr ab Ablieferung der Ware.<br></p>
 	
-	§ 10 Haftung
+	<h3>§ 10 Haftung</h3>
 	<p> (1) Unbeschränkte Haftung: Wir haften unbeschränkt für Vorsatz und grobe Fahrlässigkeit sowie nach Maßgabe des Produkthaftungsgesetzes. Für leichte Fahrlässigkeit haften wir bei Schäden aus der Verletzung des Lebens, des Körpers und der Gesundheit von Personen.<br>
 	(2) Im Übrigen gilt folgende beschränkte Haftung: Bei leichter Fahrlässigkeit haften wir nur im Falle der Verletzung einer wesentlichen Vertragspflicht, deren Erfüllung die ordnungsgemäße Durchführung des Vertrags überhaupt erst ermöglicht und auf deren Einhaltung Sie regelmäßig vertrauen dürfen (Kardinalpflicht). Die Haftung für leichte Fahrlässigkeit ist der Höhe nach beschränkt auf die bei Vertragsschluss vorhersehbaren Schäden, mit deren Entstehung typischerweise gerechnet werden muss. Diese Haftungsbeschränkung gilt auch zugunsten unserer Erfüllungsgehilfen. <br></p>
 	
 	<h3>§ 11 Schlussbestimmungen</h3>
 	<p> (1) Sollten eine oder mehrere Bestimmungen dieser AGB unwirksam sein oder werden, wird dadurch die Wirksamkeit der anderen Bestimmungen im Übrigen nicht berührt. <br>
 	(2) Auf Verträge zwischen uns und Ihnen ist ausschließlich deutsches Recht anwendbar. <br>
-	(3) Sind Sie Kaufmann, juristische Person des öffentlichen Rechts oder öffentlich-rechtliches Sondervermögen, so ist Gerichtsstand für alle Streitigkeiten aus oder im Zusammenhang mit Verträgen zwischen uns und Ihnen. <br>
+	(3) Sind Sie Kaufmann, juristische Person des öffentlichen Rechts oder öffentlich-rechtliches Sondervermögen, so ist Gerichtsstand für alle Streitigkeiten aus oder im Zusammenhang mit Verträgen zwischen uns und Ihnen. </p>
+	<br>
 	
-	Die Angaben in diesen allgemeinen Geschäftsbedingungen sind rein fiktiv. </p>
+	<p>Die Angaben in diesen allgemeinen Geschäftsbedingungen sind rein fiktiv. </p>
 			
 </div>

@@ -9,9 +9,20 @@ Diese Datei behandelt die Zusammenfassung der Bestellung.
  -->
 
 
-<%
-		
-%>
+<script type="text/javascript">
+
+function changeAGB(){	
+	if($('#agbCheckbox').is(':checked')){
+		$('#btnJetztKaufen').prop('disabled' , false);
+		$('#btnJetztKaufen').removeClass('disabledBtnBestellungKaufen');
+		$('#btnJetztKaufen').addClass('btnBestellungKaufen');
+	}else{
+		$('#btnJetztKaufen').prop('disabled' , true);
+		$('#btnJetztKaufen').removeClass('btnBestellungKaufen');
+		$('#btnJetztKaufen').addClass('disabledBtnBestellungKaufen');
+	}
+}
+</script>
 
 <div class="showing"  id="bestellungZusammenfassungPanel">
 	<div class="bestellvorgangUebersichtPanel">
@@ -93,12 +104,16 @@ Diese Datei behandelt die Zusammenfassung der Bestellung.
 	        </tbody>  
 		</table>
  	</div>
+ 	<div class="agbText">
+ 		<input id="agbCheckbox" type="checkbox" onchange="changeAGB()" >
+ 		<p>Ich erkl&auml;re mich mit den <a href="agb?method=agbAnzeigen" target="_blank">AGB</a>, insbesondere der darin enthaltenen Widerrufsbelehrung und Datenschutzerkl&auml;rung, einverstanden.</p>
+ 	</div>
  	<div class="buttonPanel">
 	 	<form action="meineBestellungen">
 	  		<button class="btnLeft btnStandardKlein" type="submit" name="method" value="bestellungErfassenS2Anzeigen"><i class="fa fa-arrow-left"></i> Zur&uuml;ck</button>
 		</form>
 	 	<form action="meineBestellungen">
-	  		<button class="btnRight btnBestellungKaufen" type="submit" name="method" value="bestellungErfassenS3Bestaetigt"><i class="fa fa-shopping-basket"></i> Jetzt Kaufen</button>
+	  		<button class="btnRight disabledBtnBestellungKaufen" disabled="disabled" id="btnJetztKaufen" type="submit" name="method" value="bestellungErfassenS3Bestaetigt"><i class="fa fa-shopping-basket"></i> Jetzt Kaufen</button>
 	  	</form>
 	</div>
 </div> 

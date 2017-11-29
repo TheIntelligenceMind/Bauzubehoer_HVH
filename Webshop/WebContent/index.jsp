@@ -117,10 +117,14 @@ Die Index-Datei wird für die Zusammenfuehrung der Haupt-Files benötigt.
 								<%@ include file="kontaktPanel.jspf" %>
 							<%
 							break;
-
 						case "impressumPanel":
 							%>
 								<%@ include file="impressumPanel.jspf" %>
+							<%
+							break;
+						case "agbPanel":
+							%>
+								<%@ include file="agbPanel.jspf" %>
 							<%
 							break;
 						 default:
@@ -211,6 +215,11 @@ Die Index-Datei wird für die Zusammenfuehrung der Haupt-Files benötigt.
 								<%@ include file="impressumPanel.jspf" %>
 							<%
 							break;
+						case "agbPanel":
+							%>
+								<%@ include file="agbPanel.jspf" %>
+							<%
+							break;
 						default:
 							%>
 								<%@ include file="artikelAnzeigenPanel.jspf" %> 
@@ -245,7 +254,7 @@ Die Index-Datei wird für die Zusammenfuehrung der Haupt-Files benötigt.
 		<div class="footer">
 			<a href="kontakt?method=kontaktAnzeigen">Kontakt</a>	
 			<a href="impressum?method=impressumAnzeigen">Impressum</a>
-			<a href="impressum?method=impressumAnzeigen">AGB</a>
+			<a href="agb?method=agbAnzeigen">AGB</a>
 		</div>
 	</body>
 </html>

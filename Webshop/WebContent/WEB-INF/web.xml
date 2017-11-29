@@ -96,7 +96,7 @@
     <servlet-name>ImpressumController</servlet-name>
     <url-pattern>/impressum</url-pattern>
   </servlet-mapping>
-    <servlet>
+  <servlet>
     <servlet-name>UploadController</servlet-name>
     <servlet-class>controller.UploadController</servlet-class>
   </servlet>
@@ -104,7 +104,14 @@
     <servlet-name>UploadController</servlet-name>
     <url-pattern>/upload</url-pattern>
   </servlet-mapping>
-   
+  <servlet>
+    <servlet-name>AGBController</servlet-name>
+    <servlet-class>controller.AGBController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AGBController</servlet-name>
+    <url-pattern>/agb</url-pattern>
+  </servlet-mapping>
    
    
    	<error-page>
