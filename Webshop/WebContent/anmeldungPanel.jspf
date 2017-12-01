@@ -12,11 +12,9 @@ Diese Datei behandelt das Anmeldungspanel, bevor es zum Benutzerpanel wird.
 		<input id="inputPasswort" type="password" name="passwort" placeholder="Passwort">
 		<input id="btnAnmelden" type="submit" value="anmelden">
 	</form>
-	<div id="registrierungLink">
-		<a  href="registrieren">Registrierung</a>
-		
-	</div>
-	
+	<div id="passwortResetLink">
+		<a href="registrieren?method=pwResetEmailAnzeigen">Passwort vergessen?</a>	
+	</div>	
 </div>
 
 

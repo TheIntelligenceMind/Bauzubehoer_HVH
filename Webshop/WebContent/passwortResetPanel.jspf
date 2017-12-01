@@ -1,0 +1,15 @@
+<!-- 
+Autor dieser Datei: Tim Hermbecker, Lukas Vechtel
+
+Diese Datei behandelt den Abschluss eines Bestellvorgangs.
+ -->
+
+<div class="showing"  id="passwortResetPanel">
+	<a class="panelClose"onclick="artikelSuchenNachBegriff()"><i class="fa fa-times"></i></a>
+	<h1>Passwort Zur&uuml;cksetzen</h1>
+	<form action="registrieren" method="POST">
+		<input type="text" title="Neues Passwort" name="passwort" placeholder="Neues Passwort">
+		<input type="text" title="Neues Passwort bestätigen" name="passwortbestaetigt" placeholder="Neues Passwort bestätigen">
+		<button type="submit" name="method" value="pwReset">Passwort Zur&uuml;cksetzen</button>
+	</form>
+</div> 

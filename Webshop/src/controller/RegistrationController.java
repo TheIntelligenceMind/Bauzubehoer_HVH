@@ -59,47 +59,64 @@ public class RegistrationController extends HttpServlet{
 		}
 		
 		switch(method){
-			case "registrierenMitarbeiter":
-				
-				break;
-			case "registrierenKunde":
-				fehlertext = benutzerHelper.benutzerAnlegen(req, null);
+		case "pwResetEmailAnzeigen":			
+			resp.addHeader("contentSite", "passwortResetEmailPanel");
+			break;
+		case "pwResetAnzeigen":			
+			
+			break;
+		case "pwReset":			
+			passwortReset(req, resp);
+			
+			break;
+		case "registrierenKundeAnzeigen":
+			resp.addHeader("contentSite", "registrierungPanel");
+			break;
+		case "registrierenKunde":
+			fehlertext = benutzerHelper.benutzerAnlegen(req, null);
 
-				// aktueller Status wird gesetzt
-				if(fehlertext != null){
-					resp.addHeader("status", ENUM_RESPONSE_STATUS.FEHLER.toString());
-					resp.addHeader("fehlermeldung", fehlertext);	
-				}else{
-					Benutzer benutzer = queryManager.getBenutzerByEMailAdresse(req.getParameter("emailadresse"));
-					
-					MailHelper.getInstance().sendBestaetigungsmail(benutzer);
-							
-					resp.addHeader("status", ENUM_RESPONSE_STATUS.HINWEIS.toString());
-					resp.addHeader("hinweismeldung", "Erfolgreich registriert. Bitte prüfen Sie Ihre Mails.");
-				}		
-				break;
-			case "confirm":	
-				fehlertext = validateConfirmation(req);
+			// aktueller Status wird gesetzt
+			if(fehlertext != null){
+				resp.addHeader("status", ENUM_RESPONSE_STATUS.FEHLER.toString());
+				resp.addHeader("fehlermeldung", fehlertext);	
+			}else{
+				Benutzer benutzer = queryManager.getBenutzerByEMailAdresse(req.getParameter("emailadresse"));
 				
-				// aktueller Status wird gesetzt
-				if(fehlertext != null){
-					resp.addHeader("status", ENUM_RESPONSE_STATUS.FEHLER.toString());
-					resp.addHeader("fehlermeldung", fehlertext);	
-				}else{
-					resp.addHeader("status", ENUM_RESPONSE_STATUS.HINWEIS.toString());
-					resp.addHeader("hinweismeldung", "Das Benutzerkonto wurde erfolgreich aktiviert.");
-				}
-				
-				break;
+				MailHelper.getInstance().sendBestaetigungsmail(benutzer);
+						
+				resp.addHeader("status", ENUM_RESPONSE_STATUS.HINWEIS.toString());
+				resp.addHeader("hinweismeldung", "Erfolgreich registriert. Bitte prüfen Sie Ihre Mails.");
+			}		
+			resp.addHeader("contentSite", "registrierungPanel");
+			break;
+		case "confirm":	
+			fehlertext = validateConfirmation(req);
+			
+			// aktueller Status wird gesetzt
+			if(fehlertext != null){
+				resp.addHeader("status", ENUM_RESPONSE_STATUS.FEHLER.toString());
+				resp.addHeader("fehlermeldung", fehlertext);	
+			}else{
+				resp.addHeader("status", ENUM_RESPONSE_STATUS.HINWEIS.toString());
+				resp.addHeader("hinweismeldung", "Das Benutzerkonto wurde erfolgreich aktiviert.");
+			}
+			resp.addHeader("contentSite", "registrierungPanel");
+			break;
 			default:
 				break;
 		}
 				
-		resp.addHeader("contentSite", "registrierungPanel");
-		resp.addHeader("result", String.valueOf(fehlertext));
 		
+		resp.addHeader("result", String.valueOf(fehlertext));
 		rd.forward(req, resp);
 	}	
+	
+	private void passwortReset(HttpServletRequest req, HttpServletResponse resp){
+		
+		
+		
+		
+	}
 	
 	private String validateConfirmation(HttpServletRequest req){
 		String fehlertext = null;
