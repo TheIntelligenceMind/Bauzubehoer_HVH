@@ -47,7 +47,7 @@ Diese Datei behandelt das Bearbeiten von vorhandenen Artikeln.
 </script>
 
 <div class="showing" id="artikelBearbeitenPanel">
-	<a class="panelClose"onclick="artikelSuchenNachBegriff()"><i class="fa fa-times"></i></a>
+	<a class="panelClose" onclick="artikelSuchenNachBegriff()"><i class="fa fa-times"></i></a>
 	<h1>Artikel bearbeiten</h1>	
 
 	<form action="artikel" method="POST" enctype="multipart/form-data">	

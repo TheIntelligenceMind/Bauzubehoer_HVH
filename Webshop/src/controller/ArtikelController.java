@@ -73,15 +73,13 @@ public class ArtikelController extends HttpServlet {
 		
 		switch(method){
 		case "artikelstammdatenAnzeigen":
-			artikelstammdatenAnzeigen(req, resp);
-			
+			artikelstammdatenAnzeigen(req, resp);	
 			break;
 		case "artikelAnlegenAnzeigen":
 			resp.addHeader("contentSite", "artikelAnlegenPanel");	
 			break;
 		case "artikelAnlegen":		
 			artikelAnlegen(req, resp);
-			
 			break;
 		case "artikelBearbeitenAnzeigen":	
 			artikelBearbeitenAnzeigen(req, resp);
