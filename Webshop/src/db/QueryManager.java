@@ -1320,9 +1320,10 @@ public class QueryManager {
 	 * @return true, wenn die Anlage erfolgreich war;
 	 * andernfalls: false
 	 */
-	public boolean addArtikelToWarenkorb(String piEmailadresse, int piArtikelnummer){
+	public boolean addArtikelToWarenkorb(String piEmailadresse, int piArtikelnummer, int piMenge){
 		String emailadresse = piEmailadresse;
 		int artikelnummer = piArtikelnummer;	
+		int menge = piMenge;
 		int result;
 		
 		try {
@@ -1333,45 +1334,37 @@ public class QueryManager {
 				return false;
 			}
 					
-			//==================================================
-			// prüfen, ob sich der Artikel schon im Warenkorb befindet, wenn ja wird die Menge um 1 erhöht
-			//==================================================			
-			if(isArtikelImWarenkorbVorhanden(benutzer_ID, artikel_ID)){	
+			ResultSet preResult = null;
+			String pre_sql = "SELECT MAX(Position) AS highestPos FROM " + ENUM_DB_TABELLE.WARENKORB.toString() + " WHERE Benutzer_ID = ?";
+			
+			PreparedStatement pre_stmt = getConnection().prepareStatement(pre_sql);
+			pre_stmt.setInt(1, benutzer_ID);
+			
+			preResult = pre_stmt.executeQuery();
+			
+			if(!preResult.next()){
+				return false;
+			}		
+			int highestPos = preResult.getInt("highestPos");
 				
-				return warenkorbArtikelMengeErhoehen(-1, artikelnummer, emailadresse);
-				
-			}else{
-				ResultSet preResult = null;
-				String pre_sql = "SELECT MAX(Position) AS highestPos FROM " + ENUM_DB_TABELLE.WARENKORB.toString() + " WHERE Benutzer_ID = ?";
-				
-				PreparedStatement pre_stmt = getConnection().prepareStatement(pre_sql);
-				pre_stmt.setInt(1, benutzer_ID);
-				
-				preResult = pre_stmt.executeQuery();
-				
-				if(!preResult.next()){
-					return false;
-				}		
-				int highestPos = preResult.getInt("highestPos");
-					
-				
-				//=====================================================
-				String sql = "INSERT INTO " + ENUM_DB_TABELLE.WARENKORB.toString() + " (Position, Menge, Artikel_ID, Benutzer_ID, aktiv, erstellt_Benutzer) VALUES(?, ?, ?, ?, ?, ?)";
-				
-				PreparedStatement stmt = getConnection().prepareStatement(sql);
-				stmt.setInt(1, highestPos + 1);
-				stmt.setInt(2, 1);
-				stmt.setInt(3, artikel_ID);
-				stmt.setInt(4, benutzer_ID);
-				stmt.setInt(5, 1);
-				stmt.setString(6, DBUSER);
-				
-				result = stmt.executeUpdate();
-				
-				if(result != 0){
-					return true;
-				}
+			
+			//=====================================================
+			String sql = "INSERT INTO " + ENUM_DB_TABELLE.WARENKORB.toString() + " (Position, Menge, Artikel_ID, Benutzer_ID, aktiv, erstellt_Benutzer) VALUES(?, ?, ?, ?, ?, ?)";
+			
+			PreparedStatement stmt = getConnection().prepareStatement(sql);
+			stmt.setInt(1, highestPos + 1);
+			stmt.setInt(2, menge);
+			stmt.setInt(3, artikel_ID);
+			stmt.setInt(4, benutzer_ID);
+			stmt.setInt(5, 1);
+			stmt.setString(6, DBUSER);
+			
+			result = stmt.executeUpdate();
+			
+			if(result != 0){
+				return true;
 			}
+		
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}	
@@ -1379,41 +1372,6 @@ public class QueryManager {
 		return false;
 	}
 	
-	/**
-	 * <h3>Beschreibung:</h3>
-	 * <pre>
-	 * Die Methode prüft, ob sich ein Artikel im Warenkorb befindet.
-	 * </pre>
-	 * 
-	 * @param piBenutzerID int
-	 * @param piArtikelID int
-	 * @return true, wenn die Prüfung erfolgreich war;
-	 * andernfalls: false
-	 */
-	private boolean isArtikelImWarenkorbVorhanden(int piBenutzerID, int piArtikelID){
-		int benutzerID = piBenutzerID;
-		int artikel_ID = piArtikelID;
-		ResultSet result = null;
-		
-		try {
-			String sql = "SELECT * FROM " + ENUM_DB_TABELLE.WARENKORB.toString() + " WHERE Benutzer_ID = ? AND Artikel_ID = ?";
-			PreparedStatement stmt = getConnection().prepareStatement(sql);
-			stmt.setInt(1, benutzerID);
-			stmt.setInt(2, artikel_ID);
-			
-			result = stmt.executeQuery();
-			
-			if(result.next()){
-				return true;
-			}else{
-				return false;
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}		
-		return false;
-	}
 	
 
 	/**
@@ -1466,72 +1424,6 @@ public class QueryManager {
 		return true;
 	}
 	
-	/**
-	 * <pre>
-	 * <h3>Beschreibung:</h3>
-	 * Die Menge des Artikels im Warenkorb wird erhöht.
-	 * Wenn piMenge gleich -1 ist wird die Menge automatisch um 1 erhöht.
-	 * </pre>
-	 * 
-	 * @param piMenge
-	 * @param piArtikelnummer
-	 * @param piEmailAdresse
-	 * @return true, wenn die Änderung erfolgreich war;
-	 * andernfalls: false
-	 */
-	private boolean warenkorbArtikelMengeErhoehen(int piMenge, int piArtikelnummer, String piEmailAdresse){
-		String emailadresse = piEmailAdresse;
-		int artikelnummer = piArtikelnummer;
-		int benutzer_ID;
-		int artikel_ID;
-		int menge = piMenge;
-		int result = 0;
-		
-		try {
-			benutzer_ID = getBenutzerIDbyEmailadresse(emailadresse);
-			artikel_ID = getArtikelIDbyNummer(artikelnummer);
-			
-			if(benutzer_ID == -1 || artikel_ID == -1){
-				return false;
-			}
-			
-			//=====================================
-			PreparedStatement stmt = null;
-			
-			if(menge == -1){
-				String sql = "UPDATE " + ENUM_DB_TABELLE.WARENKORB.toString() + " SET Menge = Menge + 1, "
-						+ "geaendert_Benutzer = ?, geaendert_Datum = ? WHERE Artikel_ID = ? AND Benutzer_ID = ?";
-				
-				stmt = getConnection().prepareStatement(sql);
-				stmt.setString(1, DBUSER);
-				stmt.setString(2, sdf.format(getCurrentTimestamp()));
-				stmt.setInt(3, artikel_ID);
-				stmt.setInt(4, benutzer_ID);
-			}else{
-				String sql = "UPDATE " + ENUM_DB_TABELLE.WARENKORB.toString() + " SET Menge = ?, geaendert_Benutzer = ?, "
-						+ "geaendert_Datum = ? WHERE Artikel_ID = ? AND Benutzer_ID = ?";
-
-				stmt = getConnection().prepareStatement(sql);
-				stmt.setInt(1, menge);
-				stmt.setString(2, DBUSER);
-				stmt.setString(3, sdf.format(getCurrentTimestamp()));
-				stmt.setInt(4, artikel_ID);
-				stmt.setInt(5, benutzer_ID);	
-			}
-
-			result = stmt.executeUpdate();
-			
-			if(result == 0){
-				return false;
-			}else{
-				return true;
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}		
-		return true;
-	}
 	
 	/**
 	 * <pre>

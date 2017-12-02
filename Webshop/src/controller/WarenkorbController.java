@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.math.NumberUtils;
+
 import db.QueryManager;
 import entity.Benutzer;
 import entity.WarenkorbArtikel;
@@ -137,6 +139,7 @@ public class WarenkorbController extends HttpServlet {
 
     private boolean artikelHinzufuegen(HttpServletRequest req){  	
     	int artikelnummer = 0;
+    	int menge = NumberUtils.toInt(req.getParameter("artikelmenge"), 1);
     	boolean added = false;
     	String emailadresseBenutzer = ((Benutzer)req.getSession().getAttribute("benutzer")).getEmailadresse();
     	
@@ -147,7 +150,7 @@ public class WarenkorbController extends HttpServlet {
 			return false;
 		}
     	
-    	added = queryManager.addArtikelToWarenkorb(emailadresseBenutzer, artikelnummer);
+    	added = queryManager.addArtikelToWarenkorb(emailadresseBenutzer, artikelnummer, menge);
      	
     	return added;
     }
