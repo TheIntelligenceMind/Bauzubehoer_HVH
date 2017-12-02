@@ -27,6 +27,45 @@ public class BenutzerHelper {
 		return instance;
 	}
 	
+	/**
+	 * <h3>Beschreibung:</h3>
+	 * <pre>
+	 * Die Methode liefert einen zufälligen 10-stelligen Code
+	 * </pre>
+	 * @return String
+	 */	
+	public String getNewResetCode(){
+		String code = "";
+		int range;
+		
+		for(int i = 0; i < 10;i++){
+			range = (3 - 1) + 1; 
+			int rnd = (int) ((Math.random() * range) + 1); 
+			
+			switch(rnd){
+			case 1:
+				range = (57 - 48) + 1;    
+				int zahl = (int) ((Math.random() * range) + 48);
+				code = code.concat(Character.toString((char) zahl));
+				break;
+			case 2:
+				range = (122 - 97) + 1;    
+				int kBuchstabe = (int) ((Math.random() * range) + 97);
+				code = code.concat(Character.toString((char) kBuchstabe));
+				break;
+			case 3:
+				range = (90 - 65) + 1;    
+				int gBuchstabe = (int) ((Math.random() * range) + 65);
+				code = code.concat(Character.toString((char) gBuchstabe));
+				break;
+			default:
+				break;
+			}
+		}
+		return code;
+	}
+	
+	
 	public String benutzerAnlegen(HttpServletRequest req, Adresse adresse){
 		String fehlertext = null;		
 		String emailadresse = req.getParameter("emailadresse");
@@ -102,7 +141,7 @@ public class BenutzerHelper {
 	 * @param piPasswort
 	 * @return true or false
 	 */
-	private boolean passwortIstGueltig(String piPasswort) {
+	public boolean passwortIstGueltig(String piPasswort) {
 		String passwort = piPasswort;
 		
 		if(passwort != null && passwort.length() >= 6){

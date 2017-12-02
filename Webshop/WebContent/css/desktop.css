@@ -1040,7 +1040,7 @@ html,body{
 	margin-top: 20px;
 	padding: 3px;
 	background-color: white;
-	width: 34%;
+	width: 33%;
 	border: 1px solid #BF4D17;
 	height: 25px;
 	font-size: 14px;
@@ -1048,7 +1048,7 @@ html,body{
 #meinKontoHausnummer{
 	padding: 3px;
 	background-color: white;
-	width: 11%;
+	width: 8%;
 	border: 1px solid #BF4D17;
 	height: 25px;
 	font-size: 14px;
@@ -1057,7 +1057,7 @@ html,body{
 {
 	padding: 3px;
 	background-color: white;
-	width: 12%;
+	width: 15%;
 	border: 1px solid #BF4D17;
 	height: 25px;
 	font-size: 14px;
@@ -1422,7 +1422,7 @@ table#zusatzTabelle tbody td{
 
 
 
-/* ------------- Panel für die Registrierung ------------------- */
+/* ------------- Panel für das ResetEmailVerschicken Panel ------------------- */
 #passwortResetEmailPanel{
 	margin: 50px auto;
 	width: 550px;
@@ -1457,7 +1457,7 @@ table#zusatzTabelle tbody td{
 	font-size: 14px;
 }
 #passwortResetEmailPanel button{
-	margin-top: 30px;
+	margin-top: 25px;
 	width: 42%;
 	height: 35px;
 	font-size: 20px;
@@ -1471,8 +1471,61 @@ table#zusatzTabelle tbody td{
 	cursor: pointer;
 }
 
-/* ------------- Panel für die Registrierung ------------------- */
+/* ------------- Panel für das ResetEmailVerschicken Panel ------------------- */
 
+
+
+
+/* ------------- Panel für das ResetPasswort Panel ------------------- */
+#passwortResetPanel{
+	margin: 50px auto;
+	width: 550px;
+	height: 300px;
+	text-align: center;
+	opacity: 0.9;
+	background-color: white;
+	border-radius: 20px;
+  	-webkit-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
+	box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
+}
+#passwortResetPanel h1{
+	margin-left: 50px;
+	padding-top: 30px;
+}
+#passwortResetPanel p{
+	padding-left: 6%;
+	padding-right: 6%;
+}
+#passwortResetPanel form{
+	text-align: center;
+}
+#passwortResetPanel form input{
+	margin-top: 20px;
+	padding: 3px;
+	background-color: white;
+	width: 60%;
+	border: 1px solid #BF4D17;
+	height: 25px;
+	text-align: center;
+	font-size: 14px;
+}
+#passwortResetPanel button{
+	margin-top: 30px;
+	width: 42%;
+	height: 35px;
+	font-size: 20px;
+	border-style: none;
+	color: white;
+	background-color: #BF4D17;
+	border-radius: 5px;
+}
+#passwortResetPanel button:hover{
+	background-color: #9b4013;
+	cursor: pointer;
+}
+
+/* ------------- Panel für das ResetPasswort Panel ------------------- */
 
 
 
@@ -2401,7 +2454,7 @@ table#zusatzTabelleBestellung tbody td{
 {
 	margin: 50px auto;
 	width: 500px;
-	height: 750px;
+	height: 710px;
 	text-align: center;
 	opacity: 0.9;
 	background-color: white;
@@ -2411,11 +2464,11 @@ table#zusatzTabelleBestellung tbody td{
 	box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
 }
 #benutzerAnlegenPanel h1{
+	margin: 0;
 	margin-left: 50px;
-	padding-top: 30px;
+	padding-top: 15px;
 }
-#benutzerAnlegenPanel form
-{
+#benutzerAnlegenPanel form{
 	text-align: center;
 }
 #benutzerAnlegenPanel .inputField{
@@ -2478,14 +2531,14 @@ table#zusatzTabelleBestellung tbody td{
 	-moz-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
 	box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
 }
-#benutzerKontoPanel h1{
+#benutzerkontoPanel > h1{
+	margin: 0;
 	margin-left: 50px;
-	padding: 0;
-	padding-top: 20px;
+	padding-top: 15px;
 }
 .tabreiterB{
     width: 100%;
-    height: 375px;
+    height: 355px;
     margin-top: 20px;
 }   
  
@@ -2589,10 +2642,10 @@ table#zusatzTabelleBestellung tbody td{
 {
 	margin-top: 20px;
 }
-#rollenauswahl
-{
+#rollenauswahl{
 	border: 1px solid #BF4D17;
 	margin-top: 20px;
+	font-family: arial;
 	padding: 3px;
 	width: 62%;
 	height: 30px;
@@ -2601,7 +2654,7 @@ table#zusatzTabelleBestellung tbody td{
 	margin-top: 20px;
 	padding: 3px;
 	background-color: white;
-	width: 35%;
+	width: 33%;
 	border: 1px solid #BF4D17;
 	height: 25px;
 	font-size: 14px;
@@ -2609,7 +2662,7 @@ table#zusatzTabelleBestellung tbody td{
 #benutzerkontoHausnummer{
 	padding: 3px;
 	background-color: white;
-	width: 13%;
+	width: 8%;
 	border: 1px solid #BF4D17;
 	height: 25px;
 	font-size: 14px;
@@ -2617,7 +2670,7 @@ table#zusatzTabelleBestellung tbody td{
 #benutzerkontoZusatz{
 	padding: 3px;
 	background-color: white;
-	width: 8%;
+	width: 15%;
 	border: 1px solid #BF4D17;
 	height: 25px;
 	font-size: 14px;
@@ -2639,8 +2692,7 @@ table#zusatzTabelleBestellung tbody td{
 	height: 25px;
 	font-size: 14px;
 }
-.btnBenutzerSpeichern
-{
+.btnBenutzerSpeichern{
 	margin-top: 40px;
 	width: 40%;
 	height: 35px;
@@ -2650,14 +2702,12 @@ table#zusatzTabelleBestellung tbody td{
 	background-color: #BF4D17;
 	border-radius: 5px;
 }
-.btnBenutzerSpeichern:hover
-{
+.btnBenutzerSpeichern:hover{
 	cursor:pointer;
-	background-color: #9b4013;
-	
+	background-color: #9b4013;	
 }
-.btnAdresseSpeichern
-{
+
+.btnAdresseSpeichern{
 	margin-top: 40px;
 	width: 40%;
 	height: 35px;
@@ -2688,6 +2738,21 @@ table#zusatzTabelleBestellung tbody td{
 }
 .btnLoeschen:hover{
 	cursor:pointer;
+	background-color: #b40505;
+}
+.btnBenutzerPasswortReset{
+	margin-top: 20px;
+	width: 180px;
+	height: 30px;
+	font-size: 15px;
+	border-style: none;
+	float: right;
+	color: white;
+	background-color: #F82D2D;
+	border-radius: 5px;
+}
+.btnBenutzerPasswortReset:hover{
+	cursor: pointer;
 	background-color: #b40505;
 }
 

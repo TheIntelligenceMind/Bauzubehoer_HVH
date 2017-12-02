@@ -47,11 +47,37 @@ public class MailHelper {
 		Session session = Session.getDefaultInstance(getProperties(), new javax.mail.Authenticator() {
 	        @Override
 	        protected PasswordAuthentication getPasswordAuthentication() {
-	                return new PasswordAuthentication("bauzubehoer.hvh@gmail.com","WIPWebshop");
+	        	return new PasswordAuthentication("bauzubehoer.hvh@gmail.com","WIPWebshop");
 	        }
 	    });
 		
 		return session;
+	}
+	
+	public boolean sendResetEmail(String emailadresse, String resetCode){
+		Session session = getSession();
+
+	    try {
+	        MimeMessage message = new SMTPMessage(session);
+	        // Absender setzen
+	        message.setFrom(new InternetAddress("bauzubehoer.hvh@gmail.com"));
+	       
+	        // Empfänger setzen
+	        message.setRecipients(Message.RecipientType.TO,
+	                                 InternetAddress.parse(emailadresse));
+
+	        // Betreffzeile setzen
+	        message.setSubject("Bauzubehoer HVH - Passwort zurücksetzen");
+	        
+	        // Mail Inhalt setzen
+	        message.setContent(getResetMailContent(emailadresse, resetCode), "text/html");
+	        
+	        // Mail verschicken
+	        Transport.send(message);
+	    }catch (MessagingException e) {
+	    	return false;
+	    }
+	    return true;
 	}
 	
 	public void sendKontaktMail(Nachricht nachricht, boolean registrierterBenutzer){
@@ -142,6 +168,29 @@ public class MailHelper {
 	    }catch (MessagingException e) {
 	        throw new RuntimeException(e);         
 	    }
+	}
+	
+	private String getResetMailContent(String emailadresse, String resetCode){
+		String content =  "<html>"
+				+ "<body>"
+				+ "<style>"
+				+ "p{margin:0; padding:0;}"
+				+ "</style>"
+				+ "<p>Guten Tag,</p>"
+				+ "<br>"
+				+ "<p>um Ihr Passwort zur&uuml;ckzusetzen, klicken Sie bitte auf den nachfolgenden Link und befolgen Sie die weiteren Anweisungen:</p>"
+				+ "<p>http://localhost:8080/Webshop/registrieren?method=pwResetAnzeigen&bMail=" + emailadresse + "&resetCode=" + resetCode + "</p>"
+				+ "<br>"
+				+ "<p>Wenn Sie nicht der richtige Adressat sind oder diese E-Mail irrt&uuml;mlich erhalten haben, ignorieren und l&ouml;schen Sie diese Mail.</p>"
+				+ "<br>"
+				+ "<p>Haben Sie noch Fragen? Schreiben Sie eine Mail an bauzubehoer.hvh@gmail.com oder rufen Sie unsere kostenlose Service-Hotline 0800 8228 100 an.</p>"
+				+ "<br>"
+				+ "<p>Mit den besten Gr&uuml;ßen</p>"
+				+ "<p>Bauzubeh&ouml;r-HVH, Kundenbetreuung</p>"
+				+ "</body>"
+				+ "</html>";
+
+		return content;
 	}
 
 	private String getKontaktMailContent(Nachricht nachricht, boolean registrierterBenutzer){

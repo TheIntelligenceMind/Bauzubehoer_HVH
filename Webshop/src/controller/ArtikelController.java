@@ -2,7 +2,6 @@ package controller;
 
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -22,6 +21,7 @@ import entity.Benutzer;
 import entity.WarenkorbArtikel;
 import enums.ENUM_MELDUNG_ART;
 import enums.ENUM_RESPONSE_STATUS;
+import helper.UploadHelper;
 
 /**
  * <pre>
@@ -37,7 +37,8 @@ public class ArtikelController extends HttpServlet {
 	
 	private static final int MAX_ARTIKELNUMMER = 9999;
 	private static final QueryManager queryManager = QueryManager.getInstance();
-
+	private static final UploadHelper uploadHelper = UploadHelper.getInstance();
+	
 	private String dispatchSite = "index.jsp";
 	private Artikel artikel = null;
 	
@@ -204,47 +205,39 @@ public class ArtikelController extends HttpServlet {
     }
     
     private void bildHochladenAnlegen(HttpServletRequest req, HttpServletResponse resp){ 
-	    try {
-	    	Part filePart = req.getPart("bild");
-	    	
-			InputStream fileContent = filePart.getInputStream();			    
-			byte[] bytes = new byte[fileContent.available()];
-			fileContent.read(bytes);
-
-    		Artikel anlegenArtikel = new Artikel().init("", -1, "", -1, -1, -1, null, "", "", 0);
-    		
-    		anlegenArtikel.setBild(bytes);
-    		
-    		req.setAttribute("anlegenArtikel", anlegenArtikel);
-    		resp.addHeader("contentSite", "artikelAnlegenPanel");	    
+    	Part filePart = null;
+    	
+		try {
+			filePart = req.getPart("bild");
 		} catch (IOException | ServletException e) {
 			e.printStackTrace();
 		}
+
+		Artikel anlegenArtikel = new Artikel().init("", -1, "", -1, -1, -1, null, "", "", 0);
+		
+		anlegenArtikel.setBild(uploadHelper.bildHochladen(filePart));
+		
+		req.setAttribute("anlegenArtikel", anlegenArtikel);
+		resp.addHeader("contentSite", "artikelAnlegenPanel");	    
     }
     
     private void bildHochladenBearbeiten(HttpServletRequest req, HttpServletResponse resp){ 
-	    try {
-	    	int artikelnummer = NumberUtils.toInt(req.getParameter("nummer"));
-	    
-	    	Part filePart = req.getPart("bild");
-
-	    	
-			InputStream fileContent = filePart.getInputStream();			    
-			byte[] bytes = new byte[fileContent.available()];
-			fileContent.read(bytes);
-	    
-		    
-			Artikel artikel = queryManager.searchArtikelByNummer(artikelnummer);
-			artikel.setBild(bytes);
-		    
-		    queryManager.modifyArtikel(artikel);
-		    
-			req.setAttribute("bearbeitenArtikel", artikel);
-			resp.addHeader("contentSite", "artikelBearbeitenPanel");
-		    
+    	Part filePart = null;
+    	int artikelnummer = NumberUtils.toInt(req.getParameter("nummer"));
+    	
+		try {
+			filePart = req.getPart("bild");
 		} catch (IOException | ServletException e) {
 			e.printStackTrace();
 		}
+	    	  
+		Artikel artikel = queryManager.searchArtikelByNummer(artikelnummer);
+		artikel.setBild(uploadHelper.bildHochladen(filePart));
+	    
+	    queryManager.modifyArtikel(artikel);
+	    
+		req.setAttribute("bearbeitenArtikel", artikel);
+		resp.addHeader("contentSite", "artikelBearbeitenPanel");  
     }
    
     

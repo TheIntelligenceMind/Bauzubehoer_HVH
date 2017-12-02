@@ -131,6 +131,42 @@ public class QueryManager {
 		return null;
 	}	
 	
+	public void setResetCode(Benutzer piBenutzer, String resetCode){
+		Benutzer benutzer = piBenutzer;
+		try {
+			String sql = "UPDATE " + ENUM_DB_TABELLE.BENUTZER.toString() + " SET resetCode = ? WHERE emailadresse = ?";
+			PreparedStatement stmt = getConnection().prepareStatement(sql);
+			stmt.setString(1, resetCode);
+			stmt.setString(2, benutzer.getEmailadresse());
+			
+			stmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}	
+	}
+	
+	public String getResetCode(String piEmailadresse){
+		String emailadresse = piEmailadresse;
+		ResultSet result = null;
+		
+		try {
+			String sql = "SELECT resetCode FROM " + ENUM_DB_TABELLE.BENUTZER.toString() + " WHERE emailadresse = ?";
+			PreparedStatement stmt = getConnection().prepareStatement(sql);
+			stmt.setString(1, emailadresse);
+			
+			result = stmt.executeQuery();
+			
+			if(result.next()){
+				return result.getString("resetCode");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}	
+		return null;
+	}
+	
 	/**
 	 * <h3>Beschreibung:</h3>
 	 * <pre>

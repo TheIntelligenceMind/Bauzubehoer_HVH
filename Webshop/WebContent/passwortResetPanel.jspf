@@ -6,10 +6,21 @@ Diese Datei behandelt den Abschluss eines Bestellvorgangs.
 
 <div class="showing"  id="passwortResetPanel">
 	<a class="panelClose"onclick="artikelSuchenNachBegriff()"><i class="fa fa-times"></i></a>
-	<h1>Passwort Zur&uuml;cksetzen</h1>
+	<h1>Passwort zur&uuml;cksetzen</h1>
+	<%
+		String bMail = request.getParameter("bMail");
+		if(bMail == null){	
+			bMail = String.valueOf(request.getAttribute("bMail"));
+			
+			if(bMail == null){	
+				bMail = "";
+			}
+		}
+	%>
 	<form action="registrieren" method="POST">
-		<input type="text" title="Neues Passwort" name="passwort" placeholder="Neues Passwort">
-		<input type="text" title="Neues Passwort bestätigen" name="passwortbestaetigt" placeholder="Neues Passwort bestätigen">
-		<button type="submit" name="method" value="pwReset">Passwort Zur&uuml;cksetzen</button>
+		<input type="password" title="Hinweis: Das Passwort muss mindestens 6 Zeichen lang sein." name="passwort" placeholder="Neues Passwort">
+		<input type="password" title="Neues Passwort bestätigen" name="passwortBestaetigt" placeholder="Neues Passwort bestätigen">
+		<input type="hidden" name="emailadresse" value="<% out.print(bMail); %>">
+		<button type="submit" name="method" value="pwReset">Passwort zur&uuml;cksetzen</button>
 	</form>
 </div> 

@@ -1,5 +1,10 @@
 package helper;
 
+import java.io.IOException;
+import java.io.InputStream;
+
+import javax.servlet.http.Part;
+
 
 /**
  * <pre>
@@ -18,8 +23,17 @@ public class UploadHelper {
 		return instance;
 	}
 	
-	public void bildHochladen(){
+	public byte[] bildHochladen(Part part){
+		byte[] bytes = null;
+		try {
+			InputStream fileContent = part.getInputStream();
+			bytes = new byte[fileContent.available()];
+			fileContent.read(bytes);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
+		return bytes;
 	}
 	
 }

@@ -20,6 +20,7 @@ import enums.ENUM_RESPONSE_STATUS;
 import enums.ENUM_ROLLE;
 import helper.AdressenHelper;
 import helper.BenutzerHelper;
+import helper.MailHelper;
 
 /**
  * <pre>
@@ -32,6 +33,7 @@ import helper.BenutzerHelper;
 public class BenutzerController extends HttpServlet {
 	private final static long serialVersionUID = 1L;
 	private final static QueryManager queryManager = QueryManager.getInstance();
+	private final static MailHelper mailHelper = MailHelper.getInstance();
 	private final static BenutzerHelper benutzerHelper = BenutzerHelper.getInstance();
 	private final static AdressenHelper adressenHelper = AdressenHelper.getInstance();
 	private String dispatchSite = "index.jsp";
@@ -67,6 +69,9 @@ public class BenutzerController extends HttpServlet {
 		}
 		
 		switch(method){
+		case "passwortResetEmail":
+			resetEmailVerschicken(req, resp);
+			break;
 		case "benutzerstammdatenAnzeigen":			
 			benutzerstammdatenAnzeigen(req, resp);		
 			break;
@@ -96,6 +101,46 @@ public class BenutzerController extends HttpServlet {
 		rd.forward(req, resp);		
 	}
  
+    /**
+	 * <h3>Beschreibung:</h3>
+	 * <pre>
+	 * Die Methode überprüft die E-Mail-Adresse und den dahinter liegenden Benutzeraccount auf seine Rolle.
+	 * Wenn die Rolle gleich Administrator oder Mitarbeiter ist wird keine E-Mail verschickt.
+	 * Ist die E-Mail-Adresse gültig und von einem Kundenkonto wird die E-Mail verschickt.
+	 * </pre> 
+	 * @param req HttpServletRequest
+	 * @param resp HttpServletResponse 
+	 */	
+	private void resetEmailVerschicken(HttpServletRequest req, HttpServletResponse resp){
+		String emailadresse = req.getParameter("emailadresse");
+
+		Benutzer benutzer = queryManager.getBenutzerByEMailAdresse(emailadresse);
+		
+		// neuen ResetCode erzeugen
+		String resetCode = benutzerHelper.getNewResetCode();
+		
+		// E-Mail an die E-Mail-Adresse verschicken
+		boolean result = mailHelper.sendResetEmail(emailadresse, resetCode);
+		
+		// Wenn das senden der E-Mail nicht erfolgreich war wird eine Fehlermeldung ausgegeben
+		if(!result){
+			resp.addHeader("status", ENUM_RESPONSE_STATUS.FEHLER.toString());
+			resp.addHeader("fehlermeldung", "Die Mail konnte nicht verschickt werden. Bitte versuchen Sie es nochmal zu einem sp&auml;teren Zeitpunkt.");
+			return;
+		}
+	
+		if(benutzer != null){
+			queryManager.setResetCode(benutzer, resetCode);
+		}	
+		
+		resp.addHeader("status", ENUM_RESPONSE_STATUS.HINWEIS.toString());
+		resp.addHeader("hinweismeldung", "Die E-Mail wurde erfolgreich verschickt.");	
+		
+		req.setAttribute("benutzer", benutzer);
+    	resp.addHeader("contentSite", "benutzerBearbeitenPanel");   
+		
+	}
+    
     private void benutzerstammdatenAnzeigen(HttpServletRequest req, HttpServletResponse resp){
 		req.setAttribute("benutzerstammdatenListe", getBenutzerstammdatenListe(req, resp));		
 		resp.addHeader("contentSite", "benutzerstammdatenPanel");   	

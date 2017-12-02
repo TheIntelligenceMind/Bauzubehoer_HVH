@@ -51,6 +51,10 @@ public class Benutzer {
 		return passwort;
 	}
 	
+	public void setPasswort(String passwort){
+		this.passwort = passwort;
+	}
+	
 	public String getEmailadresse() {
 		return emailadresse;
 	}

@@ -6,10 +6,10 @@ Diese Datei behandelt den Abschluss eines Bestellvorgangs.
 
 <div class="showing"  id="passwortResetEmailPanel">
 	<a class="panelClose"onclick="artikelSuchenNachBegriff()"><i class="fa fa-times"></i></a>
-	<h1>Passwort Zur&uuml;cksetzen</h1>
+	<h1>Passwort zur&uuml;cksetzen</h1>
 	<p>Geben Sie Ihre E-Mail-Adresse ein, damit wir Ihnen eine E-Mail schicken können in der Sie einen Link zum Zur&uuml;cksetzen Ihres Passwortes erhalten.</p>
 	<form action="registrieren" method="POST">
 		<input type="text" title="E-Mail-Adresse" name="emailadresse" placeholder="E-Mail-Adresse">
-		<button type="submit" name="method" value="pwReset">E-Mail verschicken</button>
+		<button type="submit" name="method" value="pwResetEmail">E-Mail verschicken</button>
 	</form>
 </div> 

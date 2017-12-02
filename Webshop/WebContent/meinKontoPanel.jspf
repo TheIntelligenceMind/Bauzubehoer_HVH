@@ -59,7 +59,7 @@ function artikelSuchenNachBegriff(){
             <div>
             <form action="meinKonto" method="post">
 	            <input title="Strasse" class="inputField" type="text" name="strasse" placeholder="Straße" id="meinKontoStrasse" value="<% out.print(adresse.getStrasse()); %>">
-	            <input title="Hausnummer" class="inputField" type="text" name="hausnummer" placeholder="Hausnummer" id="meinKontoHausnummer" value="<% out.print(adresse.getHausnummer()); %>">
+	            <input title="Hausnummer" class="inputField" type="text" name="hausnummer" placeholder="Hausnr." id="meinKontoHausnummer" value="<% out.print(adresse.getHausnummer()); %>">
 				<input title="Zusatz" class="inputField" type="text" name="zusatz" placeholder="Zusatz" id="meinKontoZusatz" value="<% out.print(adresse.getZusatz()); %>">
 				
 				<input title="Postleitzahl" class="inputField" type="text" name="postleitzahl" placeholder="PLZ" id="meinKontoPostleitzahl" value="<% out.print(adresse.getPostleitzahl()); %>">
