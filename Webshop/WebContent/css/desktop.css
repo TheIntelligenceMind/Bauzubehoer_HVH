@@ -83,6 +83,22 @@ html,body{
 .hidePanel{
 	display: none;
 }
+
+.disabledBtn{
+	background-color: #f1ae8d;
+}
+.disabledBtn:hover{
+	background-color: #f1ae8d;
+	cursor: default;
+}
+.enabledBtn{
+	background-color: #BF4D17;
+}
+.enabledBtn:hover{
+	cursor: pointer;
+	background-color: #9b4013;
+}
+
 /*---------------------------- Globale Classes ------------------------*/
 
 
@@ -482,7 +498,8 @@ html,body{
 }
 #kontaktPanel h1{
 	margin-left: 50px;
-	padding: 15px;
+	padding-top: 15px;
+	padding-bottom: 15px;
 }
 #kontaktPanel .inputField{
 	padding: 3px;
@@ -544,7 +561,7 @@ html,body{
 #agbPanel{
 	margin: 50px auto;
 	width: 900px;
-	height: 4480px;
+	height: 4400px;
 	text-align: center;
 	opacity: 0.9;
 	background-color: white;
@@ -560,7 +577,7 @@ html,body{
 }
 #agbPanel h1{
 	margin-left: 50px;
-	padding: 15px;
+	padding-top: 15px;
 }
 /* -------------- Panel für das AGB Seite  ------------------- */
 
@@ -1826,8 +1843,7 @@ table#zusatzTabelle tbody td{
 	-moz-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
 	box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
 }
-artikelDetailansichtPanelHeadInfo
-{
+artikelDetailansichtPanelHeadInfo{
 	height: 150px;
 	width: 100%;
 }
@@ -1835,7 +1851,7 @@ artikelDetailansichtPanelHeadInfo
 	float: left;
 	margin-left: 3%;
 	margin-top: 3%;
-	border: solid 1px black;
+	border: solid 1px gray;
 	border-radius: 2px;
 	height: 90px;
 	width: 80px;
@@ -1852,8 +1868,7 @@ artikelDetailansichtPanelHeadInfo
 	margin-right: 3%;
 	width: 20%;
 }
-.artikelDetailansichtMengeText
-{
+.artikelDetailansichtMengeText{
 	width: 25%;
 }
 .detailansichtArtikelnummer
@@ -1869,7 +1884,6 @@ artikelDetailansichtPanelHeadInfo
 	border-style: none;
 	margin-right: 20px;
 	margin-top: 20px;
-	background-color: #BF4D17;
 	color: white;
 	border-radius: 5px;
 }
@@ -1887,20 +1901,24 @@ artikelDetailansichtPanelHeadInfo
 	float: right;
 	margin-right: 3%;
 	margin-top: 5%;
-	font-size: 20px;
+	font-size: 18px;
 }
+#artikelDetailansichtPreis .proEinheit{
+	font-size: 16px;
+}
+
 #artikelDetailansichtPanelBeschreibung textarea{
-	width: 94%;
+	width: 760px;
+	padding: 0;
 	height: 140px;
-	margin-left: 3%;
-	margin-right: 3%;
+	margin-left: 20px;
+	margin-right: 20px;
 	margin-top: 5%;
+	font-size: 14px;
+	font-family: arial;
 	border: none;
 }
-#artikelDetailansichtWarenkorbButton:hover{
-	cursor: pointer;
-	background-color: #9b4013;
-}
+
 @media (max-width: 1200px)
 {
 	#artikelDetailansichtPanel{

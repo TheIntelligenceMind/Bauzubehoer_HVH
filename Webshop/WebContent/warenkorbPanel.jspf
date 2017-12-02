@@ -52,8 +52,8 @@ Diese Datei behandelt den Warenkorb, indem Artikel entfernt, Mengen angepasst od
 	        <colgroup>
 		       <col span="1" style="width: 10%;">
 		       <col span="1" style="width: 20%;">
-		       <col span="1" style="width: 51%;">
-		       <col span="1" style="width: 14%;">
+		       <col span="1" style="width: 47%;">
+		       <col span="1" style="width: 18%;">
 		       <col span="1" style="width: 5%;">
 		    </colgroup>
 	        
@@ -102,9 +102,9 @@ Diese Datei behandelt den Warenkorb, indem Artikel entfernt, Mengen angepasst od
 	       	%>
 	      <table id="zusatzTabelle">
 	      	<colgroup>
-		       <col span="1" style="width: 24%;">
-		       <col span="1" style="width: 57%;">
-		       <col span="1" style="width: 19%;">
+		       <col span="1" style="width: 30%;">
+		       <col span="1" style="width: 47%;">
+		       <col span="1" style="width: 23%;">
 		    </colgroup>
 	      	<tbody>
 	        	<tr>

@@ -1,4 +1,8 @@
+<%@page import="java.util.stream.Collectors"%>
+<%@page import="com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections"%>
+<%@page import="java.util.Collection"%>
 <%@page import="entity.Artikel"%>
+<%@page import="entity.WarenkorbArtikel"%>
 <%@page import="java.util.List"%>
 
 <!-- 
@@ -15,8 +19,6 @@ Diese Datei behandelt das Anzeigen eines bestimmten Artikels.
 	if(detailansichtArtikel != null){
 		detailansichtBild = String.valueOf(detailansichtArtikel.getBildasString());
 	}
-
-	int menge = 1;
 %>
 
 <script type="text/javascript">
@@ -25,7 +27,32 @@ Diese Datei behandelt das Anzeigen eines bestimmten Artikels.
 	          window.location.href = "suchen";  
 		}); 	
 	}
+	
+	function verfuegbareMengePruefen(lagermenge){
+		if(lagermenge < $('#ausgewaehlteMenge').val()){
+			alert("Achtung! die Lieferung kann länger dauern, da nicht genügend Teile des ausgewählten Artikels auf Lager sind.")
+		}
+	}
+	
+	function increaseMenge(){	
+		var neueMenge = Number($('#ausgewaehlteMenge').val()) + 1;
+		$('#ausgewaehlteMenge').val(neueMenge);
+	}
+	
+	function decreaseMenge(){
+		if($('#ausgewaehlteMenge').val() >= 2){
+			$('#ausgewaehlteMenge').val($('#ausgewaehlteMenge').val() - 1);
+		}
+	}
+	
+	function setWarenkorbButtonDisabled(){
+		$('#artikelDetailansichtWarenkorbButton').prop("disabled", "disabled");
+		$('#artikelDetailansichtWarenkorbButton').removeClass('enabledBtn');
+		$('#artikelDetailansichtWarenkorbButton').addClass('disabledBtn');
+		$('#artikelDetailansichtWarenkorbButton').html('bereits im Warenkorb');
+	}
 </script>
+
 
 <div class="showing" id="artikelDetailansichtPanel">
 		<a class="panelClose"onclick="artikelSuchenNachBegriff()"><i class="fa fa-times"></i></a>		
@@ -38,38 +65,30 @@ Diese Datei behandelt das Anzeigen eines bestimmten Artikels.
 			<div id="btnArtikelDetailansichtWarenkorb">
 				<form action="warenkorb">
 		     	    <input type="hidden" name="artikelnummer" value="<% out.print(detailansichtArtikel.getNummer());%>">
-					<button id="artikelDetailansichtWarenkorbButton" name="method" value="artikelInDenWarenkorb">In den Warenkorb</button>
+					<button id="artikelDetailansichtWarenkorbButton" class="enabledBtn" onclick="verfuegbareMengePruefen(<% out.print(detailansichtArtikel.getLagermenge()); %>)" name="method" value="artikelInDenWarenkorb">In den Warenkorb</button>
 				</form>
 			</div>
 			
 			<div id="artikelDetailansichtMenge">
-			<button class="MengeHoch" onclick="<% menge = menge + 1; %>"><i class="fa fa-arrow-circle-up" aria-hidden="true"></i></button>
-			<button class="MengeRunter" onclick="
-			<%
-			if(menge > 1)
-			{
-				menge = menge -1;
-			}
-			%>"><i class="fa fa-arrow-circle-down" aria-hidden="true"></i></button>
-			<input type="text" class="artikelDetailansichtMengeText" value="<% out.print(menge); %>">
+			<button class="MengeHoch" onclick="increaseMenge()"><i class="fa fa-arrow-circle-up" aria-hidden="true"></i></button>
+			<button class="MengeRunter" onclick="decreaseMenge()"><i class="fa fa-arrow-circle-down" aria-hidden="true"></i></button>
+			<input type="text" id="ausgewaehlteMenge" class="artikelDetailansichtMengeText" value="1" readonly>
 			</div>
 			
 			<div id="artikelDetailansichtInfo">
 					<h4><% out.print(detailansichtArtikel.getBezeichnung()); %></h4>
-					<p class="detailansichtArtikelnummer">Artikelnummer:<% out.print(detailansichtArtikel.getNummer()); %></p>
+					<p class="detailansichtArtikelnummer">Nr.: <% out.print(detailansichtArtikel.getNummer()); %></p>
 					<p><%
-						if(detailansichtArtikel.getLagermenge() > 0)
-						{
-							out.print("<div class='green'>" + "Artikel ist verf&uuml;gbar" + "</div>");
+						if(detailansichtArtikel.getLagermenge() > 0){
+							out.print("<div class='green'>" + "Artikel ist verf&uuml;gbar." + "</div>");
 						}
-						else 
-						{
-							out.print("<div class='red'>" + "Artikel ist nicht auf Lager" + "</div>");
+						else{
+							out.print("<div class='red'>" + "Artikel ist nicht auf Lager." + "</div>");
 						}
 						%></p>
 			</div>
 			<div id="artikelDetailansichtPreis">
-					<p>Preis: <%out.print(formater.format(detailansichtArtikel.getPreis()));%>/pro Einheit </p>
+				<p>Preis: <%out.print(formater.format(detailansichtArtikel.getPreis()));%>&euro; /<i class="proEinheit"> pro Einheit</i></p>
 			</div>
 		</div>	
 		
@@ -77,5 +96,20 @@ Diese Datei behandelt das Anzeigen eines bestimmten Artikels.
 		<div id="artikelDetailansichtPanelBeschreibung">
 			<textarea title="Beschreibung" class="inputArea" wrap="soft" name="artikelDetailbeschreibung" placeholder="Beschreibung" readonly><% out.print(detailansichtArtikel.getBeschreibung()); %></textarea>
 		</div>
+		
+		<%
+			List<?> wartikelListe = (List<?>)session.getAttribute("warenkorbartikelliste");
+		
+			if(wartikelListe != null){
+				for(Object o : wartikelListe){
+					WarenkorbArtikel wka = (WarenkorbArtikel)o;
+					
+					if(wka.getArtikel().getNummer() == detailansichtArtikel.getNummer()){
+						out.print("<script type='text/javascript'>setWarenkorbButtonDisabled()</script>");
+						break;
+					}
+				}
+			}
+		%>
 
 </div>
