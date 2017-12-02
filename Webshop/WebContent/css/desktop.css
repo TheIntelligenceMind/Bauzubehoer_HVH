@@ -1984,6 +1984,7 @@ artikelDetailansichtPanelHeadInfo{
 	font-size: 14px;
 	font-family: arial;
 	border: none;
+	resize: none;
 }
 
 @media (max-width: 1200px)
