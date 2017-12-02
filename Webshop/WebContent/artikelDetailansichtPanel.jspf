@@ -16,6 +16,7 @@ Diese Datei behandelt das Anzeigen eines bestimmten Artikels.
 		detailansichtBild = String.valueOf(detailansichtArtikel.getBildasString());
 	}
 
+	int menge = 1;
 %>
 
 <script type="text/javascript">
@@ -28,39 +29,52 @@ Diese Datei behandelt das Anzeigen eines bestimmten Artikels.
 
 <div class="showing" id="artikelDetailansichtPanel">
 		<a class="panelClose"onclick="artikelSuchenNachBegriff()"><i class="fa fa-times"></i></a>		
-		<div id="artikelDetailansichtPanelZahlen">
+		<div id="artikelDetailansichtPanelHeadInfo">
 			
 			<div id='artikelDetailansichtBild'>
 				<img alt="Bild" src="data:image/png;base64, <% if(detailansichtBild != null){ out.print(detailansichtBild); } %>"/>
 			</div>
+			
 			<div id="btnArtikelDetailansichtWarenkorb">
 				<form action="warenkorb">
 		     	    <input type="hidden" name="artikelnummer" value="<% out.print(detailansichtArtikel.getNummer());%>">
 					<button id="artikelDetailansichtWarenkorbButton" name="method" value="artikelInDenWarenkorb">In den Warenkorb</button>
 				</form>
 			</div>
-			<table id="artikelDetailansichtTabelle">
-				<tr>
-					<td><p><% out.print(detailansichtArtikel.getBezeichnung()); %></p></td>
-				</tr>
-				<tr>
-					<td><p>Artikelnummer:</p></td>
-					<td><p><% out.print(detailansichtArtikel.getNummer()); %></p></td>
-				</tr>		
-				<tr>
-					<td><p>Preis:</p></td>
-					<td><p><%out.print(formater.format(detailansichtArtikel.getPreis()));%> </p></td>
-				</tr>
-				<tr>
-					<td><p>Lagermenge:</p></td>
-					<td><p><%out.print(detailansichtArtikel.getLagermenge());%></p></td>
-				</tr>			
-			</table>
+			
+			<div id="artikelDetailansichtMenge">
+			<button class="MengeHoch" onclick="<% menge = menge + 1; %>"><i class="fa fa-arrow-circle-up" aria-hidden="true"></i></button>
+			<button class="MengeRunter" onclick="
+			<%
+			if(menge > 1)
+			{
+				menge = menge -1;
+			}
+			%>"><i class="fa fa-arrow-circle-down" aria-hidden="true"></i></button>
+			<input type="text" class="artikelDetailansichtMengeText" value="<% out.print(menge); %>">
+			</div>
+			
+			<div id="artikelDetailansichtInfo">
+					<h4><% out.print(detailansichtArtikel.getBezeichnung()); %></h4>
+					<p class="detailansichtArtikelnummer">Artikelnummer:<% out.print(detailansichtArtikel.getNummer()); %></p>
+					<p><%
+						if(detailansichtArtikel.getLagermenge() > 0)
+						{
+							out.print("<div class='green'>" + "Artikel ist verf&uuml;gbar" + "</div>");
+						}
+						else 
+						{
+							out.print("<div class='red'>" + "Artikel ist nicht auf Lager" + "</div>");
+						}
+						%></p>
+			</div>
+			<div id="artikelDetailansichtPreis">
+					<p>Preis: <%out.print(formater.format(detailansichtArtikel.getPreis()));%>/pro Einheit </p>
+			</div>
 		</div>	
 		
 		
 		<div id="artikelDetailansichtPanelBeschreibung">
-			<p>Beschreibung</p>
 			<textarea title="Beschreibung" class="inputArea" wrap="soft" name="artikelDetailbeschreibung" placeholder="Beschreibung" readonly><% out.print(detailansichtArtikel.getBeschreibung()); %></textarea>
 		</div>
 

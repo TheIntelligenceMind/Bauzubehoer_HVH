@@ -1817,7 +1817,7 @@ table#zusatzTabelle tbody td{
 #artikelDetailansichtPanel{
 	margin: 50px auto;
 	width: 800px;
-	height: 430px;
+	height: 350px;
 	text-align: center;
 	opacity: 0.9;
 	background-color: white;
@@ -1825,6 +1825,11 @@ table#zusatzTabelle tbody td{
   	-webkit-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
 	-moz-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
 	box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
+}
+artikelDetailansichtPanelHeadInfo
+{
+	height: 150px;
+	width: 100%;
 }
 #artikelDetailansichtBild{
 	float: left;
@@ -1839,6 +1844,22 @@ table#zusatzTabelle tbody td{
 	height: 90px;
 	width: 80px;
 }
+#artikelDetailansichtMenge
+{
+	float: right;
+	height: 40px;
+	margin-top: 3%;
+	margin-right: 3%;
+	width: 20%;
+}
+.artikelDetailansichtMengeText
+{
+	width: 25%;
+}
+.detailansichtArtikelnummer
+{
+	font-size: 14px;
+}
 #artikelDetailansichtWarenkorbButton{
 	float: right;
 	padding: 7px;	
@@ -1852,9 +1873,29 @@ table#zusatzTabelle tbody td{
 	color: white;
 	border-radius: 5px;
 }
+#artikelDetailansichtInfo
+{
+	float: left;
+	text-align: left;
+	margin-left: 3%;
+	height: 80px;
+	width: 30%;
+	
+}
+#artikelDetailansichtPreis
+{
+	float: right;
+	margin-right: 3%;
+	margin-top: 5%;
+	font-size: 20px;
+}
 #artikelDetailansichtPanelBeschreibung textarea{
-	width: 760px;
+	width: 94%;
 	height: 140px;
+	margin-left: 3%;
+	margin-right: 3%;
+	margin-top: 5%;
+	border: none;
 }
 #artikelDetailansichtWarenkorbButton:hover{
 	cursor: pointer;
