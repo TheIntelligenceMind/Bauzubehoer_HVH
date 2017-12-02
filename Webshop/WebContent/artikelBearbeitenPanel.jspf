@@ -102,6 +102,8 @@ Diese Datei behandelt das Bearbeiten von vorhandenen Artikeln.
 			<input title="Hinweis: Der Preis muss mit einem Punkt getrennt sein!" class="inputField" type="text" name="preis" value="<% out.print(bearbeitenArtikel.getPreis()); %>" placeholder="Preis">
 			<h3>Lagermenge</h3>
 			<input title="Lagermenge" class="inputField" type="text" name="lagermenge" value="<% out.print(bearbeitenArtikel.getLagermenge()); %>" placeholder="Lagermenge">
+			<h3>Meldebestand</h3>
+			<input title="Meldebestand" class="inputField" type="text" name="meldebestand" value="<% out.print(bearbeitenArtikel.getMeldebestand()); %>" placeholder="Meldebestand">
 			<h3>Aktiv</h3>
 			
 			<div id="togglebutton">

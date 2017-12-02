@@ -1584,7 +1584,7 @@ table#zusatzTabelle tbody td{
 	margin-top: 20px;
 	padding: 3px;
 	background-color: white;
-	width: 29%;
+	width: 19%;
 	border: 1px solid #BF4D17;
 	height: 25px;
 	font-size: 14px;
@@ -1630,7 +1630,7 @@ table#zusatzTabelle tbody td{
 #artikelBearbeitenPanel{
 	margin: 50px auto;
 	width: 700px;
-	height: 865px;
+	height: 930px;
 	text-align: center;
 	opacity: 0.9;
 	background-color: white;
@@ -1696,7 +1696,7 @@ table#zusatzTabelle tbody td{
 }
 #artikelBearbeitenPanelZahlen .inputField{
 	background-color: white;
-	width: 29%;
+	width: 28%;
 	padding-left: 3px;
 	border: 1px solid #BF4D17;
 	height: 25px;

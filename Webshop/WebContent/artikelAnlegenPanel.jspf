@@ -103,6 +103,7 @@ Diese Datei behandelt das Anlegen von Artikeln.
 		<div id=artikelAnlegenPanelZahlen>
 			<input title="Hinweis: Der Preis muss mit einem Punkt getrennt sein!" class="inputField" type="text" name="preis" value="<% if(anlegenArtikel.getPreis() != -1){ out.print(anlegenArtikel.getPreis()); } %>" placeholder="Preis">
 			<input title="Lagermenge" class="inputField" type="text" name="lagermenge" value="<% if(anlegenArtikel.getLagermenge() != -1){ out.print(anlegenArtikel.getLagermenge()); } %>" placeholder="Lagermenge">
+			<input title="Meldebestand" class="inputField" type="text" name="meldebestand" value="<% if(anlegenArtikel.getMeldebestand() != -1){ out.print(anlegenArtikel.getMeldebestand()); } %>" placeholder="Meldebestand">
 		</div>	
 			<input type="hidden" name="method" value="artikelAnlegen">
 			<input id="btnArtikelAnlegen" type="submit" value="Artikel anlegen">	
