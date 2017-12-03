@@ -483,8 +483,7 @@ html,body{
 
 
 /* -------------- Panel für den Kontakt ------------------- */
-#kontaktPanel
-{
+#kontaktPanel{
 	margin: 50px auto;
 	width: 600px;
 	height: 665px;
@@ -505,6 +504,7 @@ html,body{
 	padding: 3px;
 	border: 1px solid #BF4D17;
 	border-radius: 3px;
+	font-size: 14px;
 	height: 30px;
 	width: 60%;
 	margin-bottom: 10px;
@@ -512,6 +512,8 @@ html,body{
 #kontaktPanel .textarea{
 	padding: 3px;
 	resize: none;
+	font-size: 14px;
+	font-family: arial;
 	height: 200px;
 	width: 90%;	
 }

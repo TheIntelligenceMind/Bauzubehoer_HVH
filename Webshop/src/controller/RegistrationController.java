@@ -187,7 +187,7 @@ public class RegistrationController extends HttpServlet{
 			}	
 			
 			resp.addHeader("status", ENUM_RESPONSE_STATUS.HINWEIS.toString());
-			resp.addHeader("hinweismeldung", "Die E-Mail wurde erfolgreich verschickt. In k&uuml;rze sollten Sie eine E-Mail von uns erhalten.");	
+			resp.addHeader("hinweismeldung", "Die E-Mail wurde erfolgreich verschickt. In K&uuml;rze sollten Sie eine E-Mail von uns erhalten.");	
 			
 		}else{
 			resp.addHeader("status", ENUM_RESPONSE_STATUS.FEHLER.toString());
