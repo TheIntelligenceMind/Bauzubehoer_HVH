@@ -4,7 +4,6 @@ Autor dieser Datei: Tim Hermbecker, Lukas Vechtel
 Diese Datei enth&auml;lt die AGB des Webshops.
  -->
 
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
 <script type="text/javascript">
 	function artikelSuchenNachBegriff(){
@@ -16,9 +15,10 @@ Diese Datei enth&auml;lt die AGB des Webshops.
 
 <div class="showing" id="agbPanel">
 	<a class="panelClose"onclick="artikelSuchenNachBegriff()"><i class="fa fa-times"></i></a>
-	<h1>Allgemeine Gesch&auml;ftsbedingungen</h1><h2>Bauzubeh&ouml;r HVH</h2>
+	<h1>Allgemeine Gesch&auml;ftsbedingungen</h1>
+	<h2>Bauzubeh&ouml;r HVH</h2>
 	<br>
-	<h3>§ 1 Geltungsbereich und Anbieter</h3>
+	<h3> § 1 Geltungsbereich und Anbieter</h3>
 	<p>(1) Diese Allgemeinen Gesch&auml;ftsbedingungen gelten f&uuml;r alle Bestellungen, die Sie bei dem Online-Shop Bauzubeh&ouml;r HVH, Gesch&auml;ftsf&uuml;hrer: Tim Hermbecker, Lukas Vechtel, und Julian Hanfgarn t&auml;tigen.<br>
 	Service-Hotline: +49 (0) 800 8228 100<br>
 	E-Mail: bauzubehoer.hvh@gmail.com<br>
