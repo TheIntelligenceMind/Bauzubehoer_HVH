@@ -1919,7 +1919,7 @@ table#zusatzTabelle tbody td{
 #artikelDetailansichtPanel{
 	margin: 50px auto;
 	width: 800px;
-	height: 350px;
+	height: 400px;
 	text-align: center;
 	opacity: 0.9;
 	background-color: white;
@@ -2025,6 +2025,9 @@ artikelDetailansichtPanelHeadInfo{
 }
 #artikelDetailansichtPreis .proEinheit{
 	font-size: 16px;
+}
+#artikelDetailansichtPreis .versandkosten{
+	font-size: 13px;
 }
 
 #artikelDetailansichtPanelBeschreibung textarea{

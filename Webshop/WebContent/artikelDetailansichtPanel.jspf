@@ -92,6 +92,7 @@ Diese Datei behandelt das Anzeigen eines bestimmten Artikels.
 			</div>
 			<div id="artikelDetailansichtPreis">
 				<p>Preis: <%out.print(formater.format(detailansichtArtikel.getPreis()));%>&euro; /<i class="proEinheit"> pro Einheit</i></p>
+				<i class="versandkosten">zzgl. Versandkostenpauschale</i>
 			</div>
 		</div>	
 		
