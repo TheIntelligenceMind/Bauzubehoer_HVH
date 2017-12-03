@@ -680,8 +680,8 @@ html,body{
 	padding: 15px;
 }
 #artikelListeMitarbeiterTabelle{
-	width: 92%;
-	margin-left: 4%;
+	width: 90%;
+	margin-left: 5%;
 	table-layout: fixed;
 }
 .green{
@@ -719,16 +719,19 @@ html,body{
 	position: relative;
 }
 
-#artikelListeMitarbeiter > table td:nth-child(1), #artikelListeMitarbeiter > table th:nth-child(1) { width: 90px; }
-#artikelListeMitarbeiter > table td:nth-child(2), #artikelListeMitarbeiter > table th:nth-child(2) { width: 120px; }
-#artikelListeMitarbeiter > table td:nth-child(3), #artikelListeMitarbeiter > table th:nth-child(3) { width: 140px; }
-#artikelListeMitarbeiter > table td:nth-child(4), #artikelListeMitarbeiter > table th:nth-child(4) { width: 80px; }
+#artikelListeMitarbeiter > table td:nth-child(1), #artikelListeMitarbeiter > table th:nth-child(1) { width: 110px; }
+#artikelListeMitarbeiter > table td:nth-child(2), #artikelListeMitarbeiter > table th:nth-child(2) { width: 130px; }
+#artikelListeMitarbeiter > table td:nth-child(3), #artikelListeMitarbeiter > table th:nth-child(3) { width: 340px; }
+#artikelListeMitarbeiter > table td:nth-child(4), #artikelListeMitarbeiter > table th:nth-child(4) { width: 100px; }
 #artikelListeMitarbeiter > table td:nth-child(5), #artikelListeMitarbeiter > table th:nth-child(5) { width: 45px; }
 #artikelListeMitarbeiter > table td:nth-child(6), #artikelListeMitarbeiter > table th:nth-child(6) { width: 30px; }
 
 #artikelListeMitarbeiterTabelle td.tablecell{
 	height: 22px;
 	padding: 3px;
+	padding-right: 1px;
+	padding-left: 1px;
+	
 }
 #artikelListeMitarbeiterTabelle td.tablecellright{
 	text-align:center;
@@ -1242,9 +1245,9 @@ html,body{
 	position: relative;
 }
 
-#meineBestellungenPanel > table td:nth-child(1), #meineBestellungenPanel > table th:nth-child(1) { width: 100px; }
+#meineBestellungenPanel > table td:nth-child(1), #meineBestellungenPanel > table th:nth-child(1) { width: 90px; }
 #meineBestellungenPanel > table td:nth-child(2), #meineBestellungenPanel > table th:nth-child(2) { width: 110px; }
-#meineBestellungenPanel > table td:nth-child(3), #meineBestellungenPanel > table th:nth-child(3) { width: 120px; }
+#meineBestellungenPanel > table td:nth-child(3), #meineBestellungenPanel > table th:nth-child(3) { width: 130px; }
 #meineBestellungenPanel > table td:nth-child(4), #meineBestellungenPanel > table th:nth-child(4) { width: 160px; }
 #meineBestellungenPanel > table td:nth-child(5), #meineBestellungenPanel > table th:nth-child(5) { width: 120px; }
 #meineBestellungenPanel > table td:nth-child(6), #meineBestellungenPanel > table th:nth-child(6) { width: 110px; }

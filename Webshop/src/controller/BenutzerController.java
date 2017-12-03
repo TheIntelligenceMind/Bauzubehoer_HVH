@@ -76,7 +76,7 @@ public class BenutzerController extends HttpServlet {
 			benutzerstammdatenAnzeigen(req, resp);		
 			break;
 		case "benutzerAnlegenAnzeigen":
-			benutzerAnlegenAnzeigen(req, resp);
+			resp.addHeader("contentSite", "benutzerAnlegenPanel");
 			break;
 		case "benutzerAnlegen":
 			benutzerAnlegen(req, resp);
@@ -141,11 +141,29 @@ public class BenutzerController extends HttpServlet {
 		
 	}
     
+	/**
+	 * <pre><h3>Beschreibung:</h3>
+	 * Die Methode leitet zu der Benutzerstammdaten Ansicht mit allen
+	 * dazugehörigen Daten weiter
+	 * </pre> 
+	 * @param req HttpServletRequest
+	 * @param resp HttpServletResponse 
+	 */	
     private void benutzerstammdatenAnzeigen(HttpServletRequest req, HttpServletResponse resp){
 		req.setAttribute("benutzerstammdatenListe", getBenutzerstammdatenListe(req, resp));		
 		resp.addHeader("contentSite", "benutzerstammdatenPanel");   	
     }
     
+    /**
+	 * <pre>
+	 * <h3>Beschreibung:</h3>
+	 * Die Methode ermittelt alle Mitarbeiter mit der Rolle Mitarbeiter oder 
+	 * Administrator und gibt diese als List<Benutzer> zurück
+	 * </pre> 
+	 * @param req HttpServletRequest
+	 * @param resp HttpServletResponse 
+	 * @return benutzerliste
+	 */	
     private List<Benutzer> getBenutzerstammdatenListe(HttpServletRequest req, HttpServletResponse resp){
     	List<Benutzer> benutzerliste = null;
 		
@@ -156,12 +174,6 @@ public class BenutzerController extends HttpServlet {
     	benutzerliste = benutzerliste.stream().filter(b -> !b.getEmailadresse().equals(eigeneEmailadresse)).collect(Collectors.toList());
  
     	return benutzerliste;
-    }
-
-    private void benutzerAnlegenAnzeigen(HttpServletRequest req, HttpServletResponse resp){
-    	
-    	
-		resp.addHeader("contentSite", "benutzerAnlegenPanel");   	
     }
     
     private void benutzerAnlegen(HttpServletRequest req, HttpServletResponse resp){
@@ -188,11 +200,15 @@ public class BenutzerController extends HttpServlet {
     		if(fehlermeldung == null){
     			String hinweismeldung = "Das Benutzerkonto wurde erfolgreich angelegt.";
     			resp.addHeader("Status", ENUM_RESPONSE_STATUS.HINWEIS.toString());
-    			resp.addHeader(ENUM_MELDUNG_ART.HINWEISMELDUNG.toString(), hinweismeldung);	
+    			resp.addHeader(ENUM_MELDUNG_ART.HINWEISMELDUNG.toString(), hinweismeldung);
+    			
+    			// Zu der Benutzerstammdaten Ansicht weiterleiten
+    			benutzerstammdatenAnzeigen(req, resp);
     		}else{
     			resp.addHeader("Status", ENUM_RESPONSE_STATUS.FEHLER.toString());
         		resp.addHeader(ENUM_MELDUNG_ART.FEHLERMELDUNG.toString(), fehlermeldung);
         		req.setAttribute("neuerBenutzer", neuerBenutzer);
+        		resp.addHeader("contentSite", "benutzerAnlegenPanel");
     		}
     		
     	}else{
@@ -200,9 +216,8 @@ public class BenutzerController extends HttpServlet {
     		resp.addHeader("Status", ENUM_RESPONSE_STATUS.FEHLER.toString());
     		resp.addHeader(ENUM_MELDUNG_ART.FEHLERMELDUNG.toString(), fehlermeldung);
     		req.setAttribute("neuerBenutzer", neuerBenutzer);
-    	}	
-    	
-    	resp.addHeader("contentSite", "benutzerAnlegenPanel"); 
+    		resp.addHeader("contentSite", "benutzerAnlegenPanel");
+    	}	  	
     }
     
     private void benutzerBearbeitenAnzeigen(HttpServletRequest req, HttpServletResponse resp){

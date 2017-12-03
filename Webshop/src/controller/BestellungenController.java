@@ -170,7 +170,7 @@ public class BestellungenController extends HttpServlet {
 		}
 		
 		Benutzer benutzer = (Benutzer)req.getSession().getAttribute("benutzer");
-		Bestellung bestellung = new Bestellung().init("", new Date(), ENUM_BESTELLSTATUS.NEU.toString(), zahlungsart, new Date(), bestellwert, versandkosten, benutzer);
+		Bestellung bestellung = new Bestellung().init("", new Date(), ENUM_BESTELLSTATUS.NEU.toString(), zahlungsart, null, bestellwert, versandkosten, benutzer);
 		
 		bestellung = queryManager.createBestellung(bestellung, benutzer);
 		

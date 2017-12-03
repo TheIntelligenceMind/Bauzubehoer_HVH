@@ -44,6 +44,58 @@ Diese Datei behandelt das Bearbeiten von vorhandenen Artikeln.
 		$("#bildPfad").val("");
 		$("#bildSrc").attr("src", "data:image/png;base64,");
 	}
+	
+	function updateKategorie(){
+		var selectedKategorie1 = $("select#ddKategorie1 option:selected").val();
+		
+		// Dropdown komplett leeren
+		$("select#ddKategorie2").find('option').remove().end();
+		
+		// alle 2. Kategorie Elemente zu der ausgewählten 1. Kategorie hinzufügen
+		if(selectedKategorie1 != null){
+			switch(selectedKategorie1){
+			case "Bekleidung":
+				$("select#ddKategorie2").append( $("<option>")
+					    .val("Kopf")
+					    .html("Kopf")
+				).append( $("<option>")
+					    .val("Oberkoerper")
+					    .html("Oberkoerper")
+				).append( $("<option>")
+					    .val("Beine")
+					    .html("Beine")
+				).append( $("<option>")
+					    .val("Fuesse")
+					    .html("Fuesse")
+				).append( $("<option>")
+					    .val("Sonstiges")
+					    .html("Sonstiges")
+				);
+				break;
+			case "Werkzeug":
+				$("select#ddKategorie2").append( $("<option>")
+					    .val("Maschinen")
+					    .html("Maschinen")
+				).append( $("<option>")
+					    .val("Handwerkzeug")
+					    .html("Handwerkzeug")
+				).append( $("<option>")
+					    .val("Sonstiges")
+					    .html("Sonstiges")
+				);
+				break;
+			case "Sicherheit":
+				$("select#ddKategorie2").append( $("<option>")
+					    .val("Absperrung")
+					    .html("Absperrung")
+				).append( $("<option>")
+					    .val("Sonstiges")
+					    .html("Sonstiges")
+				);
+				break;
+			}	
+		}		
+	}
 </script>
 
 <div class="showing" id="artikelBearbeitenPanel">
@@ -68,7 +120,7 @@ Diese Datei behandelt das Bearbeiten von vorhandenen Artikeln.
 			<textarea title="Beschreibung" class="inputArea" wrap="soft" name="beschreibung" placeholder="Beschreibung"><% out.print(bearbeitenArtikel.getBeschreibung()); %></textarea>
 		</div>
 		<div id="artikelBearbeitenPanelKategorie_1">
-			<select title="Artikelkategorie 1" name="kategorie_1" >
+			<select id="ddKategorie1" title="Artikelkategorie 1" name="kategorie_1" onchange="updateKategorie()" >
 			<%
 				List<ENUM_ARTIKELKATEGORIE> kategorien_b_1 = ENUM_ARTIKELKATEGORIE.getArtikelkategorien1List();
 				
@@ -83,20 +135,20 @@ Diese Datei behandelt das Bearbeiten von vorhandenen Artikeln.
 			</select>
 		</div>
 		<div id="artikelBearbeitenPanelKategorie_2">
-			<select title="Artikelkategorie 2" name="kategorie_2">
-			<%
-				List<ENUM_ARTIKELKATEGORIE> kategorien_b_2 = ENUM_ARTIKELKATEGORIE.getArtikelkategorien2List();
+			<select id="ddKategorie2" title="Artikelkategorie 2" name="kategorie_2">
+				<%
+					List<ENUM_ARTIKELKATEGORIE> kategorie2Liste = ENUM_ARTIKELKATEGORIE.getArtikelkategorien2List(ENUM_ARTIKELKATEGORIE.getByName(bearbeitenArtikel.getKategorie_1().toString()));
 				
-				for(ENUM_ARTIKELKATEGORIE e: kategorien_b_2){
-					String selected = "";
-					if(e.toString().equals(bearbeitenArtikel.getKategorie_2())){
-						selected = "selected";
-					}
-					out.print("<option value='" + e.toString() + "'" + selected + ">" + e.toString() + "</option>");
-				}
-			%>
+					for(ENUM_ARTIKELKATEGORIE e: kategorie2Liste){
+						if(e.toString().equals(bearbeitenArtikel.getKategorie_2().toString())){
+							out.print("<option value=" + bearbeitenArtikel.getKategorie_2().toString() + " selected>" + bearbeitenArtikel.getKategorie_2().toString() +"</option>");								
+						}else{
+							out.print("<option value=" + e.toString() + ">" + e.toString() +"</option>");				
+						}
+					}				
+				%>
 			</select>
-		</div>
+		</div>	
 		<div id="artikelBearbeitenPanelZahlen">
 			<h3>Preis</h3>
 			<h3>Lagermenge</h3>

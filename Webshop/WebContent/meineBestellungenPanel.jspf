@@ -40,14 +40,14 @@ Diese Datei behandelt die Darstellung der gesamten Bestellungen des eingeloggten
 		    	for(Object o : bestellungenListe)
 		    	{
 		    		Bestellung bestellung = (Bestellung)o;
-		            
+
 	        		out.println("<tr>" +
 	        		"<td class='tablecell'><div>" + bestellung.getBestellnummer() + "</div></td>" +
 	        		"<td class='tablecell'><div>" + bestellung.getBestelldatum() + "</div></td>" +
 	        		"<td class='tablecell'><div>" + bestellung.getStatus() + "</div></td>" +
 	        		"<td class='tablecell'><div>" + bestellung.getZahlungsart() + "</div></td>" +
 	        		"<td class='tablecell'><div>" + formater.format(bestellung.getBestellwert()) +  " &euro;</div></td>" +
-	        		"<td class='tablecell'><div>" + bestellung.getVoraussichtlichesLieferdatum() + "</div></td>" +
+	        		"<td class='tablecell'><div>" + (bestellung.getVoraussichtlichesLieferdatum() != null ? bestellung.getVoraussichtlichesLieferdatum() : "") + "</div></td>" +
 	        		"</tr>");
 		    	}	
 	    	}

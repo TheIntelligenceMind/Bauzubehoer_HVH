@@ -144,6 +144,14 @@ public class ArtikelController extends HttpServlet {
 		resp.addHeader("contentSite", "artikelBearbeitenPanel");
 	}
 
+	/**
+	 * <pre>
+	 * <h3>Beschreibung:</h3> Die Methode leitet zu der Artikelstammdatenansicht mit den 
+	 * dazugehörigen Daten weiter
+	 * </pre>
+	 * @param req HttpServletRequest
+	 * @param resp HttpServletResponse
+	 */
 	private void artikelstammdatenAnzeigen(HttpServletRequest req, HttpServletResponse resp) {
 		List<Artikel> artikelliste = null;
 		
@@ -185,15 +193,18 @@ public class ArtikelController extends HttpServlet {
 			String hinweistext = "Der Artikel wurde erfolgreich angelegt.";
 			resp.addHeader("Status", ENUM_RESPONSE_STATUS.HINWEIS.toString());
 			resp.addHeader(ENUM_MELDUNG_ART.HINWEISMELDUNG.toString(), hinweistext);
+			
+			// Zur Artikelstammdaten Ansicht weiterleiten
+			artikelstammdatenAnzeigen(req, resp);
 		}else{
 			String fehlermeldung = fehlertext.toString();	
 			resp.addHeader("Status", ENUM_RESPONSE_STATUS.FEHLER.toString());
 			resp.addHeader(ENUM_MELDUNG_ART.FEHLERMELDUNG.toString(), fehlermeldung);
 			req.setAttribute("anlegenArtikel", anlegenArtikel);
-		}
-		
 			
-		resp.addHeader("contentSite", "artikelAnlegenPanel");
+			resp.addHeader("contentSite", "artikelAnlegenPanel");
+		}
+			
 	}
     
     private void updateWarenkorbArtikel(HttpServletRequest req){

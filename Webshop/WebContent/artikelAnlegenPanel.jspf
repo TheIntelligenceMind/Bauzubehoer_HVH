@@ -46,6 +46,61 @@ Diese Datei behandelt das Anlegen von Artikeln.
 		$("#bildPfad").val("");
 		$("#bildSrc").attr("src", "data:image/png;base64,");
 	}
+	
+	function updateKategorie(){
+		var selectedKategorie1 = $("select#ddKategorie1 option:selected").val();
+		
+		// Dropdown 1 Platzhalter Wert entfernen
+		$("select#ddKategorie1 option[value='artikelkategorie_1']").remove().end();
+		
+		// Dropdown komplett leeren
+		$("select#ddKategorie2").find('option').remove().end();
+		
+		// alle 2. Kategorie Elemente zu der ausgewählten 1. Kategorie hinzufügen
+		if(selectedKategorie1 != null){
+			switch(selectedKategorie1){
+			case "Bekleidung":
+				$("select#ddKategorie2").append( $("<option>")
+					    .val("Kopf")
+					    .html("Kopf")
+				).append( $("<option>")
+					    .val("Oberkoerper")
+					    .html("Oberkoerper")
+				).append( $("<option>")
+					    .val("Beine")
+					    .html("Beine")
+				).append( $("<option>")
+					    .val("Fuesse")
+					    .html("Fuesse")
+				).append( $("<option>")
+					    .val("Sonstiges")
+					    .html("Sonstiges")
+				);
+				break;
+			case "Werkzeug":
+				$("select#ddKategorie2").append( $("<option>")
+					    .val("Maschinen")
+					    .html("Maschinen")
+				).append( $("<option>")
+					    .val("Handwerkzeug")
+					    .html("Handwerkzeug")
+				).append( $("<option>")
+					    .val("Sonstiges")
+					    .html("Sonstiges")
+				);
+				break;
+			case "Sicherheit":
+				$("select#ddKategorie2").append( $("<option>")
+					    .val("Absperrung")
+					    .html("Absperrung")
+				).append( $("<option>")
+					    .val("Sonstiges")
+					    .html("Sonstiges")
+				);
+				break;
+			}	
+		}		
+	}
 </script>
 
 
@@ -69,9 +124,12 @@ Diese Datei behandelt das Anlegen von Artikeln.
 			<textarea title="Beschreibung" class="inputArea" wrap="soft" name="beschreibung" placeholder="Beschreibung"><% out.print(anlegenArtikel.getBeschreibung()); %></textarea>
 		</div>
 		<div id="artikelAnlegenPanelKategorie_1">
-			<select id="ddKategorie1" title="Artikelkategorie" name="kategorie_1">
-			<option value="artikelkategorie_1" selected>Artikelkategorie 1</option>
+			<select id="ddKategorie1" title="Artikelkategorie" name="kategorie_1" onchange="updateKategorie()">
 			<%
+				if(anlegenArtikel.getKategorie_1() == null || anlegenArtikel.getKategorie_1().isEmpty()){
+					out.print("<option value='artikelkategorie_1' selected>Artikelkategorie 1</option>");
+				}
+			
 				List<ENUM_ARTIKELKATEGORIE> kategorien_a_1 = ENUM_ARTIKELKATEGORIE.getArtikelkategorien1List();
 				
 				for(ENUM_ARTIKELKATEGORIE e: kategorien_a_1){
@@ -81,21 +139,26 @@ Diese Datei behandelt das Anlegen von Artikeln.
 					}
 					out.print("<option value='" + e.toString() + "'" + selected + ">" + e.toString() + "</option>");
 				}
+				
+				
 			%>
 			</select>
 		</div>
 		<div id="artikelAnlegenPanelKategorie_2">
-			<select id="ddKategorie2" title="Artikelkategorie" name="kategorie_2">
-			<option value="artikelkategorie_2" selected>Artikelkategorie 2</option>
+			<select id="ddKategorie2" title="Artikelkategorie" name="kategorie_2">		
 			<%
-				List<ENUM_ARTIKELKATEGORIE> kategorien_a_2 = ENUM_ARTIKELKATEGORIE.getArtikelkategorien2List();
-				
-				for(ENUM_ARTIKELKATEGORIE e: kategorien_a_2){
-					String selected = "";
-					if(e.toString().equals(anlegenArtikel.getKategorie_2())){
-						selected = "selected";
-					}
-					out.print("<option value='" + e.toString() + "'" + selected + ">" + e.toString() + "</option>");
+				if(anlegenArtikel.getKategorie_1() != null && !anlegenArtikel.getKategorie_1().isEmpty()){
+					List<ENUM_ARTIKELKATEGORIE> akategorie2Liste = ENUM_ARTIKELKATEGORIE.getArtikelkategorien2List(ENUM_ARTIKELKATEGORIE.getByName(anlegenArtikel.getKategorie_1().toString()));
+					
+					for(ENUM_ARTIKELKATEGORIE e: akategorie2Liste){
+						if(e.toString().equals(anlegenArtikel.getKategorie_2().toString())){
+							out.print("<option value=" + anlegenArtikel.getKategorie_2().toString() + " selected>" + anlegenArtikel.getKategorie_2().toString() +"</option>");								
+						}else{
+							out.print("<option value=" + e.toString() + ">" + e.toString() +"</option>");				
+						}
+					}	
+				}else{
+					out.print("<option value='artikelkategorie_2' selected>Artikelkategorie 2</option>");
 				}
 			%>
 			</select>
