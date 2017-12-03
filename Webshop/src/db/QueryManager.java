@@ -179,7 +179,7 @@ public class QueryManager {
 			result = stmt.executeQuery();
 			
 			if(result.next()){
-				return result.getString("resetCode");
+				return result.getString("reset_Code");
 			}
 			
 		} catch (SQLException e) {
