@@ -2031,7 +2031,7 @@ artikelDetailansichtPanelHeadInfo{
 }
 
 #artikelDetailansichtPanelBeschreibung textarea{
-	width: 760px;
+	width: 96%;
 	padding: 0;
 	height: 140px;
 	margin-left: 20px;
