@@ -20,18 +20,21 @@ public class Rolle {
 	private int sichtKonto;
 	private int sichtArtikelstammdaten;
 	private int sichtBenutzerstammdaten;
-
+	private int sichtBestellungstammdaten;
+	
 	public Rolle(){		
 		
 	}
 
-	public Rolle init(String piBezeichnung, int piSichtWarenkorb, int piSichtBestellungen, int piSichtKonto, int piSichtArtikelstammdaten, int piSichtBenutzerstammdaten){		
+	public Rolle init(String piBezeichnung, int piSichtWarenkorb, int piSichtBestellungen, int piSichtKonto, 
+			int piSichtArtikelstammdaten, int piSichtBenutzerstammdaten, int piSichtBestellungstammdaten){		
 		bezeichnung = piBezeichnung != null ? piBezeichnung : "";	
 		sichtWarenkorb = piSichtWarenkorb;	
 		sichtBestellungen = piSichtBestellungen;
 		sichtKonto = piSichtKonto;
 		sichtArtikelstammdaten = piSichtArtikelstammdaten;
 		sichtBenutzerstammdaten = piSichtBenutzerstammdaten;
+		sichtBestellungstammdaten = piSichtBestellungstammdaten;
 		
 		return this;
 	}
@@ -39,11 +42,11 @@ public class Rolle {
 	public static Rolle initRolle(ENUM_ROLLE rolle){
 		switch(rolle){
 		case MITARBEITER:
-			return new Rolle().init(ENUM_ROLLE.MITARBEITER.toString(), 0, 0, 1, 1, 0);
+			return new Rolle().init(ENUM_ROLLE.MITARBEITER.toString(), 0, 0, 1, 1, 0, 1);
 		case ADMINISTRATOR:
-			return new Rolle().init(ENUM_ROLLE.ADMINISTRATOR.toString(), 1, 1, 1, 1, 1);
+			return new Rolle().init(ENUM_ROLLE.ADMINISTRATOR.toString(), 1, 1, 1, 1, 1, 1);
 		case KUNDE:
-			return new Rolle().init(ENUM_ROLLE.KUNDE.toString(), 1, 1, 1, 0, 0);
+			return new Rolle().init(ENUM_ROLLE.KUNDE.toString(), 1, 1, 1, 0, 0, 0);
 		}
 		return null;
 	}
@@ -106,5 +109,14 @@ public class Rolle {
 
 	public void setSichtBenutzerstammdaten(int sichtBenutzerstammdaten) {
 		this.sichtBenutzerstammdaten = sichtBenutzerstammdaten;
+	}
+	
+
+	public int getSichtBestellungstammdaten() {
+		return sichtBestellungstammdaten;
+	}
+
+	public void setSichtBestellungstammdaten(int sichtBestellungstammdaten) {
+		this.sichtBestellungstammdaten = sichtBestellungstammdaten;
 	}
 }

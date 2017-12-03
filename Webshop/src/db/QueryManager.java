@@ -117,7 +117,9 @@ public class QueryManager {
 				}
 				
 
-				Rolle rolle = new Rolle().init(result.getString("bezeichnung"), result.getInt("Sicht_Warenkorb"), result.getInt("Sicht_Bestellungen"), result.getInt("Sicht_Konto"), result.getInt("Sicht_Artikelstammdaten"), result.getInt("Sicht_Benutzerstammdaten"));
+				Rolle rolle = new Rolle().init(result.getString("bezeichnung"), result.getInt("Sicht_Warenkorb"), 
+						result.getInt("Sicht_Bestellungen"), result.getInt("Sicht_Konto"), result.getInt("Sicht_Artikelstammdaten"),
+						result.getInt("Sicht_Benutzerstammdaten"), result.getInt("Sicht_Bestellungstammdaten"));
 	
 				return benutzer.init(result.getString("emailadresse"), result.getString("passwort"), result.getString("vorname"), 
 						result.getString("nachname"), adresse, rolle, result.getInt("bestaetigt"), result.getDate("registriert_Datum"));
@@ -514,7 +516,9 @@ public class QueryManager {
 		int Rolle_Admin = getRolleIDbyBezeichnung(ENUM_ROLLE.ADMINISTRATOR);
 		
 		try {
-			String sql = "SELECT * FROM " + ENUM_DB_TABELLE.BENUTZER.toString() + " b Left Join " + ENUM_DB_TABELLE.ROLLE.toString() + " r on(r.ID = b.Rolle_ID) Left Join " + ENUM_DB_TABELLE.ADRESSE.toString() + " a on(b.ID = a.Benutzer_ID) WHERE b.Rolle_ID IN (?, ?)";
+			String sql = "SELECT * FROM " + ENUM_DB_TABELLE.BENUTZER.toString() + " b Left Join " + 
+					ENUM_DB_TABELLE.ROLLE.toString() + " r on(r.ID = b.Rolle_ID) Left Join " + ENUM_DB_TABELLE.ADRESSE.toString() +
+					" a on(b.ID = a.Benutzer_ID) WHERE b.Rolle_ID IN (?, ?)";
 
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setInt(1, Rolle_Mitarbeiter);
@@ -523,8 +527,12 @@ public class QueryManager {
 			result = stmt.executeQuery();
 			
 			while(result.next()){
-				Rolle rolle = new Rolle().init(result.getString("bezeichnung"), result.getInt("Sicht_Warenkorb"), result.getInt("Sicht_Bestellungen"), result.getInt("Sicht_Konto"), result.getInt("Sicht_Artikelstammdaten"), result.getInt("Sicht_Benutzerstammdaten"));
-				Adresse adresse = new Adresse().init(result.getString("strasse"), result.getString("hausnummer"), result.getString("postleitzahl"), result.getString("ort"), result.getString("zusatz"));
+				Rolle rolle = new Rolle().init(result.getString("bezeichnung"), result.getInt("Sicht_Warenkorb"), 
+						result.getInt("Sicht_Bestellungen"), result.getInt("Sicht_Konto"), result.getInt("Sicht_Artikelstammdaten"),
+						result.getInt("Sicht_Benutzerstammdaten"), result.getInt("Sicht_Bestellungstammdaten"));
+				
+				Adresse adresse = new Adresse().init(result.getString("strasse"), result.getString("hausnummer"), 
+						result.getString("postleitzahl"), result.getString("ort"), result.getString("zusatz"));
 				
 				Benutzer mitarbeiter = new Benutzer().init(result.getString("emailadresse"), "", result.getString("vorname"), 
 						result.getString("nachname"), adresse, rolle, result.getInt("bestaetigt"), result.getDate("registriert_Datum"));
@@ -1406,7 +1414,8 @@ public class QueryManager {
 				
 			
 			//=====================================================
-			String sql = "INSERT INTO " + ENUM_DB_TABELLE.WARENKORB.toString() + " (Position, Menge, Artikel_ID, Benutzer_ID, aktiv, erstellt_Benutzer) VALUES(?, ?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO " + ENUM_DB_TABELLE.WARENKORB.toString() + " "
+					+ "(Position, Menge, Artikel_ID, Benutzer_ID, aktiv, erstellt_Benutzer) VALUES(?, ?, ?, ?, ?, ?)";
 			
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setInt(1, highestPos + 1);
@@ -1508,6 +1517,55 @@ public class QueryManager {
 			result = stmt.executeQuery();
 			
 			while(result.next()){
+				
+				Bestellung bestellung = new Bestellung().init(result.getString("bestellnummer"), result.getDate("bestelldatum")
+					, result.getString("status"), result.getString("zahlungsart"), result.getDate("voraussichtliches_Lieferdatum"), 
+					result.getDouble("bestellwert"), result.getDouble("versandkosten"), benutzer);
+				
+				bestellungListe.add(bestellung);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+				
+		return bestellungListe;
+	}
+	
+	/**
+	 * <pre>
+	 * <h3>Beschreibung:</h3>
+	 * Die Methode liefert alle Bestellungen 
+	 * </pre>
+	 * 
+	 * @return bestellungListe
+	 */
+	public List<Bestellung> selectAllBestellungen(){
+		List<Bestellung> bestellungListe = new ArrayList<Bestellung>();
+		ResultSet result = null;
+		
+		try{
+
+			String sql = "select bes.*, ben.*, r.*, a.* from " + ENUM_DB_TABELLE.BESTELLUNG.toString() + " bes left join " + 
+					ENUM_DB_TABELLE.BENUTZER.toString() + " ben on bes.Benutzer_ID = ben.ID left join " + 
+					ENUM_DB_TABELLE.ROLLE.toString() + " r on ben.Rolle_ID = r.ID left join " + ENUM_DB_TABELLE.ADRESSE.toString() 
+					+ " a on a.Benutzer_ID = ben.ID";
+			
+			PreparedStatement stmt = getConnection().prepareStatement(sql);
+
+			result = stmt.executeQuery();
+			
+			while(result.next()){
+				Rolle rolle = new Rolle().init(result.getString("bezeichnung"), result.getInt("Sicht_Warenkorb"), 
+						result.getInt("Sicht_Bestellungen"), result.getInt("Sicht_Konto"), 
+						result.getInt("Sicht_Artikelstammdaten"), result.getInt("Sicht_Benutzerstammdaten"), 
+						result.getInt("Sicht_Bestellungstammdaten"));
+				
+				Adresse adresse = new Adresse().init(result.getString("strasse"), result.getString("hausnummer"), 
+						result.getString("postleitzahl"), result.getString("ort"), result.getString("zusatz"));
+				
+				Benutzer benutzer = new Benutzer().init(result.getString("emailadresse"), "", result.getString("vorname"), 
+						result.getString("nachname"), adresse, rolle, result.getInt("bestaetigt"), result.getDate("registriert_Datum"));
 				
 				Bestellung bestellung = new Bestellung().init(result.getString("bestellnummer"), result.getDate("bestelldatum")
 					, result.getString("status"), result.getString("zahlungsart"), result.getDate("voraussichtliches_Lieferdatum"), 
