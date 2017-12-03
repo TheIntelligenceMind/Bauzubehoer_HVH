@@ -131,10 +131,21 @@ public class QueryManager {
 		return null;
 	}	
 	
-	public void setResetCode(Benutzer piBenutzer, String resetCode){
+	/**
+	 * <h3>Beschreibung:</h3>
+	 * <pre>
+	 * Die Methode setzt den Reset-Code für den Fall
+	 * einer angeforderten Passwort-Zurücksetzung.
+	 * </pre>
+	 * 
+	 * @param piBenutzer Benutzer
+	 * @param piResetCode String
+	 */
+	public void setResetCode(Benutzer piBenutzer, String piResetCode){
 		Benutzer benutzer = piBenutzer;
+		String resetCode = piResetCode;
 		try {
-			String sql = "UPDATE " + ENUM_DB_TABELLE.BENUTZER.toString() + " SET resetCode = ? WHERE emailadresse = ?";
+			String sql = "UPDATE " + ENUM_DB_TABELLE.BENUTZER.toString() + " SET reset_Code = ? WHERE emailadresse = ?";
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setString(1, resetCode);
 			stmt.setString(2, benutzer.getEmailadresse());
@@ -146,12 +157,22 @@ public class QueryManager {
 		}	
 	}
 	
+	/**
+	 * <h3>Beschreibung:</h3>
+	 * <pre>
+	 * Die Methode liefert den Reset-Code für einen
+	 * Benutzer, der sein Passwort zurücksetzen will.
+	 * </pre>
+	 * 
+	 * @param piEMailAdresse String
+	 * @return resetCode String
+	 */
 	public String getResetCode(String piEmailadresse){
 		String emailadresse = piEmailadresse;
 		ResultSet result = null;
 		
 		try {
-			String sql = "SELECT resetCode FROM " + ENUM_DB_TABELLE.BENUTZER.toString() + " WHERE emailadresse = ?";
+			String sql = "SELECT reset_Code FROM " + ENUM_DB_TABELLE.BENUTZER.toString() + " WHERE emailadresse = ?";
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setString(1, emailadresse);
 			
