@@ -36,7 +36,6 @@ function artikelSuchenNachBegriff(){
             <th>Lagermenge</th>
             <th>Artikelnummer</th>
             <th>Produkt</th>
-            <th>Produktbeschreibung</th>
             <th>Preis (&euro;)</th>
             <th>Aktiv</th>
             <th></th>
@@ -69,7 +68,6 @@ function artikelSuchenNachBegriff(){
 	        		"<td class='tablecell'>" + artikelLagermengeFarbe + "" + art.getLagermenge() + "</div></td>" +
 	        		"<td class='tablecell'><div>" + String.format("%04d", art.getNummer()) + "</div></td>" +
 	        		"<td class='tablecell'><div>" + art.getBezeichnung() + "</div></td>" +
-	        		"<td class='tablecell'><div>" + art.getBeschreibung() + "</div></td>" +
 	        		"<td class='tablecell'><div>" + formater.format(art.getPreis()) +  "</div></td>" +
 	        		"<td class='tablecell'><div>" + artikelAktivSymbol + "</div></td>" +
 	        		"<td class='tablecellright'>" + "<a onclick='artikelBearbeitenAnzeigen(" + art.getNummer() + ")' class='PickSymbol'><i class='fa fa-pencil-square-o'></i></a>" + "</div></td>" +
