@@ -28,7 +28,7 @@ function artikelSuchenNachBegriff(){
 
 <div class="showing" id="artikelListeMitarbeiter">
 	<a class="panelClose"onclick="artikelSuchenNachBegriff()"><i class="fa fa-times"></i></a>
-	<h1>Artikelliste</h1>
+	<h1>Artikelstammdaten</h1>
 
       <table id="artikelListeMitarbeiterTabelle">
         <thead>

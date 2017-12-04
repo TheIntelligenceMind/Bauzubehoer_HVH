@@ -21,19 +21,23 @@ Hier wird auch eine gefilterte Suche mit ausgegeben.
 	}
 	
 	function verfuegbareMengePruefen2(lagermenge){	
-		var result = true;
-		if(lagermenge <= 0){	
-			result = confirm("Die ausgewählte Menge ist derzeit nicht auf Lager verfügbar. "
-					+ "Sollten Sie diese Menge trotzdem bestellen wollen, dauert die Lieferung länger als üblich.");
-		}	
-		accept = result;
-		
-		return result;
+		if($('#angemeldet').val() == "true"){
+			var result = true;
+			if(lagermenge <= 0){	
+				result = confirm("Die ausgewählte Menge ist derzeit nicht auf Lager verfügbar. "
+						+ "Sollten Sie diese Menge trotzdem bestellen wollen, dauert die Lieferung länger als üblich.");
+			}	
+			accept = result;
+			
+			return result;
+		}
 	}
+
 </script>
 
 <div class="showing" id="artikelListeKunden">
 	<div id="artikelKundenTabellen">
+	<input type="hidden" id="angemeldet" value="<% out.print(request.getSession().getAttribute("benutzer") != null ? "true" : "false"); %>">
        	<%
 		     	List<?> artikelListe = null;		     	
 		     	artikelListe = ((List<?>)request.getAttribute("artikelliste"));
