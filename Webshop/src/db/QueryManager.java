@@ -1535,6 +1535,40 @@ public class QueryManager {
 	/**
 	 * <pre>
 	 * <h3>Beschreibung:</h3>
+	 * Die Methode liefert zu einer Bestellungs ID eine Bestellung zurück
+	 * </pre>
+	 * 
+	 * @return bestellungListe
+	 */
+	public Bestellung getBestellungByBestellungID(int piBestellungID){
+		int id = piBestellungID;
+		
+		
+		
+		
+		return null;
+	}
+	
+	/**
+	 * <pre>
+	 * <h3>Beschreibung:</h3>
+	 * Die Methode modifiziert eine übergebene Bestellung
+	 * </pre>
+	 * 
+	 * @return bestellungListe
+	 */
+	public boolean modifyBestellung(Bestellung piBestellung){
+		Bestellung bestellung = piBestellung;
+		
+		// beim Update nur die benötigten Felder updaten (Bestellstatus, Zahlungsart und Lieferdatum)
+		
+		
+		return false;
+	}
+	
+	/**
+	 * <pre>
+	 * <h3>Beschreibung:</h3>
 	 * Die Methode liefert alle Bestellungen 
 	 * </pre>
 	 * 
