@@ -1554,7 +1554,7 @@ public class QueryManager {
 	 * Die Methode liefert zu einer Bestellungs alle enthaltenen Artikel zurück
 	 * </pre>
 	 * 
-	 * @return bestellungListe
+	 * @return bestellartikelListe
 	 */
 	public List<BestellArtikel> getAllArtikelByBestellungID(int piBestellungID){
 		int id = piBestellungID;
