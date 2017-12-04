@@ -416,7 +416,8 @@ html,body{
 }
 #passwortResetLink{
 	color: white;
-	margin-top: 5px;
+	margin-top: 10px;
+	font-size: 15px;
 }
 #passwortResetLink a:hover{
 	color: #332714;

@@ -41,7 +41,12 @@ public class WarenkorbController extends HttpServlet {
     	resp.setContentType("text/html");
     	
     	// prüfen ob es eine Session gibt, wenn nicht an die Startseite weiterleiten
-		if(req.getSession().getAttribute("benutzer") == null){
+		if(req.getSession().getAttribute("benutzer") == null){		
+			if("artikelInDenWarenkorb".equals(req.getParameter("method"))){
+				resp.addHeader("status", ENUM_RESPONSE_STATUS.FEHLER.toString());
+				resp.addHeader("fehlermeldung", "Sie m&uuml;ssen angemeldet sein, um Artikel zu Ihrem Warenkorb hinzuf&uuml;gen zu können.");
+			}
+			
 			rd = req.getRequestDispatcher("/suchen");	
     		rd.forward(req, resp);
     		return;
