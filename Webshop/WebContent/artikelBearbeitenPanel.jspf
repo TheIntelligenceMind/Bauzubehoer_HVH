@@ -137,14 +137,16 @@ Diese Datei behandelt das Bearbeiten von vorhandenen Artikeln.
 		<div id="artikelBearbeitenPanelKategorie_2">
 			<select id="ddKategorie2" title="Artikelkategorie 2" name="kategorie_2">
 				<%
-					List<ENUM_ARTIKELKATEGORIE> kategorie2Liste = ENUM_ARTIKELKATEGORIE.getArtikelkategorien2List(ENUM_ARTIKELKATEGORIE.getByName(bearbeitenArtikel.getKategorie_1().toString()));
-				
-					for(ENUM_ARTIKELKATEGORIE e: kategorie2Liste){
-						if(e.toString().equals(bearbeitenArtikel.getKategorie_2().toString())){
-							out.print("<option value=" + bearbeitenArtikel.getKategorie_2().toString() + " selected>" + bearbeitenArtikel.getKategorie_2().toString() +"</option>");								
-						}else{
-							out.print("<option value=" + e.toString() + ">" + e.toString() +"</option>");				
-						}
+					if(bearbeitenArtikel.getKategorie_1() != null && !bearbeitenArtikel.getKategorie_1().isEmpty()){
+						List<ENUM_ARTIKELKATEGORIE> kategorie2Liste = ENUM_ARTIKELKATEGORIE.getArtikelkategorien2List(ENUM_ARTIKELKATEGORIE.getByName(bearbeitenArtikel.getKategorie_1().toString()));
+						
+						for(ENUM_ARTIKELKATEGORIE e: kategorie2Liste){
+							if(e.toString().equals(bearbeitenArtikel.getKategorie_2().toString())){
+								out.print("<option value=" + bearbeitenArtikel.getKategorie_2().toString() + " selected>" + bearbeitenArtikel.getKategorie_2().toString() +"</option>");								
+							}else{
+								out.print("<option value=" + e.toString() + ">" + e.toString() +"</option>");				
+							}
+						}	
 					}				
 				%>
 			</select>

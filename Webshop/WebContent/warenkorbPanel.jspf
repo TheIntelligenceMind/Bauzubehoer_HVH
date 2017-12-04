@@ -72,8 +72,8 @@ Diese Datei behandelt den Warenkorb, indem Artikel entfernt, Mengen angepasst od
 		        	double gesamt = 0;
 		        	int versandkosten = 20;
 		        	double mwst = 0;
-	
-		        	if(warenkorbartikelListe != null){
+		        
+		        	if(warenkorbartikelListe != null){	
 			        	for(Object o : warenkorbartikelListe){
 			        		WarenkorbArtikel warenkorbartikel = (WarenkorbArtikel)o;
 			        		
@@ -93,6 +93,7 @@ Diese Datei behandelt den Warenkorb, indem Artikel entfernt, Mengen angepasst od
 	      </table>
 	    	<%
 	        	if(warenkorbartikelListe == null || warenkorbartikelListe.size() == 0){
+	        		versandkosten = 0;
 				%>
 					<div id="keineWarenkorbArtikelPanel">
 						<h3>Es befinden sich derzeit keine Artikel im Warenkorb.</h3>
