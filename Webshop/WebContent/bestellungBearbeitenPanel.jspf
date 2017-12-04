@@ -1,0 +1,75 @@
+<%@page import="entity.Benutzer"%>
+<%@page import="entity.Bestellung"%>
+<%@page import="java.util.List"%>
+
+<!-- 
+Autor dieser Datei: Tim Hermbecker, Lukas Vechtel
+
+Diese Datei behandelt das Anzeigen aller Bestellungen des Webshops.
+Aus dieser Ansicht kann das "bestellungBearbeitenPanel" aufgerufen werden.
+ -->
+
+
+<script type="text/javascript">
+function artikelSuchenNachBegriff(){
+	$(document).ready(function() {	      	               
+          window.location.href = "suchen";  
+	}); 
+</script>
+
+
+<div class="showing" id="bestellungBearbeitenPanel">
+<a class="panelClose"onclick="artikelSuchenNachBegriff()"><i class="fa fa-times"></i></a>
+<h1>Bestellungstammdaten</h1>
+
+
+		<input type="text" class="inputField" value="hier den bestellerVORnamen" readonly>
+		<input type="text" class="inputField" value="hier den bestellerNACHnamen" readonly>
+	
+
+
+      <table id="bestellungenBearbeitenTabelle">
+        <thead>
+          <tr>
+          	<th>Artikel-Nr</th>
+            <th>Bezeichnung</th>
+            <th>Preis</th>
+            <th>Menge</th>
+            <th>Summe</th>
+          </tr>
+        </thead>
+        <tbody>
+        	<% 
+        	List<?> bestellArtikelListe = (List<?>)session.getAttribute("bestellArtikelListe");
+        	
+        	if(bestellArtikelListe != null)
+		 	{
+	    	for(Object o : bestellArtikelListe)
+	    		{
+	    			BestellArtikel bestellArtikel = (BestellArtikel)o;
+	    			
+	    			out.print
+					{
+	        		"<td class='tablecell'><div>" + bestellArtikel.getArtikel().getArtikelnummer() + "</div></td>" +
+	        		"<td class='tablecell'><div>" + bestellArtikel.getArtikel().getBezeichnung() + "</div></td>" +
+	        		"<td class='tablecell'><div>" + bestellArtikel.getArtikel().getPreis() + "</div></td>" +
+	        		"<td class='tablecell'><div>" + bestellArtikel.getMenge() + "</div></td>" +
+	        		"<td class='tablecell'><div>" + formater.format(bestellArtikel.getArtikel().getPreis() * bestellArtikel.getMenge()) + "</div></td>"
+					};
+	    		}
+		 	}
+	        		
+        	%>
+		</tbody>
+    </table>
+    
+    <form action="bestellungBearbeiten">
+	    <select name="status" id="statusauswahlBestellungBearbeiten">
+		     <option value="Neu">Neu</option>
+		     <option value="In Bearbeitung">In Bearbeitung</option>
+		     <option value="Versandt">Versandt</option>
+		     <option value="Abgeschlossen">Abgeschlossen</option>
+	    </select>
+	    <button id="btnBestellungBearbeiten" class="btnRight btnStandardKlein" type="submit" name="method" value="bestellungBearbeiten">Speichern</button>
+    </form>
+</div>

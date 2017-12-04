@@ -1,0 +1,69 @@
+<%@page import="entity.Benutzer"%>
+<%@page import="entity.Bestellung"%>
+<%@page import="java.util.List"%>
+
+<!-- 
+Autor dieser Datei: Tim Hermbecker, Lukas Vechtel
+
+Diese Datei behandelt das Anzeigen aller Bestellungen des Webshops.
+Aus dieser Ansicht kann das "bestellungBearbeitenPanel" aufgerufen werden.
+ -->
+
+
+<script type="text/javascript">
+function artikelSuchenNachBegriff(){
+	$(document).ready(function() {	      	               
+          window.location.href = "suchen";  
+	}); 
+</script>
+
+
+<div class="showing" id="bestellungstammdatenPanel">
+<a class="panelClose"onclick="artikelSuchenNachBegriff()"><i class="fa fa-times"></i></a>
+<h1>Bestellungstammdaten</h1>
+
+      <table id="bestellungenTabelle">
+        <thead>
+          <tr>
+          	<th>Bestell-Nr</th>
+          	<th>Datum</th>
+            <th>Vorname</th>
+            <th>Nachname</th>
+            <th>Summe</th>
+            <th>Status</th>
+            <th>voraus. Lieferdatum</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+        	 <%
+        	 List<?> bestellungenListe = (List<?>)session.getAttribute("bestellungenliste");
+        	 /*
+        	 if(bestellungenListe != null)
+			 	{
+		    	for(Object o : bestellungenListe)
+		    		{
+		    			Bestellung bestellung = (Bestellung)o;
+        	 */
+						out.print
+						{
+		        		"<td class='tablecell'><div>" + bestellung.getBestellnummer() + "</div></td>" +
+		        		"<td class='tablecell'><div>" + bestellung.getBestelldatum() + "</div></td>" +
+		        		"<td class='tablecell'><div>" + "Vorname" + "</div></td>" +
+		        		"<td class='tablecell'><div>" + "Nachname" + "</div></td>" +
+		        		"<td class='tablecell'><div>" + formater.format(bestellung.getBestellwert()) + "</div></td>" +
+		        		"<td class='tablecell'><div>" + bestellung.getStatus() + "</div></td>" +
+		        		"<td class='tablecell'><div>" + (bestellung.getVoraussichtlichesLieferdatum() != null ? bestellung.getVoraussichtlichesLieferdatum() : "") + "</div></td>" +
+		        		"<td class='tablecellright'>" "<a onclick='bestellungBearbeiten(" + "IRGENDWAS" + ")' class='PickSymbol'><i class='fa fa-pencil-square-o'></i></a>" + "</div></td>"
+						};
+        	 /*	
+        	 	}
+        	 	hier die Bestellungsabfrage.
+        	 	Benötigt wird erstmal Nachname, Vorname, Status, Summe und Bestell-Nr.
+        	 	Über das Bearbeiten Panel wird dann der Rest (Artikelliste, ...) geladen.
+        	 */
+        	 	
+        	%>
+        </tbody>
+    </table>
+</div>
