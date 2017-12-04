@@ -1,0 +1,49 @@
+<%@page import="entity.Artikel"%>
+<%@page import="java.util.List"%>
+
+<!-- 
+Autor dieser Datei: Tim Hermbecker, Lukas Vechtel
+
+Diese Datei behandelt die Anzeige von Artikeln für den Kunden.
+Hier wird auch eine gefilterte Suche mit ausgegeben.
+ -->
+
+<script type="text/javascript">
+	function artikelDetailansichtAnzeigen(artikelnummer){
+		$(document).ready(function() {
+	          window.location.href = "suchen?method=artikelDetailansichtAnzeigen&artikelnummer=" + artikelnummer;  
+		});
+	}
+</script>
+
+<div class="showing" id="artikelListeKunden">
+	<div id="artikelKundenTabellen">
+       	<%
+		     	List<?> artikelListe = null;		     	
+		     	artikelListe = ((List<?>)request.getAttribute("artikelliste"));
+		     	
+		     	if(artikelListe != null){
+		     		for(Object o : artikelListe){
+			     		Artikel a = (Artikel)o;
+			     		String anzeigenBild = a.getBildasString();
+			     		if(anzeigenBild == null){
+			     			anzeigenBild = "";
+			     		}
+			     		
+			     		out.println("<div onclick='artikelDetailansichtAnzeigen(" + a.getNummer() + ")' id='artikelListeKundenDesign'>" + 
+			    		"<div id='artikelListeKundenBild'><img alt='Bild' src='data:image/png;base64," + anzeigenBild + "'/></div>" +
+			     		"<div id='artikelListeKundenBezeichnung'>" + a.getBezeichnung() + "</div>" +
+			       		"<div id='artikelListeKundenPreis'>" + "&euro; " +  formater.format(a.getPreis()) + "</div>" +
+			     	    "<div id='artikelListeKundenBeschreibung'>" + a.getBeschreibung() + "</div>" +
+			     	    "<form action='warenkorb'>" +
+			     	    "<input type='hidden' name='method' value='artikelInDenWarenkorb'>" +
+			     	    "<input type='hidden' name='artikelnummer' value='" + a.getNummer() + "'>" +
+			     	    "<button id='artikelListeKundenWarenkorbButton'>In den Warenkorb</button>" +
+			     	    "</form>" +
+			     		"</div>");
+			     	}
+		     	}
+		     	
+       	%>
+	</div>
+</div>

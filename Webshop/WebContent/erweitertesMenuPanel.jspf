@@ -44,12 +44,11 @@ Hier wurde das Suchfeld und das Logo implementiert.
 	<div id="searchPanel">
 	
 		<ul>
-			<li id="sucheHeader" ><i class="fa fa-search"></i> Suchen</li> 
-			
+			<li id="sucheHeader" ><i class="fa fa-search"></i></li>
 			<li>
 				<form action="suchen" method="POST">
 					<input id="sucheEingabe" name="suchargument" type="text" placeholder="Artikelbezeichnung ...">
-					<input type="submit" value="suchen" style="display:none;">
+					<button id="sucheButton" type="submit">Suchen</button>
 				</form>
 			<li>
 		</ul>	

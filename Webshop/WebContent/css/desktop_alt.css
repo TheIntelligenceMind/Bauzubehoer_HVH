@@ -85,10 +85,10 @@ html,body{
 }
 
 .disabledBtn{
-	background-color: #f0a784;
+	background-color: #f1ae8d;
 }
 .disabledBtn:hover{
-	background-color: #f0a784;
+	background-color: #f1ae8d;
 	cursor: default;
 }
 .enabledBtn{
@@ -119,16 +119,17 @@ html,body{
   	position: sticky;
 	top: 0;
 	z-index: 1;
-	-webkit-box-shadow: 0px 0px 27px -7px black;
-	-moz-box-shadow: 0px 0px 27px -7px black;
-	box-shadow: 0px 0px 27px -7px black;	
+	-webkit-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
+	box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);	
 }
 
 /* Header der Webseite */
-#header{
+#header
+{
 	float: left;
 	height: 50px;
-	width: 28%;
+	width: 30%;
 	text-align:center;
 }
 #header:hover
@@ -148,10 +149,10 @@ html,body{
 }
 
 /* Suchfunktion */
-#searchPanel{
+#searchPanel
+{
 	float: left;
-	width: 280px;
-	margin-right: 100px;
+	width: 20%;
 	height: 60px;
 }
 #searchPanel ul{
@@ -180,52 +181,21 @@ html,body{
 	color: #332714;	
 }
 #sucheHeader{
-	width: 30px;
 	margin: 0;
 	font-size:25px;
 	margin-right: 10px;
 }
-#searchPanel form{
-	width: 240px;
-}
 #sucheEingabe{
-	margin: 0;
 	margin-top: 18px;
 	padding: 3px;
-	width: 174px;
+	width: 100%;
 	height: 20px;
 	border: none;
-	border-radius: 5px 0 0 5px;	
-	-webkit-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
-	-moz-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
-	box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);	
-}
-#sucheButton{
-	margin: 0;
-	padding: 0;
-	padding-bottom: 1px;
-	background-color: #d5581c;
-	color: white;
-	margin-top: 18px;
-	margin-left: -6px;
-	width: 60px;
-	height: 26px;
-	border: none;
-	border-radius: 0 5px 5px 0;
-	font-size: 14px;	
-	transition: background-color 0.1s ease-in;
-	-webkit-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
-	-moz-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
-	box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);	
-}
-#sucheButton:hover{
-	cursor: pointer;
-	background-color: #c95218;	
+	border-radius: 5px;	
 }
 #artikelKategoriePanel{
 	float:left;
 	height: 60px;
-	margin-left: 40px;
 }
 #artikelKategoriePanel ul {
 	list-style: none;
@@ -307,9 +277,6 @@ html,body{
 	font-weight: bold;
 	color: white;
 	transition: color 0.2s ease-in, background 0.2s ease-in;
-	-webkit-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
-	-moz-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
-	box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);	
 }
 #registrierungLink a:hover{
 	color: #BF4D17;
@@ -896,72 +863,75 @@ html,body{
 }
 #artikelListeKundenDesign{
 	text-align: center;
-	opacity: 0.87;
-	background-color: white;
+	opacity: 0.9;
+	background-color: #fdf3ee;
+	border-radius: 20px;
   	-webkit-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
 	-moz-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
 	box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
-	border-radius: 5px;
+	border: solid 2px #BF4D17;;
+	border-radius: 20px;
 	border-collapse: collapse;
-	width: 31%;
-	height: 290px;
-	margin-bottom: 20px;
-	margin-left: 1%;
-	margin-right: 1%;
-	float: left;
-	transition: opacity 0.1s ease-in;
+	width: 70%;
+	height: 120px;
+	margin: 20px auto;
+	margin-top: 10px;
 }
 #artikelListeKundenDesign:hover{
-	cursor: pointer;
-	opacity: 1;
+	cursor:pointer;
 }
 #artikelListeKundenBild{
-	margin: 0 auto;
 	float: left;
+	margin-left: 3%;
+	margin-top: 15px;
+	border: solid 1px gray;
 	border-radius: 2px;
-	height: 130px;
-	width: 100%;
+	height: 90px;
+	width: 80px;
 }
 #artikelListeKundenBild img{
-	height: 130px;
-	width: 120px;
+	height: 90px;
+	width: 80px;
 }
 #artikelListeKundenBezeichnung{
-	text-align: center;
+	text-align: left;
 	float: left;
-	width: 96%;
-	margin-top: 20px;
-	margin-bottom: 20px;
 	margin-left: 2%;
-	margin-right: 2%;
-	font-size: 22px;
-	font-weight: bold;
+	width: 63%;
+	margin-top: 20px;
+	font-size: 20px;
+}
+#artikelListeKundenBeschreibung{
+	float: left;
+	text-align: left;
+	margin-left: 2%;
+	margin-top: 10px;
+	width: 63%;
+	height: 55px;
+	font-size: 15px;
 }
 #artikelListeKundenPreis{
-	margin-top: 10px;
-	float: right;
-	width: 100%;
-	text-align: center;
-	font-size: 20px;
-	font-weight: bold;
-}
-#artikelListeKundenDesign form{
-	margin-top: 10px;
-	width: 100%;
 	float: left;
-	text-align: center;
-	height: 30px;
+	margin-left: 2%;
+	margin-top: 20px;
+	width: 16%;
+	text-align: left;
+	font-size: 18px;
 }
 #artikelListeKundenWarenkorbButton{
-	padding: 7px;
+	float: left;
+	padding: 7px;	
 	height: 30px;
 	border-style: none;
+	margin-left: 2%;
+	margin-top: 60px;
+	background-color: #BF4D17;
 	color: white;
 	border-radius: 5px;
-	-webkit-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
-	-moz-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
-	box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
-	transition: background-color 0.1s ease-in;
+}
+#artikelListeKundenWarenkorbButton:hover{
+	cursor: pointer;
+	background-color: #9b4013;
 }
 @media (max-width: 1200px)
 {
@@ -2096,7 +2066,8 @@ artikelDetailansichtPanelHeadInfo{
 	color: white;
 	border-radius: 5px;
 }
-#artikelDetailansichtInfo{
+#artikelDetailansichtInfo
+{
 	float: left;
 	text-align: left;
 	margin-left: 3%;
