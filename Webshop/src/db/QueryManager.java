@@ -12,6 +12,7 @@ import entity.Adresse;
 import entity.Artikel;
 import entity.Benutzer;
 import entity.Bestellung;
+import entity.BestellArtikel;
 import entity.Rolle;
 import entity.WarenkorbArtikel;
 import enums.ENUM_DB_TABELLE;
@@ -1544,6 +1545,19 @@ public class QueryManager {
 		int id = piBestellungID;
 		
 		
+		return null;
+	}
+	
+	/**
+	 * <pre>
+	 * <h3>Beschreibung:</h3>
+	 * Die Methode liefert zu einer Bestellungs alle enthaltenen Artikel zurück
+	 * </pre>
+	 * 
+	 * @return bestellungListe
+	 */
+	public List<BestellArtikel> getAllArtikelByBestellungID(int piBestellungID){
+		int id = piBestellungID;
 		
 		
 		return null;
@@ -1561,7 +1575,7 @@ public class QueryManager {
 		Bestellung bestellung = piBestellung;
 		
 		// beim Update nur die benötigten Felder updaten (Bestellstatus, Zahlungsart und Lieferdatum)
-		
+		// was passiert mit dem geändert_benutzer?
 		
 		return false;
 	}
