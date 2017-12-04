@@ -1,3 +1,4 @@
+<%@page import="entity.WarenkorbArtikel"%>
 <%@page import="entity.Artikel"%>
 <%@page import="java.util.List"%>
 
@@ -9,10 +10,25 @@ Hier wird auch eine gefilterte Suche mit ausgegeben.
  -->
 
 <script type="text/javascript">
+	var accept = true;
+
 	function artikelDetailansichtAnzeigen(artikelnummer){
 		$(document).ready(function() {
-	          window.location.href = "suchen?method=artikelDetailansichtAnzeigen&artikelnummer=" + artikelnummer;  
+			if(accept){
+				window.location.href = "suchen?method=artikelDetailansichtAnzeigen&artikelnummer=" + artikelnummer;  
+			}   
 		});
+	}
+	
+	function verfuegbareMengePruefen2(lagermenge){	
+		var result = true;
+		if(lagermenge <= 0){	
+			result = confirm("Die ausgewählte Menge ist derzeit nicht auf Lager verfügbar. "
+					+ "Sollten Sie diese Menge trotzdem bestellen wollen, dauert die Lieferung länger als üblich.");
+		}	
+		accept = result;
+		
+		return result;
 	}
 </script>
 
@@ -26,21 +42,39 @@ Hier wird auch eine gefilterte Suche mit ausgegeben.
 		     		for(Object o : artikelListe){
 			     		Artikel a = (Artikel)o;
 			     		String anzeigenBild = a.getBildasString();
+			     		
+			     		String buttonText = "In den Warenkorb";
+			     		String buttonClass = "enabledBtn";
+			     		String buttonDisabled = "";
+			     		List<?> warenkorbartikelListeA = (List<?>)session.getAttribute("warenkorbartikelliste");
+			     		
 			     		if(anzeigenBild == null){
 			     			anzeigenBild = "";
+			     		}   		
+			     		
+			     		if(warenkorbartikelListeA != null){
+			     			for(Object oa : warenkorbartikelListeA){
+			     				WarenkorbArtikel warenkorbartikela = (WarenkorbArtikel)oa;
+			     				if(warenkorbartikela.getArtikel().getNummer() == a.getNummer()){
+			     					buttonText = "bereits im Warenkorb";
+			     					buttonClass = "disabledBtn";
+			     					buttonDisabled = "disabled='diabled'";
+			     					break;
+			     				}
+			     			}
 			     		}
 			     		
 			     		out.println("<div onclick='artikelDetailansichtAnzeigen(" + a.getNummer() + ")' id='artikelListeKundenDesign'>" + 
-			    		"<div id='artikelListeKundenBild'><img alt='Bild' src='data:image/png;base64," + anzeigenBild + "'/></div>" +
-			     		"<div id='artikelListeKundenBezeichnung'>" + a.getBezeichnung() + "</div>" +
-			       		"<div id='artikelListeKundenPreis'>" + "&euro; " +  formater.format(a.getPreis()) + "</div>" +
-			     	    "<div id='artikelListeKundenBeschreibung'>" + a.getBeschreibung() + "</div>" +
-			     	    "<form action='warenkorb'>" +
-			     	    "<input type='hidden' name='method' value='artikelInDenWarenkorb'>" +
-			     	    "<input type='hidden' name='artikelnummer' value='" + a.getNummer() + "'>" +
-			     	    "<button id='artikelListeKundenWarenkorbButton'>In den Warenkorb</button>" +
-			     	    "</form>" +
-			     		"</div>");
+			     				"<div id='artikelListeKundenBezeichnung'>" + a.getBezeichnung() + "</div>" +
+			     				"<div id='artikelListeKundenBild'><img alt='Bild' src='data:image/png;base64," + anzeigenBild + "'/></div>" +
+			     						"<form action='warenkorb'>" +
+							     	    "<input type='hidden' name='method' value='artikelInDenWarenkorb'>" +
+							     	    "<input type='hidden' name='artikelnummer' value='" + a.getNummer() + "'>" +
+							     	    "<button id='artikelListeKundenWarenkorbButton' onclick='return verfuegbareMengePruefen2(" + a.getLagermenge() + ");' class='" + buttonClass + "' " + buttonDisabled + ">" + buttonText + "</button>" +
+							     	    "</form>" +
+			       				"<div id='artikelListeKundenPreis'>" +  formater.format(a.getPreis()) + " &euro;</div>" +    	    
+			     			"</div>");
+		  
 			     	}
 		     	}
 		     	

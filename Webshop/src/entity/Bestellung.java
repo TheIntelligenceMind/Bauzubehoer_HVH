@@ -16,7 +16,8 @@ public class Bestellung {
 	private Date voraussichtlichesLieferdatum;
 	private double bestellwert;
 	private double versandkosten;
-	private Benutzer benutzer; 
+	private Benutzer benutzer;
+	private String geaendertBenutzer;
 	
 	public Bestellung(){
 		
@@ -33,6 +34,7 @@ public class Bestellung {
 		bestellwert = piBestellwert;
 		setVersandkosten(piVersandkosten);
 		benutzer = piBenutzer;
+		geaendertBenutzer = "";
 		
 		return this;
 	}
@@ -99,6 +101,14 @@ public class Bestellung {
 
 	public void setVersandkosten(double versandkosten) {
 		this.versandkosten = versandkosten;
+	}
+	
+	public String getGeaendertBenutzer() {
+		return geaendertBenutzer;
+	}
+
+	public void setGeaendertBenutzer(String geaendertBenutzer) {
+		this.geaendertBenutzer = geaendertBenutzer;
 	}
 	
 }

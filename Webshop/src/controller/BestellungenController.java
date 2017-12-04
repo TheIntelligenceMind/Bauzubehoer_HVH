@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import db.QueryManager;
 import entity.Adresse;
+import entity.Artikel;
 import entity.Benutzer;
 import entity.Bestellung;
 import entity.WarenkorbArtikel;
@@ -166,6 +167,15 @@ public class BestellungenController extends HttpServlet {
 		List<WarenkorbArtikel> bestellartikelliste = (List<WarenkorbArtikel>)req.getSession().getAttribute("warenkorbartikelliste");
 		
 		for(WarenkorbArtikel artikel : bestellartikelliste){
+			Artikel db_Artikel = queryManager.searchArtikelByNummer(artikel.getArtikel().getNummer());
+			db_Artikel.setLagermenge(db_Artikel.getLagermenge() - artikel.getMenge());
+			
+			if(db_Artikel.getLagermenge() < 0){
+				db_Artikel.setLagermenge(0);
+			}
+			// Lagermenge mit der bestellten Menge dekrementieren, falls der Lagerbestand unter 0 sinken sollte trotzdem auf 0 updaten
+			queryManager.modifyArtikel(db_Artikel);
+			
 			bestellwert += (artikel.getArtikel().getPreis() * artikel.getMenge());
 		}
 		
