@@ -1660,7 +1660,7 @@ public class QueryManager {
 	/**
 	 * <pre>
 	 * <h3>Beschreibung:</h3>
-	 * Die Methode liefert alle Bestellungen 
+	 * Die Methode liefert alle vorhandenen Bestellungen 
 	 * </pre>
 	 * 
 	 * @return bestellungListe
