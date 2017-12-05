@@ -1,6 +1,8 @@
 <%@page import="entity.Benutzer"%>
 <%@page import="entity.Bestellung"%>
 <%@page import="entity.BestellArtikel"%>
+<%@page import="enums.ENUM_BESTELLSTATUS"%>
+<%@page import="enums.ENUM_ZAHLUNGSART"%>
 <%@page import="java.util.List"%>
 
 <!-- 
@@ -30,55 +32,92 @@ function artikelSuchenNachBegriff(){
 <div class="showing" id="bestellungBearbeitenPanel">
 	<a class="panelClose"onclick="artikelSuchenNachBegriff()"><i class="fa fa-times"></i></a>
 	<h1>Bestellung bearbeiten</h1>
-	<h3>Bestellnummer</h3>
-	<input type="text" class="inputField" value="<% out.print(bearbeitenBestellung.getBestellnummer()); %>" disabled></input>
-	<h3>Vorname</h3>
-	<input type="text" title="Vorname" class="inputField" value="<% out.print(bearbeitenBestellungBenutzer.getVorname()); %>" disabled></input>
-	<h3>Nachname</h3>
-	<input type="text" title="Nachname" class="inputField" value="<% out.print(bearbeitenBestellungBenutzer.getNachname()); %>" disabled></input>
 	
-      <table id="bestellungenBearbeitenTabelle">
-        <thead>
-          <tr>
-          	<th>Artikel-Nr</th>
-            <th>Bezeichnung</th>
-            <th>Preis</th>
-            <th>Menge</th>
-            <th>Summe</th>
-          </tr>
-        </thead>
-        <tbody>
-  
-        	<% 
-        	List<?> bestellArtikelliste = (List<?>)session.getAttribute("bearbeitenBestellungArtikelliste");
-        	
-        	if(bestellArtikelliste != null){
-	    		for(Object o : bestellArtikelliste){
-	    			BestellArtikel bestellArtikel = (BestellArtikel)o;
-	    			
-	    			out.print(  "<tr>" +
-				        		"<td class='tablecell'><div>" + bestellArtikel.getArtikel().getNummer() + "</div></td>" +
-				        		"<td class='tablecell'><div>" + bestellArtikel.getArtikel().getBezeichnung() + "</div></td>" +
-				        		"<td class='tablecell'><div>" + bestellArtikel.getArtikel().getPreis() + "</div></td>" +
-				        		"<td class='tablecell'><div>" + bestellArtikel.getMenge() + "</div></td>" +
-				        		"<td class='tablecell'><div>" + formater.format(bestellArtikel.getArtikel().getPreis() * bestellArtikel.getMenge()) + "</div></td>" +
-								"</tr>"
-	    					);
-	    		}
-		 	}
-	        		
-        	%>
-        	  
-		</tbody>
-    </table>
-    
-    <form action="bestellungBearbeiten">
+	<form action="meineBestellungen">
+		<h3>Bestellnummer</h3>
+		<input type="text" class="inputField" value="<% out.print(bearbeitenBestellung.getBestellnummer()); %>" disabled></input>
+		<input type="hidden" name="bestellnummer" value="<% out.print(bearbeitenBestellung.getBestellnummer()); %>"></input>
+		
+		<h3>Vorname</h3>
+		<input type="text" title="Vorname" class="inputField" value="<% out.print(bearbeitenBestellungBenutzer.getVorname()); %>" disabled></input>
+		
+		<h3>Nachname</h3>
+		<input type="text" title="Nachname" class="inputField" value="<% out.print(bearbeitenBestellungBenutzer.getNachname()); %>" disabled></input>
+		
+		<h3>voraussichliches Lieferdatum</h3>
+		<input type="text" title="voraussichtliches Lieferdatum" name="lieferdatum" class="inputField" placeholder="YYYY-MM-DD" value="<% out.print((bearbeitenBestellung.getVoraussichtlichesLieferdatum() != null ? bearbeitenBestellung.getVoraussichtlichesLieferdatum() : "")); %>"></input>
+		
+		<h3>Status</h3>
 	    <select name="status" id="statusauswahlBestellungBearbeiten">
-		     <option value="Neu">Neu</option>
-		     <option value="In Bearbeitung">In Bearbeitung</option>
-		     <option value="Versandt">Versandt</option>
-		     <option value="Abgeschlossen">Abgeschlossen</option>
+		     <%
+		     	List<ENUM_BESTELLSTATUS> statusliste = ENUM_BESTELLSTATUS.getBestellstatusListe();
+		     	String selectedStatus = "selected";
+		     	
+		     	for(ENUM_BESTELLSTATUS e : statusliste){
+		     		if(e.toString().equals(bearbeitenBestellung.getStatus())){
+		     			out.print("<option value='" + e.toString() + "' " + selectedStatus + ">" + e.toString() + "</option>");
+		     		}else{
+		     			out.print("<option value='" + e.toString() + "'>" + e.toString() + "</option>");
+		     		}  	
+		     	}
+		     %>
 	    </select>
+	    
+		<h3>Zahlungsart</h3>
+		<select name="zahlungsart" id="zahlungsartauswahlBestellungBearbeiten">
+		     <%
+		     	List<ENUM_ZAHLUNGSART> zahlungsartliste = ENUM_ZAHLUNGSART.getZahlungsartListe();
+		     	String selectedZahlungsart = "selected";
+		     	
+		     	for(ENUM_ZAHLUNGSART e : zahlungsartliste){
+		     		if(e.toString().equals(bearbeitenBestellung.getZahlungsart())){
+		     			out.print("<option value='" + e.toString() + "' " + selectedZahlungsart + ">" + e.toString() + "</option>");
+		     		}else{
+		     			out.print("<option value='" + e.toString() + "'>" + e.toString() + "</option>");
+		     		}  	
+		     	}
+		     %>
+	    </select>
+	    
+	    <table id="bestellungenBearbeitenTabelle">
+	       	<thead>
+	          <tr>
+	          	<th>Artikel-Nr</th>
+	            <th>Bezeichnung</th>
+	            <th>Preis</th>
+	            <th>Menge</th>
+	            <th>Summe</th>
+	          </tr>
+	        </thead>
+	        <tbody>
+	        	<% 
+		        	List<?> bestellArtikelliste = (List<?>)session.getAttribute("bearbeitenBestellungArtikelliste");
+		        	
+		        	if(bestellArtikelliste != null){
+			    		for(Object o : bestellArtikelliste){
+			    			BestellArtikel bestellArtikel = (BestellArtikel)o;
+			    			
+			    			out.print(  "<tr>" +
+						        		"<td class='tablecell'><div>" + bestellArtikel.getArtikel().getNummer() + "</div></td>" +
+						        		"<td class='tablecell'><div>" + bestellArtikel.getArtikel().getBezeichnung() + "</div></td>" +
+						        		"<td class='tablecell'><div>" + bestellArtikel.getArtikel().getPreis() + "</div></td>" +
+						        		"<td class='tablecell'><div>" + bestellArtikel.getMenge() + "</div></td>" +
+						        		"<td class='tablecell'><div>" + formater.format(bestellArtikel.getArtikel().getPreis() * bestellArtikel.getMenge()) + "</div></td>" +
+										"</tr>"
+			    					);
+			    		}
+				 	}		        		
+	        	%>
+	       	  
+			</tbody>
+	    </table>
+
 	    <button id="btnBestellungBearbeiten" class="btnRight btnStandardKlein" type="submit" name="method" value="bestellungBearbeiten">Speichern</button>
-    </form>
+	</form>
+	<div id="bestellungBearbeitenBtnLeft">
+		<form action="meineBestellungen">
+			<button class="btnLeft btnStandardKlein" type="submit" name="method" value="bestellungenstammdatenAnzeigen"><i class="fa fa-arrow-left"></i> Zur&uuml;ck</button>
+		</form>
+	</div>
+	
 </div>

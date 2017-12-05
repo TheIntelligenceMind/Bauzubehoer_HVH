@@ -2,6 +2,10 @@ package controller;
 
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -77,6 +81,9 @@ public class BestellungenController extends HttpServlet {
 			case "bestellungBearbeitenAnzeigen":
 				bestellungBearbeitenAnzeigen(req, resp);
 				break;
+			case "bestellungBearbeiten":
+				bestellungBearbeiten(req, resp);
+				break;
 			case "bestellungenAnzeigen":				
 				resp.addHeader("contentSite", "meineBestellungenPanel");
 				break;
@@ -112,11 +119,111 @@ public class BestellungenController extends HttpServlet {
 		rd = req.getRequestDispatcher(dispatchSite);
 		rd.forward(req, resp);	
 	}
+    
+    
+    /**
+     * <pre>
+     * <h3>Beschreibung:</h3> Die Methode führt das Speichern nach 
+     * dem Bearbeiten einer Bestellung durch und speichert die 
+     * geänderten Daten in der Datenbank
+     * </pre>
+     * @param req HttpServletRequest
+	 * @param resp HttpServletResponse 
+     */
+    private void bestellungBearbeiten(HttpServletRequest req, HttpServletResponse resp){
+    	String bestellnummer = req.getParameter("bestellnummer");
+    	String status = req.getParameter("status");  	
+    	String lieferdatum = req.getParameter("lieferdatum");
+    	String zahlungsart = req.getParameter("zahlungsart");
+    	
+    	Bestellung bestellung = queryManager.selectBestellungByBestellnummer(bestellnummer);
+    	
+    	if(validateDate(lieferdatum)){	
+			if(bestellung != null){
+				bestellung.setStatus(status);
+				bestellung.setVoraussichtlichesLieferdatum(parseStringToDate(lieferdatum));
+				bestellung.setZahlungsart(zahlungsart);
+				
+				boolean result = queryManager.modifyBestellung(bestellung);
+				
+				if(result){
+					resp.addHeader("Status", ENUM_RESPONSE_STATUS.HINWEIS.toString());
+					resp.addHeader(ENUM_MELDUNG_ART.HINWEISMELDUNG.toString(), "Die Bestellung wurde erfolgreich gespeichert.");
+				}else{
+					resp.addHeader("Status", ENUM_RESPONSE_STATUS.FEHLER.toString());
+					resp.addHeader(ENUM_MELDUNG_ART.FEHLERMELDUNG.toString(), "Es ist ein unerwarteter Fehler beim Speichern der Bestellung aufgetreten.");
+				}
+			}else{
+				resp.addHeader("Status", ENUM_RESPONSE_STATUS.FEHLER.toString());
+				resp.addHeader(ENUM_MELDUNG_ART.FEHLERMELDUNG.toString(), "Es ist ein unerwarteter Fehler beim Speichern der Bestellung aufgetreten.");
+			}
+    	}else{
+    		resp.addHeader("Status", ENUM_RESPONSE_STATUS.FEHLER.toString());
+			resp.addHeader(ENUM_MELDUNG_ART.FEHLERMELDUNG.toString(), "Das voraussichtliche Lieferdatum ist ung&uuml;ltig.");
+    	}
+    	bestellung = queryManager.selectBestellungByBestellnummer(bestellnummer);
+    	
+    	req.setAttribute("bearbeitenBestellung", bestellung);
+    	req.setAttribute("bearbeitenBestellungArtikelliste", queryManager.selectAllBestellArtikelByBestellnummer(bestellnummer));
+    	resp.addHeader("contentSite", "bestellungBearbeitenPanel");
+    }
 
+    /**
+     *  <pre>
+     * <h3>Beschreibung:</h3> Die Methode überprüft, ob es sich um das richtige 
+     * Datumsformat und um ein reales Datum handelt
+     * </pre>
+     * @param datum
+     * @return true oder false
+     */
+    private boolean validateDate(String strDatum){
+    	java.text.SimpleDateFormat sdf = 
+    		    new java.text.SimpleDateFormat("yyyy-MM-dd");
+    	if (strDatum != null) {
+    	    try {
+    	      java.util.Date ret = sdf.parse(strDatum.trim());
+    	      if (sdf.format(ret).equals(strDatum.trim())) {
+    	        return true;
+    	      }
+    	    } catch (ParseException e) {
+    	      e.printStackTrace();
+    	    }
+    	  }
+    	return false;
+    }
+    
+    /**
+     *  <pre>
+     * <h3>Beschreibung:</h3> Die Methode wandelt ein String-Datum 
+     * in ein Date-Datum um und gibt dieses zurück
+     * </pre>
+     * @param strDatum
+     * @return datum
+     */
+    private Date parseStringToDate(String strDatum){
+    	Date datum = null;
+    	
+    	DateFormat df = new SimpleDateFormat("yyyy-MM-dd"); 
+		try {
+			datum = df.parse(strDatum);
+		} catch (ParseException e) { return null; }
+    	
+    	return datum;
+    }
+    
+    /**
+     * <pre>
+     * <h3>Beschreibung:</h3> 
+     * Die Methode holt alle Bestelldaten zu einer Bestellung 
+     * und leitet zu der "Bestellung Bearbeiten" Ansicht weiter
+     * </pre>
+     * @param req HttpServletRequest
+	 * @param resp HttpServletResponse 
+     */
     private void bestellungBearbeitenAnzeigen(HttpServletRequest req, HttpServletResponse resp){
     	String bestellnummer = req.getParameter("bestellnummer");
-    	Bestellung bestellung = queryManager.getBestellungByBestellnummer(bestellnummer);
-    	List<BestellArtikel> bestellartikellliste = queryManager.getAllArtikelByBestellnummer(bestellnummer);
+    	Bestellung bestellung = queryManager.selectBestellungByBestellnummer(bestellnummer);
+    	List<BestellArtikel> bestellartikellliste = queryManager.selectAllBestellArtikelByBestellnummer(bestellnummer);
     	
     	if(bestellung == null){
     		resp.addHeader("Status", ENUM_RESPONSE_STATUS.FEHLER.toString());
@@ -127,7 +234,6 @@ public class BestellungenController extends HttpServlet {
         	req.setAttribute("bearbeitenBestellungArtikelliste", bestellartikellliste);
         	resp.addHeader("contentSite", "bestellungBearbeitenPanel");
     	}
-	
     }
     
     /**
@@ -159,6 +265,13 @@ public class BestellungenController extends HttpServlet {
     	return bestellungenliste;
     }
     
+    /**
+	 * <pre><h3>Beschreibung:</h3>
+	 * Die Methode leitet an die 1. Bestellvorgangsansicht weiter
+	 * </pre> 
+	 * @param req HttpServletRequest
+	 * @param resp HttpServletResponse 
+	 */	
 	private void bestellungErfassenS1Anzeigen(HttpServletRequest req, HttpServletResponse resp) {
 		String emailadresse = ((Benutzer)req.getSession().getAttribute("benutzer")).getEmailadresse();
 		Benutzer benutzer = queryManager.getBenutzerByEMailAdresse(emailadresse);			
@@ -167,6 +280,14 @@ public class BestellungenController extends HttpServlet {
 		resp.addHeader("contentSite", "bestellungLieferadressePanel");
 	}
     
+	/**
+	 * <pre><h3>Beschreibung:</h3>
+	 * Die Methode validiert alle eingegebenen Daten aus der 1. Bestellvorgangsansicht 
+	 * und leitet bei erfolgreicher Validierung an die 2. Bestellvorgangsansicht weiter
+	 * </pre> 
+	 * @param req HttpServletRequest
+	 * @param resp HttpServletResponse 
+	 */	
     private void bestellungS1Validieren(HttpServletRequest req, HttpServletResponse resp){
     	Adresse lieferAdresse = new Adresse().init(req.getParameter("strasse"), req.getParameter("hausnummer"), req.getParameter("postleitzahl"), req.getParameter("ort"), "");
     	

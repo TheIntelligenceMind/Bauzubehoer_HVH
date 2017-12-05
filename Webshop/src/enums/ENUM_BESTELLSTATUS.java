@@ -1,5 +1,8 @@
 package enums;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * <pre>
  * <h3>Beschreibung:</h3> Das ENUM enthält alle möglichen Bestellstatus
@@ -20,6 +23,17 @@ public enum ENUM_BESTELLSTATUS {
 	@Override
 	public String toString(){
 		return name;
+	}
+	
+	public static List<ENUM_BESTELLSTATUS> getBestellstatusListe(){
+		List<ENUM_BESTELLSTATUS> bestellstatusliste = new ArrayList<ENUM_BESTELLSTATUS>();
+		
+		bestellstatusliste.add(ENUM_BESTELLSTATUS.NEU);
+		bestellstatusliste.add(ENUM_BESTELLSTATUS.IN_BEARBEITUNG);
+		bestellstatusliste.add(ENUM_BESTELLSTATUS.VERSANDT);
+		bestellstatusliste.add(ENUM_BESTELLSTATUS.ABGESCHLOSSEN);
+
+		return bestellstatusliste;
 	}
 
 }
