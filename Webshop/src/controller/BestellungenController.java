@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,10 +13,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.math.NumberUtils;
+
 import db.QueryManager;
 import entity.Adresse;
 import entity.Artikel;
 import entity.Benutzer;
+import entity.BestellArtikel;
 import entity.Bestellung;
 import entity.WarenkorbArtikel;
 import enums.ENUM_BESTELLSTATUS;
@@ -69,6 +73,12 @@ public class BestellungenController extends HttpServlet {
 		}
 			
 		switch(method){
+			case "bestellungenstammdatenAnzeigen":
+				bestellungstammdatenAnzeigen(req, resp);
+				break;
+			case "bestellungBearbeitenAnzeigen":
+				bestellungBearbeitenAnzeigen(req, resp);
+				break;
 			case "bestellungenAnzeigen":				
 				resp.addHeader("contentSite", "meineBestellungenPanel");
 				break;
@@ -105,6 +115,52 @@ public class BestellungenController extends HttpServlet {
 		rd.forward(req, resp);	
 	}
 
+    private void bestellungBearbeitenAnzeigen(HttpServletRequest req, HttpServletResponse resp){
+    	int bestellnummer = NumberUtils.toInt(req.getParameter("bestellnummer"), -1);
+    	Bestellung bestellung = queryManager.getBestellungByBestellungID(bestellnummer);
+    	List<BestellArtikel> bestellartikellliste = queryManager.getAllArtikelByBestellungID(bestellnummer);
+    	
+    	if(bestellung == null){
+    		resp.addHeader("Status", ENUM_RESPONSE_STATUS.FEHLER.toString());
+			resp.addHeader(ENUM_MELDUNG_ART.FEHLERMELDUNG.toString(), "Daten zur Bestellung konnten nicht abgerufen werden.");
+			bestellungstammdatenAnzeigen(req, resp);
+    	}else{
+    		req.setAttribute("bearbeitenBestellung", bestellung);
+        	req.setAttribute("bearbeitenBestellungArtikelliste", bestellartikellliste);
+        	resp.addHeader("contentSite", "bestellungBearbeitenPanel");
+    	}
+	
+    }
+    
+    /**
+	 * <pre><h3>Beschreibung:</h3>
+	 * Die Methode leitet zu der Bestellungstammdaten Ansicht mit allen
+	 * dazugehörigen Daten weiter
+	 * </pre> 
+	 * @param req HttpServletRequest
+	 * @param resp HttpServletResponse 
+	 */	
+    private void bestellungstammdatenAnzeigen(HttpServletRequest req, HttpServletResponse resp){
+		req.setAttribute("bestellungstammdatenListe", getBestellungstammdatenListe(req, resp));		
+		resp.addHeader("contentSite", "bestellungstammdatenPanel");   	
+    }
+    
+    /**
+	 * <pre><h3>Beschreibung:</h3>
+	 * Die Methode liefert eine Liste mit allen vorhandenen Bestellungen zurück
+	 * </pre> 
+	 * @param req HttpServletRequest
+	 * @param resp HttpServletResponse 
+	 * @return bestellungenliste
+	 */	
+    private List<Bestellung> getBestellungstammdatenListe(HttpServletRequest req, HttpServletResponse resp){
+    	List<Bestellung> bestellungenliste = null;
+		
+    	bestellungenliste = queryManager.selectAllBestellungen();
+
+    	return bestellungenliste;
+    }
+    
 	private void bestellungErfassenS1Anzeigen(HttpServletRequest req, HttpServletResponse resp) {
 		String emailadresse = ((Benutzer)req.getSession().getAttribute("benutzer")).getEmailadresse();
 		Benutzer benutzer = queryManager.getBenutzerByEMailAdresse(emailadresse);			

@@ -8,7 +8,8 @@ package enums;
  */
 public enum ENUM_SICHT {
 
-	WARENKORB("Warenkorb"), BESTELLUNGEN("meine Bestellungen"), KONTO("mein Konto"), ARTIKELSTAMMDATEN("Artikelstammdaten"), BENUTZERSTAMMDATEN("Benutzerstammdaten");
+	WARENKORB("Warenkorb"), BESTELLUNGEN("meine Bestellungen"), KONTO("mein Konto"), ARTIKELSTAMMDATEN("Artikelstammdaten")
+	, BENUTZERSTAMMDATEN("Benutzerstammdaten"), BESTELLUNGSTAMMDATEN("Bestellungstammdaten");
 	
 	private final String name;
 	

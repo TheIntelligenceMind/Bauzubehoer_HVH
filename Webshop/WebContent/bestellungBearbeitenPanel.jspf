@@ -1,5 +1,6 @@
 <%@page import="entity.Benutzer"%>
 <%@page import="entity.Bestellung"%>
+<%@page import="entity.BestellArtikel"%>
 <%@page import="java.util.List"%>
 
 <!-- 
@@ -17,17 +18,25 @@ function artikelSuchenNachBegriff(){
 	}); 
 </script>
 
+<%
+	Bestellung bearbeitenBestellung = (Bestellung)request.getAttribute("bearbeitenBestellung");
+	Benutzer bearbeitenBestellungBenutzer = null;
+	
+	if(bearbeitenBestellung != null){
+		bearbeitenBestellungBenutzer = bearbeitenBestellung.getBenutzer();
+	}
+%>
 
 <div class="showing" id="bestellungBearbeitenPanel">
-<a class="panelClose"onclick="artikelSuchenNachBegriff()"><i class="fa fa-times"></i></a>
-<h1>Bestellungstammdaten</h1>
-
-
-		<input type="text" class="inputField" value="hier den bestellerVORnamen" readonly>
-		<input type="text" class="inputField" value="hier den bestellerNACHnamen" readonly>
+	<a class="panelClose"onclick="artikelSuchenNachBegriff()"><i class="fa fa-times"></i></a>
+	<h1>Bestellung bearbeiten</h1>
+	<h3>Bestellnummer</h3>
+	<input type="text" class="inputField" value="<% out.print(bearbeitenBestellung.getBestellnummer()); %>" disabled></input>
+	<h3>Vorname</h3>
+	<input type="text" title="Vorname" class="inputField" value="<% out.print(bearbeitenBestellungBenutzer.getVorname()); %>" disabled></input>
+	<h3>Nachname</h3>
+	<input type="text" title="Nachname" class="inputField" value="<% out.print(bearbeitenBestellungBenutzer.getNachname()); %>" disabled></input>
 	
-
-
       <table id="bestellungenBearbeitenTabelle">
         <thead>
           <tr>
@@ -39,27 +48,27 @@ function artikelSuchenNachBegriff(){
           </tr>
         </thead>
         <tbody>
+  
         	<% 
-        	List<?> bestellArtikelListe = (List<?>)session.getAttribute("bestellArtikelListe");
+        	List<?> bestellArtikelliste = (List<?>)session.getAttribute("bearbeitenBestellungArtikelliste");
         	
-        	if(bestellArtikelListe != null)
-		 	{
-	    	for(Object o : bestellArtikelListe)
-	    		{
+        	if(bestellArtikelliste != null){
+	    		for(Object o : bestellArtikelliste){
 	    			BestellArtikel bestellArtikel = (BestellArtikel)o;
 	    			
-	    			out.print
-					{
-	        		"<td class='tablecell'><div>" + bestellArtikel.getArtikel().getArtikelnummer() + "</div></td>" +
-	        		"<td class='tablecell'><div>" + bestellArtikel.getArtikel().getBezeichnung() + "</div></td>" +
-	        		"<td class='tablecell'><div>" + bestellArtikel.getArtikel().getPreis() + "</div></td>" +
-	        		"<td class='tablecell'><div>" + bestellArtikel.getMenge() + "</div></td>" +
-	        		"<td class='tablecell'><div>" + formater.format(bestellArtikel.getArtikel().getPreis() * bestellArtikel.getMenge()) + "</div></td>"
-					};
+	    			out.print(  "<tr>" +
+				        		"<td class='tablecell'><div>" + bestellArtikel.getArtikel().getNummer() + "</div></td>" +
+				        		"<td class='tablecell'><div>" + bestellArtikel.getArtikel().getBezeichnung() + "</div></td>" +
+				        		"<td class='tablecell'><div>" + bestellArtikel.getArtikel().getPreis() + "</div></td>" +
+				        		"<td class='tablecell'><div>" + bestellArtikel.getMenge() + "</div></td>" +
+				        		"<td class='tablecell'><div>" + formater.format(bestellArtikel.getArtikel().getPreis() * bestellArtikel.getMenge()) + "</div></td>" +
+								"</tr>"
+	    					);
 	    		}
 		 	}
 	        		
         	%>
+        	  
 		</tbody>
     </table>
     

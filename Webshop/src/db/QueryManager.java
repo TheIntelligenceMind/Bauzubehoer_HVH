@@ -1597,7 +1597,7 @@ public class QueryManager {
 			String sql = "select bes.*, ben.*, r.*, a.* from " + ENUM_DB_TABELLE.BESTELLUNG.toString() + " bes left join " + 
 					ENUM_DB_TABELLE.BENUTZER.toString() + " ben on bes.Benutzer_ID = ben.ID left join " + 
 					ENUM_DB_TABELLE.ROLLE.toString() + " r on ben.Rolle_ID = r.ID left join " + ENUM_DB_TABELLE.ADRESSE.toString() 
-					+ " a on a.Benutzer_ID = ben.ID";
+					+ " a on a.Benutzer_ID = ben.ID order by bes.bestellnummer desc";
 			
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 

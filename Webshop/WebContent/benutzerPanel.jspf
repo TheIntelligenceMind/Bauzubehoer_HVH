@@ -44,6 +44,12 @@ Es werden je nach Zugriffsrichtlinien folgende Seiten angezeigt:
 	          window.location.href = "benutzer?method=benutzerstammdatenAnzeigen";  
 		}); 
 	}
+	
+	function bestellungstammdatenAnzeigen(){
+		$(document).ready(function() {	      	               
+	          window.location.href = "meineBestellungen?method=bestellungenstammdatenAnzeigen";  
+		}); 
+	}
 </script>
 
 <%
@@ -105,6 +111,11 @@ Es werden je nach Zugriffsrichtlinien folgende Seiten angezeigt:
 					case BENUTZERSTAMMDATEN:
 						%>
 							<li><i class="fa fa-address-card-o"></i><a onclick="benutzerstammdatenAnzeigen()"> Benutzerstammdaten</a></li>
+						<%
+						break;
+					case BESTELLUNGSTAMMDATEN:
+						%>
+							<li><i class="fa fa-cubes"></i><a onclick="bestellungstammdatenAnzeigen()"> Bestellungstammdaten</a></li>
 						<%
 						break;
 					default:

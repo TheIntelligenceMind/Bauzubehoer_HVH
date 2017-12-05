@@ -11,10 +11,20 @@ Aus dieser Ansicht kann das "bestellungBearbeitenPanel" aufgerufen werden.
 
 
 <script type="text/javascript">
-function artikelSuchenNachBegriff(){
-	$(document).ready(function() {	      	               
-          window.location.href = "suchen";  
-	}); 
+	function artikelSuchenNachBegriff(){
+		$(document).ready(function() {	      	               
+	          window.location.href = "suchen";  
+		}); 
+	}
+	
+	function bestellungBearbeitenAnzeigen(bestellnr){
+		var bestellnummer = bestellnr;
+		if(bestellnummer != null){    
+			$(document).ready(function() {	      	               
+				window.location.href = "meineBestellungen?method=bestellungBearbeitenAnzeigen&bestellnummer=" + bestellnummer;  
+			});                 			
+		}
+	}
 </script>
 
 
@@ -37,31 +47,31 @@ function artikelSuchenNachBegriff(){
         </thead>
         <tbody>
         	 <%
-        	 List<?> bestellungenListe = (List<?>)session.getAttribute("bestellungenliste");
-        	 /*
-        	 if(bestellungenListe != null)
-			 	{
-		    	for(Object o : bestellungenListe)
-		    		{
-		    			Bestellung bestellung = (Bestellung)o;
-        	 */
-						out.print
-						{
-		        		"<td class='tablecell'><div>" + bestellung.getBestellnummer() + "</div></td>" +
-		        		"<td class='tablecell'><div>" + bestellung.getBestelldatum() + "</div></td>" +
-		        		"<td class='tablecell'><div>" + "Vorname" + "</div></td>" +
-		        		"<td class='tablecell'><div>" + "Nachname" + "</div></td>" +
-		        		"<td class='tablecell'><div>" + formater.format(bestellung.getBestellwert()) + "</div></td>" +
-		        		"<td class='tablecell'><div>" + bestellung.getStatus() + "</div></td>" +
-		        		"<td class='tablecell'><div>" + (bestellung.getVoraussichtlichesLieferdatum() != null ? bestellung.getVoraussichtlichesLieferdatum() : "") + "</div></td>" +
-		        		"<td class='tablecellright'>" "<a onclick='bestellungBearbeiten(" + "IRGENDWAS" + ")' class='PickSymbol'><i class='fa fa-pencil-square-o'></i></a>" + "</div></td>"
-						};
-        	 /*	
+        	 List<?> bestellungstammdatenListe = (List<?>)request.getAttribute("bestellungstammdatenListe");
+        	 
+        	 if(bestellungstammdatenListe != null){
+
+		    	for(Object o : bestellungstammdatenListe){
+		    			Bestellung stammdatenBestellung = (Bestellung)o;
+        	 
+						out.println(  "<tr>" +
+					        		"<td class='tablecell'><div>" + stammdatenBestellung.getBestellnummer() + "</div></td>" +
+					        		"<td class='tablecell'><div>" + stammdatenBestellung.getBestelldatum() + "</div></td>" +
+					        		"<td class='tablecell'><div>" + "Vorname" + "</div></td>" +
+					        		"<td class='tablecell'><div>" + "Nachname" + "</div></td>" +
+					        		"<td class='tablecell'><div>" + formater.format(stammdatenBestellung.getBestellwert()) + "</div></td>" +
+					        		"<td class='tablecell'><div>" + stammdatenBestellung.getStatus() + "</div></td>" +
+					        		"<td class='tablecell'><div>" + (stammdatenBestellung.getVoraussichtlichesLieferdatum() != null ? stammdatenBestellung.getVoraussichtlichesLieferdatum() : "") + "</div></td>" +
+					        		"<td class='tablecellright'><a onclick='bestellungBearbeitenAnzeigen(" + stammdatenBestellung.getBestellnummer() + ")' class='PickSymbol'><i class='fa fa-pencil-square-o'></i></a></td>" +
+					        		"</tr>"
+								);
         	 	}
+        	 }
+		    	/*
         	 	hier die Bestellungsabfrage.
         	 	Benötigt wird erstmal Nachname, Vorname, Status, Summe und Bestell-Nr.
         	 	Über das Bearbeiten Panel wird dann der Rest (Artikelliste, ...) geladen.
-        	 */
+        	 	*/
         	 	
         	%>
         </tbody>

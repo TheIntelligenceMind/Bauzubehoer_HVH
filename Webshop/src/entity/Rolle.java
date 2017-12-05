@@ -59,6 +59,7 @@ public class Rolle {
 		if(sichtKonto == 1){ sichten.add(ENUM_SICHT.KONTO);}
 		if(sichtArtikelstammdaten == 1){ sichten.add(ENUM_SICHT.ARTIKELSTAMMDATEN);}	
 		if(sichtBenutzerstammdaten == 1){ sichten.add(ENUM_SICHT.BENUTZERSTAMMDATEN);}	
+		if(sichtBestellungstammdaten == 1){ sichten.add(ENUM_SICHT.BESTELLUNGSTAMMDATEN);}	
 		
 		return sichten;
 	}
@@ -110,7 +111,6 @@ public class Rolle {
 	public void setSichtBenutzerstammdaten(int sichtBenutzerstammdaten) {
 		this.sichtBenutzerstammdaten = sichtBenutzerstammdaten;
 	}
-	
 
 	public int getSichtBestellungstammdaten() {
 		return sichtBestellungstammdaten;
