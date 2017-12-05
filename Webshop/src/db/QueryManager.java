@@ -41,8 +41,10 @@ public class QueryManager {
 	//für Jahres-Angabe (Erzeugung der Bestellnummer)
 	private static final SimpleDateFormat sdf_year = new SimpleDateFormat("yyyy");
 	
+	//für Eintragungen in der Datenbank in der Spalte "erstellt_Benutzer"
     private final static String DBUSER = "db_user";
-	private final static QueryManager instance = new QueryManager();	
+	
+    private final static QueryManager instance = new QueryManager();	
 	private Connection connection = null;
 
 	private Connection getConnection(){
@@ -94,8 +96,8 @@ public class QueryManager {
 		
 		try {
 			String sql = "SELECT * FROM " + ENUM_DB_TABELLE.BENUTZER.toString() + " b "
-					+ "left join " + ENUM_DB_TABELLE.ADRESSE.toString() + " a on(a.Benutzer_ID = b.ID) "
-					+ "left join " + ENUM_DB_TABELLE.ROLLE.toString() + " r on(b.Rolle_ID = r.ID) WHERE b.emailadresse = ?";
+					+ "LEFT JOIN " + ENUM_DB_TABELLE.ADRESSE.toString() + " a ON(a.Benutzer_ID = b.ID) "
+					+ "LEFT JOIN " + ENUM_DB_TABELLE.ROLLE.toString() + " r ON(b.Rolle_ID = r.ID) WHERE b.emailadresse = ?";
 			
 			String post_sql = "SELECT * FROM " + ENUM_DB_TABELLE.ADRESSE.toString() + " WHERE Benutzer_ID = ?";					
 			
@@ -517,9 +519,9 @@ public class QueryManager {
 		int Rolle_Admin = getRolleIDbyBezeichnung(ENUM_ROLLE.ADMINISTRATOR);
 		
 		try {
-			String sql = "SELECT * FROM " + ENUM_DB_TABELLE.BENUTZER.toString() + " b Left Join " + 
-					ENUM_DB_TABELLE.ROLLE.toString() + " r on(r.ID = b.Rolle_ID) Left Join " + ENUM_DB_TABELLE.ADRESSE.toString() +
-					" a on(b.ID = a.Benutzer_ID) WHERE b.Rolle_ID IN (?, ?)";
+			String sql = "SELECT * FROM " + ENUM_DB_TABELLE.BENUTZER.toString() + " b LEFT JOIN " + 
+					ENUM_DB_TABELLE.ROLLE.toString() + " r on(r.ID = b.Rolle_ID) LEFT JOIN " + ENUM_DB_TABELLE.ADRESSE.toString() +
+					" a ON(b.ID = a.Benutzer_ID) WHERE b.Rolle_ID IN (?, ?)";
 
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setInt(1, Rolle_Mitarbeiter);
@@ -696,8 +698,8 @@ public class QueryManager {
 		ResultSet result = null;
 		
 		try{
-			String sql = "SELECT sum(w.menge * a.preis) as 'bestellwert' FROM " + 
-					ENUM_DB_TABELLE.WARENKORB.toString() + " w LEFT JOIN "+ ENUM_DB_TABELLE.ARTIKEL.toString() + " a on "
+			String sql = "SELECT sum(w.menge * a.preis) AS 'bestellwert' FROM " + 
+					ENUM_DB_TABELLE.WARENKORB.toString() + " w LEFT JOIN "+ ENUM_DB_TABELLE.ARTIKEL.toString() + " a ON "
 					+ "w.Artikel_ID = a.ID WHERE w.Benutzer_ID = ?";
 			
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
@@ -1066,7 +1068,7 @@ public class QueryManager {
 		ResultSet result = null;	
 		
 		try {			
-			String sql = "SELECT * FROM " + ENUM_DB_TABELLE.ARTIKEL.toString() + " WHERE kategorie_1 like ? AND kategorie_2 like ? AND aktiv = 1";
+			String sql = "SELECT * FROM " + ENUM_DB_TABELLE.ARTIKEL.toString() + " WHERE kategorie_1 LIKE ? AND kategorie_2 LIKE ? AND aktiv = 1";
 			
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setString(1, kategorie1.toString());
@@ -1109,7 +1111,7 @@ public class QueryManager {
 		ResultSet result = null;	
 		
 		try {			
-			String sql = "SELECT * FROM " + ENUM_DB_TABELLE.ARTIKEL.toString() + " WHERE bezeichnung like ? AND aktiv = 1";
+			String sql = "SELECT * FROM " + ENUM_DB_TABELLE.ARTIKEL.toString() + " WHERE bezeichnung LIKE ? AND aktiv = 1";
 			
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setString(1, "%" + bezeichnung + "%");
@@ -1458,8 +1460,7 @@ public class QueryManager {
 	 * Die Methode liefert die ID einer Bestellung der Bestellnummer nach
 	 * </pre>
 	 * 
-	 * @param Benutzer_ID int
-	 * @param bestellwert double
+	 * @param piBestellnummer String
 	 * @return bestellung_ID int
 	 */
 	public int getBestellungIDByBestellnummer(String piBestellnummer){
@@ -1668,10 +1669,10 @@ public class QueryManager {
 		
 		try{
 
-			String sql = "select bes.*, ben.*, r.*, a.* from " + ENUM_DB_TABELLE.BESTELLUNG.toString() + " bes left join " + 
-					ENUM_DB_TABELLE.BENUTZER.toString() + " ben on bes.Benutzer_ID = ben.ID left join " + 
-					ENUM_DB_TABELLE.ROLLE.toString() + " r on ben.Rolle_ID = r.ID left join " + ENUM_DB_TABELLE.ADRESSE.toString() 
-					+ " a on a.Benutzer_ID = ben.ID order by bes.bestellnummer desc";
+			String sql = "SELECT bes.*, ben.*, r.*, a.* FROM " + ENUM_DB_TABELLE.BESTELLUNG.toString() + " bes LEFT JOIN " + 
+					ENUM_DB_TABELLE.BENUTZER.toString() + " ben ON bes.Benutzer_ID = ben.ID LEFT JOIN " + 
+					ENUM_DB_TABELLE.ROLLE.toString() + " r ON ben.Rolle_ID = r.ID LEFT JOIN " + ENUM_DB_TABELLE.ADRESSE.toString() 
+					+ " a ON a.Benutzer_ID = ben.ID ORDER BY bes.bestellnummer DESC";
 			
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 
