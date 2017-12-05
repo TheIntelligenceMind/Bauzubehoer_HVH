@@ -559,9 +559,8 @@ public class QueryManager {
 	 * @param piBenutzer Benutzer
 	 * @return bestellung
 	 */
-	public Bestellung createBestellung(Bestellung piBestellung, Benutzer piBenutzer){
+	public Bestellung createBestellung(Bestellung piBestellung){
 		Bestellung bestellung = piBestellung;
-		Benutzer benutzer = piBenutzer;
 		int benutzer_ID;
 		double bestellwert;
 		int bestellung_ID;
@@ -603,7 +602,7 @@ public class QueryManager {
 			}
 			
 			//Bestellung_ID zur soeben generierten Bestellung holen und sichern
-			bestellung_ID = getBestellungIDByBenutzerIDandBestellwert(benutzer_ID, bestellwert);
+			bestellung_ID = getLastBestellungIDByBenutzerIDandBestellwert(benutzer_ID, bestellwert);
 			
 			//Eintragung der Bestellnummer in Abhängigkeit von der ID der Bestellung
 			setBestellnummerByBestellungID(bestellung_ID);
@@ -671,7 +670,7 @@ public class QueryManager {
 			}
 						
 			//Vorbereitung der Rückgabe der erstellten Bestellung
-			bestellung = selectBestellungByBestellungID(bestellung_ID, benutzer);
+			bestellung = getBestellungByBestellungID(bestellung_ID);
 			
 		}
 		catch (SQLException e) {
@@ -723,14 +722,14 @@ public class QueryManager {
 	 * <h3>Beschreibung:</h3>
 	 * <pre>
 	 * Die Methode liefert die ID einer Bestellung der Benutzer-ID
-	 * und dem Bestellwert nach.
+	 * und dem Bestellwert nach. Nur die letzte Bestellung wird berücksichtigt!
 	 * </pre>
 	 * 
 	 * @param Benutzer_ID int
 	 * @param bestellwert double
 	 * @return bestellung_ID int
 	 */
-	private int getBestellungIDByBenutzerIDandBestellwert(int piBenutzerID, double piBestellwert){
+	private int getLastBestellungIDByBenutzerIDandBestellwert(int piBenutzerID, double piBestellwert){
 		int benutzer_ID = piBenutzerID;
 		double bestellwert = piBestellwert;
 		int bestellung_ID = -1;
@@ -738,7 +737,7 @@ public class QueryManager {
 		
 		try{
 			String sql = "SELECT ID FROM " + ENUM_DB_TABELLE.BESTELLUNG.toString() + " WHERE Benutzer_ID = ? AND "
-					+ "bestellwert = ?";
+					+ "bestellwert = ? ORDER BY erstellt_Datum DESC LIMIT 1";
 			
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			
@@ -794,44 +793,6 @@ public class QueryManager {
 		}
 		
 		return true;
-	}
-	
-	/**
-	 * <h3>Beschreibung:</h3>
-	 * <pre>
-	 * Die liefert alle Informationen einer Bestellung anhand
-	 * ihrer ID
-	 * </pre>
-	 * 
-	 * @param piBestellungID int
-	 * @param piBenutzer Benutzer
-	 * @return bestellung Bestellung
-	 */	
-	private Bestellung selectBestellungByBestellungID(int piBestellungID, Benutzer piBenutzer){
-		int bestellung_ID = piBestellungID;
-		Benutzer benutzer = piBenutzer;
-		Bestellung bestellung = null;
-		ResultSet result = null;
-		
-		try{
-			String sql = "SELECT * FROM " + ENUM_DB_TABELLE.BESTELLUNG.toString() + " WHERE ID = ?";
-			
-			PreparedStatement stmt = getConnection().prepareStatement(sql);
-			
-			stmt.setInt(1, bestellung_ID);
-
-			result = stmt.executeQuery();
-			
-			while(result.next()){
-				
-				bestellung = new Bestellung().init(result.getString("bestellnummer"), result.getDate("bestelldatum"),
-					result.getString("status"), result.getString("zahlungsart"), result.getDate("voraussichtliches_Lieferdatum"), 
-					result.getDouble("bestellwert"), result.getDouble("versandkosten"), benutzer);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return bestellung;
 	}
 	
 	/**
@@ -1491,6 +1452,42 @@ public class QueryManager {
 		return true;
 	}
 	
+	/**
+	 * <h3>Beschreibung:</h3>
+	 * <pre>
+	 * Die Methode liefert die ID einer Bestellung der Bestellnummer nach
+	 * </pre>
+	 * 
+	 * @param Benutzer_ID int
+	 * @param bestellwert double
+	 * @return bestellung_ID int
+	 */
+	public int getBestellungIDByBestellnummer(String piBestellnummer){
+		String bestellnummer = piBestellnummer;
+		int bestellung_ID = -1;
+		ResultSet result = null;
+		
+		try{
+			String sql = "SELECT ID FROM " + ENUM_DB_TABELLE.BESTELLUNG.toString() + " WHERE Bestellnummer = ?";
+			
+			PreparedStatement stmt = getConnection().prepareStatement(sql);
+			
+			stmt.setString(1, bestellnummer);
+			
+			result = stmt.executeQuery();
+			
+			// sicherstellen, dass ein Ergebnis geliefert wird und Zuweisung
+			if(result.next()){
+				bestellung_ID = result.getInt("id");
+			}
+			
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return bestellung_ID;
+	}
 	
 	/**
 	 * <pre>
@@ -1628,7 +1625,7 @@ public class QueryManager {
 	 */
 	public boolean modifyBestellung(Bestellung piBestellung){
 		Bestellung bestellung = piBestellung;
-		int bestellungID = getBestellungIDByBenutzerIDandBestellwert(getBenutzerIDbyEmailadresse(bestellung.getBenutzer().getEmailadresse()), bestellung.getBestellwert());
+		int bestellungID = getBestellungIDByBestellnummer(bestellung.getBestellnummer());
 		int result = 0;
 		
 		try {
@@ -1705,6 +1702,5 @@ public class QueryManager {
 				
 		return bestellungListe;
 	}
-	
 	
 }
