@@ -116,7 +116,8 @@ public class QueryManager {
 				
 				// Es soll nur ein Adress-Objekt angelegt werden wenn es einen Adresse Datensatz in der DB zu dem Benutzer gibt
 				if(post_result.next()){	
-					adresse = new Adresse().init(result.getString("strasse"), result.getString("hausnummer"), result.getString("postleitzahl"), result.getString("ort"), result.getString("zusatz"));		
+					adresse = new Adresse().init(result.getString("strasse"), result.getString("hausnummer"), 
+							result.getString("postleitzahl"), result.getString("ort"), result.getString("zusatz"));		
 				}
 				
 
@@ -301,8 +302,8 @@ public class QueryManager {
 			
 			//=============================================================================
 			
-			String sql = "INSERT INTO " + ENUM_DB_TABELLE.ADRESSE.toString() + " (strasse, hausnummer, postleitzahl, ort, zusatz, benutzer_id, erstellt_Benutzer) " 
-					+ " VALUES(?, ?, ?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO " + ENUM_DB_TABELLE.ADRESSE.toString() + " (strasse, hausnummer, postleitzahl, ort, zusatz, "
+					+ "benutzer_id, erstellt_Benutzer) VALUES(?, ?, ?, ?, ?, ?, ?)";
 					
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setString(1, adresse.getStrasse());
@@ -438,8 +439,8 @@ public class QueryManager {
 		int result;
 		
 		try {				
-			String sql = "INSERT INTO " + ENUM_DB_TABELLE.BENUTZER.toString() + " (emailadresse, passwort, vorname, nachname, Rolle_ID, bestaetigt, registriert_Datum, erstellt_Benutzer) "
-						+ "VALUES( ?, ?, ?, ?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO " + ENUM_DB_TABELLE.BENUTZER.toString() + " (emailadresse, passwort, vorname, nachname, Rolle_ID, "
+					+ "bestaetigt, registriert_Datum, erstellt_Benutzer) VALUES( ?, ?, ?, ?, ?, ?, ?, ?)";
 			
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setString(1, benutzer.getEmailadresse());
@@ -659,7 +660,7 @@ public class QueryManager {
 				delete_bestellung_stmt.executeUpdate();
 				
 				
-				//Löschen des/der zuvor angelegten Datensatzes/Datensätze in der Tabelle "Bestellartikel", falls es zu einem Problem gekommen ist
+				//Löschen des/der zuvor angelegten Datensatzes/Datensätze in der Tabelle "Bestellartikel", falls es zu einem Problem kam
 				String delete_bestellartikel_sql = "DELETE FROM " + ENUM_DB_TABELLE.BESTELLARTIKEL.toString() + " WHERE Bestellung_ID = ?";
 				
 				PreparedStatement delete_bestellartikel_stmt = getConnection().prepareStatement(delete_bestellartikel_sql);
@@ -844,8 +845,8 @@ public class QueryManager {
 		int result;
 		
 		try {	
-			String sql = "INSERT INTO " + ENUM_DB_TABELLE.ARTIKEL.toString() + " (nummer, bezeichnung, beschreibung, preis, lagermenge, meldebestand, bild, kategorie_1, kategorie_2, erstellt_Benutzer) " 
-			+ " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO " + ENUM_DB_TABELLE.ARTIKEL.toString() + " (nummer, bezeichnung, beschreibung, preis, "
+					+ "lagermenge, meldebestand, bild, kategorie_1, kategorie_2, erstellt_Benutzer) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setLong(1, artikel.getNummer());
@@ -894,8 +895,8 @@ public class QueryManager {
 			}
 			
 			String sql = "UPDATE "+ ENUM_DB_TABELLE.ARTIKEL.toString() +" SET nummer = ?, bezeichnung = ? , beschreibung = ?"
-					+ ", preis = ?, lagermenge = ?, meldebestand = ?, bild = ?, kategorie_1 = ?, kategorie_2 = ?, aktiv = ?, geaendert_Benutzer = ?, "
-					+ "geaendert_Datum = ? WHERE ID = ?";
+					+ ", preis = ?, lagermenge = ?, meldebestand = ?, bild = ?, kategorie_1 = ?, kategorie_2 = ?, aktiv = ?, "
+					+ "geaendert_Benutzer = ?, geaendert_Datum = ? WHERE ID = ?";
 		
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setInt(1, artikel.getNummer());
@@ -1003,8 +1004,9 @@ public class QueryManager {
 			while(result.next()){
 				Artikel artikel = new Artikel().init(result.getString("bezeichnung"), result.getInt("nummer"), 
 						result.getString("beschreibung"), result.getDouble("preis"), result.getInt("lagermenge"), 
-						result.getInt("meldebestand"), result.getBytes("bild"), result.getString("kategorie_1"), result.getString("kategorie_2"), 
-						result.getInt("aktiv"));
+						result.getInt("meldebestand"), result.getBytes("bild"), result.getString("kategorie_1"), 
+						result.getString("kategorie_2"), result.getInt("aktiv"));
+				
 				artikelliste.add(artikel);
 			}
 			
@@ -1040,8 +1042,8 @@ public class QueryManager {
 			while(result.next()){
 				Artikel artikel = new Artikel().init(result.getString("bezeichnung"), result.getInt("nummer"), 
 						result.getString("beschreibung"), result.getDouble("preis"), result.getInt("lagermenge"), 
-						result.getInt("meldebestand"), result.getBytes("bild"), result.getString("kategorie_1"), result.getString("kategorie_2"),
-						result.getInt("aktiv"));
+						result.getInt("meldebestand"), result.getBytes("bild"), result.getString("kategorie_1"), 
+						result.getString("kategorie_2"), result.getInt("aktiv"));
 				artikelliste.add(artikel);
 			}
 			
@@ -1067,7 +1069,8 @@ public class QueryManager {
 		ResultSet result = null;	
 		
 		try {			
-			String sql = "SELECT * FROM " + ENUM_DB_TABELLE.ARTIKEL.toString() + " WHERE kategorie_1 LIKE ? AND kategorie_2 LIKE ? AND aktiv = 1";
+			String sql = "SELECT * FROM " + ENUM_DB_TABELLE.ARTIKEL.toString() + " WHERE kategorie_1 LIKE ? AND kategorie_2 LIKE ? AND "
+					+ "aktiv = 1";
 			
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 			stmt.setString(1, kategorie1.toString());
@@ -1078,8 +1081,9 @@ public class QueryManager {
 			while(result.next()){
 				Artikel artikel = new Artikel().init(result.getString("bezeichnung"), result.getInt("nummer"), 
 						result.getString("beschreibung"), result.getDouble("preis"), result.getInt("lagermenge"), 
-						result.getInt("meldebestand"), result.getBytes("bild"), result.getString("kategorie_1"), result.getString("kategorie_2"), 
-						result.getInt("aktiv"));
+						result.getInt("meldebestand"), result.getBytes("bild"), result.getString("kategorie_1"), 
+						result.getString("kategorie_2"), result.getInt("aktiv"));
+				
 				artikelliste.add(artikel);
 			}
 			
@@ -1120,8 +1124,9 @@ public class QueryManager {
 			while(result.next()){
 				Artikel artikel = new Artikel().init(result.getString("bezeichnung"), result.getInt("nummer"),
 						result.getString("beschreibung"), result.getDouble("preis"), result.getInt("lagermenge"),
-						result.getInt("meldebestand"), result.getBytes("bild"), result.getString("kategorie_1"), result.getString("kategorie_2"),
-						result.getInt("aktiv"));
+						result.getInt("meldebestand"), result.getBytes("bild"), result.getString("kategorie_1"), 
+						result.getString("kategorie_2"), result.getInt("aktiv"));
+				
 				artikelliste.add(artikel);
 			}
 			
@@ -1157,8 +1162,8 @@ public class QueryManager {
 			if(result.next()){
 				return new Artikel().init(result.getString("bezeichnung"), result.getInt("nummer"),
 						result.getString("beschreibung"), result.getDouble("preis"), result.getInt("lagermenge"),
-						result.getInt("meldebestand"), result.getBytes("bild"), result.getString("kategorie_1"), result.getString("kategorie_2"),
-						result.getInt("aktiv"));
+						result.getInt("meldebestand"), result.getBytes("bild"), result.getString("kategorie_1"), 
+						result.getString("kategorie_2"), result.getInt("aktiv"));
 			}
 			
 		} catch (SQLException e) {
@@ -1194,8 +1199,8 @@ public class QueryManager {
 			if(result.next()){
 				artikel = new Artikel().init(result.getString("bezeichnung"), result.getInt("nummer"), 
 						result.getString("beschreibung"), result.getDouble("preis"), result.getInt("lagermenge"), 
-						result.getInt("meldebestand"), result.getBytes("bild"), result.getString("kategorie_1"), result.getString("kategorie_2"), 
-						result.getInt("aktiv"));
+						result.getInt("meldebestand"), result.getBytes("bild"), result.getString("kategorie_1"), 
+						result.getString("kategorie_2"), result.getInt("aktiv"));
 			}
 			
 		} catch (SQLException e) {
@@ -1238,10 +1243,12 @@ public class QueryManager {
 			while(result.next()){
 				Artikel artikel = new Artikel().init(result.getString("bezeichnung"), result.getInt("nummer"), 
 						result.getString("beschreibung"), result.getDouble("preis"), result.getInt("lagermenge"), 
-						result.getInt("meldebestand"), result.getBytes("bild"), result.getString("kategorie_1"), result.getString("kategorie_2"), 
-						result.getInt("aktiv"));
+						result.getInt("meldebestand"), result.getBytes("bild"), result.getString("kategorie_1"), 
+						result.getString("kategorie_2"), result.getInt("aktiv"));
+				
 				WarenkorbArtikel warenkorbartikel = new WarenkorbArtikel().init(artikel, result.getInt("position"), 
 						result.getInt("menge"));
+				
 				artikelliste.add(warenkorbartikel);
 			}
 			
@@ -1540,7 +1547,7 @@ public class QueryManager {
 	 * @return bestellungListe
 	 */
 	public Bestellung getBestellungByBestellungID(int piBestellungID){
-		int id = piBestellungID;
+		int bestellungID = piBestellungID;
 		ResultSet result = null;
 		Bestellung bestellung = null;
 		
@@ -1550,7 +1557,7 @@ public class QueryManager {
 					+ ENUM_DB_TABELLE.BENUTZER.toString() + " ben ON bes.benutzer_id = ben.ID WHERE bes.ID = ?";
 			
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
-			stmt.setInt(1, id);
+			stmt.setInt(1, bestellungID);
 
 			result = stmt.executeQuery();
 			
@@ -1579,8 +1586,8 @@ public class QueryManager {
 	 * @return bestellartikelListe
 	 */
 	public List<BestellArtikel> getAllArtikelByBestellungID(int piBestellungID){
-		int id = piBestellungID;
-		Bestellung bestellung = getBestellungByBestellungID(id);
+		int bestellungID = piBestellungID;
+		Bestellung bestellung = getBestellungByBestellungID(bestellungID);
 		List<BestellArtikel> bestellartikelListe = new ArrayList<BestellArtikel>();
 		ResultSet result = null;
 		
@@ -1590,7 +1597,7 @@ public class QueryManager {
 					ENUM_DB_TABELLE.ARTIKEL.toString() + " a ON b.Artikel_ID = a.ID WHERE b.Bestellung_ID = ?";
 			
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
-			stmt.setInt(1, id);
+			stmt.setInt(1, bestellungID);
 
 			result = stmt.executeQuery();
 			
@@ -1620,7 +1627,7 @@ public class QueryManager {
 	 * </pre>
 	 * 
 	 * @param piBestellung Bestellung
-	 * @return true, wenn die Modfizierung erfolgreich war,
+	 * @return true, wenn die Modifizierung erfolgreich war,
 	 * andernfalls false
 	 */
 	public boolean modifyBestellung(Bestellung piBestellung){
