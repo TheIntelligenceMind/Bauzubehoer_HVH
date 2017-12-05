@@ -608,8 +608,7 @@ public class QueryManager {
 			
 			//Eintragung der Bestellnummer in Abhängigkeit von der ID der Bestellung
 			setBestellnummerByBestellungID(bestellung_ID);
-			
-			
+						
 			//Einfügen der relevanten Informationen in die Tabelle "Bestellartikel"
 			String bestellartikel_sql = "INSERT INTO " + ENUM_DB_TABELLE.BESTELLARTIKEL.toString() + "(artikel_id, menge, position,"
 					+ " bestellung_id, erstellt_benutzer) SELECT artikel_id, menge, position, ?, ? FROM " + 
