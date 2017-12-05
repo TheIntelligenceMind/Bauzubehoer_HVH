@@ -780,7 +780,7 @@ public class QueryManager {
 					+ " WHERE ID = ? AND Bestellnummer = 'keine_Bestellnummer_definiert'";
 					
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
-			stmt.setString(1, String.valueOf(bestellung_ID) + '-' + sdf_year.format(getCurrentTimestamp()));
+			stmt.setString(1, "B".concat(String.valueOf(bestellung_ID)) + sdf_year.format(getCurrentTimestamp()));
 			stmt.setInt(2, bestellung_ID);
 			
 			result = stmt.executeUpdate();
@@ -1540,11 +1540,51 @@ public class QueryManager {
 	/**
 	 * <pre>
 	 * <h3>Beschreibung:</h3>
+	 * Die Methode liefert zu einer Bestellnummer eine Bestellung zurück
+	 * </pre>
+	 * 
+	 * @param piBestellnummer int
+	 * @return bestellung
+	 */
+	public Bestellung getBestellungByBestellnummer(String piBestellnummer){
+		String bestellnummer = piBestellnummer;
+		ResultSet result = null;
+		Bestellung bestellung = null;
+		
+		try{
+
+			String sql = "SELECT bes.*, ben.id, ben.emailadresse FROM " + ENUM_DB_TABELLE.BESTELLUNG.toString() + " bes LEFT JOIN " 
+					+ ENUM_DB_TABELLE.BENUTZER.toString() + " ben ON bes.benutzer_id = ben.ID WHERE bes.bestellnummer = ?";
+			
+			PreparedStatement stmt = getConnection().prepareStatement(sql);
+			stmt.setString(1, bestellnummer);
+
+			result = stmt.executeQuery();
+			
+			if(result.next()){
+				Benutzer benutzer = getBenutzerByEMailAdresse(result.getString("emailadresse"));
+				
+				bestellung = new Bestellung().init(result.getString("bestellnummer"), result.getDate("bestelldatum")
+					, result.getString("status"), result.getString("zahlungsart"), result.getDate("voraussichtliches_Lieferdatum"), 
+					result.getDouble("bestellwert"), result.getDouble("versandkosten"), benutzer);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+				
+		return bestellung;
+	}
+	
+	
+	/**
+	 * <pre>
+	 * <h3>Beschreibung:</h3>
 	 * Die Methode liefert zu einer Bestellungs ID eine Bestellung zurück
 	 * </pre>
 	 * 
 	 * @param piBestellungID int
-	 * @return bestellungListe
+	 * @return bestellung
 	 */
 	public Bestellung getBestellungByBestellungID(int piBestellungID){
 		int bestellungID = piBestellungID;
@@ -1585,9 +1625,10 @@ public class QueryManager {
 	 * @param piBestellungID int
 	 * @return bestellartikelListe
 	 */
-	public List<BestellArtikel> getAllArtikelByBestellungID(int piBestellungID){
-		int bestellungID = piBestellungID;
-		Bestellung bestellung = getBestellungByBestellungID(bestellungID);
+	public List<BestellArtikel> getAllArtikelByBestellnummer(String piBestellnummer){
+		String bestellnummer = piBestellnummer;
+		Bestellung bestellung = getBestellungByBestellnummer(bestellnummer);
+		int bestellung_ID = getBestellungIDByBestellnummer(bestellnummer);
 		List<BestellArtikel> bestellartikelListe = new ArrayList<BestellArtikel>();
 		ResultSet result = null;
 		
@@ -1597,7 +1638,7 @@ public class QueryManager {
 					ENUM_DB_TABELLE.ARTIKEL.toString() + " a ON b.Artikel_ID = a.ID WHERE b.Bestellung_ID = ?";
 			
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
-			stmt.setInt(1, bestellungID);
+			stmt.setInt(1, bestellung_ID);
 
 			result = stmt.executeQuery();
 			

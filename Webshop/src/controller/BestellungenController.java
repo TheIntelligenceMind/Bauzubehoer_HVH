@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,7 +12,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang3.math.NumberUtils;
 
 import db.QueryManager;
 import entity.Adresse;
@@ -116,9 +114,9 @@ public class BestellungenController extends HttpServlet {
 	}
 
     private void bestellungBearbeitenAnzeigen(HttpServletRequest req, HttpServletResponse resp){
-    	int bestellnummer = NumberUtils.toInt(req.getParameter("bestellnummer"), -1);
-    	Bestellung bestellung = queryManager.getBestellungByBestellungID(bestellnummer);
-    	List<BestellArtikel> bestellartikellliste = queryManager.getAllArtikelByBestellungID(bestellnummer);
+    	String bestellnummer = req.getParameter("bestellnummer");
+    	Bestellung bestellung = queryManager.getBestellungByBestellnummer(bestellnummer);
+    	List<BestellArtikel> bestellartikellliste = queryManager.getAllArtikelByBestellnummer(bestellnummer);
     	
     	if(bestellung == null){
     		resp.addHeader("Status", ENUM_RESPONSE_STATUS.FEHLER.toString());

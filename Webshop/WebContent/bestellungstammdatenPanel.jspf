@@ -53,18 +53,18 @@ Aus dieser Ansicht kann das "bestellungBearbeitenPanel" aufgerufen werden.
 
 		    	for(Object o : bestellungstammdatenListe){
 		    			Bestellung stammdatenBestellung = (Bestellung)o;
-        	 
-						out.println(  "<tr>" +
-					        		"<td class='tablecell'><div>" + stammdatenBestellung.getBestellnummer() + "</div></td>" +
-					        		"<td class='tablecell'><div>" + stammdatenBestellung.getBestelldatum() + "</div></td>" +
-					        		"<td class='tablecell'><div>" + "Vorname" + "</div></td>" +
-					        		"<td class='tablecell'><div>" + "Nachname" + "</div></td>" +
-					        		"<td class='tablecell'><div>" + formater.format(stammdatenBestellung.getBestellwert()) + "</div></td>" +
-					        		"<td class='tablecell'><div>" + stammdatenBestellung.getStatus() + "</div></td>" +
-					        		"<td class='tablecell'><div>" + (stammdatenBestellung.getVoraussichtlichesLieferdatum() != null ? stammdatenBestellung.getVoraussichtlichesLieferdatum() : "") + "</div></td>" +
-					        		"<td class='tablecellright'><a onclick='bestellungBearbeitenAnzeigen(" + stammdatenBestellung.getBestellnummer() + ")' class='PickSymbol'><i class='fa fa-pencil-square-o'></i></a></td>" +
-					        		"</tr>"
-								);
+	        	 	%>
+						<tr>
+		        			<td class='tablecell'><div><% out.print(stammdatenBestellung.getBestellnummer()); %></div></td>
+						    <td class='tablecell'><div><% out.print(stammdatenBestellung.getBestelldatum()); %></div></td>
+						    <td class='tablecell'><div><% out.print(stammdatenBestellung.getBenutzer().getVorname()); %></div></td>
+						    <td class='tablecell'><div><% out.print(stammdatenBestellung.getBenutzer().getNachname()); %></div></td>
+						    <td class='tablecell'><div><% out.print(formater.format(stammdatenBestellung.getBestellwert())); %></div></td>
+						    <td class='tablecell'><div><% out.print(stammdatenBestellung.getStatus()); %></div></td>
+						    <td class='tablecell'><div><% out.print((stammdatenBestellung.getVoraussichtlichesLieferdatum() != null ? stammdatenBestellung.getVoraussichtlichesLieferdatum() : "")); %></div></td>
+						    <td class='tablecellright'><a onclick="bestellungBearbeitenAnzeigen(<% out.print('\'' + stammdatenBestellung.getBestellnummer() + '\''); %>)" class='PickSymbol'><i class="fa fa-pencil-square-o"></i></a></td>
+						</tr>				
+					<%
         	 	}
         	 }
 		    	/*
