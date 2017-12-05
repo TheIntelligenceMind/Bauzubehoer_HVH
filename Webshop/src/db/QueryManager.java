@@ -35,7 +35,7 @@ public class QueryManager {
 	//für Timestamp bei UPDATE-Statements
 	private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	
-	//für reine Datum-Angabe (Bestelldatum)
+	//für reine Datum-Angabe (Bestelldatum und voraussichtliches Lieferdatum)
 	private static final SimpleDateFormat sdf_date = new SimpleDateFormat("yyyy-MM-dd");
 	
 	//für Jahres-Angabe (Erzeugung der Bestellnummer)
@@ -1539,13 +1539,37 @@ public class QueryManager {
 	 * Die Methode liefert zu einer Bestellungs ID eine Bestellung zurück
 	 * </pre>
 	 * 
+	 * @param piBestellungID int
 	 * @return bestellungListe
 	 */
 	public Bestellung getBestellungByBestellungID(int piBestellungID){
 		int id = piBestellungID;
+		ResultSet result = null;
+		Bestellung bestellung = null;
 		
-		
-		return null;
+		try{
+
+			String sql = "SELECT bes.*, ben.id, ben.emailadresse FROM " + ENUM_DB_TABELLE.BESTELLUNG.toString() + " bes LEFT JOIN " 
+					+ ENUM_DB_TABELLE.BENUTZER.toString() + " ben ON bes.benutzer_id = ben.ID WHERE bes.ID = ?";
+			
+			PreparedStatement stmt = getConnection().prepareStatement(sql);
+			stmt.setInt(1, id);
+
+			result = stmt.executeQuery();
+			
+			if(result.next()){
+				Benutzer benutzer = getBenutzerByEMailAdresse(result.getString("emailadresse"));
+				
+				bestellung = new Bestellung().init(result.getString("bestellnummer"), result.getDate("bestelldatum")
+					, result.getString("status"), result.getString("zahlungsart"), result.getDate("voraussichtliches_Lieferdatum"), 
+					result.getDouble("bestellwert"), result.getDouble("versandkosten"), benutzer);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+				
+		return bestellung;
 	}
 	
 	/**
@@ -1554,13 +1578,42 @@ public class QueryManager {
 	 * Die Methode liefert zu einer Bestellungs alle enthaltenen Artikel zurück
 	 * </pre>
 	 * 
+	 * @param piBestellungID int
 	 * @return bestellartikelListe
 	 */
 	public List<BestellArtikel> getAllArtikelByBestellungID(int piBestellungID){
 		int id = piBestellungID;
+		Bestellung bestellung = getBestellungByBestellungID(id);
+		List<BestellArtikel> bestellartikelListe = new ArrayList<BestellArtikel>();
+		ResultSet result = null;
 		
-		
-		return null;
+		try{
+
+			String sql = "SELECT b.*, a.* FROM " + ENUM_DB_TABELLE.BESTELLARTIKEL.toString() + " b LEFT JOIN " + 
+					ENUM_DB_TABELLE.ARTIKEL.toString() + " a ON b.Artikel_ID = a.ID WHERE b.Bestellung_ID = ?";
+			
+			PreparedStatement stmt = getConnection().prepareStatement(sql);
+			stmt.setInt(1, id);
+
+			result = stmt.executeQuery();
+			
+			while(result.next()){
+				Artikel artikel = new Artikel().init(result.getString("Bezeichnung"), result.getInt("Nummer"), 
+						result.getString("Beschreibung"), result.getDouble("Preis"), result.getInt("Lagermenge"), 
+						result.getInt("Meldebestand"), result.getBytes("Bild"), result.getString("Kategorie_1"), 
+						result.getString("Kategorie_2"), result.getInt("aktiv"));
+				
+				BestellArtikel bestellartikel = new BestellArtikel().init(result.getInt("Position"), result.getInt("Menge"), 
+						artikel, bestellung);
+				
+				bestellartikelListe.add(bestellartikel);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+				
+		return bestellartikelListe;
 	}
 	
 	/**
@@ -1569,13 +1622,37 @@ public class QueryManager {
 	 * Die Methode modifiziert eine übergebene Bestellung
 	 * </pre>
 	 * 
-	 * @return bestellungListe
+	 * @param piBestellung Bestellung
+	 * @return true, wenn die Modfizierung erfolgreich war,
+	 * andernfalls false
 	 */
 	public boolean modifyBestellung(Bestellung piBestellung){
 		Bestellung bestellung = piBestellung;
+		int bestellungID = getBestellungIDByBenutzerIDandBestellwert(getBenutzerIDbyEmailadresse(bestellung.getBenutzer().getEmailadresse()), bestellung.getBestellwert());
+		int result = 0;
 		
-		// beim Update nur die benötigten Felder updaten (Bestellstatus, Zahlungsart und Lieferdatum)
-		// was passiert mit dem geändert_benutzer?
+		try {
+
+			String sql = "UPDATE "+ ENUM_DB_TABELLE.BESTELLUNG.toString() +" SET Status = ?, Zahlungsart = ? , "
+					+ "voraussichtliches Lieferdatum = ?, geaendert_Benutzer = ?, geaendert_Datum = ? WHERE ID = ?";
+		
+			PreparedStatement stmt = getConnection().prepareStatement(sql);
+			stmt.setString(1, bestellung.getStatus());
+			stmt.setString(2, bestellung.getZahlungsart());
+			stmt.setString(3, sdf_date.format(bestellung.getVoraussichtlichesLieferdatum()));
+			stmt.setString(4, bestellung.getGeaendertBenutzer());
+			stmt.setString(5, sdf.format(getCurrentTimestamp()));
+			stmt.setInt(6, bestellungID);
+			
+			result = stmt.executeUpdate();
+			
+			if(result != 0){
+				return true;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		
 		return false;
 	}
@@ -1597,7 +1674,7 @@ public class QueryManager {
 			String sql = "select bes.*, ben.*, r.*, a.* from " + ENUM_DB_TABELLE.BESTELLUNG.toString() + " bes left join " + 
 					ENUM_DB_TABELLE.BENUTZER.toString() + " ben on bes.Benutzer_ID = ben.ID left join " + 
 					ENUM_DB_TABELLE.ROLLE.toString() + " r on ben.Rolle_ID = r.ID left join " + ENUM_DB_TABELLE.ADRESSE.toString() 
-					+ " a on a.Benutzer_ID = ben.ID";
+					+ " a on a.Benutzer_ID = ben.ID order by bes.bestellnummer desc";
 			
 			PreparedStatement stmt = getConnection().prepareStatement(sql);
 
