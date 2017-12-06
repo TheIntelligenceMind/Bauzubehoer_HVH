@@ -24,7 +24,7 @@ public class Bestellung {
 	}
 	
 	public Bestellung init(String piBestellnummer, Date piBestelldatum, String piStatus, 
-			String piZahlungsart, Date piVoraussichtlichesLieferdatum, double piBestellwert, double piVersandkosten, Benutzer piBenutzer){
+			String piZahlungsart, Date piVoraussichtlichesLieferdatum, double piBestellwert, double piVersandkosten, String piGeaendertBenutzer, Benutzer piBenutzer){
 		
 		bestellnummer = piBestellnummer;
 		bestelldatum = piBestelldatum;
@@ -34,7 +34,7 @@ public class Bestellung {
 		bestellwert = piBestellwert;
 		setVersandkosten(piVersandkosten);
 		benutzer = piBenutzer;
-		geaendertBenutzer = "";
+		geaendertBenutzer = piGeaendertBenutzer != null ? piGeaendertBenutzer : "";
 		
 		return this;
 	}

@@ -1527,7 +1527,7 @@ public class QueryManager {
 				
 				Bestellung bestellung = new Bestellung().init(result.getString("bestellnummer"), result.getDate("bestelldatum")
 					, result.getString("status"), result.getString("zahlungsart"), result.getDate("voraussichtliches_Lieferdatum"), 
-					result.getDouble("bestellwert"), result.getDouble("versandkosten"), benutzer);
+					result.getDouble("bestellwert"), result.getDouble("versandkosten"), result.getString("geaendert_Benutzer"), benutzer);
 				
 				bestellungListe.add(bestellung);
 			}
@@ -1568,7 +1568,7 @@ public class QueryManager {
 				
 				bestellung = new Bestellung().init(result.getString("bestellnummer"), result.getDate("bestelldatum")
 					, result.getString("status"), result.getString("zahlungsart"), result.getDate("voraussichtliches_Lieferdatum"), 
-					result.getDouble("bestellwert"), result.getDouble("versandkosten"), benutzer);
+					result.getDouble("bestellwert"), result.getDouble("versandkosten"), result.getString("geaendert_Benutzer"), benutzer);
 			}
 			
 		} catch (SQLException e) {
@@ -1608,7 +1608,7 @@ public class QueryManager {
 				
 				bestellung = new Bestellung().init(result.getString("bestellnummer"), result.getDate("bestelldatum")
 					, result.getString("status"), result.getString("zahlungsart"), result.getDate("voraussichtliches_Lieferdatum"), 
-					result.getDouble("bestellwert"), result.getDouble("versandkosten"), benutzer);
+					result.getDouble("bestellwert"), result.getDouble("versandkosten"), result.getString("geaendert_Benutzer"), benutzer);
 			}
 			
 		} catch (SQLException e) {
@@ -1742,7 +1742,7 @@ public class QueryManager {
 				
 				Bestellung bestellung = new Bestellung().init(result.getString("bestellnummer"), result.getDate("bestelldatum")
 					, result.getString("status"), result.getString("zahlungsart"), result.getDate("voraussichtliches_Lieferdatum"), 
-					result.getDouble("bestellwert"), result.getDouble("versandkosten"), benutzer);
+					result.getDouble("bestellwert"), result.getDouble("versandkosten"), result.getString("geaendert_Benutzer"), benutzer);
 				
 				bestellungListe.add(bestellung);
 			}

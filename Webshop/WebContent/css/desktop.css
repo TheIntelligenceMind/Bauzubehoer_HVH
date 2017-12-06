@@ -3162,18 +3162,26 @@ table#zusatzTabelleBestellung tbody td{
 	font-size: 14px;
 	font-weight: bold;
 }
-#bestellungBearbeitenBestellwertPanel{
+#bestellungBearbeitenFussPanel{
 	margin-top: 10px;
 	margin-bottom: 10px;
 	width: 100%;
 	height: 80px;
 }
-#bestellungBearbeitenBestellwertPanel p{
+#bestellungBearbeitenFussPanel p{
 	margin: 0;
 	margin-bottom: 10px;
 	font-weight: bold;
 }
-#bestellungBearbeitenBestellwertPanel input{
+#bestellungBearbeitenFussPanel .inputContainer{
+	margin: 0;
+	float: left;
+	width: 44%;
+	height: 80px;
+	margin-left: 3%;
+	margin-right: 3%;	
+}
+#bestellungBearbeitenFussPanel .inputContainer input{
 	padding: 3px;
 	width: 200px;
 }

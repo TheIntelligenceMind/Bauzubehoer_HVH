@@ -144,7 +144,12 @@ public class BestellungenController extends HttpServlet {
     		bestellung.setZahlungsart(zahlungsart); 	
     	
 	    	if((fehlertext = validateDate(lieferdatum)) == null || lieferdatum.isEmpty()){
-	    		if(!lieferdatum.isEmpty() || status.equals(ENUM_BESTELLSTATUS.NEU.toString())){						
+	    		if(!lieferdatum.isEmpty() || status.equals(ENUM_BESTELLSTATUS.NEU.toString())){			
+	    			String benutzerVorname = ((Benutzer)req.getSession().getAttribute("benutzer")).getVorname();
+	    			String benutzerNachname = ((Benutzer)req.getSession().getAttribute("benutzer")).getNachname();
+	    			String benutzerGeandert = benutzerVorname.concat(benutzerNachname);
+	    			
+	    			bestellung.setGeaendertBenutzer(benutzerGeandert);
 					boolean result = queryManager.modifyBestellung(bestellung);
 					
 					if(result){
@@ -364,7 +369,7 @@ public class BestellungenController extends HttpServlet {
 		}
 		
 		Benutzer benutzer = (Benutzer)req.getSession().getAttribute("benutzer");
-		Bestellung bestellung = new Bestellung().init("", new Date(), ENUM_BESTELLSTATUS.NEU.toString(), zahlungsart, null, bestellwert, versandkosten, benutzer);
+		Bestellung bestellung = new Bestellung().init("", new Date(), ENUM_BESTELLSTATUS.NEU.toString(), zahlungsart, null, bestellwert, versandkosten, "", benutzer);
 		
 		bestellung = queryManager.createBestellung(bestellung);
 		

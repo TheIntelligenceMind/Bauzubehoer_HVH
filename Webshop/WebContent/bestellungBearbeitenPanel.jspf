@@ -119,9 +119,15 @@ function artikelSuchenNachBegriff(){
 				</tbody>
 		    </table>   
 		</div>
-		<div id="bestellungBearbeitenBestellwertPanel">
-			<p>Bestellwert</p> 
-	    	<input type="text" title="Bestellwert" class="inputField" value="<% out.print(formater.format(bearbeitenBestellung.getBestellwert())); %> &euro;" disabled></input>
+		<div id="bestellungBearbeitenFussPanel">
+			<div class="inputContainer">
+	    		<p>zuletzt ge&auml;ndert durch</p> 
+	    		<input type="text" title="zuletzt geändert durch" class="inputField" value="<% out.print(bearbeitenBestellung.getGeaendertBenutzer()); %>" disabled></input>
+			</div>	
+			<div class="inputContainer">
+				<p>Bestellwert</p> 
+	    		<input type="text" title="Bestellwert" class="inputField" value="<% out.print(formater.format(bearbeitenBestellung.getBestellwert())); %> &euro;" disabled></input>
+	    	</div>
 	    </div>
 	    <button id="btnBestellungBearbeitenSpeichern" class="btnStandardKlein" type="submit" name="method" value="bestellungBearbeiten">Speichern</button>
 	</form>
