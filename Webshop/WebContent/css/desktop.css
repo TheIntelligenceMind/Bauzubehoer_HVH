@@ -3007,6 +3007,214 @@ table#zusatzTabelleBestellung tbody td{
 
 
 
+/* ---------- Panel für die Bestellungstammdaten ----------------- */
+#bestellungstammdatenPanel
+{
+	margin: 50px auto;
+	width: 700px;
+	height: 450px;
+	text-align: center;
+	opacity: 0.9;
+	background-color: white;
+	border-radius: 20px;
+  	-webkit-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
+	box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
+}
+#bestellungstammdatenPanel h1{
+	margin:0;
+	margin-left: 50px;
+	padding: 15px;
+}
+#bestellungenTabelle{
+	width: 92%;
+	margin-left: 4%;
+	table-layout: fixed;
+}
+#bestellungstammdatenPanel tbody{
+	height: 400px;
+	overflow: auto;
+	display: block;
+	width: 100%
+}
+#bestellungstammdatenPanel thead th{
+	text-align: left;
+	border-bottom: 1px solid #BF4D17;		
+}
+#bestellungstammdatenPanel tbody tr{
+	border-collapse: collapse;
+	margin:auto;
+	margin-top: 10px;
+	empty-cells: hide;
+	text-align: left;
+	max-height: 20px;
+}
+#bestellungstammdatenPanel tbody tr:hover{
+	background-color: #e0e0e0;
+}
+#bestellungstammdatenPanel thead tr{
+	display: block;
+	position: relative;
+}
+
+#bestellungstammdatenPanel > table td:nth-child(1), #bestellungstammdatenPanel > table th:nth-child(1) { width: 80px; }
+#bestellungstammdatenPanel > table td:nth-child(2), #bestellungstammdatenPanel > table th:nth-child(2) { width: 90px; }
+#bestellungstammdatenPanel > table td:nth-child(3), #bestellungstammdatenPanel > table th:nth-child(3) { width: 100px; }
+#bestellungstammdatenPanel > table td:nth-child(4), #bestellungstammdatenPanel > table th:nth-child(4) { width: 70px; }
+#bestellungstammdatenPanel > table td:nth-child(5), #bestellungstammdatenPanel > table th:nth-child(5) { width: 95px; }
+#bestellungstammdatenPanel > table td:nth-child(6), #bestellungstammdatenPanel > table th:nth-child(6) { width: 120px; }
+#bestellungstammdatenPanel > table td:nth-child(7), #bestellungstammdatenPanel > table th:nth-child(7) { width: 40px; }
+
+#bestellungstammdatenPanel td.tablecell{
+	height: 22px;
+	padding: 3px;
+	padding-right: 1px;
+	padding-left: 1px;
+	
+}
+#bestellungstammdatenPanel td.tablecellright{
+	text-align:center;
+	height: 22px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+}
+#bestellungstammdatenPanel td.tablecell > div {
+    width: 100%;
+    height: 20px;
+    overflow: hidden;
+}
+
+.PickSymbol{
+	color: #4a4a4a;
+}
+.PickSymbol:hover{
+	color:black;
+	cursor:pointer;
+}
+/* ---------- Panel für die Bestellungstammdaten ----------------- */
+
+
+
+/* ---------- Panel für das Bearbeiten von Bestellungen ----------------- */
+#bestellungBearbeitenPanel{
+	margin: 50px auto;
+	width: 70%;
+	min-width: 560px;
+	height: 760px;
+	text-align: center;
+	opacity: 0.9;
+	background-color: white;
+	border-radius: 20px;
+  	-webkit-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
+	box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
+}
+#bestellungBearbeitenPanel h1
+{
+	margin:0;
+	margin-left: 50px;
+	padding: 15px;
+}
+#bestellungBearbeitenPanel .inputField
+{
+	width: 200px;
+}
+#bestellinformationen
+{
+	width: 100%;
+	height: 200px;
+	float: none;
+}
+#benutzerinfosBestellung
+{
+	width: 45%;
+	height: 150px;
+	float: left;
+	margin-top: 5%;
+	margin-left: 3%;
+}
+#benutzerinfosBestellung p
+{
+	font-size: 14px;
+}
+#bestellinfos
+{
+	width: 45%;
+	height: 150px;
+	float: left;
+	margin-top: 5%;
+	margin-left: 3%;
+}
+#bestellinfos p
+{
+	font-size: 14px;
+}
+#bestellungenTabelleContainer
+{
+	height: 400px;
+	width: 100%;
+	margin-top: 50px;
+	text-align: center;
+}
+#bestellungenBearbeitenTabelle{
+	width: 80%;
+	margin: auto;
+	magin-left: 3%;
+	table-layout: fixed;
+}
+#bestellungenTabelleContainer tbody{
+	height: 400px;
+	overflow: auto;
+	display: block;
+	width: 100%
+}
+#bestellungenTabelleContainer thead th{
+	text-align: left;
+	border-bottom: 1px solid #BF4D17;		
+}
+#bestellungenTabelleContainer tbody tr{
+	border-collapse: collapse;
+	margin:auto;
+	margin-top: 10px;
+	empty-cells: hide;
+	text-align: left;
+	max-height: 20px;
+}
+#bestellungenTabelleContainer tbody tr:hover{
+	background-color: #e0e0e0;
+}
+#bestellungenTabelleContainer thead tr{
+	display: block;
+	position: relative;
+}
+
+#bestellungenTabelleContainer > table td:nth-child(1), #bestellungenTabelleContainer > table th:nth-child(1) { width: 90px; }
+#bestellungenTabelleContainer > table td:nth-child(2), #bestellungenTabelleContainer > table th:nth-child(2) { width: 140px; }
+#bestellungenTabelleContainer > table td:nth-child(3), #bestellungenTabelleContainer > table th:nth-child(3) { width: 110px; }
+#bestellungenTabelleContainer > table td:nth-child(4), #bestellungenTabelleContainer > table th:nth-child(4) { width: 110px; }
+#bestellungenTabelleContainer > table td:nth-child(5), #bestellungenTabelleContainer > table th:nth-child(5) { width: 110px; }
+
+#bestellungBearbeitenPanel td.tablecell{
+	height: 22px;
+	padding: 3px;
+	padding-right: 1px;
+	padding-left: 1px;
+	
+}
+#bestellungBearbeitenPanel td.tablecellright{
+	text-align:center;
+	height: 22px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+}
+#bestellungBearbeitenPanel td.tablecell > div {
+    width: 100%;
+    height: 20px;
+    overflow: hidden;
+}
+/* ---------- Panel für das Bearbeiten von Bestellungen ----------------- */
+
+
 /* ---------- Panel für Fehlermeldungen ----------------- */
 #fehlermeldungPanel{
 	margin: 0;
