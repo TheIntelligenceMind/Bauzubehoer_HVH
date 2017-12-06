@@ -62,7 +62,7 @@ public class BestellungenController extends HttpServlet {
 		
 		
 		// Berechtigung für die Seite prüfen
-    	if(((Benutzer)req.getSession().getAttribute("benutzer")).getRolle().getSichtBestellungen() != 1){
+    	if(((Benutzer)req.getSession().getAttribute("benutzer")).getRolle().getSichtBestellungen() != 1 && ((Benutzer)req.getSession().getAttribute("benutzer")).getRolle().getSichtBestellungstammdaten() != 1){
     		rd = req.getRequestDispatcher("/suchen");	
     		rd.forward(req, resp);
     		return;
@@ -135,61 +135,70 @@ public class BestellungenController extends HttpServlet {
     	String status = req.getParameter("status");  	
     	String lieferdatum = req.getParameter("lieferdatum");
     	String zahlungsart = req.getParameter("zahlungsart");
+    	String fehlertext = null;
     	
     	Bestellung bestellung = queryManager.selectBestellungByBestellnummer(bestellnummer);
+    	if(bestellung != null){
+    		bestellung.setStatus(status);
+    		bestellung.setVoraussichtlichesLieferdatum(parseStringToDate(lieferdatum));
+    		bestellung.setZahlungsart(zahlungsart); 	
     	
-    	if(validateDate(lieferdatum)){	
-			if(bestellung != null){
-				bestellung.setStatus(status);
-				bestellung.setVoraussichtlichesLieferdatum(parseStringToDate(lieferdatum));
-				bestellung.setZahlungsart(zahlungsart);
-				
-				boolean result = queryManager.modifyBestellung(bestellung);
-				
-				if(result){
-					resp.addHeader("Status", ENUM_RESPONSE_STATUS.HINWEIS.toString());
-					resp.addHeader(ENUM_MELDUNG_ART.HINWEISMELDUNG.toString(), "Die Bestellung wurde erfolgreich gespeichert.");
-				}else{
-					resp.addHeader("Status", ENUM_RESPONSE_STATUS.FEHLER.toString());
-					resp.addHeader(ENUM_MELDUNG_ART.FEHLERMELDUNG.toString(), "Es ist ein unerwarteter Fehler beim Speichern der Bestellung aufgetreten.");
-				}
-			}else{
-				resp.addHeader("Status", ENUM_RESPONSE_STATUS.FEHLER.toString());
-				resp.addHeader(ENUM_MELDUNG_ART.FEHLERMELDUNG.toString(), "Es ist ein unerwarteter Fehler beim Speichern der Bestellung aufgetreten.");
-			}
-    	}else{
-    		resp.addHeader("Status", ENUM_RESPONSE_STATUS.FEHLER.toString());
-			resp.addHeader(ENUM_MELDUNG_ART.FEHLERMELDUNG.toString(), "Das voraussichtliche Lieferdatum ist ung&uuml;ltig.");
+	    	if((fehlertext = validateDate(lieferdatum)) == null || lieferdatum.isEmpty()){
+	    		if(!lieferdatum.isEmpty() || status.equals(ENUM_BESTELLSTATUS.NEU.toString())){						
+					boolean result = queryManager.modifyBestellung(bestellung);
+					
+					if(result){
+						resp.addHeader("Status", ENUM_RESPONSE_STATUS.HINWEIS.toString());
+						resp.addHeader(ENUM_MELDUNG_ART.HINWEISMELDUNG.toString(), "Die Bestellung wurde erfolgreich gespeichert.");
+					}else{
+						resp.addHeader("Status", ENUM_RESPONSE_STATUS.FEHLER.toString());
+						resp.addHeader(ENUM_MELDUNG_ART.FEHLERMELDUNG.toString(), "Es ist ein unerwarteter Fehler beim Speichern der Bestellung aufgetreten.");
+					}
+	    		}else{
+	    			resp.addHeader("Status", ENUM_RESPONSE_STATUS.FEHLER.toString());
+					resp.addHeader(ENUM_MELDUNG_ART.FEHLERMELDUNG.toString(), "Der Status \"" + status + "\" ben&ouml;tigt ein voraussichtliches Lieferdatum.");
+	    		}	
+	    	}else{
+	    		resp.addHeader("Status", ENUM_RESPONSE_STATUS.FEHLER.toString());
+				resp.addHeader(ENUM_MELDUNG_ART.FEHLERMELDUNG.toString(), fehlertext);
+	    	}
     	}
+    	
     	bestellung = queryManager.selectBestellungByBestellnummer(bestellnummer);
     	
     	req.setAttribute("bearbeitenBestellung", bestellung);
     	req.setAttribute("bearbeitenBestellungArtikelliste", queryManager.selectAllBestellArtikelByBestellnummer(bestellnummer));
     	resp.addHeader("contentSite", "bestellungBearbeitenPanel");
     }
-
+    
     /**
      *  <pre>
      * <h3>Beschreibung:</h3> Die Methode überprüft, ob es sich um das richtige 
-     * Datumsformat und um ein reales Datum handelt
+     * Datumsformat und um ein reales Datum handelt und ob das Datum in der Zukunft liegt
      * </pre>
      * @param datum
-     * @return true oder false
+     * @return fehlertext
      */
-    private boolean validateDate(String strDatum){
-    	java.text.SimpleDateFormat sdf = 
-    		    new java.text.SimpleDateFormat("yyyy-MM-dd");
+    private String validateDate(String strDatum){
+    	String fehlertext = null;
+    	
+    	java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
     	if (strDatum != null) {
     	    try {
     	      java.util.Date ret = sdf.parse(strDatum.trim());
     	      if (sdf.format(ret).equals(strDatum.trim())) {
-    	        return true;
+    	    	  if(!ret.after(getCurrentTimestamp())){
+    	    		  fehlertext = "Das voraussichtliche Lieferdatum muss in der Zukunft liegen.";
+    	    	  }
+    	      }else{
+    	    	  fehlertext = "Das vorraussichtliche Lieferdatum ist ung&uuml;ltig.";
     	      }
     	    } catch (ParseException e) {
-    	      e.printStackTrace();
+    	      fehlertext = "Das vorraussichtliche Lieferdatum ist ung&uuml;ltig.";
     	    }
-    	  }
-    	return false;
+    	}
+    	
+    	return fehlertext;
     }
     
     /**

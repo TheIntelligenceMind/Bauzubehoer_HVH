@@ -37,7 +37,6 @@ Aus dieser Ansicht kann das "bestellungBearbeitenPanel" aufgerufen werden.
           <tr>
           	<th>Bestell-Nr</th>
           	<th>Datum</th>
-            <th>Summe</th>
             <th>Status</th>
             <th>Zahlungsart</th>
             <th>Lieferdatum</th>
@@ -46,31 +45,24 @@ Aus dieser Ansicht kann das "bestellungBearbeitenPanel" aufgerufen werden.
         </thead>
         <tbody>
         	 <%
-        	 List<?> bestellungstammdatenListe = (List<?>)request.getAttribute("bestellungstammdatenListe");
-        	 
-        	 if(bestellungstammdatenListe != null){
-
-		    	for(Object o : bestellungstammdatenListe){
-		    			Bestellung stammdatenBestellung = (Bestellung)o;
-	        	 	%>
-						<tr>
-		        			<td class="tablecell"><div><% out.print(stammdatenBestellung.getBestellnummer()); %></div></td>
-						    <td class="tablecell"><div><% out.print(stammdatenBestellung.getBestelldatum()); %></div></td>
-						    <td class="tablecell"><div><% out.print(formater.format(stammdatenBestellung.getBestellwert())); %></div></td>
-						    <td class="tablecell"><div><% out.print(stammdatenBestellung.getStatus()); %></div></td>
-						    <td class="tablecell"><div><% out.print(stammdatenBestellung.getZahlungsart()); %></div></td>
-						    <td class="tablecell"><div><% out.print((stammdatenBestellung.getVoraussichtlichesLieferdatum() != null ? stammdatenBestellung.getVoraussichtlichesLieferdatum() : "")); %></div></td>
-						    <td class="tablecellright"><a onclick="bestellungBearbeitenAnzeigen(<% out.print('\'' + stammdatenBestellung.getBestellnummer() + '\''); %>)" class='PickSymbol'><i class="fa fa-pencil-square-o"></i></a></td>
-						</tr>				
-					<%
-        	 	}
-        	 }
-		    	/*
-        	 	hier die Bestellungsabfrage.
-        	 	Benötigt wird erstmal Nachname, Vorname, Status, Summe und Bestell-Nr.
-        	 	Über das Bearbeiten Panel wird dann der Rest (Artikelliste, ...) geladen.
-        	 	*/
-        	 	
+	        	 List<?> bestellungstammdatenListe = (List<?>)request.getAttribute("bestellungstammdatenListe");
+	        	 
+	        	 if(bestellungstammdatenListe != null){
+	
+			    	for(Object o : bestellungstammdatenListe){
+			    			Bestellung stammdatenBestellung = (Bestellung)o;
+		        	 	%>
+							<tr>
+			        			<td class="tablecell"><div><% out.print(stammdatenBestellung.getBestellnummer()); %></div></td>
+							    <td class="tablecell"><div><% out.print(stammdatenBestellung.getBestelldatum()); %></div></td>
+							    <td class="tablecell"><div><% out.print(stammdatenBestellung.getStatus()); %></div></td>
+							    <td class="tablecell"><div><% out.print(stammdatenBestellung.getZahlungsart()); %></div></td>
+							    <td class="tablecell"><div><% out.print((stammdatenBestellung.getVoraussichtlichesLieferdatum() != null ? stammdatenBestellung.getVoraussichtlichesLieferdatum() : "")); %></div></td>
+							    <td class="tablecellright"><a onclick="bestellungBearbeitenAnzeigen(<% out.print('\'' + stammdatenBestellung.getBestellnummer() + '\''); %>)" class='PickSymbol'><i class="fa fa-pencil-square-o"></i></a></td>
+							</tr>				
+						<%
+	        	 	}
+	        	}
         	%>
         </tbody>
     </table>

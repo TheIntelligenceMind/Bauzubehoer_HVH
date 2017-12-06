@@ -48,11 +48,11 @@ function artikelSuchenNachBegriff(){
 			</div>
 			
 			<div id="bestellinfos">
-			<p>voraussichliches Lieferdatum</p>
+			<p>voraussichtliches Lieferdatum</p>
 			<input type="text" title="voraussichtliches Lieferdatum" name="lieferdatum" class="inputField" placeholder="YYYY-MM-DD" value="<% out.print((bearbeitenBestellung.getVoraussichtlichesLieferdatum() != null ? bearbeitenBestellung.getVoraussichtlichesLieferdatum() : "")); %>"></input>
 			
 			<p>Status</p>
-		    <select name="status" id="statusauswahlBestellungBearbeiten" class="inputField">
+		    <select name="status" id="statusauswahlBestellungBearbeiten">
 			     <%
 			     	List<ENUM_BESTELLSTATUS> statusliste = ENUM_BESTELLSTATUS.getBestellstatusListe();
 			     	String selectedStatus = "selected";
@@ -68,7 +68,7 @@ function artikelSuchenNachBegriff(){
 		    </select>
 		    
 			<p>Zahlungsart</p>
-			<select name="zahlungsart" id="zahlungsartauswahlBestellungBearbeiten" class="inputField">
+			<select name="zahlungsart" id="zahlungsartauswahlBestellungBearbeiten">
 			     <%
 			     	List<ENUM_ZAHLUNGSART> zahlungsartliste = ENUM_ZAHLUNGSART.getZahlungsartListe();
 			     	String selectedZahlungsart = "selected";
@@ -86,40 +86,44 @@ function artikelSuchenNachBegriff(){
 	    </div>
 	    
 	    <div id="bestellungenTabelleContainer">
-	    <table id="bestellungenBearbeitenTabelle">
-	       	<thead>
-	          <tr>
-	          	<th>Artikel-Nr</th>
-	            <th>Bezeichnung</th>
-	            <th>Preis</th>
-	            <th>Menge</th>
-	            <th>Summe</th>
-	          </tr>
-	        </thead>
-	        <tbody>
-	        	<% 
-		        	List<?> bestellArtikelliste = (List<?>)session.getAttribute("bearbeitenBestellungArtikelliste");
-		        	
-		        	if(bestellArtikelliste != null){
-			    		for(Object o : bestellArtikelliste){
-			    			BestellArtikel bestellArtikel = (BestellArtikel)o;
-			    			
-			    			out.print(  "<tr>" +
-						        		"<td class='tablecell'><div>" + bestellArtikel.getArtikel().getNummer() + "</div></td>" +
-						        		"<td class='tablecell'><div>" + bestellArtikel.getArtikel().getBezeichnung() + "</div></td>" +
-						        		"<td class='tablecell'><div>" + bestellArtikel.getArtikel().getPreis() + "</div></td>" +
-						        		"<td class='tablecell'><div>" + bestellArtikel.getMenge() + "</div></td>" +
-						        		"<td class='tablecell'><div>" + formater.format(bestellArtikel.getArtikel().getPreis() * bestellArtikel.getMenge()) + "</div></td>" +
-										"</tr>"
-			    					);
-			    		}
-				 	}		        		
-	        	%>
-	       	  
-			</tbody>
-	    </table>
-	</div>
-	    <button id="btnBestellungBearbeiten" class="btnRight btnStandardKlein" type="submit" name="method" value="bestellungBearbeiten">Speichern</button>
+		    <table id="bestellungenBearbeitenTabelle">
+		       	<thead>
+		          <tr>
+		          	<th>Artikel-Nr</th>
+		            <th>Bezeichnung</th>
+		            <th>Preis</th>
+		            <th>Menge</th>
+		            <th>Summe</th>
+		          </tr>
+		        </thead>
+		        <tbody>
+		        	<% 
+			        	List<?> bestellArtikelliste = (List<?>)request.getAttribute("bearbeitenBestellungArtikelliste");
+			        	
+			        	if(bestellArtikelliste != null){
+				    		for(Object o : bestellArtikelliste){
+				    			BestellArtikel bestellArtikel = (BestellArtikel)o;
+				    			
+				    			out.print(  "<tr>" +
+							        		"<td class='tablecell'><div>" + bestellArtikel.getArtikel().getNummer() + "</div></td>" +
+							        		"<td class='tablecell'><div>" + bestellArtikel.getArtikel().getBezeichnung() + "</div></td>" +
+							        		"<td class='tablecell'><div>" + formater.format(bestellArtikel.getArtikel().getPreis()) + " &euro;</div></td>" +
+							        		"<td class='tablecell'><div>" + bestellArtikel.getMenge() + "</div></td>" +
+							        		"<td class='tablecell'><div>" + formater.format(bestellArtikel.getArtikel().getPreis() * bestellArtikel.getMenge()) + " &euro;</div></td>" +
+											"</tr>"
+				    					);
+				    		}
+					 	}		        		
+		        	%>
+		       	  
+				</tbody>
+		    </table>   
+		</div>
+		<div id="bestellungBearbeitenBestellwertPanel">
+			<p>Bestellwert</p> 
+	    	<input type="text" title="Bestellwert" class="inputField" value="<% out.print(formater.format(bearbeitenBestellung.getBestellwert())); %> &euro;" disabled></input>
+	    </div>
+	    <button id="btnBestellungBearbeitenSpeichern" class="btnStandardKlein" type="submit" name="method" value="bestellungBearbeiten">Speichern</button>
 	</form>
 	<div id="bestellungBearbeitenBtnLeft">
 		<form action="meineBestellungen">

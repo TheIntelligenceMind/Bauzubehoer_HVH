@@ -79,7 +79,7 @@ Diese Datei behandelt das Anzeigen eines bestimmten Artikels.
 			</div>
 			
 			<div id="artikelDetailansichtInfo">
-					<h4><% out.print(detailansichtArtikel.getBezeichnung()); %></h4>
+					<h3><% out.print(detailansichtArtikel.getBezeichnung()); %></h3>
 					<p class="detailansichtArtikelnummer">Nr.: <% out.print(detailansichtArtikel.getNummer()); %></p>
 					<p><%
 						if(detailansichtArtikel.getLagermenge() > 0){
@@ -95,7 +95,6 @@ Diese Datei behandelt das Anzeigen eines bestimmten Artikels.
 				<i class="versandkosten">zzgl. Versandkostenpauschale</i>
 			</div>
 		</div>	
-		
 		
 		<div id="artikelDetailansichtPanelBeschreibung">
 			<textarea class="inputArea" wrap="soft" name="artikelDetailbeschreibung" placeholder="Beschreibung" readonly><% out.print(detailansichtArtikel.getBeschreibung()); %></textarea>

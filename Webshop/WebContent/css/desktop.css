@@ -1243,7 +1243,7 @@ html,body{
 	margin-left: 50px;
 	padding: 0;
 	padding-top: 20px;
-	padding-bottom: 20px;
+	padding-bottom: 10px;
 }
 #meineBestellungenTabelle{
 	width: 92%;
@@ -2026,14 +2026,14 @@ artikelDetailansichtPanelHeadInfo{
 	float: left;
 	margin-left: 3%;
 	margin-top: 3%;
-	border: solid 1px gray;
+	border: none;
 	border-radius: 2px;
-	height: 90px;
-	width: 80px;
+	height: 130px;
+	width: 120px;
 }
 #artikelDetailansichtBild img{
-	height: 90px;
-	width: 80px;
+	height: 130px;
+	width: 120px;
 }
 #artikelDetailansichtMenge{
 	float: right;
@@ -2041,7 +2041,7 @@ artikelDetailansichtPanelHeadInfo{
 	margin-top: 3%;
 	margin-right: 1%;
 	padding-top: 3px;
-	width: 20%;
+	width: 16%;
 }
 #artikelDetailansichtMenge input{
 	margin-left: 10px;
@@ -2102,8 +2102,7 @@ artikelDetailansichtPanelHeadInfo{
 	text-align: left;
 	margin-left: 3%;
 	height: 80px;
-	width: 30%;
-	
+	width: 32%;
 }
 #artikelDetailansichtPreis
 {
@@ -2122,13 +2121,17 @@ artikelDetailansichtPanelHeadInfo{
 #artikelDetailansichtPanelBeschreibung textarea{
 	width: 96%;
 	padding: 0;
-	height: 140px;
-	margin-left: 20px;
+	height: 190px;
+	overflow: auto;
+	float: left;
+	margin-left: 2%;
 	margin-right: 20px;
-	margin-top: 5%;
+	margin-top: 15px;
+	margin-bottom: 20px;
 	font-size: 14px;
 	font-family: arial;
 	border: none;
+	display: block;
 	resize: none;
 }
 
@@ -2943,6 +2946,8 @@ table#zusatzTabelleBestellung tbody td{
 	width: 100%
 }
 #benutzerTabelle thead th{
+	padding: 3px;
+	padding-bottom: 0px;
 	text-align: left;
 	border-bottom: 1px solid #BF4D17;		
 }
@@ -2964,9 +2969,9 @@ table#zusatzTabelleBestellung tbody td{
 
 #benutzerListe > table td:nth-child(1), #benutzerListe > table th:nth-child(1) { width: 200px; }
 #benutzerListe > table td:nth-child(2), #benutzerListe > table th:nth-child(2) { width: 100px; }
-#benutzerListe > table td:nth-child(3), #benutzerListe > table th:nth-child(3) { width: 100px; }
+#benutzerListe > table td:nth-child(3), #benutzerListe > table th:nth-child(3) { width: 120px; }
 #benutzerListe > table td:nth-child(4), #benutzerListe > table th:nth-child(4) { width: 130px; }
-#benutzerListe > table td:nth-child(5), #benutzerListe > table th:nth-child(5) { width: 50px; }
+#benutzerListe > table td:nth-child(5), #benutzerListe > table th:nth-child(5) { width: 30px; }
 
 #benutzerTabelle td.tablecell{
 	height: 22px;
@@ -3032,8 +3037,8 @@ table#zusatzTabelleBestellung tbody td{
 	table-layout: fixed;
 }
 #bestellungstammdatenPanel tbody{
-	height: 400px;
-	overflow: auto;
+	height: 300px;
+	overflow-y: scroll;
 	display: block;
 	width: 100%
 }
@@ -3057,13 +3062,12 @@ table#zusatzTabelleBestellung tbody td{
 	position: relative;
 }
 
-#bestellungstammdatenPanel > table td:nth-child(1), #bestellungstammdatenPanel > table th:nth-child(1) { width: 80px; }
-#bestellungstammdatenPanel > table td:nth-child(2), #bestellungstammdatenPanel > table th:nth-child(2) { width: 90px; }
-#bestellungstammdatenPanel > table td:nth-child(3), #bestellungstammdatenPanel > table th:nth-child(3) { width: 100px; }
-#bestellungstammdatenPanel > table td:nth-child(4), #bestellungstammdatenPanel > table th:nth-child(4) { width: 70px; }
-#bestellungstammdatenPanel > table td:nth-child(5), #bestellungstammdatenPanel > table th:nth-child(5) { width: 95px; }
-#bestellungstammdatenPanel > table td:nth-child(6), #bestellungstammdatenPanel > table th:nth-child(6) { width: 120px; }
-#bestellungstammdatenPanel > table td:nth-child(7), #bestellungstammdatenPanel > table th:nth-child(7) { width: 40px; }
+#bestellungstammdatenPanel > table td:nth-child(1), #bestellungstammdatenPanel > table th:nth-child(1) { width: 100px; }
+#bestellungstammdatenPanel > table td:nth-child(2), #bestellungstammdatenPanel > table th:nth-child(2) { width: 105px; }
+#bestellungstammdatenPanel > table td:nth-child(3), #bestellungstammdatenPanel > table th:nth-child(3) { width: 140px; }
+#bestellungstammdatenPanel > table td:nth-child(4), #bestellungstammdatenPanel > table th:nth-child(4) { width: 120px; }
+#bestellungstammdatenPanel > table td:nth-child(5), #bestellungstammdatenPanel > table th:nth-child(5) { width: 100px; }
+#bestellungstammdatenPanel > table td:nth-child(6), #bestellungstammdatenPanel > table th:nth-child(6) { width: 30px; }
 
 #bestellungstammdatenPanel td.tablecell{
 	height: 22px;
@@ -3098,9 +3102,9 @@ table#zusatzTabelleBestellung tbody td{
 /* ---------- Panel für das Bearbeiten von Bestellungen ----------------- */
 #bestellungBearbeitenPanel{
 	margin: 50px auto;
-	width: 70%;
+	width: 60%;
 	min-width: 560px;
-	height: 760px;
+	height: 720px;
 	text-align: center;
 	opacity: 0.9;
 	background-color: white;
@@ -3109,64 +3113,88 @@ table#zusatzTabelleBestellung tbody td{
 	-moz-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
 	box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
 }
-#bestellungBearbeitenPanel h1
-{
+#bestellungBearbeitenPanel h1{
 	margin:0;
 	margin-left: 50px;
 	padding: 15px;
 }
-#bestellungBearbeitenPanel .inputField
-{
-	width: 200px;
+#bestellungBearbeitenPanel .inputField{
+	border: 1px solid #BF4D17;
+	padding: 3px;
+	height: 18px;
+	width: 202px;
 }
-#bestellinformationen
-{
+#bestellungBearbeitenPanel select{
+	border: 1px solid #BF4D17;
+	padding: 3px;
+	height: 26px;
+	width: 210px;
+}
+#bestellungBearbeitenPanel .inputField[disabled]{
+	background-color: white;	
+}
+#bestellinformationen{
 	width: 100%;
 	height: 200px;
 	float: none;
 }
-#benutzerinfosBestellung
-{
+#benutzerinfosBestellung{
 	width: 45%;
-	height: 150px;
+	height: 200px;
 	float: left;
-	margin-top: 5%;
+	margin-top: 0px;
 	margin-left: 3%;
 }
-#benutzerinfosBestellung p
-{
+#benutzerinfosBestellung p{
+	margin-bottom: 10px;
 	font-size: 14px;
+	font-weight: bold;
 }
-#bestellinfos
-{
+#bestellinfos{
 	width: 45%;
-	height: 150px;
+	height: 200px;
 	float: left;
-	margin-top: 5%;
+	margin-top: 0px;
 	margin-left: 3%;
 }
-#bestellinfos p
-{
+#bestellinfos p{
+	margin-bottom: 10px;
 	font-size: 14px;
+	font-weight: bold;
 }
-#bestellungenTabelleContainer
-{
-	height: 400px;
+#bestellungBearbeitenBestellwertPanel{
+	margin-top: 10px;
+	margin-bottom: 10px;
 	width: 100%;
-	margin-top: 50px;
+	height: 80px;
+}
+#bestellungBearbeitenBestellwertPanel p{
+	margin: 0;
+	margin-bottom: 10px;
+	font-weight: bold;
+}
+#bestellungBearbeitenBestellwertPanel input{
+	padding: 3px;
+	width: 200px;
+}
+#bestellungenTabelleContainer{
+	height: 230px;
+	width: 100%;
+	margin-top: 30px;
 	text-align: center;
 }
 #bestellungenBearbeitenTabelle{
-	width: 80%;
+	width: 90%;
 	margin: auto;
 	magin-left: 3%;
 	table-layout: fixed;
 }
 #bestellungenTabelleContainer tbody{
-	height: 400px;
-	overflow: auto;
+	height: 180px;
+	overflow-y: scroll;
 	display: block;
-	width: 100%
+	width: 100%;
+	min-width: 620px;
 }
 #bestellungenTabelleContainer thead th{
 	text-align: left;
@@ -3174,7 +3202,6 @@ table#zusatzTabelleBestellung tbody td{
 }
 #bestellungenTabelleContainer tbody tr{
 	border-collapse: collapse;
-	margin:auto;
 	margin-top: 10px;
 	empty-cells: hide;
 	text-align: left;
@@ -3189,10 +3216,10 @@ table#zusatzTabelleBestellung tbody td{
 }
 
 #bestellungenTabelleContainer > table td:nth-child(1), #bestellungenTabelleContainer > table th:nth-child(1) { width: 90px; }
-#bestellungenTabelleContainer > table td:nth-child(2), #bestellungenTabelleContainer > table th:nth-child(2) { width: 140px; }
-#bestellungenTabelleContainer > table td:nth-child(3), #bestellungenTabelleContainer > table th:nth-child(3) { width: 110px; }
-#bestellungenTabelleContainer > table td:nth-child(4), #bestellungenTabelleContainer > table th:nth-child(4) { width: 110px; }
-#bestellungenTabelleContainer > table td:nth-child(5), #bestellungenTabelleContainer > table th:nth-child(5) { width: 110px; }
+#bestellungenTabelleContainer > table td:nth-child(2), #bestellungenTabelleContainer > table th:nth-child(2) { width: 220px; }
+#bestellungenTabelleContainer > table td:nth-child(3), #bestellungenTabelleContainer > table th:nth-child(3) { width: 90px; }
+#bestellungenTabelleContainer > table td:nth-child(4), #bestellungenTabelleContainer > table th:nth-child(4) { width: 80px; }
+#bestellungenTabelleContainer > table td:nth-child(5), #bestellungenTabelleContainer > table th:nth-child(5) { width: 100px; }
 
 #bestellungBearbeitenPanel td.tablecell{
 	height: 22px;
@@ -3212,7 +3239,15 @@ table#zusatzTabelleBestellung tbody td{
     height: 20px;
     overflow: hidden;
 }
+#btnBestellungBearbeitenSpeichern{
+	font-size: 20px;
+	height: 35px;
+	width: 230px;
+}
+
 /* ---------- Panel für das Bearbeiten von Bestellungen ----------------- */
+
+
 
 
 /* ---------- Panel für Fehlermeldungen ----------------- */
