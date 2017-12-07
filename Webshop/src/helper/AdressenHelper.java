@@ -18,7 +18,14 @@ public class AdressenHelper {
 	public static AdressenHelper getInstance(){
 		return instance;
 	}
+
 	
+	/**
+	 * <pre>
+	 * <h3>Beschreibung:</h3> Die Methode überprüft alle Attribute des Adressobjekts auf Validität.
+	 * </pre>
+	 *  @param piAdresse
+	 */
 	public boolean validateAdresse(Adresse piAdresse){
 		Adresse adresse = piAdresse;
 		

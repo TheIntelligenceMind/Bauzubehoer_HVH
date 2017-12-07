@@ -31,6 +31,12 @@ public class MailHelper {
 		return instance;
 	}
 	
+	/**
+	 * <pre>
+	 * <h3>Beschreibung:</h3> Die Methode liefert die nötigen Mailserver Credentials zurück. 
+	 * </pre>
+	 * @return props
+	 */
 	private Properties getProperties(){
 		Properties props = new Properties();
 	    props.put("mail.smtp.host", "smtp.gmail.com");
@@ -43,6 +49,12 @@ public class MailHelper {
 		return props;
 	}
 	
+	/**
+	 * <pre>
+	 * <h3>Beschreibung:</h3> Die Methode liefert eine Session zurück.
+	 * </pre>
+	 * @return session
+	 */
 	private Session getSession(){
 		Session session = Session.getDefaultInstance(getProperties(), new javax.mail.Authenticator() {
 	        @Override
@@ -54,6 +66,14 @@ public class MailHelper {
 		return session;
 	}
 	
+	/**
+	 * <pre>
+	 * <h3>Beschreibung:</h3> Die Methode verschickt eine Zurücksetzungs E-Mail an den Kunden.
+	 * </pre>
+	 * @param emailadresse
+	 * @param resetCode
+	 * @return boolean
+	 */
 	public boolean sendResetEmail(String emailadresse, String resetCode){
 		Session session = getSession();
 
@@ -80,6 +100,13 @@ public class MailHelper {
 	    return true;
 	}
 	
+	/**
+	 * <pre>
+	 * <h3>Beschreibung:</h3> Die Methode verschickt eine Kontakt E-Mail an die HVH E-Mail-Adresse.
+	 * </pre>
+	 * @param nachricht
+	 * @param registrierterBenutzer
+	 */
 	public void sendKontaktMail(Nachricht nachricht, boolean registrierterBenutzer){
 		Session session = getSession();
 
@@ -106,6 +133,14 @@ public class MailHelper {
 		
 	}
 	
+	/**
+	 * <pre>
+	 * <h3>Beschreibung:</h3> Die Methode verschickt eine Rechnungsmail an die E-Mail des übergebenen Kunden.
+	 * </pre>
+	 * @param benutzer
+	 * @param bestellung
+	 * @param artikelliste
+	 */
 	public void sendRechnungsmail(Benutzer benutzer, Bestellung bestellung, List<WarenkorbArtikel> artikelliste){
 		Session session = getSession();
 
@@ -141,10 +176,14 @@ public class MailHelper {
 	    }catch (MessagingException e) {
 	        throw new RuntimeException(e);         
 	    }
-		
-		
 	}
 	
+	/**
+	 * <pre>
+	 * <h3>Beschreibung:</h3> Die Methode verschickt eine Bestätigungsmail zur Registrierung an die E-Mail des übergebenen Kunden.
+	 * </pre>
+	 * @param benutzer
+	 */
 	public void sendBestaetigungsmail(Benutzer benutzer){ 
 	    Session session = getSession();
 
@@ -170,6 +209,14 @@ public class MailHelper {
 	    }
 	}
 	
+	/**
+	 * <pre>
+	 * <h3>Beschreibung:</h3> Die Methode liefert den Inhalt der ResetMail zurück.
+	 * </pre>
+	 * @param emailadresse
+	 * @param resetCode
+	 * @return content
+	 */
 	private String getResetMailContent(String emailadresse, String resetCode){
 		String content =  "<html>"
 				+ "<body>"
@@ -193,6 +240,14 @@ public class MailHelper {
 		return content;
 	}
 
+	/**
+	 * <pre>
+	 * <h3>Beschreibung:</h3> Die Methode liefert den Inhalt der KontaktMail zurück.
+	 * </pre>
+	 * @param nachricht
+	 * @param registrierterBenutzer
+	 * @return content
+	 */
 	private String getKontaktMailContent(Nachricht nachricht, boolean registrierterBenutzer){
 		
 		String content =  "<html>"
@@ -217,6 +272,15 @@ public class MailHelper {
 		return content;
 	}
 	
+	/**
+	 * <pre>
+	 * <h3>Beschreibung:</h3> Die Methode liefert den Inhalt der Rechnungsmail (Vorkasse) zurück.
+	 * </pre>
+	 * @param benutzer
+	 * @param bestellung
+	 * @param artikelliste
+	 * @return content
+	 */
 	private String getRechnungsmailContentVorkasse(Benutzer benutzer, Bestellung bestellung, List<WarenkorbArtikel> artikelliste){	
 		DecimalFormat formater = new DecimalFormat("#0.00");
 		
@@ -277,6 +341,15 @@ public class MailHelper {
 		return content;		
 	}
 	
+	/**
+	 * <pre>
+	 * <h3>Beschreibung:</h3> Die Methode liefert den Inhalt der Rechnungsmail (Rechnung) zurück.
+	 * </pre>
+	 * @param benutzer
+	 * @param bestellung
+	 * @param artikelliste
+	 * @return content
+	 */
 	private String getRechnungsmailContentRechnung(Benutzer benutzer, Bestellung bestellung, List<WarenkorbArtikel> artikelliste){	
 		DecimalFormat formater = new DecimalFormat("#0.00");
 		
@@ -335,6 +408,13 @@ public class MailHelper {
 		return content;		
 	}
 
+	/**
+	 * <pre>
+	 * <h3>Beschreibung:</h3> Die Methode liefert den Inhalt der Bestätigungsmail zurück.
+	 * </pre>
+	 * @param benutzer
+	 * @return content
+	 */
 	private String getBestaetigungsmailContent(Benutzer benutzer) {
 		String content = "<html><body>"
 						+ "<style>"

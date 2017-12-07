@@ -65,7 +65,13 @@ public class BenutzerHelper {
 		return code;
 	}
 	
-	
+	/**
+	 * <pre>
+	 * <h3>Beschreibung:</h3> Die Methode legt einen Benutzer mit der zugehörigen Adrese in der DB an.
+	 * </pre>
+	 *  @param req
+	 *  @param adresse
+	 */
 	public String benutzerAnlegen(HttpServletRequest req, Adresse adresse){
 		String fehlertext = null;		
 		String emailadresse = req.getParameter("emailadresse");

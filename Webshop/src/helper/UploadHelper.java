@@ -23,6 +23,13 @@ public class UploadHelper {
 		return instance;
 	}
 	
+	/**
+	 * <pre>
+	 * <h3>Beschreibung:</h3> Die Methode validiert ein ausgewähltes Bild und lädt es hoch.
+	 * </pre>
+	 * @param part
+	 * @return bytes
+	 */
 	public byte[] bildHochladen(Part part){
 		byte[] bytes = null;
 		try {
