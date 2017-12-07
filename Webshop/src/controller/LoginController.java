@@ -32,14 +32,31 @@ import enums.ENUM_RESPONSE_STATUS;
 public class LoginController extends HttpServlet{
 	private static final long serialVersionUID = -6106934665383263630L;
 	
-	QueryManager queryManager = QueryManager.getInstance();
-	HttpSession session = null;
+	private static final QueryManager queryManager = QueryManager.getInstance();
+	private HttpSession session = null;
 
+	/**
+	 * <pre>
+	 * <h3>Beschreibung:</h3> Die Methode erhält alle GET-Aufrufe 
+	 * und leitet diese an die doPost() Methode weiter
+	 * </pre>
+	 *  @param req
+	 *  @param resp
+	 */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doPost(req, resp);
 	}
-	
+
+	/**
+	 * <pre>
+	 * <h3>Beschreibung:</h3> Die Methode erhält alle POST-Aufrufe und die weitergeleiteten Aufrufe der doGet() Methode.
+	 * Hier werden die verschiedenen Aufrufe verarbeitet. Durch den "method"-Parameter wird bestimmt, 
+	 * welche Funktionen durch den Controller ausgeführt werden sollen.
+	 * </pre>
+	 *  @param req
+	 *  @param resp
+	 */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {		
 		RequestDispatcher rd = req.getRequestDispatcher("/suchen");
@@ -57,6 +74,15 @@ public class LoginController extends HttpServlet{
 		rd.forward(req, resp);		
 	}
 
+	
+	/**
+	 * <pre>
+	 * <h3>Beschreibung:</h3> Die Methode validiert die eingebenen Benutzer Credentials. 
+	 * Wenn diese korrekt sind bekommt der Benutzer eine Session und ist angemeldet.
+	 * </pre>
+	 *  @param req
+	 *  @param resp
+	 */
 	private void anmeldungValidieren(HttpServletRequest req, HttpServletResponse resp) {
 		String emailadresse = req.getParameter("emailadresse");
 		String passwort = req.getParameter("passwort");

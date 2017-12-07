@@ -29,16 +29,32 @@ import helper.MailHelper;
 @WebServlet("/registrieren")
 public class RegistrationController extends HttpServlet{
 	private static final long serialVersionUID = 8289722651997847704L;
-
 	private static final QueryManager queryManager = QueryManager.getInstance();
 	private static final BenutzerHelper benutzerHelper = BenutzerHelper.getInstance();
 	private static final MailHelper mailHelper = MailHelper.getInstance();
 	
+	/**
+	 * <pre>
+	 * <h3>Beschreibung:</h3> Die Methode erhält alle GET-Aufrufe 
+	 * und leitet diese an die doPost() Methode weiter
+	 * </pre>
+	 *  @param req
+	 *  @param resp
+	 */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doPost(req, resp);
 	}
-	
+
+	/**
+	 * <pre>
+	 * <h3>Beschreibung:</h3> Die Methode erhält alle POST-Aufrufe und die weitergeleiteten Aufrufe der doGet() Methode.
+	 * Hier werden die verschiedenen Aufrufe verarbeitet. Durch den "method"-Parameter wird bestimmt, 
+	 * welche Funktionen durch den Controller ausgeführt werden sollen.
+	 * </pre>
+	 *  @param req
+	 *  @param resp
+	 */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		RequestDispatcher rd = req.getRequestDispatcher("index.jsp");
@@ -127,6 +143,15 @@ public class RegistrationController extends HttpServlet{
 		rd.forward(req, resp);
 	}	
 	
+	/**
+	 * <h3>Beschreibung:</h3>
+	 * <pre>
+	 * Die Methode überprüft ob der angegebene Reset-Code mit dem 
+	 * eingetragenen ResetCode in der Benutzer Tabelle übereinstimmt.
+	 * </pre> 
+	 * @param req HttpServletRequest
+	 * @param resp HttpServletResponse 
+	 */	
 	private boolean resetCodeValidieren(HttpServletRequest req, HttpServletResponse resp){
 		String resetCode = req.getParameter("resetCode");
 		String emailadresse = req.getParameter("bMail");
@@ -195,6 +220,15 @@ public class RegistrationController extends HttpServlet{
 		}
 	}
 	
+	/**
+	 * <h3>Beschreibung:</h3>
+	 * <pre>
+	 * Die Methode prüft, ob die eingegebenen Passwörter in der Passwort Zurücksetzen Ansicht valide sind, 
+	 * wenn ja wird das passwort in die DB übernommen.
+	 * </pre> 
+	 * @param req HttpServletRequest
+	 * @param resp HttpServletResponse 
+	 */	
 	private boolean passwortReset(HttpServletRequest req, HttpServletResponse resp){
 		String passwort = req.getParameter("passwort");
 		String passwortBestaetigt = req.getParameter("passwortBestaetigt");
@@ -253,6 +287,13 @@ public class RegistrationController extends HttpServlet{
 		return false;
 	}
 	
+	/**
+	 * <h3>Beschreibung:</h3>
+	 * <pre>
+	 * Die Methode überprüft den aufgerufenen Bestätigungslink des Benutzers auf Validität.
+	 * </pre> 
+	 * @param req HttpServletRequest
+	 */	
 	private String validateConfirmation(HttpServletRequest req){
 		String fehlertext = null;
 		String emailadresse = req.getParameter("ea");

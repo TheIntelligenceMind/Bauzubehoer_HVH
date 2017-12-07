@@ -38,11 +38,28 @@ public class BenutzerController extends HttpServlet {
 	private final static AdressenHelper adressenHelper = AdressenHelper.getInstance();
 	private String dispatchSite = "index.jsp";
 
+	/**
+	 * <pre>
+	 * <h3>Beschreibung:</h3> Die Methode erhält alle GET-Aufrufe 
+	 * und leitet diese an die doPost() Methode weiter
+	 * </pre>
+	 *  @param req
+	 *  @param resp
+	 */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doPost(req, resp);
 	}
 
+	/**
+	 * <pre>
+	 * <h3>Beschreibung:</h3> Die Methode erhält alle POST-Aufrufe und die weitergeleiteten Aufrufe der doGet() Methode.
+	 * Hier werden die verschiedenen Aufrufe verarbeitet. Durch den "method"-Parameter wird bestimmt, 
+	 * welche Funktionen durch den Controller ausgeführt werden sollen.
+	 * </pre>
+	 *  @param req
+	 *  @param resp
+	 */
     @Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {		
 		RequestDispatcher rd = req.getRequestDispatcher(dispatchSite);
@@ -176,6 +193,14 @@ public class BenutzerController extends HttpServlet {
     	return benutzerliste;
     }
     
+    
+    /**
+	 * <pre>
+	 * <h3>Beschreibung:</h3> Die Methode legt mit den übergebenen Benutzerdaten ein neues Benutzerkonto in der Datenbank an.
+	 * </pre>
+	 *  @param req
+	 *  @param resp
+	 */
     private void benutzerAnlegen(HttpServletRequest req, HttpServletResponse resp){
     	String emailadresse = req.getParameter("emailadresse");
     	String vorname = req.getParameter("vorname");
@@ -220,6 +245,13 @@ public class BenutzerController extends HttpServlet {
     	}	  	
     }
     
+    /**
+	 * <pre>
+	 * <h3>Beschreibung:</h3> Die Methode leitet an die Ansicht "Benutzer bearbeiten" weiter.
+	 * </pre>
+	 *  @param req
+	 *  @param resp
+	 */
     private void benutzerBearbeitenAnzeigen(HttpServletRequest req, HttpServletResponse resp){
     	String emailadresse = req.getParameter("emailadresse");
     	Benutzer benutzer = queryManager.getBenutzerByEMailAdresse(emailadresse);
@@ -228,6 +260,13 @@ public class BenutzerController extends HttpServlet {
     	resp.addHeader("contentSite", "benutzerBearbeitenPanel");   	
     }
     
+    /**
+	 * <pre>
+	 * <h3>Beschreibung:</h3> Die Methode speichert die eingegebenen Adressdaten des Benutzers in der DB.
+	 * </pre>
+	 *  @param req
+	 *  @param resp
+	 */
     private void adresseSpeichern(HttpServletRequest req, HttpServletResponse resp){ 	
     	boolean result = false;
     	String emailadresse = req.getParameter("emailadresse");
@@ -295,6 +334,13 @@ public class BenutzerController extends HttpServlet {
     }
     
     
+    /**
+	 * <pre>
+	 * <h3>Beschreibung:</h3> Die Methode speichert die eingegebenen Benutzerdaten in der DB.
+	 * </pre>
+	 *  @param req
+	 *  @param resp
+	 */
     private void benutzerSpeichern(HttpServletRequest req, HttpServletResponse resp){
     	boolean result = false;
     	Benutzer benutzer = null;
@@ -332,6 +378,13 @@ public class BenutzerController extends HttpServlet {
 		resp.addHeader("contentSite", "benutzerBearbeitenPanel");
     }
     
+    /**
+	 * <pre>
+	 * <h3>Beschreibung:</h3> Die Methode löscht das übergebene Benutzerkonto aus der Datenbank.
+	 * </pre>
+	 *  @param req
+	 *  @param resp
+	 */
     private void benutzerLoeschen(HttpServletRequest req, HttpServletResponse resp){
     	boolean result = false;
     	String emailadresse = req.getParameter("emailadresse"); 	

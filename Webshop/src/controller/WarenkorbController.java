@@ -15,6 +15,7 @@ import org.apache.commons.lang3.math.NumberUtils;
 import db.QueryManager;
 import entity.Benutzer;
 import entity.WarenkorbArtikel;
+import enums.ENUM_MELDUNG_ART;
 import enums.ENUM_RESPONSE_STATUS;
 
 /**
@@ -27,14 +28,30 @@ import enums.ENUM_RESPONSE_STATUS;
 @WebServlet("/warenkorb")
 public class WarenkorbController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
 	private static final QueryManager queryManager = QueryManager.getInstance();
 
-    @Override
+	/**
+	 * <pre>
+	 * <h3>Beschreibung:</h3> Die Methode erhält alle GET-Aufrufe 
+	 * und leitet diese an die doPost() Methode weiter
+	 * </pre>
+	 *  @param req
+	 *  @param resp
+	 */
+	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    	doPost(req, resp);
-    }
+		doPost(req, resp);
+	}
 
+	/**
+	 * <pre>
+	 * <h3>Beschreibung:</h3> Die Methode erhält alle POST-Aufrufe und die weitergeleiteten Aufrufe der doGet() Methode.
+	 * Hier werden die verschiedenen Aufrufe verarbeitet. Durch den "method"-Parameter wird bestimmt, 
+	 * welche Funktionen durch den Controller ausgeführt werden sollen.
+	 * </pre>
+	 *  @param req
+	 *  @param resp
+	 */
     @Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {	
     	RequestDispatcher rd = req.getRequestDispatcher("index.jsp");
@@ -81,16 +98,8 @@ public class WarenkorbController extends HttpServlet {
 	    		artikelAusWarenkorbLoeschen(req, resp);		
 	    		break;    		
 	    	case "artikelMengeVeraendern":
-	    		if(artikelMengeVeraendern(req)){
-	    			updateWarenkorb(req);
-	    			
-    				resp.addHeader("status", ENUM_RESPONSE_STATUS.HINWEIS.toString());
-    				resp.addHeader("hinweismeldung", "Die Menge des Artikels wurde ge&auml;ndert.");
-    			}else{
-    				resp.addHeader("status", ENUM_RESPONSE_STATUS.FEHLER.toString());
-    				resp.addHeader("fehlermeldung", "Die Menge des Artikels konnte leider nicht ge&auml;ndert werden.");	
-    			}
-	    		
+	    		artikelMengeVeraendern(req, resp);
+
 	    		resp.addHeader("contentSite", "warenkorbPanel");
 	    		break;
 	    	default:
@@ -101,6 +110,14 @@ public class WarenkorbController extends HttpServlet {
 		rd.forward(req, resp);
 	}
 
+    /**
+	 * <pre>
+	 * <h3>Beschreibung:</h3> Die Löscht durch die übergebenen 
+	 * Tabellenzeile den Eintrag aus der Warenkorbtabelle und der DB.
+	 * </pre>
+	 *  @param req
+	 *  @param resp
+	 */
 	private void artikelAusWarenkorbLoeschen(HttpServletRequest req, HttpServletResponse resp) {
 		if(req.getParameter("row") != null){
 			int row = Integer.valueOf(req.getParameter("row") );
@@ -122,6 +139,14 @@ public class WarenkorbController extends HttpServlet {
 		resp.addHeader("contentSite", "warenkorbPanel");
 	}
 
+	/**
+	 * <pre>
+	 * <h3>Beschreibung:</h3> Die Methode fügt einen übergebenen Artikel in den 
+	 * Warenkorb des Benutzers hinzu und updated die Session Attribute.
+	 * </pre>
+	 *  @param req
+	 *  @param resp
+	 */
 	private void artikelInDenWarenkorb(HttpServletRequest req, HttpServletResponse resp) {
 		if(artikelHinzufuegen(req)){
 			updateWarenkorb(req);
@@ -134,6 +159,12 @@ public class WarenkorbController extends HttpServlet {
 		}
 	}
     
+	/**
+	 * <pre>
+	 * <h3>Beschreibung:</h3> Die Methode updated das Sessionattribut "warenkorbartikelliste".
+	 * </pre>
+	 *  @param req
+	 */
     private void updateWarenkorb(HttpServletRequest req){
     	String benutzerEmailadresse = ((Benutzer)req.getSession().getAttribute("benutzer")).getEmailadresse();
     	
@@ -142,41 +173,55 @@ public class WarenkorbController extends HttpServlet {
     	req.getSession().setAttribute("warenkorbartikelliste", warenkorbartikelListe);   	
     }
 
+    /**
+	 * <pre>
+	 * <h3>Beschreibung:</h3> Die Methode überprüft die übergebenen Artikelnummer 
+	 * und fügt danach den Artikel dem Warenkorb hinzu.
+	 * </pre>
+	 *  @param req
+	 */
     private boolean artikelHinzufuegen(HttpServletRequest req){  	
     	int artikelnummer = 0;
     	int menge = NumberUtils.toInt(req.getParameter("artikelmenge"), 1);
     	boolean added = false;
     	String emailadresseBenutzer = ((Benutzer)req.getSession().getAttribute("benutzer")).getEmailadresse();
+    	 	
+    	artikelnummer = NumberUtils.toInt(req.getParameter("artikelnummer"), -1);
     	
-    	try{
-    		artikelnummer = Integer.valueOf(req.getParameter("artikelnummer"));
-    	}catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}
+    	if(artikelnummer != -1){
+    		added = queryManager.addArtikelToWarenkorb(emailadresseBenutzer, artikelnummer, menge);  	
+    	}
     	
-    	added = queryManager.addArtikelToWarenkorb(emailadresseBenutzer, artikelnummer, menge);
-     	
     	return added;
     }
     
-    private boolean artikelMengeVeraendern(HttpServletRequest req){
-    	boolean changed = false;
-    	int menge;
-    	int artikelnummer;
-    	String emailadresseBenutzer = null;
-    	
-    	try{
-    		menge = Integer.valueOf(req.getParameter("menge"));
-    		artikelnummer = Integer.valueOf(req.getParameter("artikelnummer"));
-    		emailadresseBenutzer = ((Benutzer)req.getSession().getAttribute("benutzer")).getEmailadresse();
-    	}catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}
-  	
-    	changed = queryManager.modifyWarenkorbArtikelMenge(menge, artikelnummer, emailadresseBenutzer);
-    	
-    	return changed;
+    /**
+	 * <pre>
+	 * <h3>Beschreibung:</h3> Die Methode ändert die Menge 
+	 * des übergebenen Artikels im Warenkorb.
+	 * </pre>
+	 *  @param req
+	 */
+    private void artikelMengeVeraendern(HttpServletRequest req, HttpServletResponse resp){
+    	int menge = NumberUtils.toInt(req.getParameter("menge"), -1);
+    	int artikelnummer = NumberUtils.toInt(req.getParameter("artikelnummer"), -1);
+    	String emailadresseBenutzer = ((Benutzer)req.getSession().getAttribute("benutzer")).getEmailadresse();
+
+    	if(menge > 0 && artikelnummer != -1){
+    		boolean result = queryManager.modifyWarenkorbArtikelMenge(menge, artikelnummer, emailadresseBenutzer);
+    		
+    		if(result){
+    			updateWarenkorb(req);
+        		
+        		resp.addHeader("status", ENUM_RESPONSE_STATUS.HINWEIS.toString());
+    			resp.addHeader("hinweismeldung", "Die Artikelmenge wurde ge&auml;ndert.");
+    		}else{
+    			resp.addHeader("status", ENUM_RESPONSE_STATUS.FEHLER.toString());
+    			resp.addHeader(ENUM_MELDUNG_ART.FEHLERMELDUNG.toString(), "Es ist ein unerwarteter Fehler beim &auml;ndern der Artikelmenge aufgetreten.");	
+    		} 		
+    	}else if(menge == -1 || menge == 0){
+    		resp.addHeader("status", ENUM_RESPONSE_STATUS.FEHLER.toString());
+			resp.addHeader(ENUM_MELDUNG_ART.FEHLERMELDUNG.toString(), "Die ausgew&auml;hlte Menge ist nicht g&uuml;ltig.");	
+    	}
     }
 }

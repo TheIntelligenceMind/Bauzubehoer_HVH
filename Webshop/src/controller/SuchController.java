@@ -27,31 +27,28 @@ public class SuchController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final QueryManager queryManager = QueryManager.getInstance();
 	
-    /**
-     * <pre>
-     * <h3>Beschreibung:</h3>
-     * Die Methode verarbeitet alle GET-Schnittstellenaufrufe und gibt 
-     * diese an die doPost() Methode weiter
-     * </pre>
-     * 
-     * @param req
-     * @param resp
-     */
-    @Override
+	/**
+	 * <pre>
+	 * <h3>Beschreibung:</h3> Die Methode erhält alle GET-Aufrufe 
+	 * und leitet diese an die doPost() Methode weiter
+	 * </pre>
+	 *  @param req
+	 *  @param resp
+	 */
+	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doPost(req, resp);
 	}
 
-    /**
-     * <pre>
-     * <h3>Beschreibung:</h3>
-     * Die Methode verarbeitet alle POST-Schnittstellenaufrufe und gibt 
-     * entsprechende Werte an die View zurück
-     * </pre>
-     * 
-     * @param req
-     * @param resp
-     */
+	/**
+	 * <pre>
+	 * <h3>Beschreibung:</h3> Die Methode erhält alle POST-Aufrufe und die weitergeleiteten Aufrufe der doGet() Methode.
+	 * Hier werden die verschiedenen Aufrufe verarbeitet. Durch den "method"-Parameter wird bestimmt, 
+	 * welche Funktionen durch den Controller ausgeführt werden sollen.
+	 * </pre>
+	 *  @param req
+	 *  @param resp
+	 */
     @Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {		
 		RequestDispatcher rd = req.getRequestDispatcher("index.jsp");	

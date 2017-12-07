@@ -42,11 +42,28 @@ public class ArtikelController extends HttpServlet {
 	private String dispatchSite = "index.jsp";
 	private Artikel artikel = null;
 	
+	/**
+	 * <pre>
+	 * <h3>Beschreibung:</h3> Die Methode erhält alle GET-Aufrufe 
+	 * und leitet diese an die doPost() Methode weiter
+	 * </pre>
+	 *  @param req
+	 *  @param resp
+	 */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doPost(req, resp);
 	}
 
+	/**
+	 * <pre>
+	 * <h3>Beschreibung:</h3> Die Methode erhält alle POST-Aufrufe und die weitergeleiteten Aufrufe der doGet() Methode.
+	 * Hier werden die verschiedenen Aufrufe verarbeitet. Durch den "method"-Parameter wird bestimmt, 
+	 * welche Funktionen durch den Controller ausgeführt werden sollen.
+	 * </pre>
+	 *  @param req
+	 *  @param resp
+	 */
     @Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {		
 		RequestDispatcher rd = req.getRequestDispatcher(dispatchSite);
@@ -104,7 +121,13 @@ public class ArtikelController extends HttpServlet {
 	}
     
     
-
+    /**
+	 * <pre>
+	 * <h3>Beschreibung:</h3> Die Methode speichert die Artikeldaten zu einem veränderten Artikel in der DB.
+	 * </pre>
+	 *  @param req
+	 *  @param resp
+	 */
 	private void artikelBearbeiten(HttpServletRequest req, HttpServletResponse resp) {
 		if(artikelSpeichern(req)){
 			updateWarenkorbArtikel(req);
@@ -129,6 +152,13 @@ public class ArtikelController extends HttpServlet {
 		resp.addHeader("contentSite", "artikelBearbeitenPanel");
 	}
 
+	/**
+	 * <pre>
+	 * <h3>Beschreibung:</h3> Die Methode leitet an die "Artikel Bearbeiten" Ansicht weiter.
+	 * </pre>
+	 *  @param req
+	 *  @param resp
+	 */
 	private void artikelBearbeitenAnzeigen(HttpServletRequest req, HttpServletResponse resp) {
 		if(req.getParameter("artikelnummer") != null){	
 
@@ -162,6 +192,14 @@ public class ArtikelController extends HttpServlet {
 		resp.addHeader("contentSite", "artikelstammdatenPanel");
 	}
 
+	/**
+	 * <pre>
+	 * <h3>Beschreibung:</h3> Die Methode legt einen Artikel mit den übergebenen Artikeldaten in der DB an. 
+	 * Danach wird an die Artikelstammdaten Ansicht weitergeleitet.
+	 * </pre>
+	 *  @param req
+	 *  @param resp
+	 */
 	private void artikelAnlegen(HttpServletRequest req, HttpServletResponse resp) {
 		boolean result = false;
 		String fehlertext = null;
@@ -207,6 +245,13 @@ public class ArtikelController extends HttpServlet {
 			
 	}
     
+	/**
+	 * <pre>
+	 * <h3>Beschreibung:</h3> Die Methode aktualisiert die Warenkorbartikel Liste in der Session.
+	 * </pre>
+	 *  @param req
+	 *  @param resp
+	 */
     private void updateWarenkorbArtikel(HttpServletRequest req){
     	String benutzerEmailadresse = ((Benutzer)req.getSession().getAttribute("benutzer")).getEmailadresse();
     	
@@ -215,6 +260,13 @@ public class ArtikelController extends HttpServlet {
     	req.getSession().setAttribute("warenkorbartikelliste", warenkorbartikelListe);   	
     }
     
+    /**
+	 * <pre>
+	 * <h3>Beschreibung:</h3> Die Methode lädt ein ausgewähltes Bild für die "Artikel Anlegen" Ansicht hoch.
+	 * </pre>
+	 *  @param req
+	 *  @param resp
+	 */
     private void bildHochladenAnlegen(HttpServletRequest req, HttpServletResponse resp){ 
     	Part filePart = null;
     	
@@ -232,6 +284,13 @@ public class ArtikelController extends HttpServlet {
 		resp.addHeader("contentSite", "artikelAnlegenPanel");	    
     }
     
+    /**
+	 * <pre>
+	 * <h3>Beschreibung:</h3> Die Methode lädt ein ausgewähltes Bild für die "Artikel Bearbeiten" Ansicht hoch.
+	 * </pre>
+	 *  @param req
+	 *  @param resp
+	 */
     private void bildHochladenBearbeiten(HttpServletRequest req, HttpServletResponse resp){ 
     	Part filePart = null;
     	int artikelnummer = NumberUtils.toInt(req.getParameter("nummer"));
@@ -251,7 +310,14 @@ public class ArtikelController extends HttpServlet {
 		resp.addHeader("contentSite", "artikelBearbeitenPanel");  
     }
    
-    
+    /**
+	 * <pre>
+	 * <h3>Beschreibung:</h3> Die Methode speichert die 
+	 * übergebenen Artikeldaten zu einem Artikel in der Datenbank.
+	 * </pre>
+	 *  @param req
+	 *  @param resp
+	 */
     private boolean artikelSpeichern(HttpServletRequest req){
     	if(validateAttributes(req, false) == null){
     		Artikel artikel_save = null;
@@ -285,6 +351,13 @@ public class ArtikelController extends HttpServlet {
     	return false;
     }
     
+    /**
+	 * <pre>
+	 * <h3>Beschreibung:</h3> Die Methode validiert alle übergebenen Artikelattribute.
+	 * </pre>
+	 *  @param req
+	 *  @param resp
+	 */
     private String validateAttributes(HttpServletRequest req, boolean initial){	
     	String fehlertext = null;
     	int nummer = NumberUtils.toInt(req.getParameter("nummer"), 0);

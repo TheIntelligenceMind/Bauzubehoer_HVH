@@ -26,17 +26,33 @@ import helper.AdressenHelper;
 @WebServlet("/meinKonto")
 public class KontoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
 	private static final QueryManager queryManager = QueryManager.getInstance();
 	private static final AdressenHelper adressenHelper = AdressenHelper.getInstance();
 	private Benutzer benutzer = null;
 	private String dispatchSite = "index.jsp";
 
-    @Override
+	/**
+	 * <pre>
+	 * <h3>Beschreibung:</h3> Die Methode erhält alle GET-Aufrufe 
+	 * und leitet diese an die doPost() Methode weiter
+	 * </pre>
+	 *  @param req
+	 *  @param resp
+	 */
+	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    	doPost(req,resp);
+		doPost(req, resp);
 	}
 
+	/**
+	 * <pre>
+	 * <h3>Beschreibung:</h3> Die Methode erhält alle POST-Aufrufe und die weitergeleiteten Aufrufe der doGet() Methode.
+	 * Hier werden die verschiedenen Aufrufe verarbeitet. Durch den "method"-Parameter wird bestimmt, 
+	 * welche Funktionen durch den Controller ausgeführt werden sollen.
+	 * </pre>
+	 *  @param req
+	 *  @param resp
+	 */
     @Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {		
 		resp.setContentType("text/html"); 
@@ -90,6 +106,13 @@ public class KontoController extends HttpServlet {
 		rd.forward(req, resp);	
 	}
     
+    /**
+	 * <pre>
+	 * <h3>Beschreibung:</h3> Die Methode leitet den Benutzer an die MeinKonto Ansicht weiter.
+	 * </pre>
+	 *  @param req
+	 *  @param resp
+	 */
     private void meinKontoAnzeigen(HttpServletRequest req, HttpServletResponse resp){
     	benutzer = queryManager.getBenutzerByEMailAdresse(((Benutzer)req.getSession().getAttribute("benutzer")).getEmailadresse());
 		
@@ -102,6 +125,14 @@ public class KontoController extends HttpServlet {
 		resp.addHeader("contentSite", "meinKontoPanel");
     }
     
+    /**
+	 * <pre>
+	 * <h3>Beschreibung:</h3> Die Methode löscht das Benutzerkonto und 
+	 * somit auch die Session des Benutzers aus der Datenbank.
+	 * </pre>
+	 *  @param req
+	 *  @param resp
+	 */
     private void kontoLoeschen(HttpServletRequest req, HttpServletResponse resp){
     	boolean result = false;
     	String emailadresse = ((Benutzer)req.getSession().getAttribute("benutzer")).getEmailadresse();
@@ -125,6 +156,13 @@ public class KontoController extends HttpServlet {
 		}
     }
     
+    /**
+	 * <pre>
+	 * <h3>Beschreibung:</h3> Die Methode speichert die eingegebenen Adressdaten des Benutzers in der DB.
+	 * </pre>
+	 *  @param req
+	 *  @param resp
+	 */
     private void speicherAdresse(HttpServletRequest req, HttpServletResponse resp){ 	
     	boolean result = false;
     	Adresse new_adresse = new Adresse().init(
@@ -191,6 +229,13 @@ public class KontoController extends HttpServlet {
     }
     
     
+    /**
+	 * <pre>
+	 * <h3>Beschreibung:</h3> Die Methode speichert die eingegebenen Benutzerdaten in der DB.
+	 * </pre>
+	 *  @param req
+	 *  @param resp
+	 */
     private void speicherBenutzer(HttpServletRequest req, HttpServletResponse resp){
     	boolean result = false;
     	String vorname = req.getParameter("vorname");

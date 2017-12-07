@@ -30,11 +30,28 @@ public class KontaktformularController extends HttpServlet {
 
 	private final static MailHelper mailHelper = MailHelper.getInstance();
 	
+	/**
+	 * <pre>
+	 * <h3>Beschreibung:</h3> Die Methode erhält alle GET-Aufrufe 
+	 * und leitet diese an die doPost() Methode weiter
+	 * </pre>
+	 *  @param req
+	 *  @param resp
+	 */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doPost(req, resp);
 	}
 
+	/**
+	 * <pre>
+	 * <h3>Beschreibung:</h3> Die Methode erhält alle POST-Aufrufe und die weitergeleiteten Aufrufe der doGet() Methode.
+	 * Hier werden die verschiedenen Aufrufe verarbeitet. Durch den "method"-Parameter wird bestimmt, 
+	 * welche Funktionen durch den Controller ausgeführt werden sollen.
+	 * </pre>
+	 *  @param req
+	 *  @param resp
+	 */
     @Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {		
 		RequestDispatcher rd = req.getRequestDispatcher("index.jsp");
@@ -61,6 +78,14 @@ public class KontaktformularController extends HttpServlet {
 		rd.forward(req, resp);		
 	}
 
+    /**
+	 * <pre>
+	 * <h3>Beschreibung:</h3> Die Methode überprüft die eingegebenen Formulardaten und 
+	 * schickt die Nachricht als E-Mail an die Support E-Mail-Adresse.
+	 * </pre>
+	 *  @param req
+	 *  @param resp
+	 */
 	private void kontaktformularAbschicken(HttpServletRequest req, HttpServletResponse resp){
 		Benutzer benutzer = (Benutzer)req.getSession().getAttribute("benutzer");
 			

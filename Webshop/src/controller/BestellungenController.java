@@ -43,11 +43,28 @@ public class BestellungenController extends HttpServlet {
 	private final static MailHelper mailHelper = MailHelper.getInstance();
 	private String dispatchSite = "index.jsp";
 
-    @Override
+	/**
+	 * <pre>
+	 * <h3>Beschreibung:</h3> Die Methode erhält alle GET-Aufrufe 
+	 * und leitet diese an die doPost() Methode weiter
+	 * </pre>
+	 *  @param req
+	 *  @param resp
+	 */
+	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doPost(req, resp);
 	}
 
+	/**
+	 * <pre>
+	 * <h3>Beschreibung:</h3> Die Methode erhält alle POST-Aufrufe und die weitergeleiteten Aufrufe der doGet() Methode.
+	 * Hier werden die verschiedenen Aufrufe verarbeitet. Durch den "method"-Parameter wird bestimmt, 
+	 * welche Funktionen durch den Controller ausgeführt werden sollen.
+	 * </pre>
+	 *  @param req
+	 *  @param resp
+	 */
     @Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {		
 		RequestDispatcher rd = null;
@@ -333,6 +350,13 @@ public class BestellungenController extends HttpServlet {
     	}
     }
     
+    /**
+	 * <pre>
+	 * <h3>Beschreibung:</h3> Die Methode überprüft, ob eine Zahlungsart im Bestellvorgang ausgewählt wurde.
+	 * </pre>
+	 *  @param req
+	 *  @param resp
+	 */
 	private void bestellungS2Validieren(HttpServletRequest req, HttpServletResponse resp){
 		String zahlungsart = req.getParameter("zahlungsart");
 		
@@ -348,6 +372,14 @@ public class BestellungenController extends HttpServlet {
 		}
 	}
 	
+	/**
+	 * <pre>
+	 * <h3>Beschreibung:</h3> Die Methode übernimmt alle Bestelldaten in die DB und 
+	 * schickt anschließend die Bestellbestätigungs E-Mail an den Kunden.
+	 * </pre>
+	 *  @param req
+	 *  @param resp
+	 */
 	private void bestellungAbschliessen(HttpServletRequest req, HttpServletResponse resp){
 		double bestellwert = 0.0;
 		double versandkosten = 20.00; // pauschal 20€
@@ -394,6 +426,13 @@ public class BestellungenController extends HttpServlet {
 			
 	}
 	
+	/**
+	 * <pre>
+	 * <h3>Beschreibung:</h3> Die Methode updated das Sessionattribut für die Warenkorbartikel.
+	 * </pre>
+	 *  @param req
+	 *  @param resp
+	 */
 	private void updateWarenkorbArtikel(HttpServletRequest req){
     	String benutzerEmailadresse = ((Benutzer)req.getSession().getAttribute("benutzer")).getEmailadresse();
     	
@@ -405,7 +444,7 @@ public class BestellungenController extends HttpServlet {
 	/**
 	 * <h3>Beschreibung:</h3>
 	 * <pre>
-	 * Die Methode liefert den aktuellen Zeitstempel
+	 * Die Methode liefert einen aktuellen Zeitstempel
 	 * </pre>
 	 * 
 	 * @return Timestamp
