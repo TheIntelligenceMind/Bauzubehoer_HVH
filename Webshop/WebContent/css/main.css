@@ -2469,6 +2469,8 @@ artikelDetailansichtPanelHeadInfo{
 	height: 175px;
 }
 #bestellungZusammenfassungPanel .bestellArtikelTabellenPanel{
+	width: 94%;
+	margin-left: 3%;
 	height: 250px;
 }
 #bestellungZusammenfassungPanel .buttonPanel{
@@ -2512,10 +2514,10 @@ artikelDetailansichtPanelHeadInfo{
 	cursor: default;
 	background-color: white;
 }
-#artikelTabelle tbody
-{
+.bestellArtikelTabellenPanel #artikelTabelle tbody{
 	overflow: scroll;
 }
+
 #zusatzTabelleBestellung th{
 	border-bottom: 1px solid #BF4D17;
 }
