@@ -49,14 +49,15 @@ Es werden je nach Zugriffsrichtlinien folgende Seiten angezeigt:
 		$(document).ready(function() {	      	               
 	          window.location.href = "meineBestellungen?method=bestellungenstammdatenAnzeigen";  
 		}); 
-	}
+	}	
 </script>
 
 <%
 	Benutzer benutzer = (Benutzer)session.getAttribute("benutzer");
 %>
-
-<div id="benutzerPanel" class="controllPanel">
+<input type="checkbox" id="menu" name="menu" class="menu-checkbox">
+<div id="benutzerPanel" class="controllPanel menu">
+	<label for="menu" class="menu-toggle"><i></i></label>
 	<h3>Hallo, <i id="name"><% out.print(benutzer.getVorname() + " " + benutzer.getNachname()); %></i></h3>
 	<ul>			
 	<%
@@ -100,7 +101,7 @@ Es werden je nach Zugriffsrichtlinien folgende Seiten angezeigt:
 								Rolle = "(" + benutzer.getRolle().getBezeichnung() + ")";
 							}
 							%>
-							<li><i class="fa fa-user"></i><a onclick="meinKontoAnzeigen()"> Mein Konto <% out.print(Rolle); %></a></li>
+							<li><i class="fa fa-user"></i><a onclick="meinKontoAnzeigen()"> Mein Konto <% out.print("<i>" + Rolle + "</i>"); %></a></li>
 						<%
 						break;
 					case ARTIKELSTAMMDATEN:
