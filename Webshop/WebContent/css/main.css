@@ -320,6 +320,9 @@ html,body{
 	#searchPanel{
 		margin-right: 40px;
 	}	
+	#artikelKategoriePanel ul a {
+		font-size: 21px;
+	}
 }
 
 @media (max-width: 1200px)
@@ -3112,7 +3115,7 @@ table#zusatzTabelleBestellung tbody td{
 /* ---------- Panel für das Bearbeiten von Bestellungen ----------------- */
 #bestellungBearbeitenPanel{
 	margin: 50px auto;
-	width: 60%;
+	width: 700px;
 	min-width: 560px;
 	height: 720px;
 	text-align: center;
@@ -3209,7 +3212,7 @@ table#zusatzTabelleBestellung tbody td{
 }
 #bestellungenTabelleContainer tbody{
 	height: 180px;
-	overflow-y: scroll;
+	overflow-y: auto;
 	display: block;
 	width: 100%;
 	min-width: 620px;
