@@ -239,7 +239,7 @@ html,body{
 	color: #333;
 	text-decoration: none;
 	font-weight: 700;
-	font-size: 25px;
+	font-size: 23px;
 	color: white;
 	line-height: 60px;
 	padding: 0 15px;
@@ -316,22 +316,27 @@ html,body{
 	cursor: pointer;
 }
 
+@media (max-width: 1366px){
+	#searchPanel{
+		margin-right: 40px;
+	}	
+}
+
 @media (max-width: 1200px)
 {
-	#header
-	{
+	#header{
 		width: 23%;
 	}
-	#header h1
-	{
-	font-size: 25px;
+	#header h1{
+		font-size: 25px;
 	}
-	#header h3
-	{
+	#header h3{
 		display: none;
 	}
-	#searchPanel
-	{
+	#sucheHeader{
+		margin-right: 0;
+	}
+	#searchPanel{
 		float: left;
 		width: 25%;
 		height: 60px;
@@ -343,7 +348,7 @@ html,body{
 		margin-left: 0px;
 	}
 	#artikelKategoriePanel ul a {
-		font-size: 15px;
+		font-size: 18px;
 	}
 	#sucheEingabe{
 		width: 70%;
@@ -362,8 +367,8 @@ html,body{
 {
 	margin: 0;
 	padding: 1%;
-	min-width: 240px;
-	width: 18%;
+	width: 360px;
+	min-width: 360px;
 	height: 240px;
 	background-color: #BF4D17;
 	color:white;
@@ -379,8 +384,10 @@ html,body{
 	-moz-box-shadow: 0px 0px 0px -7px rgba(0,0,0,0.75);
 	box-shadow: 0px 0px 0px -7px rgba(0,0,0,0.75);
 }
-.controllPanel i
-{
+#anmeldungPanel{
+	height: 210px;
+}
+.controllPanel i{
 	width: 15px;
 }
 .controllPanel h3{
@@ -454,7 +461,7 @@ html,body{
 /* Link zum Abmelden */
 #abmelden
 {
-	top: 260px;
+	top: 250px;
 	right: 20px;
 	position: absolute;
 	text-decoration: none;
@@ -466,7 +473,7 @@ html,body{
 }
 label
 {
-  cursor: pointer;
+    cursor: pointer;
 } &:focus
 {    
 	outline: none;
@@ -490,65 +497,65 @@ label.menu-toggle
   right: -60px;
   width: 60px;
   height: 60px;
-  line-height: 0px;    
+  line-height: 0px; 
   display: block;
   padding: 0;
   text-indent: -9999px;
-  border-left: 1px solid white;
+  border: none;
   border-radius: 0 40px 40px 0;
   background: #BF4D17 url(https://cdn4.iconfinder.com/data/icons/wirecons-free-vector-icons/32/menu-alt-512.png) 50% 50% / 25px 25px no-repeat;
 }
           
-.menu-checkbox
-{
+.menu-checkbox{
   display: none;
 }
     
-.menu .menu label.menu-toggle
-{
-  background: none;
-}     
-.menu-checkbox:checked + .menu
-{
-  transform: translate3d(0, 0, 0);
+.menu-checkbox + .menu{
+ 	transform: translate3d(0, 0, 0);
 }
-.controllPanel ul li 
-{
+    
+label.menu-toggle{
+  	display: none;
+}     
+
+.controllPanel ul li {
 	line-height: 27px;
 	width: 100%;
 	list-style-type: none;
 }
 @media (max-width: 1200px)
 {
-	.controllPanel
-	{
-		min-width: 170px;
-		width: 18%;
+	.controllPanel{
+		position: fixed;
+		width: 30%;
 		height: 270px;
 	}
-	.menu
-	{
-		transform: translate3d(-100%, 0, 0);
+	.menu, label.menu-toggle{
+  		display: block;
+	} 
+	
+	.menu-checkbox + .menu{
+	 	transform: translate3d(-100%, 0, 0);
 	}
-	.controllPanel h3
-	{
+	.menu-checkbox:checked + .menu{
+  		transform: translate3d(0, 0, 0);
+	}
+
+	.controllPanel h3{
 		font-size: 20px;
 	}
-	.controllPanel ul
-	{
+	.controllPanel ul{
 		margin-left: 0%;
 		width: 95%;
 	}
-	.controllPanel ul li
-	{
-		font-size: 14px;
+	.controllPanel ul li{
 		margin-left: 0%;
 		width: 95%;
 		text-align: left;
 	}
-	#abmelden
-	{
+	#abmelden{
 		top: 260px;
+		right: 30px;
 	}
 }
 /* ------------ Panel für Anmeldung, Benutzeransicht (links) ----------------- */
@@ -586,8 +593,7 @@ label.menu-toggle
 
 
 /* -------------- Wrapper für den Seitencontent ------------------- */
-.contentWrapper
-{
+.contentWrapper{
 	margin: 0 auto;
 	margin-bottom: 50px;
 	width: 60%;
@@ -621,7 +627,7 @@ label.menu-toggle
 	{
 		margin: 0 auto;
 		margin-bottom: 50px;
-		width: 80%;
+		width: 100%;
 	}
 }
 /* -------------- Wrapper für den Seitencontent ------------------- */
@@ -677,11 +683,10 @@ label.menu-toggle
 
 
 /* -------------- Panel für das Impressum ------------------- */
-#impressumPanel
-{
+#impressumPanel{
 	margin: 50px auto;
 	width: 900px;
-	height: 2000px;
+	height: 2020px;
 	text-align: center;
 	opacity: 0.9;
 	background-color: white;
@@ -708,6 +713,14 @@ label.menu-toggle
 		margin: 50px auto;
 		width: 90%;
 		height: auto;
+	}
+}
+
+@media (max-width: 1366px)
+{
+	#impressumPanel{
+		width: 700px;
+		height: 2020px;
 	}
 }
 /* -------------- Panel für das Impressum ------------------- */
@@ -745,6 +758,14 @@ label.menu-toggle
 		height: auto;
 	}	
 }
+
+@media (max-width: 1366px)
+{
+	#agbPanel{
+		width: 700px;
+		height: 4880px;
+	}	
+}
 /* -------------- Panel für das AGB Seite  ------------------- */
 
 
@@ -753,7 +774,7 @@ label.menu-toggle
 /* --------------- Panel mit Artikelstammdaten ------------------- */
 #artikelListeMitarbeiter{
 	margin: 50px auto;
-	width: 900px;
+	width: 800px;
 	height: 490px;
 	text-align: center;
 	opacity: 0.9;
@@ -774,8 +795,8 @@ label.menu-toggle
 	padding: 15px;
 }
 #artikelListeMitarbeiterTabelle{
-	width: 90%;
-	margin-left: 5%;
+	width: 96%;
+	margin-left: 2%;
 	table-layout: fixed;
 }
 .green{
@@ -815,9 +836,9 @@ label.menu-toggle
 
 #artikelListeMitarbeiter > table td:nth-child(1), #artikelListeMitarbeiter > table th:nth-child(1) { width: 110px; }
 #artikelListeMitarbeiter > table td:nth-child(2), #artikelListeMitarbeiter > table th:nth-child(2) { width: 130px; }
-#artikelListeMitarbeiter > table td:nth-child(3), #artikelListeMitarbeiter > table th:nth-child(3) { width: 340px; }
+#artikelListeMitarbeiter > table td:nth-child(3), #artikelListeMitarbeiter > table th:nth-child(3) { width: 330px; }
 #artikelListeMitarbeiter > table td:nth-child(4), #artikelListeMitarbeiter > table th:nth-child(4) { width: 100px; }
-#artikelListeMitarbeiter > table td:nth-child(5), #artikelListeMitarbeiter > table th:nth-child(5) { width: 45px; }
+#artikelListeMitarbeiter > table td:nth-child(5), #artikelListeMitarbeiter > table th:nth-child(5) { width: 40px; }
 #artikelListeMitarbeiter > table td:nth-child(6), #artikelListeMitarbeiter > table th:nth-child(6) { width: 30px; }
 
 #artikelListeMitarbeiterTabelle td.tablecell{
@@ -851,7 +872,7 @@ label.menu-toggle
 	float: right;
 	margin-right: 4%;
 	margin-top: 30px;
-	width: 20%;
+	width: 180px;
 	position: relative;
 	height: 30px;
 	font-size: 15px;
@@ -880,7 +901,6 @@ label.menu-toggle
 	#artikelListeMitarbeiter h1{
 		margin-left: 50px;
 		padding: 15px;
-		color: #BF4D17;	
 	}
 	#artikelListeMitarbeiterTabelle{
 		width: 92%;
@@ -965,6 +985,7 @@ label.menu-toggle
 	border-radius: 5px;
 	border-collapse: collapse;
 	width: 31%;
+	min-width: 340px;
 	height: 290px;
 	margin-bottom: 20px;
 	margin-left: 1%;
@@ -1023,6 +1044,13 @@ label.menu-toggle
 	-moz-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
 	box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
 	transition: background-color 0.1s ease-in;
+}
+
+@media (max-width: 1800px)
+{
+	#artikelListeKundenDesign{
+		width: 48%;
+	}
 }
 /* --------------- Panel mit Artikeln für Kunden  ------------------- */
 
@@ -1232,7 +1260,6 @@ label.menu-toggle
 {
 	#meinKontoPanel{
 		margin: 50px auto;
-		width: 80%;
 		height: 450px;
 		text-align: center;
 	}
@@ -1310,12 +1337,11 @@ label.menu-toggle
 @media (max-width: 1200px)
 {
 	#meineBestellungenPanel{
-	margin: 50px auto;
-	width: 80%;
-	height: 500px;
+		margin: 50px auto;
+		height: 500px;
 	}
 	#meineBestellungenTabelle thead th{
-	font-size: 13px;		
+		font-size: 13px;		
 	}
 }
 /* ------------- Panel für meine Bestellungen Übersicht ------------------- */
@@ -1443,31 +1469,30 @@ table#zusatzTabelle tbody td{
 @media (max-width: 1200px)
 {
 	#keineWarenkorbArtikelPanel{
-	width: 90%;
-	text-align: center;
-	height: 100px;
-	padding-top: 50px;
-	margin: 0;
+		width: 90%;
+		text-align: center;
+		height: 100px;
+		padding-top: 50px;
+		margin: 0;
 	}
 	#warenkorbPanel{
-	margin: 50px auto;
-	width: 90%;
-	height: auto;
-	text-align: center;
-	opacity: 0.9;
-	background-color: white;
-	border-radius: 20px;
-  	-webkit-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
-	-moz-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
-	box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
+		margin: 50px auto;
+		height: auto;
+		text-align: center;
+		opacity: 0.9;
+		background-color: white;
+		border-radius: 20px;
+	  	-webkit-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
+		-moz-box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
+		box-shadow: 0px 0px 27px -7px rgba(0,0,0,0.75);
 	}
 	#btnBestellen{
-	margin-top: 40px;
-	margin-bottom: 30px;
-	width: 36%;
-	position: relative;
-	height: 35px;
-	font-size: 20px;
+		margin-top: 40px;
+		margin-bottom: 30px;
+		width: 36%;
+		position: relative;
+		height: 35px;
+		font-size: 20px;
 	}
 }
 /* -------------- Panel für den Warenkorb  ------------------- */
@@ -2158,7 +2183,6 @@ artikelDetailansichtPanelHeadInfo{
 @media (max-width: 1200px)
 {
 	#artikelDetailansichtPanel{
-		width: 80%;
 		height: 400px;
 		text-align: center;
 	}
@@ -2327,14 +2351,6 @@ artikelDetailansichtPanelHeadInfo{
 {
 	height: 50px;
 }
-
-@media  (max-width: 1200px)
-{
-	#bestellungLieferadressePanel
-	{
-		width: 80%;
-	}
-}
 /* ------------- Panel für die Bestellung: Lieferadresse eingeben ------------------- */
 
 
@@ -2422,15 +2438,6 @@ artikelDetailansichtPanelHeadInfo{
 
 #bestellungZahlungsartPanel .buttonPanel{
 	height: 50px;
-}
-
-@media (max-width: 1200px)
-{
-	#bestellungZahlungsartPanel
-	{
-		width: 85%;
-		height: 450px;
-	}
 }
 /* ------------- Panel für die Bestellung: Auswählen von Zahlungsarten ------------------- */
 
@@ -2555,15 +2562,6 @@ table#zusatzTabelleBestellung tbody td{
 	cursor:pointer;
 	background-color: #9b4013;
 }
-
-@media (max-width: 1200px)
-{
-	#bestellungZusammenfassungPanel
-	{
-		width: 80%;
-		height: 580px;
-	}
-}
 /* ------------- Panel für die Bestellung: Zusammenfassung ------------------- */
 
 
@@ -2572,8 +2570,8 @@ table#zusatzTabelleBestellung tbody td{
 /* ------------- Panel für die Bestellung: Abschluss ------------------- */
 #bestellungAbschlussPanel{
 	margin: 50px auto;
-	width: 800px;
-	height: 500px;
+	width: 700px;
+	height: 300px;
 	padding-left: 30px;
 	padding-right: 30px;
 	text-align: center;
@@ -2598,13 +2596,6 @@ table#zusatzTabelleBestellung tbody td{
 	text-align: center;
 }
 
-@media (max-width: 1200px)
-{
-	#bestellungAbschlussPanel{
-	width: 80%;
-	height: 300px;
-	}
-}
 /* ------------- Panel für die Bestellung: Abschluss ------------------- */
 
 
@@ -3033,8 +3024,7 @@ table#zusatzTabelleBestellung tbody td{
 
 
 /* ---------- Panel für die Bestellungstammdaten ----------------- */
-#bestellungstammdatenPanel
-{
+#bestellungstammdatenPanel{
 	margin: 50px auto;
 	width: 700px;
 	height: 450px;
@@ -3058,7 +3048,7 @@ table#zusatzTabelleBestellung tbody td{
 }
 #bestellungstammdatenPanel tbody{
 	height: 300px;
-	overflow-y: scroll;
+	overflow-y: auto;
 	display: block;
 	width: 100%
 }
@@ -3286,7 +3276,7 @@ table#zusatzTabelleBestellung tbody td{
 	left: 0;
 	position: fixed;
 	height: 95px;
-	width: 19%;
+	width: 370px;
 	min-width: 260px;
 	text-align: center;
 	background-color: white;
@@ -3313,19 +3303,17 @@ table#zusatzTabelleBestellung tbody td{
 @media (max-width: 1200px)
 {
 	#fehlermeldungPanel{
-	margin: 0;
-	padding: 0 7px 5px 7px;
-	top: 360px;
-	left: 0;
-	position: fixed;
-	height: 95px;
-	width: 19%;
-	min-width: 180px;
-	text-align: center;
-	background-color: white;
-	opacity: 0.9;
-	color: red;
-	display: none;
+		opacity: 1;
+		margin: 0;
+		padding: 0 7px 5px 7px;
+		top: 360px;
+		left: 0;
+		position: fixed;
+		text-align: center;
+		background-color: white;
+		color: red;
+		display: none;
+		z-index: 2;
 	}
 }
 /* ---------- Panel für Fehlermeldungen ----------------- */
@@ -3342,7 +3330,7 @@ table#zusatzTabelleBestellung tbody td{
 	left: 0;
 	position: fixed;
 	height: 90px;
-	width: 19%;
+	width: 370px;
 	min-width: 260px;
 	text-align: center;
 	background-color: white;
@@ -3374,15 +3362,13 @@ table#zusatzTabelleBestellung tbody td{
 		top: 360px;
 		left: 0;
 		position: fixed;
-		height: 90px;
-		width: 19%;
-		min-width: 180px;
 		text-align: center;
 		background-color: white;
-		opacity: 0.9;
+		opacity: 1;
 		color: green;
 		border-radius: 0 40px 40px 0;
 		display: none;
+		z-index: 2;
 	}
 }
 /* ---------- Panel für Hinweismeldungen ----------------- */
@@ -3399,22 +3385,22 @@ table#zusatzTabelleBestellung tbody td{
 }
 @-webkit-keyframes opening {
     from {top: 430px; opacity: 0; }
-    to {top: 370px; opacity: 0.85;}
+    to {top: 370px; opacity: 0.9;}
 }
 @keyframes opening {
     from {top: 430px; opacity: 0; }
-    to {top: 370px; opacity: 0.85;}
+    to {top: 370px; opacity: 0.9;}
 }
 .closing{
 	-webkit-animation: closing 1s 1; /* Safari 4.0 - 8.0 */
     animation: closing 1s 1;
 }
 @-webkit-keyframes closing {
-    from {top: 370px; opacity: 0.85;}
+    from {top: 370px; opacity: 0.9;}
     to {top: 430px; opacity: 0;}
 }
 @keyframes closing {
-    from {top: 370px; opacity: 0.85;}
+    from {top: 370px; opacity: 0.9;}
     to {top: 430px; opacity: 0;}
 }
 
@@ -3429,27 +3415,27 @@ table#zusatzTabelleBestellung tbody td{
 @media (max-width: 1200px)
 {
 	.opening{
-	-webkit-animation: opening 1s 1; /* Safari 4.0 - 8.0 */
-    animation: opening 1s 1;
+		-webkit-animation: opening 1s 1; /* Safari 4.0 - 8.0 */
+    	animation: opening 1s 1;
 	}
 	@-webkit-keyframes opening {
 	    from {top: 410px; opacity: 0; }
-	    to {top: 350px; opacity: 0.85;}
+	    to {top: 350px; opacity: 1;}
 	}
 	@keyframes opening {
 	    from {top: 410px; opacity: 0; }
-	    to {top: 350px; opacity: 0.85;}
+	    to {top: 350px; opacity: 1;}
 	}
 	.closing{
 		-webkit-animation: closing 1s 1; /* Safari 4.0 - 8.0 */
 	    animation: closing 1s 1;
 	}
 	@-webkit-keyframes closing {
-	    from {top: 350px; opacity: 0.85;}
+	    from {top: 350px; opacity: 1;}
 	    to {top: 410px; opacity: 0;}
 	}
 	@keyframes closing {
-	    from {top: 350px; opacity: 0.85;}
+	    from {top: 350px; opacity: 1;}
 	    to {top: 410px; opacity: 0;}
 	}
 	

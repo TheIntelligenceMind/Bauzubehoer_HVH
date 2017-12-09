@@ -5,7 +5,9 @@ Autor dieser Datei: Tim Hermbecker
 Diese Datei behandelt das Anmeldungspanel, bevor es zum Benutzerpanel wird.
  -->
 
-<div id="anmeldungPanel" class="controllPanel">
+<input type="checkbox" id="menu" name="menu" class="menu-checkbox">
+<div id="anmeldungPanel" class="controllPanel menu">
+	<label for="menu" class="menu-toggle"><i></i></label>
 	<h3>Anmeldung</h3>
 	<form action="anmelden" method="POST">
 		<input id="inputBenutzername" type="text" name="emailadresse" placeholder="E-Mail-Adresse">
