@@ -357,6 +357,21 @@ html,body{
 		width: 70%;
 	}
 }
+
+@media (max-width: 1024px){
+	#searchPanel{
+		margin-right: 0px;
+	}	
+	#header h1{
+		margin-left: 10px;
+	}
+	#sucheEingabe{
+		width: 135px;
+	}
+	#searchPanel form{
+		width: 201px;
+	}
+}
 /* ------------- Panel für Seitenheader, Suchfunktion, Kategorien --------------- */
 
 
@@ -560,6 +575,12 @@ label.menu-toggle{
 		top: 260px;
 		right: 30px;
 	}
+}
+@media (max-width: 1200px)
+{
+	#abmelden{
+		top: 245px;
+	}	
 }
 /* ------------ Panel für Anmeldung, Benutzeransicht (links) ----------------- */
 
