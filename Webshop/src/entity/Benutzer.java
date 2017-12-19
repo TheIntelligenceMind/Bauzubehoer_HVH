@@ -1,15 +1,15 @@
 package entity;
 
-/**
- * <pre>
- * <h3>Beschreibung:</h3> Die Klasse bildet die Tabelle Benutzer in der DB ab-test
- * </pre>
- *  @author Tim Hermbecker
- */
 import java.sql.Date;
 
 import entity.Adresse;
 
+/**
+ * <pre>
+ * <h3>Beschreibung:</h3> Die Klasse bildet die Tabelle Benutzer in der DB ab
+ * </pre>
+ *  @author Tim Hermbecker
+ */
 public class Benutzer {
 
 	private String emailadresse;
