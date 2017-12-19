@@ -18,7 +18,6 @@ import enums.ENUM_ROLLE;
 /**
  * <pre>
  * <h3>Beschreibung:</h3> Die Klasse ist für den Themenbereich Benutzer zuständig.
- * Hier werden Mails generiert und versandt.
  * </pre>
  *  @author Tim Hermbecker
  */
