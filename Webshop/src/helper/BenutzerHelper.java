@@ -15,6 +15,13 @@ import entity.Benutzer;
 import entity.Rolle;
 import enums.ENUM_ROLLE;
 
+/**
+ * <pre>
+ * <h3>Beschreibung:</h3> Die Klasse ist für den Themenbereich Benutzer zuständig.
+ * Hier werden Mails generiert und versandt.
+ * </pre>
+ *  @author Tim Hermbecker
+ */
 public class BenutzerHelper {
 	private final QueryManager queryManager = QueryManager.getInstance();
 	private final static BenutzerHelper instance = new BenutzerHelper();
