@@ -2,7 +2,7 @@ package entity;
 
 /**
  * <pre>
- * <h3>Beschreibung:</h3> Die Klasse bildet die Tabelle Benutzer in der DB ab
+ * <h3>Beschreibung:</h3> Die Klasse bildet die Tabelle Benutzer in der DB ab-test
  * </pre>
  *  @author Tim Hermbecker
  */
